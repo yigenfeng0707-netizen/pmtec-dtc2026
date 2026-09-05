@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMTEC 灾备恢复运维手册</title>
+<style>
+:root {
+    --bg: #0a0e1a;
+    --card-bg: #131829;
+    --accent: #00d4ff;
+    --accent2: #7b2fff;
+    --green: #00ff88;
+    --red: #ff4466;
+    --yellow: #ffcc00;
+    --orange: #ff8800;
+    --text: #e0e6f0;
+    --text-dim: #8892a8;
+    --border: #2a3050;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+    line-height: 1.7;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+h1 {
+    font-size: 28px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 6px;
+}
+h2 {
+    color: var(--accent);
+    font-size: 22px;
+    margin: 30px 0 15px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 8px;
+}
+h3 {
+    color: var(--text);
+    font-size: 17px;
+    margin: 22px 0 10px;
+}
+h4 {
+    color: var(--accent2);
+    font-size: 15px;
+    margin: 16px 0 8px;
+}
+.subtitle { color: var(--text-dim); margin-bottom: 25px; font-size: 14px; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    background: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+}
+th {
+    background: linear-gradient(135deg, #1a2040, #2a1a50);
+    padding: 10px 14px;
+    text-align: left;
+    font-size: 13px;
+    color: var(--accent);
+    font-weight: 600;
+    border-bottom: 1px solid var(--border);
+}
+td {
+    padding: 9px 14px;
+    font-size: 13px;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+td:first-child { font-weight: 500; }
+tr:hover td { background: rgba(0, 212, 255, 0.04); }
+code {
+    background: #1a1f3a;
+    color: var(--accent);
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-family: 'Consolas', 'Courier New', monospace;
+}
+pre {
+    background: #0d1220;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin: 12px 0;
+    overflow-x: auto;
+    font-size: 13px;
+    line-height: 1.5;
+}
+pre code {
+    background: none;
+    padding: 0;
+    color: var(--green);
+}
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 14px 0;
+}
+.card-critical { border-left: 4px solid var(--red); }
+.card-warn { border-left: 4px solid var(--yellow); }
+.card-ok { border-left: 4px solid var(--green); }
+.card-info { border-left: 4px solid var(--accent); }
+.badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-left: 8px;
+}
+.badge-p0 { background: rgba(255,68,102,0.15); color: var(--red); border: 1px solid rgba(255,68,102,0.3); }
+.badge-p1 { background: rgba(255,136,0,0.15); color: var(--orange); border: 1px solid rgba(255,136,0,0.3); }
+.badge-p2 { background: rgba(255,204,0,0.15); color: var(--yellow); border: 1px solid rgba(255,204,0,0.3); }
+.badge-p3 { background: rgba(0,212,255,0.15); color: var(--accent); border: 1px solid rgba(0,212,255,0.3); }
+.callout {
+    border-left: 3px solid var(--accent);
+    background: rgba(0, 212, 255, 0.05);
+    padding: 12px 18px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 14px;
+}
+.callout-warn {
+    border-left-color: var(--yellow);
+    background: rgba(255, 204, 0, 0.05);
+}
+.callout-danger {
+    border-left-color: var(--red);
+    background: rgba(255, 68, 102, 0.05);
+}
+.toc {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 24px;
+    margin-bottom: 25px;
+}
+.toc h3 { color: var(--accent); margin-bottom: 10px; }
+.toc ol { padding-left: 20px; }
+.toc li { margin: 5px 0; font-size: 14px; }
+.toc a { color: var(--accent); text-decoration: none; }
+.toc a:hover { text-decoration: underline; }
+.metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 14px 0;
+}
+.metric-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+.metric-val { font-size: 24px; font-weight: 700; color: var(--accent); }
+.metric-label { font-size: 12px; color: var(--text-dim); margin-top: 4px; }
+.status-ok { color: var(--green); }
+.status-warn { color: var(--yellow); }
+.status-crit { color: var(--red); }
+ul { padding-left: 20px; }
+ul li { margin: 5px 0; font-size: 14px; }
+.step-num {
+    display: inline-block;
+    width: 24px; height: 24px;
+    background: var(--accent);
+    color: var(--bg);
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 8px;
+}
+.footer {
+    text-align: center;
+    margin-top: 40px;
+    color: var(--text-dim);
+    font-size: 12px;
+    border-top: 1px solid var(--border);
+    padding-top: 15px;
+}
+</style>
+</head>
+<body>
+
+<h1>PMTEC 灾备恢复运维手册</h1>
+<p class="subtitle">
+    PMTEC 数字孪生战场系统 | 版本 v1.0 | 更新日期 2026-09-04 | 适用 DTC2026 生产/参赛环境
+</p>
+
+<div class="toc">
+<h3>目录</h3>
+<ol>
+    <li><a href="#sec1">系统架构与服务拓扑概览</a></li>
+    <li><a href="#sec2">数据备份策略</a></li>
+    <li><a href="#sec3">故障恢复流程</a></li>
+    <li><a href="#sec4">运维操作手册</a></li>
+    <li><a href="#sec5">监控告警与巡检</a></li>
+    <li><a href="#sec6">应急联系与升级流程</a></li>
+</ol>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec1">1. 系统架构与服务拓扑概览</h2>
+
+<p>PMTEC 系统基于 ASDA（Act-Sense-Decide-Adapt）循环构建，采用分布式微服务架构。灾备恢复前需理解以下服务拓扑：</p>
+
+<div class="metric-grid">
+    <div class="metric-card">
+        <div class="metric-val">7</div>
+        <div class="metric-label">Docker 服务实例</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-val">4+1</div>
+        <div class="metric-label">gRPC 节点（主+备）</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-val">6</div>
+        <div class="metric-label">AI 模型文件</div>
+    </div>
+    <div class="metric-card">
+        <div class="metric-val">2</div>
+        <div class="metric-label">SQLite 数据库</div>
+    </div>
+</div>
+
+<h3>1.1 服务清单</h3>
+<table>
+<thead>
+<tr>
+    <th>服务名</th>
+    <th>容器名</th>
+    <th>端口</th>
+    <th>依赖</th>
+    <th>灾备优先级</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>War Engine（战争引擎）</td>
+    <td><code>pmtec-war-engine</code></td>
+    <td>50051</td>
+    <td>SQLite 状态库、DQN/MADDPG 模型</td>
+    <td><span class="badge badge-p0">P0 关键</span></td>
+</tr>
+<tr>
+    <td>Battle Network（战网络）</td>
+    <td><code>pmtec-battle-network</code></td>
+    <td>50052</td>
+    <td>War Engine (gRPC HA)</td>
+    <td><span class="badge badge-p1">P1 高</span></td>
+</tr>
+<tr>
+    <td>Application Store（应用存储）</td>
+    <td><code>pmtec-app-store</code></td>
+    <td>50053</td>
+    <td>SQLite 事件库</td>
+    <td><span class="badge badge-p1">P1 高</span></td>
+</tr>
+<tr>
+    <td>Plug & Play（即插即用）</td>
+    <td><code>pmtec-plug-and-play</code></td>
+    <td>50054</td>
+    <td>Battle Network</td>
+    <td><span class="badge badge-p2">P2 中</span></td>
+</tr>
+<tr>
+    <td>War Engine Backup（引擎备份）</td>
+    <td><code>pmtec-war-engine-backup</code></td>
+    <td>50055</td>
+    <td>共享卷（只读模型）</td>
+    <td><span class="badge badge-p0">P0 关键</span></td>
+</tr>
+<tr>
+    <td>Prometheus（监控）</td>
+    <td><code>pmtec-prometheus</code></td>
+    <td>9090</td>
+    <td>各服务 /metrics 端点</td>
+    <td><span class="badge badge-p2">P2 中</span></td>
+</tr>
+<tr>
+    <td>Grafana（可视化）</td>
+    <td><code>pmtec-grafana</code></td>
+    <td>3000</td>
+    <td>Prometheus 数据源</td>
+    <td><span class="badge badge-p3">P3 低</span></td>
+</tr>
+</tbody>
+</table>
+
+<h3>1.2 关键数据资产</h3>
+<table>
+<thead>
+<tr>
+    <th>资产类别</th>
+    <th>路径</th>
+    <th>内容</th>
+    <th>备份频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>AI 模型文件</td>
+    <td><code>data/models/*.zip</code> <code>data/models/*.pt</code></td>
+    <td>DQN（P6/P7-v2）、IQL、MADDPG 共 6 个核心模型 + 检查点</td>
+    <td>每次训练后</td>
+</tr>
+<tr>
+    <td>仿真状态库</td>
+    <td><code>data/persistence/pmtec_state.db</code></td>
+    <td>SQLite WAL 模式，快照/航迹/事件</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>审计日志库</td>
+    <td><code>data/persistence/audit_log.db</code></td>
+    <td>安全审计记录（mTLS/JWT/RBAC）</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>安全证书</td>
+    <td><code>data/certs/</code></td>
+    <td>CA 证书、服务端 mTLS 证书</td>
+    <td>签发/续期时</td>
+</tr>
+<tr>
+    <td>配置文件</td>
+    <td><code>config.py</code> <code>docker-compose.yml</code></td>
+    <td>系统参数、HA 配置、安全开关</td>
+    <td>变更时</td>
+</tr>
+<tr>
+    <td>训练报告</td>
+    <td><code>data/models/*_report.json</code></td>
+    <td>Monte Carlo 评估、课程学习报告</td>
+    <td>每次评估后</td>
+</tr>
+</tbody>
+</table>
+
+<!-- ============================================================ -->
+<h2 id="sec2">2. 数据备份策略</h2>
+
+<h3>2.1 备份层级与 RPO/RTO 目标</h3>
+<table>
+<thead>
+<tr>
+    <th>层级</th>
+    <th>范围</th>
+    <th>RPO（数据丢失上限）</th>
+    <th>RTO（恢复时间上限）</th>
+    <th>保留策略</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>L1 完整备份</td>
+    <td>全量 data/ + config + proto</td>
+    <td>24h</td>
+    <td>30min</td>
+    <td>保留 7 份（7 天滚动）</td>
+</tr>
+<tr>
+    <td>L2 增量备份</td>
+    <td>当日变更的 .db / .zip / .pt</td>
+    <td>1h</td>
+    <td>10min</td>
+    <td>保留 24 份（小时滚动）</td>
+</tr>
+<tr>
+    <td>L3 模型快照</td>
+    <td>data/models/ 全量</td>
+    <td>0（训练后即时）</td>
+    <td>5min</td>
+    <td>永久保留（版本化）</td>
+</tr>
+<tr>
+    <td>L4 远程副本</td>
+    <td>L1 备份异地复制</td>
+    <td>48h</td>
+    <td>2h</td>
+    <td>保留 4 份（每周）</td>
+</tr>
+</tbody>
+</table>
+
+<h3>2.2 备份执行脚本</h3>
+
+<h4>L1 完整备份</h4>
+<pre><code># 执行完整备份（建议加入 cron: 0 2 * * *）
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+BACKUP_DIR="D:/APPs/数字孪生挑战赛/backups"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+BACKUP_NAME="pmtec_full_${TIMESTAMP}"
+
+# 1. 创建备份目录
+mkdir -p "${BACKUP_DIR}/${BACKUP_NAME}"
+
+# 2. 停止写入（不停止服务，使用 SQLite WAL checkpoint）
+python -c "import sqlite3; c=sqlite3.connect('${PROJECT_ROOT}/data/persistence/pmtec_state.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()"
+
+# 3. 复制数据目录
+cp -r "${PROJECT_ROOT}/data" "${BACKUP_DIR}/${BACKUP_NAME}/"
+cp "${PROJECT_ROOT}/config.py" "${BACKUP_DIR}/${BACKUP_NAME}/"
+cp "${PROJECT_ROOT}/docker-compose.yml" "${BACKUP_DIR}/${BACKUP_NAME}/"
+cp -r "${PROJECT_ROOT}/proto" "${BACKUP_DIR}/${BACKUP_NAME}/"
+
+# 4. 生成校验和
+cd "${BACKUP_DIR}/${BACKUP_NAME}"
+find . -type f -exec md5sum {} \; > checksums.md5
+
+# 5. 压缩
+cd "${BACKUP_DIR}"
+tar czf "${BACKUP_NAME}.tar.gz" "${BACKUP_NAME}"
+rm -rf "${BACKUP_NAME}"
+
+# 6. 清理过期备份（保留最近 7 份）
+ls -t "${BACKUP_DIR}"/pmtec_full_*.tar.gz | tail -n +8 | xargs rm -f
+
+echo "[Backup] L1 complete: ${BACKUP_DIR}/${BACKUP_NAME}.tar.gz"</code></pre>
+
+<h4>L2 增量备份（每小时）</h4>
+<pre><code># 增量备份：仅 SQLite 数据库 + 当日变更文件
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+BACKUP_DIR="D:/APPs/数字孪生挑战赛/backups"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+BACKUP_NAME="pmtec_incr_${TIMESTAMP}"
+
+mkdir -p "${BACKUP_DIR}/${BACKUP_NAME}"
+
+# WAL checkpoint 后复制数据库
+python -c "import sqlite3; c=sqlite3.connect('${PROJECT_ROOT}/data/persistence/pmtec_state.db'); c.execute('PRAGMA wal_checkpoint(TRUNCATE)'); c.close()"
+cp "${PROJECT_ROOT}/data/persistence/"*.db "${BACKUP_DIR}/${BACKUP_NAME}/"
+
+# 检查是否有新模型文件（1 小时内修改的）
+find "${PROJECT_ROOT}/data/models/" -name "*.zip" -o -name "*.pt" | xargs find -mmin -60 2>/dev/null | while read f; do
+    cp "$f" "${BACKUP_DIR}/${BACKUP_NAME}/"
+done
+
+cd "${BACKUP_DIR}"
+tar czf "${BACKUP_NAME}.tar.gz" "${BACKUP_NAME}"
+rm -rf "${BACKUP_NAME}"
+
+# 保留最近 24 份
+ls -t "${BACKUP_DIR}"/pmtec_incr_*.tar.gz | tail -n +25 | xargs rm -f
+echo "[Backup] L2 complete: ${BACKUP_NAME}.tar.gz"</code></pre>
+
+<h4>L3 模型快照（训练后执行）</h4>
+<pre><code># 训练完成后立即快照模型文件
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+SNAPSHOT_DIR="D:/APPs/数字孪生挑战赛/backups/model_snapshots"
+TIMESTAMP=$(date +%Y%m%d_%H%M%S)
+
+mkdir -p "${SNAPSHOT_DIR}/${TIMESTAMP}"
+cp "${PROJECT_ROOT}/data/models/"*.zip "${SNAPSHOT_DIR}/${TIMESTAMP}/"
+cp "${PROJECT_ROOT}/data/models/"*.pt "${SNAPSHOT_DIR}/${TIMESTAMP}/"
+cp "${PROJECT_ROOT}/data/models/"*.json "${SNAPSHOT_DIR}/${TIMESTAMP}/"
+
+# 生成模型清单
+ls -la "${SNAPSHOT_DIR}/${TIMESTAMP}/" > "${SNAPSHOT_DIR}/${TIMESTAMP}/manifest.txt"
+echo "[Backup] L3 model snapshot: ${SNAPSHOT_DIR}/${TIMESTAMP}/"</code></pre>
+
+<div class="callout callout-warn">
+    <strong>注意：</strong>SQLite WAL 模式下直接复制 .db 文件可能导致数据不一致。备份前必须先执行 <code>PRAGMA wal_checkpoint(TRUNCATE)</code> 将 WAL 日志合并到主数据库，或使用 SQLite 的 <code>.backup</code> 命令做在线热备份。
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec3">3. 故障恢复流程</h2>
+
+<h3>3.1 故障分级与响应矩阵</h3>
+<table>
+<thead>
+<tr>
+    <th>级别</th>
+    <th>定义</th>
+    <th>响应时间</th>
+    <th>升级阈值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><span class="badge badge-p0">P0 致命</span></td>
+    <td>核心仿真引擎宕机、数据丢失、安全证书过期</td>
+    <td>5 分钟内响应</td>
+    <td>15 分钟未恢复 → 升级</td>
+</tr>
+<tr>
+    <td><span class="badge badge-p1">P1 严重</span></td>
+    <td>gRPC 主节点不可用（备节点接管）、AI 模型加载失败</td>
+    <td>15 分钟内响应</td>
+    <td>30 分钟未恢复 → 升级</td>
+</tr>
+<tr>
+    <td><span class="badge badge-p2">P2 中等</span></td>
+    <td>监控/Grafana 不可用、非关键服务离线</td>
+    <td>1 小时内响应</td>
+    <td>4 小时未恢复 → 升级</td>
+</tr>
+<tr>
+    <td><span class="badge badge-p3">P3 低</span></td>
+    <td>单个容器重启、日志告警</td>
+    <td>4 小时内响应</td>
+    <td>次日处理</td>
+</tr>
+</tbody>
+</table>
+
+<h3>3.2 场景一：gRPC 主节点宕机</h3>
+
+<div class="card card-critical">
+<h4>故障现象</h4>
+<p>War Engine 主节点 (<code>pmtec-war-engine</code>, 端口 50051) 健康检查失败，客户端连接超时。</p>
+
+<h4>恢复步骤</h4>
+<p><span class="step-num">1</span><strong>确认故障</strong> — 检查健康检查状态：</p>
+<pre><code># 检查容器状态
+docker ps -a --filter "name=pmtec-war-engine"
+
+# 检查健康检查日志
+docker inspect --format='{{json .State.Health}}' pmtec-war-engine | python -m json.tool
+
+# 手动探测 gRPC 端口
+python -c "import grpc; ch=grpc.insecure_channel('localhost:50051'); ch.close(); print('OK')"</code></pre>
+
+<p><span class="step-num">2</span><strong>验证 HA 自动切换</strong> — 备节点应已接管：</p>
+<pre><code># 检查备节点状态
+docker ps --filter "name=pmtec-war-engine-backup"
+
+# _HAChannelManager 应已自动切换到 backup
+# 日志中查找 "failover" 关键字
+docker logs pmtec-battle-network 2>&1 | grep -i "failover\|backup\|reconnect"</code></pre>
+
+<p><span class="step-num">3</span><strong>重启主节点</strong></p>
+<pre><code># 重启主节点容器
+docker restart pmtec-war-engine
+
+# 等待健康检查通过（约 30 秒）
+docker inspect --format='{{json .State.Health.Status}}' pmtec-war-engine
+
+# 确认主节点恢复后，流量应自动切回（_HAChannelManager 指数退避重连）
+docker logs pmtec-war-engine 2>&1 | tail -20</code></pre>
+
+<p><span class="step-num">4</span><strong>验证恢复</strong></p>
+<pre><code># 运行 30 秒快速验证
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "
+from services.grpc_server import PMTECEngine
+e = PMTECEngine()
+e.start_simulation('recovery_check', 30, seed=42)
+import time
+while e._running: time.sleep(1)
+s = e.get_state_dict()
+print(f'Entities: {s[\"total_entities\"]}, Tracks: {s[\"active_tracks\"]}')
+print('RECOVERY OK' if s['total_entities'] > 0 else 'RECOVERY FAIL')
+"</code></pre>
+</div>
+
+<h3>3.3 场景二：SQLite 数据库损坏</h3>
+
+<div class="card card-critical">
+<h4>故障现象</h4>
+<p><code>pmtec_state.db</code> 查询报错 <code>database disk image is malformed</code>，仿真状态无法持久化。</p>
+
+<h4>恢复步骤</h4>
+<p><span class="step-num">1</span><strong>确认损坏范围</strong></p>
+<pre><code># 完整性检查
+python -c "
+import sqlite3
+db = 'D:/APPs/数字孪生挑战赛/pmtec_system/data/persistence/pmtec_state.db'
+conn = sqlite3.connect(db)
+cursor = conn.execute('PRAGMA integrity_check')
+result = cursor.fetchone()
+print(f'Integrity: {result[0]}')
+conn.close()
+"</code></pre>
+
+<p><span class="step-num">2</span><strong>尝试 WAL 恢复</strong></p>
+<pre><code># 如果 integrity_check 返回 "ok"，可能是 WAL 文件损坏
+# 删除 WAL 和 SHM 文件，让 SQLite 重新生成
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+rm -f "${PROJECT_ROOT}/data/persistence/pmtec_state.db-wal"
+rm -f "${PROJECT_ROOT}/data/persistence/pmtec_state.db-shm"
+
+# 再次检查
+python -c "import sqlite3; c=sqlite3.connect('${PROJECT_ROOT}/data/persistence/pmtec_state.db'); print(c.execute('PRAGMA integrity_check').fetchone()[0]); c.close()"</code></pre>
+
+<p><span class="step-num">3</span><strong>从备份恢复</strong>（如果步骤 2 无效）</p>
+<pre><code># 找到最近的增量备份
+BACKUP_DIR="D:/APPs/数字孪生挑战赛/backups"
+LATEST=$(ls -t "${BACKUP_DIR}"/pmtec_incr_*.tar.gz | head -1)
+echo "Restoring from: ${LATEST}"
+
+# 解压备份
+cd /tmp
+tar xzf "${LATEST}"
+
+# 替换损坏的数据库
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+cp /tmp/pmtec_state.db "${PROJECT_ROOT}/data/persistence/pmtec_state.db"
+
+# 验证恢复
+python -c "import sqlite3; c=sqlite3.connect('${PROJECT_ROOT}/data/persistence/pmtec_state.db'); print('Tables:', [t[0] for t in c.execute('SELECT name FROM sqlite_master WHERE type=\"table\"').fetchall()]); c.close()"</code></pre>
+
+<p><span class="step-num">4</span><strong>验证仿真状态</strong></p>
+<pre><code># 启动 30 秒仿真，验证状态写入正常
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "
+from services.grpc_server import PMTECEngine
+e = PMTECEngine()
+e.start_simulation('db_recovery', 30, seed=99)
+import time
+while e._running: time.sleep(1)
+s = e.get_state_dict()
+print(f'Snapshots: {s.get(\"snapshot_count\", \"N/A\")}')
+print('DB RECOVERY OK' if s['total_entities'] > 0 else 'DB RECOVERY FAIL')
+"</code></pre>
+</div>
+
+<h3>3.4 场景三：AI 模型文件损坏或维度不匹配</h3>
+
+<div class="card card-warn">
+<h4>故障现象</h4>
+<p>DQN 模型加载报 <code>shape mismatch</code> 或 <code>unexpected keys</code>；引擎日志出现 <code>dimension mismatch, skipping model</code>。</p>
+
+<h4>恢复步骤</h4>
+<p><span class="step-num">1</span><strong>确认当前模型版本</strong></p>
+<pre><code># 列出所有模型文件及大小
+ls -la D:/APPs/数字孪生挑战赛/pmtec_system/data/models/*.zip
+ls -la D:/APPs/数字孪生挑战赛/pmtec_system/data/models/*.pt
+
+# 检查配置中加载的模型路径
+grep -n "pmtec_dqn" D:/APPs/数字孪生挑战赛/pmtec_system/config.py</code></pre>
+
+<p><span class="step-num">2</span><strong>从快照恢复正确版本</strong></p>
+<pre><code># 查看可用的模型快照
+SNAPSHOT_DIR="D:/APPs/数字孪生挑战赛/backups/model_snapshots"
+ls -la "${SNAPSHOT_DIR}/"
+
+# 恢复 P7-v2（推荐生产版本：隐身突防 79.1%）
+SNAPSHOT_NAME=$(ls -t "${SNAPSHOT_DIR}/" | head -1)
+PROJECT_ROOT="D:/APPs/数字孪生挑战赛/pmtec_system"
+
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_dqn_p7_v2.zip" "${PROJECT_ROOT}/data/models/"
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_dqn_p6.zip" "${PROJECT_ROOT}/data/models/"
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_iql_intercept.zip" "${PROJECT_ROOT}/data/models/"
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_iql_dispersal.zip" "${PROJECT_ROOT}/data/models/"
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_maddpg_intercept.pt" "${PROJECT_ROOT}/data/models/"
+cp "${SNAPSHOT_DIR}/${SNAPSHOT_NAME}/pmtec_maddpg_dispersal.pt" "${PROJECT_ROOT}/data/models/"
+
+echo "Models restored from: ${SNAPSHOT_NAME}"</code></pre>
+
+<p><span class="step-num">3</span><strong>验证模型加载</strong></p>
+<pre><code># 在 pmtec-xpu 环境中验证
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "
+import sys; sys.path.insert(0, 'D:/APPs/数字孪生挑战赛/pmtec_system')
+from deep_rl.dqn_agent import DQNAgent
+agent = DQNAgent(obs_dim=182, n_actions=8, device='xpu:0')
+loaded = agent.load('D:/APPs/数字孪生挑战赛/pmtec_system/data/models/pmtec_dqn_p7_v2.zip')
+print(f'DQN loaded: {loaded}, trained: {agent.is_trained()}')
+# 快速推理测试
+import numpy as np
+obs = np.zeros(182, dtype=np.float32)
+action = agent.predict(obs)
+print(f'Inference test: action={action}')
+print('MODEL RECOVERY OK' if loaded else 'MODEL RECOVERY FAIL')
+"</code></pre>
+</div>
+
+<h3>3.5 场景四：安全证书过期或 JWT 密钥丢失</h3>
+
+<div class="card card-warn">
+<h4>故障现象</h4>
+<p>mTLS 握手失败、JWT 验证报 <code>InvalidSignature</code>、gRPC 连接被 <code>interceptor</code> 拦截。</p>
+
+<h4>恢复步骤</h4>
+<p><span class="step-num">1</span><strong>重新生成 CA 和服务端证书</strong></p>
+<pre><code># 使用 cert_manager 重新签发
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "
+import sys; sys.path.insert(0, 'D:/APPs/数字孪生挑战赛/pmtec_system')
+from security.cert_manager import CertManager
+cm = CertManager(cert_dir='D:/APPs/数字孪生挑战赛/pmtec_system/data/certs')
+cm.generate_ca()
+cm.generate_server_cert(cn='pmtec-war-engine', sans=['localhost', '127.0.0.1'])
+cm.generate_server_cert(cn='pmtec-battle-network', sans=['localhost', '127.0.0.1'])
+print('Certs regenerated successfully')
+"</code></pre>
+
+<p><span class="step-num">2</span><strong>重置 JWT 密钥</strong></p>
+<pre><code># 设置新的 JWT 密钥（环境变量方式，不写入文件）
+export PMTEC_JWT_SECRET="$(python -c 'import secrets; print(secrets.token_urlsafe(32))')"
+echo "New JWT secret set (length: ${#PMTEC_JWT_SECRET})"
+
+# 重启 gRPC 服务使新证书生效
+docker restart pmtec-war-engine pmtec-war-engine-backup pmtec-battle-network</code></pre>
+
+<p><span class="step-num">3</span><strong>验证安全链路</strong></p>
+<pre><code># 验证 mTLS + JWT 认证
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "
+import sys; sys.path.insert(0, 'D:/APPs/数字孪生挑战赛/pmtec_system')
+from security.auth import AuthManager
+am = AuthManager()
+token = am.generate_token(user_id='recovery_test', role='admin', ttl_hours=1)
+valid = am.verify_token(token)
+print(f'JWT issued: {bool(token)}, verified: {valid}')
+print('SECURITY RECOVERY OK' if valid else 'SECURITY RECOVERY FAIL')
+"</code></pre>
+</div>
+
+<h3>3.6 场景五：Docker Compose 全栈恢复</h3>
+
+<div class="card card-info">
+<h4>故障现象</h4>
+<p>宿主机重启或 Docker daemon 崩溃后，全部容器停止。</p>
+
+<h4>恢复步骤</h4>
+<p><span class="step-num">1</span><strong>验证 Docker 环境</strong></p>
+<pre><code>docker version
+docker info --format '{{.ServerVersion}}'
+docker compose version</code></pre>
+
+<p><span class="step-num">2</span><strong>启动全栈服务</strong></p>
+<pre><code>cd D:/APPs/数字孪生挑战赛/pmtec_system
+
+# 构建镜像（如果不存在）
+docker compose build --no-cache
+
+# 启动全部 7 个服务（按依赖顺序）
+docker compose up -d
+
+# 等待所有健康检查通过（约 60 秒）
+docker compose ps --format 'table {{.Name}}\t{{.Status}}\t{{.Ports}}'</code></pre>
+
+<p><span class="step-num">3</span><strong>验证全链路</strong></p>
+<pre><code># 检查所有服务健康状态
+for svc in pmtec-war-engine pmtec-battle-network pmtec-app-store pmtec-plug-and-play pmtec-prometheus pmtec-grafana; do
+    status=$(docker inspect --format='{{.State.Health.Status}}' $svc 2>/dev/null || echo "no-healthcheck")
+    echo "$svc: $status"
+done
+
+# 运行 Monte Carlo 快速验证（5 episode）
+D:/miniconda3/envs/pmtec-xpu/python.exe scripts/monte_carlo_validation.py --episodes 5 --scenario all</code></pre>
+</div>
+
+<!-- ============================================================ -->
+<h2 id="sec4">4. 运维操作手册</h2>
+
+<h3>4.1 日常巡检清单</h3>
+<table>
+<thead>
+<tr>
+    <th>检查项</th>
+    <th>命令</th>
+    <th>正常状态</th>
+    <th>频率</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>容器存活状态</td>
+    <td><code>docker compose ps</code></td>
+    <td>7/7 Up (healthy)</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>gRPC 端口可达</td>
+    <td><code>grpcurl localhost:50051 list</code></td>
+    <td>返回服务列表</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>SQLite 完整性</td>
+    <td><code>PRAGMA integrity_check</code></td>
+    <td>返回 "ok"</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>模型文件完整</td>
+    <td><code>ls -la data/models/</code></td>
+    <td>6 个核心文件存在且大小>0</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>磁盘空间</td>
+    <td><code>df -h .</code></td>
+    <td>使用率 < 80%</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>审计日志增长</td>
+    <td><code>sqlite3 audit_log.db "SELECT COUNT(*) FROM audit_log"</code></td>
+    <td>持续增长（不骤降）</td>
+    <td>每日</td>
+</tr>
+<tr>
+    <td>备份完整性</td>
+    <td><code>md5sum -c checksums.md5</code></td>
+    <td>全部 OK</td>
+    <td>每周</td>
+</tr>
+<tr>
+    <td>证书有效期</td>
+    <td><code>openssl x509 -enddate -noout</code></td>
+    <td>到期 >30 天</td>
+    <td>每周</td>
+</tr>
+</tbody>
+</table>
+
+<h3>4.2 AI 模型管理</h3>
+
+<h4>模型版本对照表</h4>
+<table>
+<thead>
+<tr>
+    <th>文件名</th>
+    <th>版本</th>
+    <th>观测维度</th>
+    <th>训练步数</th>
+    <th>拦截率</th>
+    <th>状态</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><code>pmtec_dqn_p6.zip</code></td>
+    <td>P6</td>
+    <td>182</td>
+    <td>200K</td>
+    <td>76.2%（总体）</td>
+    <td class="status-ok">生产可用</td>
+</tr>
+<tr>
+    <td><code>pmtec_dqn_p7_v2.zip</code></td>
+    <td>P7-v2</td>
+    <td>182</td>
+    <td>200K（课程学习）</td>
+    <td>79.1%（隐身突防）</td>
+    <td class="status-ok">推荐</td>
+</tr>
+<tr>
+    <td><code>pmtec_dqn_p7.zip</code></td>
+    <td>P7-v1</td>
+    <td>182</td>
+    <td>3 阶段课程</td>
+    <td>54.5%（未达标）</td>
+    <td class="status-warn">已弃用</td>
+</tr>
+<tr>
+    <td><code>pmtec_iql_intercept.zip</code></td>
+    <td>P8</td>
+    <td>182</td>
+    <td>6K</td>
+    <td>多智能体协作</td>
+    <td class="status-ok">生产可用</td>
+</tr>
+<tr>
+    <td><code>pmtec_maddpg_intercept.pt</code></td>
+    <td>P8</td>
+    <td>182</td>
+    <td>6K</td>
+    <td>avg reward 881.6</td>
+    <td class="status-ok">生产可用</td>
+</tr>
+</tbody>
+</table>
+
+<h4>模型切换流程</h4>
+<pre><code># 1. 修改 config.py 中的模型路径
+# DQN_MODEL_PATH = "data/models/pmtec_dqn_p7_v2.zip"
+
+# 2. 重启引擎服务
+docker restart pmtec-war-engine pmtec-war-engine-backup
+
+# 3. 验证模型加载
+docker logs pmtec-war-engine 2>&1 | grep "DQN\|MADDPG\|IQL"
+# 应看到: [DQN] Model loaded ... [MADDPG] Intercept actor loaded ...
+
+# 4. 运行 Monte Carlo 验证（至少 10 episode）
+D:/miniconda3/envs/pmtec-xpu/python.exe scripts/monte_carlo_validation.py --episodes 10 --scenario stealth</code></pre>
+
+<h3>4.3 数据库维护</h3>
+
+<h4>SQLite 压缩与清理</h4>
+<pre><code># 定期压缩数据库（建议每周执行）
+python -c "
+import sqlite3, os
+db_path = 'D:/APPs/数字孪生挑战赛/pmtec_system/data/persistence/pmtec_state.db'
+size_before = os.path.getsize(db_path)
+conn = sqlite3.connect(db_path)
+conn.execute('PRAGMA wal_checkpoint(TRUNCATE)')
+conn.execute('VACUUM')
+conn.close()
+size_after = os.path.getsize(db_path)
+print(f'VACUUM: {size_before/1024:.0f}KB -> {size_after/1024:.0f}KB ({(1-size_after/size_before)*100:.1f}% saved)')
+"
+
+# 清理 30 天前的事件日志
+python -c "
+import sqlite3, time
+db = 'D:/APPs/数字孪生挑战赛/pmtec_system/data/persistence/pmtec_state.db'
+conn = sqlite3.connect(db)
+cutoff = time.time() - 30*86400
+deleted = conn.execute('DELETE FROM events WHERE timestamp < ?', (cutoff,)).rowcount
+conn.commit()
+conn.close()
+print(f'Cleaned {deleted} old events')
+"</code></pre>
+
+<h4>审计日志归档</h4>
+<pre><code># 归档 90 天前的审计记录
+python -c "
+import sqlite3, time, shutil
+db = 'D:/APPs/数字孪生挑战赛/pmtec_system/data/persistence/audit_log.db'
+archive = 'D:/APPs/数字孪生挑战赛/backups/audit_archive.db'
+cutoff = time.time() - 90*86400
+conn = sqlite3.connect(db)
+count = conn.execute('SELECT COUNT(*) FROM audit_log WHERE timestamp < ?', (cutoff,)).fetchone()[0]
+if count > 0:
+    # 导出旧记录到归档库
+    aconn = sqlite3.connect(archive)
+    aconn.execute('CREATE TABLE IF NOT EXISTS audit_log AS SELECT * FROM audit_log WHERE 1=0')
+    rows = conn.execute('SELECT * FROM audit_log WHERE timestamp < ?', (cutoff,)).fetchall()
+    aconn.executemany('INSERT INTO audit_log VALUES ({})'.format(','.join(['?']*len(rows[0]))), rows)
+    aconn.commit()
+    conn.execute('DELETE FROM audit_log WHERE timestamp < ?', (cutoff,))
+    conn.commit()
+    aconn.close()
+    print(f'Archived {count} audit records to {archive}')
+else:
+    print('No records to archive')
+conn.close()
+"</code></pre>
+
+<!-- ============================================================ -->
+<h2 id="sec5">5. 监控告警与巡检</h2>
+
+<h3>5.1 Prometheus 关键告警规则</h3>
+<table>
+<thead>
+<tr>
+    <th>指标</th>
+    <th>Warning 阈值</th>
+    <th>Critical 阈值</th>
+    <th>告警动作</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>拦截率 (intercept_rate)</td>
+    <td>&lt; 0.65</td>
+    <td>&lt; 0.55</td>
+    <td>Critical → 立即人工介入</td>
+</tr>
+<tr>
+    <td>DQN 模型加载 (model_loaded)</td>
+    <td>= 0 持续 10s</td>
+    <td>= 0 持续 30s</td>
+    <td>Critical → 重启引擎 + 检查模型文件</td>
+</tr>
+<tr>
+    <td>gRPC 可用性 (grpc_up)</td>
+    <td>= 0 持续 30s</td>
+    <td>= 0 持续 60s</td>
+    <td>Critical → 触发 HA 故障转移</td>
+</tr>
+<tr>
+    <td>审计日志写入 (audit_entries)</td>
+    <td>= 0 持续 3min</td>
+    <td>= 0 持续 5min</td>
+    <td>Critical → 最高优先级安全事件</td>
+</tr>
+<tr>
+    <td>仿真延迟 (sim_latency_ms)</td>
+    <td>P95 &gt; 200ms</td>
+    <td>P95 &gt; 500ms</td>
+    <td>Warning → 检查负载/资源</td>
+</tr>
+<tr>
+    <td>SQLite 写入 (sqlite_wps)</td>
+    <td>&lt; 500 wps</td>
+    <td>&lt; 100 wps</td>
+    <td>Critical → 检查磁盘/数据库锁</td>
+</tr>
+<tr>
+    <td>容器健康 (container_health)</td>
+    <td>unhealthy 持续 2min</td>
+    <td>unhealthy 持续 5min</td>
+    <td>Critical → 自动重启容器</td>
+</tr>
+</tbody>
+</table>
+
+<h3>5.2 Grafana 面板快速检查</h3>
+<pre><code># 访问 Grafana（默认端口 3000）
+# 默认账号: admin / admin（首次登录需改密）
+
+# 关键面板：
+# 1. PMTEC Overview    — 实体数/航迹数/拦截率总览
+# 2. DQN Training      — 训练步数/reward 曲线
+# 3. gRPC Health       — RPS/延迟/错误率
+# 4. Persistence       — SQLite 写入吞吐/WAL 大小
+# 5. Security          — 审计日志/认证失败/mTLS 状态
+# 6. HA Status         — 主备节点状态/故障转移事件
+# 7. Live Data         — OpenSky/OpenMeteo 实时数据注入</code></pre>
+
+<h3>5.3 健康检查命令速查</h3>
+<pre><code># === 一键全栈健康检查 ===
+docker compose ps --format 'table {{.Name}}\t{{.Status}}' | grep -c "healthy" && echo "All healthy" || echo "CHECK FAILED"
+
+# === gRPC 连通性 ===
+python -c "import grpc; ch=grpc.insecure_channel('localhost:50051'); print('gRPC OK' if ch._get_state().name[0]=='I' else 'gRPC DOWN')"
+
+# === SQLite 完整性 ===
+python -c "import sqlite3; print(sqlite3.connect('data/persistence/pmtec_state.db').execute('PRAGMA integrity_check').fetchone()[0])"
+
+# === AI 模型可用性 ===
+D:/miniconda3/envs/pmtec-xpu/python.exe -c "import sys; sys.path.insert(0,'.'); from deep_rl.dqn_agent import DQNAgent; a=DQNAgent(182,8,'xpu:0'); print('DQN OK' if a.load('data/models/pmtec_dqn_p7_v2.zip') else 'DQN FAIL')"
+
+# === Prometheus 采集 ===
+curl -s http://localhost:9090/api/v1/targets | python -c "import sys,json; d=json.load(sys.stdin); [print(f\"{t['scrapePool']}: {t['health']}\") for t in d['data']['activeTargets']]"</code></pre>
+
+<!-- ============================================================ -->
+<h2 id="sec6">6. 应急联系与升级流程</h2>
+
+<h3>6.1 升级路径</h3>
+<table>
+<thead>
+<tr>
+    <th>阶段</th>
+    <th>触发条件</th>
+    <th>动作</th>
+    <th>时限</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>L1 自动恢复</td>
+    <td>容器不健康 / gRPC 超时</td>
+    <td>Docker 自动重启 + HA 故障转移</td>
+    <td>0-5 分钟</td>
+</tr>
+<tr>
+    <td>L2 运维介入</td>
+    <td>自动恢复失败 / P0 告警</td>
+    <td>人工按 Runbook 执行恢复</td>
+    <td>5-30 分钟</td>
+</tr>
+<tr>
+    <td>L3 专家介入</td>
+    <td>数据损坏 / 安全事件</td>
+    <td>从备份恢复 + 安全审计</td>
+    <td>30 分钟-2 小时</td>
+</tr>
+<tr>
+    <td>L4 全量重建</td>
+    <td>宿主机故障 / 数据全失</td>
+    <td>L4 远程副本恢复全栈</td>
+    <td>2-4 小时</td>
+</tr>
+</tbody>
+</table>
+
+<h3>6.2 恢复验证清单</h3>
+<div class="card card-ok">
+<p>每次故障恢复后，必须完成以下验证才能标记为"已恢复"：</p>
+<ul>
+    <li><input type="checkbox"> 全部 7 个容器状态为 healthy</li>
+    <li><input type="checkbox"> gRPC 端口 50051-50054 可达，0 错误</li>
+    <li><input type="checkbox"> SQLite integrity_check 返回 "ok"</li>
+    <li><input type="checkbox"> DQN + MADDPG + IQL 模型加载成功（6/6）</li>
+    <li><input type="checkbox"> 30 秒快速仿真通过（entities > 0, tracks > 0）</li>
+    <li><input type="checkbox"> Monte Carlo 5 episode 拦截率 >= 70%</li>
+    <li><input type="checkbox"> Prometheus 所有 target 为 UP</li>
+    <li><input type="checkbox"> 审计日志正常写入（恢复后 > 0 条）</li>
+    <li><input type="checkbox"> 备份任务正常执行（手动触发一次 L2）</li>
+</ul>
+</div>
+
+<h3>6.3 灾备演练计划</h3>
+<table>
+<thead>
+<tr>
+    <th>演练场景</th>
+    <th>频率</th>
+    <th>RTO 目标</th>
+    <th>验证内容</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td>单容器故障恢复</td>
+    <td>每月</td>
+    <td>5 分钟</td>
+    <td>HA 自动切换 + 容器重启</td>
+</tr>
+<tr>
+    <td>数据库恢复</td>
+    <td>每季度</td>
+    <td>15 分钟</td>
+    <td>从 L2 增量备份恢复</td>
+</tr>
+<tr>
+    <td>模型文件恢复</td>
+    <td>每季度</td>
+    <td>10 分钟</td>
+    <td>从 L3 快照恢复 + 推理验证</td>
+</tr>
+<tr>
+    <td>全栈重建</td>
+    <td>每半年</td>
+    <td>2 小时</td>
+    <td>从 L4 远程副本全量恢复</td>
+</tr>
+<tr>
+    <td>安全证书续期</td>
+    <td>到期前 30 天</td>
+    <td>10 分钟</td>
+    <td>重新签发 + mTLS 验证</td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout">
+    <strong>双环境适配说明：</strong>PMTEC 系统支持双运行环境：<br>
+    <strong>pmtec-xpu（生产/GPU）</strong>：<code>D:/miniconda3/envs/pmtec-xpu/python.exe</code>，Intel Arc + torch 2.14.0+xpu，含 grpc/torch/SB3/gymnasium/PyJWT/cryptography 全套依赖。<br>
+    <strong>base（备用/CPU）</strong>：系统 Python，缺 grpc/torch，仅支持基础配置检查。<br>
+    灾备恢复操作必须使用 <strong>pmtec-xpu 环境</strong>执行 AI 模型加载、仿真验证和 Monte Carlo 评估。
+</div>
+
+<div class="footer">
+    PMTEC 数字孪生战场系统 | 灾备恢复运维手册 v1.0 | DTC2026 | 生成日期 2026-09-04
+</div>
+
+</body>
+</html>

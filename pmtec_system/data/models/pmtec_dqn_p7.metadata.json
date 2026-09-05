@@ -1,0 +1,19 @@
+{
+  "model_file": "pmtec_dqn_p7.zip",
+  "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p7.zip",
+  "file_hash": "2adbb63e32f93a6f",
+  "file_size_bytes": 543709,
+  "created_at": 1788536485.8641548,
+  "created_at_iso": "2026-09-04T15:41:25",
+  "algorithm": "DQN",
+  "library": "stable_baselines3",
+  "timesteps": 200000,
+  "obs_dim": 182,
+  "n_actions": 6,
+  "training_type": "curriculum_learning",
+  "evaluation": {
+    "stealth_intercept_rate": 0.545,
+    "notes": "P7-v1: did not meet 70% target (env physics constraint)"
+  },
+  "notes": "P7-v1 intermediate model. Superseded by P7-v2."
+}

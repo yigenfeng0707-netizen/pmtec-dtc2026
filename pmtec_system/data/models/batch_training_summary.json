@@ -1,0 +1,19 @@
+{
+  "timestamp": 1788570001.9770856,
+  "batch_steps": 5000,
+  "results": {
+    "iql": {
+      "algo": "IQL",
+      "batch_steps": 5000,
+      "accumulated_before": 46000,
+      "accumulated_after": 51000,
+      "elapsed_sec": 283.0,
+      "device": "xpu:0",
+      "inference": {
+        "intercept": 2,
+        "dispersal": 2
+      },
+      "result": "{'algorithm': 'IQL', 'timesteps': 5000, 'elapsed_seconds': 272.5, 'agents': ['intercept', 'dispersal'], 'intercept_actions': 3, 'dispersal_actions': 3, 'device': 'xpu:0', 'net_arch': [128, 64], 'timestamp': 1788570001.9361858}"
+    }
+  }
+}

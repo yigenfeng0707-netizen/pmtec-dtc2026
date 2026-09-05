@@ -1,0 +1,85 @@
+{
+  "version": "P6",
+  "obs_dim": 182,
+  "total_timesteps": 200000,
+  "base_checkpoint": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p6_checkpoint_100000_steps.zip",
+  "continue_timesteps": 100000,
+  "elapsed_seconds": 2191.7,
+  "device": "xpu:0",
+  "final_avg_reward": 334.38,
+  "final_avg_intercept_rate": 0.1167,
+  "final_max_intercept_rate": 0.6667,
+  "eval_results": [
+    {
+      "episode": 0,
+      "total_reward": 353.4,
+      "intercept_rate": 0.5,
+      "aircraft_survived": 134,
+      "missiles_intercepted": 1
+    },
+    {
+      "episode": 1,
+      "total_reward": 382.7,
+      "intercept_rate": 0.6667,
+      "aircraft_survived": 131,
+      "missiles_intercepted": 2
+    },
+    {
+      "episode": 2,
+      "total_reward": 358.9,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 141,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 3,
+      "total_reward": 326.4,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 127,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 4,
+      "total_reward": 308.9,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 121,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 5,
+      "total_reward": 315.4,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 126,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 6,
+      "total_reward": 334.6,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 128,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 7,
+      "total_reward": 351.9,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 139,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 8,
+      "total_reward": 312.5,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 131,
+      "missiles_intercepted": 0
+    },
+    {
+      "episode": 9,
+      "total_reward": 299.1,
+      "intercept_rate": 0.0,
+      "aircraft_survived": 125,
+      "missiles_intercepted": 0
+    }
+  ],
+  "saved_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p6.zip"
+}

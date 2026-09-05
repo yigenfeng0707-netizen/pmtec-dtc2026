@@ -1,0 +1,672 @@
+{
+  "type": "FeatureCollection",
+  "name": "INDOPACOM Military Bases",
+  "crs": {
+    "type": "name",
+    "properties": {
+      "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+    }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          141.3814,
+          40.7058
+        ]
+      },
+      "properties": {
+        "id": "JP-MISAWA",
+        "name": "Misawa Air Base",
+        "name_cn": "三泽空军基地",
+        "country": "Japan",
+        "region": "Japan-North",
+        "branch": "USAF",
+        "unit": "35th Fighter Wing",
+        "aircraft": "F-35A (48 planned), P-8A, RC-135",
+        "runway_m": 3050,
+        "personnel": 3600,
+        "facility_code": "FAC 2001",
+        "role": "Tactical strike, air superiority, SEAD",
+        "vs26_role": "F-35 Effect Simulator source - first virtual training contribution to Guam defense from Japan",
+        "scars": true,
+        "lvc_layer": "Virtual (simulator source)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network node + Application Store (F-35 sim plug-in)",
+        "asda_mapping": "Act (strike launch) + Sense (ISR collection)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.3475,
+          35.7447
+        ]
+      },
+      "properties": {
+        "id": "JP-YOKOTA",
+        "name": "Yokota Air Base",
+        "name_cn": "横田空军基地",
+        "country": "Japan",
+        "region": "Japan-Central",
+        "branch": "USAF",
+        "unit": "374th Airlift Wing, USFJ HQ",
+        "aircraft": "C-130J, KC-135, CV-22, U-2",
+        "runway_m": 3050,
+        "personnel": 4200,
+        "facility_code": "FAC 3013",
+        "role": "Command hub, tactical airlift, special operations",
+        "vs26_role": "C2 coordination node in Guam-to-Japan-to-Hawaii integration chain",
+        "scars": false,
+        "lvc_layer": "Live (real-world C2)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (C2 hub) + Plug-and-Play (command modules)",
+        "asda_mapping": "Decide (command coordination) + Act (airlift support)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.7686,
+          26.3505
+        ]
+      },
+      "properties": {
+        "id": "JP-KADENA",
+        "name": "Kadena Air Base",
+        "name_cn": "嘉手纳空军基地",
+        "country": "Japan",
+        "region": "Japan-Okinawa",
+        "branch": "USAF",
+        "unit": "18th Wing",
+        "aircraft": "F-15C/D, KC-135, E-3, HH-60",
+        "runway_m": 3700,
+        "personnel": 15000,
+        "facility_code": "FAC 6037",
+        "role": "Pacific keystone, forward strike hub, First Island Chain spear",
+        "vs26_role": "ACE Hub center - primary forward deployed air power node",
+        "scars": false,
+        "lvc_layer": "Live (real-world operations)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (primary node) + Application Store (strike packages)",
+        "asda_mapping": "Act (strike launch) + Sense (AEW coverage) + Decide (C2)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.7658,
+          26.2783
+        ]
+      },
+      "properties": {
+        "id": "JP-FUTENMA",
+        "name": "MCAS Futenma",
+        "name_cn": "普天间航空站",
+        "country": "Japan",
+        "region": "Japan-Okinawa",
+        "branch": "USMC",
+        "unit": "1st Marine Aircraft Wing, 3rd MEB",
+        "aircraft": "MV-22 (x24), AH-1Z (x12), UH-1Y (x8)",
+        "runway_m": 1800,
+        "personnel": 2800,
+        "facility_code": "FAC 6055",
+        "role": "Marine air hub, rapid response, amphibious assault",
+        "vs26_role": "Amphibious rapid response capability for ACE dispersal",
+        "scars": false,
+        "lvc_layer": "Live (real-world operations)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (USMC node) + Plug-and-Play (rotary wing modules)",
+        "asda_mapping": "Act (amphibious assault) + Adapt (rapid repositioning)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          129.7225,
+          33.1611
+        ]
+      },
+      "properties": {
+        "id": "JP-SASEBO",
+        "name": "Sasebo Naval Base",
+        "name_cn": "佐世保海军基地",
+        "country": "Japan",
+        "region": "Japan-South",
+        "branch": "USN",
+        "unit": "CTF-76, 11th Amphibious Squadron",
+        "aircraft": "Amphibious assault ships, DDGs",
+        "runway_m": 0,
+        "personnel": 4500,
+        "facility_code": "FAC 4145",
+        "role": "Amphibious operations core, Seventh Fleet support",
+        "vs26_role": "Sea-based ACE dispersal platform",
+        "scars": false,
+        "lvc_layer": "Live (naval operations)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (naval node) + Plug-and-Play (amphibious modules)",
+        "asda_mapping": "Act (amphibious deployment) + Sense (maritime ISR)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          139.6672,
+          35.2906
+        ]
+      },
+      "properties": {
+        "id": "JP-YOKOSUKA",
+        "name": "Yokosuka Naval Base",
+        "name_cn": "横须贺海军基地",
+        "country": "Japan",
+        "region": "Japan-Central",
+        "branch": "USN",
+        "unit": "USFJ, 7th Fleet HQ",
+        "aircraft": "CVN (Ronald Reagan), CGs, DDGs, SSN",
+        "runway_m": 0,
+        "personnel": 5500,
+        "facility_code": "FAC 3099",
+        "role": "7th Fleet HQ, nuclear carrier homeport, Pacific maritime command",
+        "vs26_role": "7th Fleet C2 in Guam-to-Japan integration chain",
+        "scars": false,
+        "lvc_layer": "Live (fleet operations)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (fleet C2) + Plug-and-Play (carrier strike group)",
+        "asda_mapping": "Act (power projection) + Decide (fleet command) + Sense (maritime domain)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.2347,
+          34.1442
+        ]
+      },
+      "properties": {
+        "id": "JP-IWAKUNI",
+        "name": "MCAS Iwakuni",
+        "name_cn": "岩国海军陆战队航空站",
+        "country": "Japan",
+        "region": "Japan-South",
+        "branch": "USMC",
+        "unit": "1st Marine Aircraft Wing",
+        "aircraft": "F-35B, MV-22",
+        "runway_m": 2440,
+        "personnel": 3600,
+        "facility_code": "FAC 4100",
+        "role": "Marine air operations, F-35B deployment",
+        "vs26_role": "F-35B STOVL dispersal node for ACE",
+        "scars": false,
+        "lvc_layer": "Live (real-world operations)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (USMC air node) + Application Store (F-35B package)",
+        "asda_mapping": "Act (strike launch) + Adapt (dispersed STOVL operations)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.9167,
+          13.5839
+        ]
+      },
+      "properties": {
+        "id": "GU-ANDERSEN",
+        "name": "Andersen AFB",
+        "name_cn": "安德森空军基地",
+        "country": "Guam",
+        "region": "Guam",
+        "branch": "USAF",
+        "unit": "36th Wing, AMC",
+        "aircraft": "B-1B, B-2, B-52 (rotational), F-35, tanker support",
+        "runway_m": 3414,
+        "personnel": 6363,
+        "facility_code": "PGUA",
+        "role": "360-degree Guam Defense core, strategic bomber forward base, PMTEC hub",
+        "vs26_role": "PMTEC center - 360-degree Guam defense operations, LVC integration hub, SPEAR playback center",
+        "scars": false,
+        "lvc_layer": "Live+Virtual+Constructive (all three layers)",
+        "ace_hub": true,
+        "dtb_mapping": "War Engine (PMTEC core) + Battle Network (C2 hub) + Application Store + Plug-and-Play",
+        "asda_mapping": "All four: Act+Sense+Decide+Adapt (full ASDA loop center)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          144.6589,
+          13.4469
+        ]
+      },
+      "properties": {
+        "id": "GU-APRA",
+        "name": "Naval Base Guam",
+        "name_cn": "阿普拉海军基地",
+        "country": "Guam",
+        "region": "Guam",
+        "branch": "USN",
+        "unit": "Commander, Naval Forces Marianas",
+        "aircraft": "SSN, surface combatants",
+        "runway_m": 0,
+        "personnel": 3000,
+        "facility_code": "PGUM",
+        "role": "Naval support, submarine maintenance, maritime domain awareness",
+        "vs26_role": "Naval component of Guam 360-degree defense",
+        "scars": false,
+        "lvc_layer": "Live (naval operations)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (naval node) + Plug-and-Play (submarine modules)",
+        "asda_mapping": "Act (submarine ops) + Sense (undersea domain)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0336,
+          36.9647
+        ]
+      },
+      "properties": {
+        "id": "KR-HUMPHREYS",
+        "name": "Camp Humphreys",
+        "name_cn": "汉弗莱营",
+        "country": "South Korea",
+        "region": "Korea",
+        "branch": "US Army",
+        "unit": "Eighth Army HQ, USFK HQ",
+        "aircraft": "AH-64, UH-60, CH-47",
+        "runway_m": 2438,
+        "personnel": 28500,
+        "facility_code": "USAG Humphreys",
+        "role": "USFK command hub, largest overseas US base",
+        "vs26_role": "Ground force C2 node in INDOPACOM integration chain",
+        "scars": false,
+        "lvc_layer": "Live (real-world C2)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (ground C2 hub) + Plug-and-Play (army modules)",
+        "asda_mapping": "Decide (ground command) + Act (ground deployment)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          127.0336,
+          37.0906
+        ]
+      },
+      "properties": {
+        "id": "KR-OSAN",
+        "name": "Osan Air Base",
+        "name_cn": "乌山空军基地",
+        "country": "South Korea",
+        "region": "Korea",
+        "branch": "USAF",
+        "unit": "7th Air Force, 51st Fighter Wing",
+        "aircraft": "F-16, A-10, U-2",
+        "runway_m": 2743,
+        "personnel": 6752,
+        "facility_code": "K-55",
+        "role": "Northeast Asia air sentinel, Korea defense",
+        "vs26_role": "Forward air defense node for Korea theater",
+        "scars": false,
+        "lvc_layer": "Live (real-world operations)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (air defense node) + Application Store (fighter packages)",
+        "asda_mapping": "Act (air defense) + Sense (airspace monitoring)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          126.6156,
+          35.9014
+        ]
+      },
+      "properties": {
+        "id": "KR-KUNSAN",
+        "name": "Kunsan Air Base",
+        "name_cn": "群山空军基地",
+        "country": "South Korea",
+        "region": "Korea",
+        "branch": "USAF",
+        "unit": "8th Fighter Wing",
+        "aircraft": "F-16",
+        "runway_m": 2743,
+        "personnel": 2650,
+        "facility_code": "Kunsan AB",
+        "role": "Korea west coast air defense, mutual support with Osan",
+        "vs26_role": "ACE dispersal node for Korea peninsula",
+        "scars": false,
+        "lvc_layer": "Live (real-world operations)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (support node) + Application Store (fighter package)",
+        "asda_mapping": "Act (air defense) + Adapt (dispersed operations)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -157.9622,
+          21.3694
+        ]
+      },
+      "properties": {
+        "id": "HI-PHICKAM",
+        "name": "Joint Base Pearl Harbor-Hickam",
+        "name_cn": "珍珠港-希卡姆联合基地",
+        "country": "USA",
+        "region": "Hawaii",
+        "branch": "USN/USAF",
+        "unit": "USPACOM HQ, PACFLT, PACAF HQ",
+        "aircraft": "Multi-domain fleet and air assets",
+        "runway_m": 3769,
+        "personnel": 44545,
+        "facility_code": "JBPHH",
+        "role": "USINDOPACOM HQ, Pacific Fleet HQ, Pacific Air Force HQ",
+        "vs26_role": "Rear C2 hub - Guam-to-Hawaii integration chain endpoint, USPACOM J7 PMTEC management",
+        "scars": false,
+        "lvc_layer": "Live (strategic C2) + Constructive (PMTEC management)",
+        "ace_hub": true,
+        "dtb_mapping": "War Engine (strategic C2) + Battle Network (regional hub)",
+        "asda_mapping": "Decide (strategic command) + Adapt (theater-level adjustment)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -158.0636,
+          21.495
+        ]
+      },
+      "properties": {
+        "id": "HI-SCHOFIELD",
+        "name": "Schofield Barracks",
+        "name_cn": "薛菲尔德兵营",
+        "country": "USA",
+        "region": "Hawaii",
+        "branch": "US Army",
+        "unit": "25th Infantry Division",
+        "aircraft": "N/A",
+        "runway_m": 0,
+        "personnel": 16000,
+        "facility_code": "Schofield",
+        "role": "Pacific ground force staging, rapid deployment",
+        "vs26_role": "Ground force deployment staging for Pacific operations",
+        "scars": false,
+        "lvc_layer": "Live (ground force staging)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (army staging) + Plug-and-Play (ground force modules)",
+        "asda_mapping": "Act (ground deployment) + Adapt (force reconstitution)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -149.7275,
+          61.2647
+        ]
+      },
+      "properties": {
+        "id": "AK-JBER",
+        "name": "Joint Base Elmendorf-Richardson",
+        "name_cn": "埃尔门多夫-理查森联合基地",
+        "country": "USA",
+        "region": "Alaska",
+        "branch": "USAF/US Army",
+        "unit": "3rd Wing, 4th Brigade (Airborne)",
+        "aircraft": "F-22, C-17, E-3",
+        "runway_m": 3048,
+        "personnel": 32000,
+        "facility_code": "JBER",
+        "role": "Arctic military readiness, northern air defense, strategic bomber base",
+        "vs26_role": "Northern flank defense, Arctic domain awareness",
+        "scars": false,
+        "lvc_layer": "Live (Arctic operations)",
+        "ace_hub": true,
+        "dtb_mapping": "Battle Network (northern node) + Application Store (F-22 package)",
+        "asda_mapping": "Sense (Arctic ISR) + Act (air defense) + Decide (regional C2)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -147.6106,
+          64.6431
+        ]
+      },
+      "properties": {
+        "id": "AK-EIELSON",
+        "name": "Eielson AFB",
+        "name_cn": "艾尔森空军基地",
+        "country": "USA",
+        "region": "Alaska",
+        "branch": "USAF",
+        "unit": "354th Fighter Wing",
+        "aircraft": "F-35A, F-16 (aggressor)",
+        "runway_m": 4420,
+        "personnel": 3000,
+        "facility_code": "Eielson",
+        "role": "Arctic air power, aggressor training, F-35 deployment",
+        "vs26_role": "F-35 deployment node for Arctic domain, Red Flag training",
+        "scars": false,
+        "lvc_layer": "Live (training operations) + Virtual (aggressor sim)",
+        "ace_hub": false,
+        "dtb_mapping": "Application Store (F-35 package) + Plug-and-Play (training modules)",
+        "asda_mapping": "Act (air training) + Adapt (tactics development)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          130.8769,
+          -12.4153
+        ]
+      },
+      "properties": {
+        "id": "AU-DARWIN",
+        "name": "RAAF Base Darwin",
+        "name_cn": "达尔文皇家空军基地",
+        "country": "Australia",
+        "region": "Australia",
+        "branch": "RAAF/USMC",
+        "unit": "MRF-D (Marine Rotational Force Darwin)",
+        "aircraft": "F-35, F/A-18, KC-30A, MV-22",
+        "runway_m": 2744,
+        "personnel": 2000,
+        "facility_code": "Darwin",
+        "role": "Southern ACE dispersal point, second island chain southern terminus",
+        "vs26_role": "Southern ACE dispersal node, MRF-D rotational deployment",
+        "scars": false,
+        "lvc_layer": "Live (rotational deployment)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (southern node) + Plug-and-Play (USMC rotational modules)",
+        "asda_mapping": "Act (southern deployment) + Adapt (rotational presence)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          132.3789,
+          -14.5236
+        ]
+      },
+      "properties": {
+        "id": "AU-TINDAL",
+        "name": "RAAF Base Tindal",
+        "name_cn": "廷达尔皇家空军基地",
+        "country": "Australia",
+        "region": "Australia",
+        "branch": "RAAF",
+        "unit": "No. 75 Squadron RAAF",
+        "aircraft": "F/A-18, KC-30A",
+        "runway_m": 2744,
+        "personnel": 1000,
+        "facility_code": "Tindal",
+        "role": "Northern Australia air defense, US force posture initiative",
+        "vs26_role": "Support node for USFPI enhanced logistics sustainment",
+        "scars": false,
+        "lvc_layer": "Live (air defense)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (support node) + Plug-and-Play (RAAF modules)",
+        "asda_mapping": "Act (air defense) + Sense (northern approach monitoring)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.1833,
+          18.5667
+        ]
+      },
+      "properties": {
+        "id": "PH-CAMILO",
+        "name": "NB Camilo Osias",
+        "name_cn": "卡米洛·奥西亚斯海军基地",
+        "country": "Philippines",
+        "region": "Philippines",
+        "branch": "USN/USMC",
+        "unit": "EDCA facility",
+        "aircraft": "Rotational deployment",
+        "runway_m": 0,
+        "personnel": 0,
+        "facility_code": "Camilo Osias",
+        "role": "Northern Luzon forward point, Taiwan Strait monitoring",
+        "vs26_role": "ACE forward dispersal node facing Taiwan Strait",
+        "scars": false,
+        "lvc_layer": "Live (rotational deployment)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (forward node) + Plug-and-Play (rotational modules)",
+        "asda_mapping": "Sense (Taiwan Strait ISR) + Act (forward deployment)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          121.4,
+          18.2
+        ]
+      },
+      "properties": {
+        "id": "PH-LALLO",
+        "name": "Lal-lo Airport",
+        "name_cn": "拉尔洛机场",
+        "country": "Philippines",
+        "region": "Philippines",
+        "branch": "USAF/USMC",
+        "unit": "EDCA facility",
+        "aircraft": "Rotational deployment",
+        "runway_m": 1500,
+        "personnel": 0,
+        "facility_code": "Lal-lo",
+        "role": "Northern Luzon dispersal airfield",
+        "vs26_role": "ACE dispersal airfield for Northern Luzon",
+        "scars": false,
+        "lvc_layer": "Live (rotational deployment)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (dispersal node) + Plug-and-Play (expeditionary modules)",
+        "asda_mapping": "Act (dispersed operations) + Adapt (agile repositioning)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          117.05,
+          8.0333
+        ]
+      },
+      "properties": {
+        "id": "PH-BALABAC",
+        "name": "Balabac Island",
+        "name_cn": "巴拉巴克岛",
+        "country": "Philippines",
+        "region": "Philippines",
+        "branch": "USMC",
+        "unit": "EDCA facility",
+        "aircraft": "Rotational deployment",
+        "runway_m": 0,
+        "personnel": 0,
+        "facility_code": "Balabac",
+        "role": "Southwest Pacific approach monitoring, South China Sea gateway",
+        "vs26_role": "South China Sea monitoring node",
+        "scars": false,
+        "lvc_layer": "Live (rotational deployment)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (maritime node) + Plug-and-Play (ISR modules)",
+        "asda_mapping": "Sense (SCS ISR) + Act (maritime presence)"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          145.6167,
+          15.0833
+        ]
+      },
+      "properties": {
+        "id": "CNMI-TINIAN",
+        "name": "Tinian North Field",
+        "name_cn": "天宁岛北机场",
+        "country": "CNMI",
+        "region": "Mariana Islands",
+        "branch": "USAF",
+        "unit": "ACE dispersal site",
+        "aircraft": "Rotational/expeditionary",
+        "runway_m": 2611,
+        "personnel": 0,
+        "facility_code": "Tinian",
+        "role": "ACE distributed dispersal node, Second Island Chain depth",
+        "vs26_role": "ACE distributed dispersal node - Second Island Chain depth support for Guam defense",
+        "scars": false,
+        "lvc_layer": "Constructive (planned dispersal site)",
+        "ace_hub": false,
+        "dtb_mapping": "Battle Network (depth node) + Plug-and-Play (expeditionary modules)",
+        "asda_mapping": "Adapt (dispersed operations) + Act (depth deployment)"
+      }
+    }
+  ]
+}

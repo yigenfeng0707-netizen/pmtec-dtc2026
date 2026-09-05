@@ -1,0 +1,153 @@
+{
+  "timestamp": "2026-09-04 21:18:46",
+  "target": "stealth_breakthrough >= 70%",
+  "environment": "modified (detection_range_factor=0.5, area_defense=0.15-0.25, hypersonic_boost)",
+  "stealth_breakthrough_50ep": {
+    "p6_baseline": {
+      "model": "pmtec_dqn_p6.zip",
+      "n_episodes": 50,
+      "total_missiles": 760,
+      "total_intercepted": 598,
+      "intercept_rate": 0.7868,
+      "ci_lower": 0.7563,
+      "ci_upper": 0.8145,
+      "mean_episode_rate": 0.7867,
+      "std_episode_rate": 0.0548,
+      "min_rate": 0.6667,
+      "max_rate": 0.8824
+    },
+    "p7_v2": {
+      "model": "pmtec_dqn_p7_v2.zip",
+      "n_episodes": 50,
+      "total_missiles": 747,
+      "total_intercepted": 591,
+      "intercept_rate": 0.7912,
+      "ci_lower": 0.7606,
+      "ci_upper": 0.8188,
+      "mean_episode_rate": 0.7913,
+      "std_episode_rate": 0.0567,
+      "min_rate": 0.6667,
+      "max_rate": 0.8824
+    }
+  },
+  "all_strategies_25ep": {
+    "saturation_attack": {
+      "p6": {
+        "model": "pmtec_dqn_p6.zip",
+        "n_episodes": 25,
+        "total_missiles": 1272,
+        "total_intercepted": 1009,
+        "intercept_rate": 0.7932,
+        "ci_lower": 0.7701,
+        "ci_upper": 0.8146,
+        "mean_episode_rate": 0.7935,
+        "std_episode_rate": 0.0257,
+        "min_rate": 0.7551,
+        "max_rate": 0.84
+      },
+      "p7_v2": {
+        "model": "pmtec_dqn_p7_v2.zip",
+        "n_episodes": 25,
+        "total_missiles": 1275,
+        "total_intercepted": 1017,
+        "intercept_rate": 0.7976,
+        "ci_lower": 0.7747,
+        "ci_upper": 0.8188,
+        "mean_episode_rate": 0.7979,
+        "std_episode_rate": 0.0254,
+        "min_rate": 0.7593,
+        "max_rate": 0.8431
+      }
+    },
+    "stealth_breakthrough": {
+      "p6": {
+        "model": "pmtec_dqn_p6.zip",
+        "n_episodes": 25,
+        "total_missiles": 377,
+        "total_intercepted": 298,
+        "intercept_rate": 0.7905,
+        "ci_lower": 0.7465,
+        "ci_upper": 0.8285,
+        "mean_episode_rate": 0.7905,
+        "std_episode_rate": 0.0557,
+        "min_rate": 0.6667,
+        "max_rate": 0.8824
+      },
+      "p7_v2": {
+        "model": "pmtec_dqn_p7_v2.zip",
+        "n_episodes": 25,
+        "total_missiles": 366,
+        "total_intercepted": 297,
+        "intercept_rate": 0.8115,
+        "ci_lower": 0.7682,
+        "ci_upper": 0.8482,
+        "mean_episode_rate": 0.8117,
+        "std_episode_rate": 0.0442,
+        "min_rate": 0.7333,
+        "max_rate": 0.8824
+      }
+    },
+    "electronic_warfare": {
+      "p6": {
+        "model": "pmtec_dqn_p6.zip",
+        "n_episodes": 25,
+        "total_missiles": 563,
+        "total_intercepted": 443,
+        "intercept_rate": 0.7869,
+        "ci_lower": 0.7511,
+        "ci_upper": 0.8187,
+        "mean_episode_rate": 0.7875,
+        "std_episode_rate": 0.0627,
+        "min_rate": 0.6667,
+        "max_rate": 0.875
+      },
+      "p7_v2": {
+        "model": "pmtec_dqn_p7_v2.zip",
+        "n_episodes": 25,
+        "total_missiles": 564,
+        "total_intercepted": 445,
+        "intercept_rate": 0.789,
+        "ci_lower": 0.7534,
+        "ci_upper": 0.8207,
+        "mean_episode_rate": 0.7901,
+        "std_episode_rate": 0.063,
+        "min_rate": 0.6522,
+        "max_rate": 0.875
+      }
+    },
+    "decoy_swarm": {
+      "p6": {
+        "model": "pmtec_dqn_p6.zip",
+        "n_episodes": 25,
+        "total_missiles": 1015,
+        "total_intercepted": 813,
+        "intercept_rate": 0.801,
+        "ci_lower": 0.7753,
+        "ci_upper": 0.8244,
+        "mean_episode_rate": 0.8013,
+        "std_episode_rate": 0.0291,
+        "min_rate": 0.7436,
+        "max_rate": 0.85
+      },
+      "p7_v2": {
+        "model": "pmtec_dqn_p7_v2.zip",
+        "n_episodes": 25,
+        "total_missiles": 1001,
+        "total_intercepted": 803,
+        "intercept_rate": 0.8022,
+        "ci_lower": 0.7764,
+        "ci_upper": 0.8257,
+        "mean_episode_rate": 0.8026,
+        "std_episode_rate": 0.0274,
+        "min_rate": 0.7561,
+        "max_rate": 0.85
+      }
+    }
+  },
+  "summary": {
+    "p6_stealth_rate": 0.7868,
+    "p7_v2_stealth_rate": 0.7912,
+    "improvement": 0.0044,
+    "target_met": true
+  }
+}

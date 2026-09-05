@@ -1,0 +1,73 @@
+{
+  "model_file": "pmtec_maddpg_dispersal.pt",
+  "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_maddpg_dispersal.pt",
+  "file_hash": "c33842468e8a8e59",
+  "file_size_bytes": 130325,
+  "created_at": 1788569683.5241122,
+  "created_at_iso": "2026-09-05T00:54:43",
+  "algorithm": "MADDPG",
+  "role": "dispersal",
+  "timesteps": 53000,
+  "obs_dim": 182,
+  "n_actions": 3,
+  "device": "xpu:0",
+  "training_time_sec": 234.9,
+  "notes": "P8-v3 batch training: +5000 steps (total 53000, incremental resume)",
+  "inference": "{'intercept': 2, 'dispersal': 2}",
+  "version_history": [
+    {
+      "version": 1,
+      "previous_hash": "75d185a5a7cdda84",
+      "previous_timesteps": 6000,
+      "updated_at": 1788538797.8509345
+    },
+    {
+      "version": 2,
+      "previous_hash": "abd9c7657f94796e",
+      "previous_timesteps": 10000,
+      "updated_at": 1788567201.9680822
+    },
+    {
+      "version": 3,
+      "previous_hash": "4e4b0f8ac8b02929",
+      "previous_timesteps": 20000,
+      "updated_at": 1788567438.4864876
+    },
+    {
+      "version": 4,
+      "previous_hash": "e73b98c61f2bf3bd",
+      "previous_timesteps": 23000,
+      "updated_at": 1788567824.3437028
+    },
+    {
+      "version": 5,
+      "previous_hash": "481424ab8c900303",
+      "previous_timesteps": 28000,
+      "updated_at": 1788568123.9964645
+    },
+    {
+      "version": 6,
+      "previous_hash": "2ca3b93cc5359d57",
+      "previous_timesteps": 33000,
+      "updated_at": 1788568441.2958918
+    },
+    {
+      "version": 7,
+      "previous_hash": "8bd4bec726184d6d",
+      "previous_timesteps": 38000,
+      "updated_at": 1788568823.6435573
+    },
+    {
+      "version": 8,
+      "previous_hash": "ce1f4fd3b1c4eebb",
+      "previous_timesteps": 43000,
+      "updated_at": 1788569138.756224
+    },
+    {
+      "version": 9,
+      "previous_hash": "3183ea76240f2637",
+      "previous_timesteps": 48000,
+      "updated_at": 1788569683.526954
+    }
+  ]
+}

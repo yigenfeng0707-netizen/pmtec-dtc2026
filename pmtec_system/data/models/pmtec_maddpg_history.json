@@ -1,0 +1,23 @@
+[
+  {
+    "algorithm": "MADDPG",
+    "timesteps": 3000,
+    "elapsed_seconds": 49.6,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "hidden_actor": 128,
+    "hidden_critic": 256,
+    "gamma": 0.95,
+    "tau": 0.005,
+    "batch_size": 128,
+    "buffer_used": 3000,
+    "avg_reward_last_10": 846.25,
+    "total_episodes": 250,
+    "timestamp": 1788571289.7762222
+  }
+]

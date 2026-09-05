@@ -1,0 +1,38 @@
+{
+  "timestamp": 1788565374.3323956,
+  "use_real_api": true,
+  "elapsed_sec": 7.63,
+  "adsb_count": 413,
+  "ais_count": 20,
+  "weather_count": 8,
+  "status": "PASS",
+  "sample_adsb": {
+    "sensor_id": "ADSB-851914",
+    "callsign": "JAL107",
+    "lat": 35.5403,
+    "lon": 139.7869,
+    "alt_m": 0.0,
+    "heading_deg": 149.06,
+    "speed_kmh": 48.168000000000006,
+    "affiliation": "neutral"
+  },
+  "sample_weather": {
+    "sensor_id": "WX-PEARL",
+    "sensor_type": "weather",
+    "lat": "21.36",
+    "lon": "-157.95",
+    "alt_m": "0.0",
+    "heading_deg": "62",
+    "speed_kmh": "23.5",
+    "callsign": "Pearl Harbor",
+    "affiliation": "friendly",
+    "confidence": "1.0",
+    "timestamp": "1788565368",
+    "raw_data": "{'temperature_c': '29.0', 'cloud_cover_pct': '23', 'precipitation_mm': '0.0', 'visibility_km': '21880.0', 'weather_code': '1', 'weather_desc': 'Mainly clear'}"
+  },
+  "simulation_comparison": {
+    "adsb_count": 15,
+    "weather_count": 8,
+    "elapsed_sec": 0.0
+  }
+}

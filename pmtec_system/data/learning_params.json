@@ -1,0 +1,1925 @@
+{
+  "ucb1": {
+    "total_rounds": 0,
+    "counts": {
+      "direct": 5,
+      "predictive": 88,
+      "saturation": 2
+    },
+    "rewards": {
+      "direct": 5.0,
+      "predictive": 88.0,
+      "saturation": 2.0
+    },
+    "success_rates": {
+      "direct": 1.0,
+      "predictive": 1.0,
+      "saturation": 1.0
+    },
+    "best_strategy": "direct",
+    "last_choice": "direct",
+    "history": [
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      },
+      {
+        "round": 0,
+        "strategy": "predictive",
+        "reward": 1.0,
+        "avg_reward": 1.0
+      }
+    ]
+  },
+  "qlearn": {
+    "alpha": 0.15,
+    "gamma": 0.92,
+    "epsilon": 0.05,
+    "epsilon_min": 0.05,
+    "epsilon_decay": 0.95,
+    "training_rounds": 45,
+    "q_table": {
+      "JP-YOKOTA|west": {
+        "JP-YOKOSUKA": 0.0
+      },
+      "JP-YOKOTA|dqn": {
+        "GU-ANDERSEN": 0.0
+      },
+      "JP-KADENA|dqn": {
+        "GU-ANDERSEN": 0.0
+      },
+      "GU-ANDERSEN|dqn": {
+        "JP-YOKOTA": 0.0
+      },
+      "KR-HUMPHREYS|dqn": {
+        "GU-ANDERSEN": 0.0
+      },
+      "KR-OSAN|dqn": {
+        "GU-ANDERSEN": 0.0
+      }
+    },
+    "policy": {
+      "JP-YOKOTA|west": "JP-YOKOSUKA",
+      "JP-YOKOTA|dqn": "GU-ANDERSEN",
+      "JP-KADENA|dqn": "GU-ANDERSEN",
+      "GU-ANDERSEN|dqn": "JP-YOKOTA",
+      "KR-HUMPHREYS|dqn": "GU-ANDERSEN",
+      "KR-OSAN|dqn": "GU-ANDERSEN"
+    }
+  },
+  "sensor_opt": {
+    "perturbation_strength": 0.15,
+    "base_priorities": {
+      "JP-MISAWA": 0.0476,
+      "JP-YOKOTA": 0.0352,
+      "JP-KADENA": 0.0476,
+      "JP-FUTENMA": 0.0476,
+      "JP-SASEBO": 0.0476,
+      "JP-YOKOSUKA": 0.0352,
+      "JP-IWAKUNI": 0.0476,
+      "GU-ANDERSEN": 0.0476,
+      "GU-APRA": 0.0476,
+      "KR-HUMPHREYS": 0.0476,
+      "KR-OSAN": 0.0476,
+      "KR-KUNSAN": 0.0476,
+      "HI-PHICKAM": 0.0368,
+      "HI-SCHOFIELD": 0.0368,
+      "AK-JBER": 0.0476,
+      "AK-EIELSON": 0.0476,
+      "AU-DARWIN": 0.0476,
+      "AU-TINDAL": 0.0476,
+      "PH-CAMILO": 0.0476,
+      "PH-LALLO": 0.0476,
+      "PH-BALABAC": 0.0476,
+      "CNMI-TINIAN": 0.0476
+    },
+    "adjustment_rounds": 45,
+    "coverage_history": [
+      {
+        "round": 1,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 2,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 3,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 4,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 5,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 6,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 7,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 8,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 9,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 10,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 11,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 12,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 13,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 14,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 15,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 16,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 17,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 18,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 19,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 20,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 21,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 22,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 23,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 24,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 25,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 26,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 27,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 28,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 29,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 30,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 31,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 32,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 33,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 34,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 35,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 36,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 37,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 38,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 39,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 40,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 41,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 42,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 43,
+        "coverage": {
+          "JP-MISAWA": 1.0,
+          "JP-YOKOTA": 1.0,
+          "JP-KADENA": 1.0,
+          "JP-FUTENMA": 1.0,
+          "JP-SASEBO": 1.0,
+          "JP-YOKOSUKA": 1.0,
+          "JP-IWAKUNI": 1.0,
+          "GU-ANDERSEN": 1.0,
+          "GU-APRA": 1.0,
+          "KR-HUMPHREYS": 1.0,
+          "KR-OSAN": 1.0,
+          "KR-KUNSAN": 1.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 1.0,
+          "AK-EIELSON": 1.0,
+          "AU-DARWIN": 1.0,
+          "AU-TINDAL": 1.0,
+          "PH-CAMILO": 1.0,
+          "PH-LALLO": 1.0,
+          "PH-BALABAC": 1.0,
+          "CNMI-TINIAN": 1.0
+        }
+      },
+      {
+        "round": 44,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.0,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.0,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 1.0,
+          "HI-SCHOFIELD": 1.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      },
+      {
+        "round": 45,
+        "coverage": {
+          "JP-MISAWA": 0.0,
+          "JP-YOKOTA": 0.333,
+          "JP-KADENA": 0.0,
+          "JP-FUTENMA": 0.0,
+          "JP-SASEBO": 0.0,
+          "JP-YOKOSUKA": 0.333,
+          "JP-IWAKUNI": 0.0,
+          "GU-ANDERSEN": 0.0,
+          "GU-APRA": 0.0,
+          "KR-HUMPHREYS": 0.0,
+          "KR-OSAN": 0.0,
+          "KR-KUNSAN": 0.0,
+          "HI-PHICKAM": 0.0,
+          "HI-SCHOFIELD": 0.0,
+          "AK-JBER": 0.0,
+          "AK-EIELSON": 0.0,
+          "AU-DARWIN": 0.0,
+          "AU-TINDAL": 0.0,
+          "PH-CAMILO": 0.0,
+          "PH-LALLO": 0.0,
+          "PH-BALABAC": 0.0,
+          "CNMI-TINIAN": 0.0
+        }
+      }
+    ]
+  },
+  "cycle_history": [
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 45,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    },
+    {
+      "cycle": 4,
+      "intercept_attempts": 0,
+      "intercept_successes": 0,
+      "active_entities": 45,
+      "sim_seconds": 40.0
+    },
+    {
+      "cycle": 8,
+      "intercept_attempts": 1,
+      "intercept_successes": 1,
+      "active_entities": 46,
+      "sim_seconds": 80.0
+    },
+    {
+      "cycle": 12,
+      "intercept_attempts": 2,
+      "intercept_successes": 2,
+      "active_entities": 45,
+      "sim_seconds": 120.0
+    },
+    {
+      "cycle": 16,
+      "intercept_attempts": 3,
+      "intercept_successes": 3,
+      "active_entities": 46,
+      "sim_seconds": 160.0
+    },
+    {
+      "cycle": 20,
+      "intercept_attempts": 5,
+      "intercept_successes": 5,
+      "active_entities": 48,
+      "sim_seconds": 200.0
+    }
+  ],
+  "baseline_intercept_rate": 0.0,
+  "baseline_loss_rate": 0.0,
+  "last_saved": 1788534689.740264
+}

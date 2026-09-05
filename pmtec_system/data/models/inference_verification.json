@@ -1,0 +1,13 @@
+{
+  "timestamp": 1788538838.728882,
+  "device": "xpu:0",
+  "obs_dim": 182,
+  "iql": {
+    "intercept": "2",
+    "dispersal": "1"
+  },
+  "maddpg": {
+    "intercept": "0",
+    "dispersal": "2"
+  }
+}

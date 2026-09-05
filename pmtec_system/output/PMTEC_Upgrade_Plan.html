@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMTEC 生产级交付升级计划 — 冠军品质路线图</title>
+<style>
+:root {
+  --bg-deep: #0a0e1a;
+  --bg-surface: #131927;
+  --bg-card: #1a2138;
+  --bg-hover: #222b45;
+  --border: #2a3454;
+  --border-light: #364060;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent: #4a9eff;
+  --accent-dim: #2b6cb0;
+  --p0: #ef4444;
+  --p0-bg: rgba(239,68,68,0.12);
+  --p0-border: rgba(239,68,68,0.35);
+  --p1: #fbbf24;
+  --p1-bg: rgba(251,191,36,0.12);
+  --p1-border: rgba(251,191,36,0.35);
+  --p2: #38bdf8;
+  --p2-bg: rgba(56,189,248,0.12);
+  --p2-border: rgba(56,189,248,0.35);
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --danger: #ef4444;
+  --mono: 'Consolas','SF Mono','Fira Code','Courier New',monospace;
+  --sans: -apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Microsoft YaHei',sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg-deep); color:var(--text-primary); font-family:var(--sans); font-size:14px; line-height:1.6; }
+.container { max-width:1280px; margin:0 auto; padding:24px; }
+
+/* Header */
+.header { text-align:center; padding:40px 24px 32px; border-bottom:1px solid var(--border); margin-bottom:32px; }
+.header h1 { font-size:28px; font-weight:700; letter-spacing:1px; margin-bottom:8px; }
+.header .subtitle { font-size:14px; color:var(--text-secondary); }
+.header .badge-row { display:flex; justify-content:center; gap:12px; margin-top:16px; flex-wrap:wrap; }
+.header .stat-badge { background:var(--bg-card); border:1px solid var(--border-light); border-radius:8px; padding:8px 16px; }
+.header .stat-badge .val { font-size:20px; font-weight:700; font-family:var(--mono); }
+.header .stat-badge .lbl { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
+.header .stat-badge .val.p0 { color:var(--p0); }
+.header .stat-badge .val.p1 { color:var(--p1); }
+.header .stat-badge .val.p2 { color:var(--p2); }
+
+/* Nav tabs */
+.nav-tabs { display:flex; gap:4px; margin-bottom:24px; border-bottom:1px solid var(--border); padding-bottom:0; flex-wrap:wrap; }
+.nav-tab { background:transparent; border:none; color:var(--text-muted); padding:10px 20px; cursor:pointer; font-size:14px; font-family:var(--sans); border-bottom:2px solid transparent; transition:all 0.2s; }
+.nav-tab:hover { color:var(--text-secondary); background:var(--bg-surface); }
+.nav-tab.active { color:var(--accent); border-bottom-color:var(--accent); }
+
+/* Sections */
+.section { display:none; }
+.section.active { display:block; }
+.section-title { font-size:18px; font-weight:600; margin-bottom:20px; padding-left:12px; border-left:3px solid var(--accent); }
+
+/* Gantt */
+.gantt-wrap { overflow-x:auto; background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:20px; }
+.gantt-grid { display:grid; grid-template-columns:220px repeat(12,1fr); gap:0; min-width:1000px; }
+.gantt-week-hdr { text-align:center; font-size:11px; color:var(--text-muted); padding:6px 0; border-bottom:1px solid var(--border); font-family:var(--mono); }
+.gantt-week-hdr.phase-p0 { color:var(--p0); }
+.gantt-week-hdr.phase-p1 { color:var(--p1); }
+.gantt-week-hdr.phase-p2 { color:var(--p2); }
+.gantt-task-name { font-size:12px; color:var(--text-secondary); padding:8px 12px 8px 0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:6px; }
+.gantt-task-name .pri-dot { width:8px; height:8px; border-radius:50%; flex-shrink:0; }
+.gantt-row { border-bottom:1px solid var(--border); position:relative; height:36px; grid-column:2 / -1; display:grid; grid-template-columns:repeat(12,1fr); }
+.gantt-bar { height:20px; margin:8px 0; border-radius:4px; display:flex; align-items:center; padding:0 8px; font-size:11px; font-weight:500; white-space:nowrap; overflow:hidden; cursor:pointer; transition:opacity 0.2s; }
+.gantt-bar:hover { opacity:0.85; }
+.gantt-bar.p0 { background:var(--p0-bg); border:1px solid var(--p0-border); color:var(--p0); }
+.gantt-bar.p1 { background:var(--p1-bg); border:1px solid var(--p1-border); color:var(--p1); }
+.gantt-bar.p2 { background:var(--p2-bg); border:1px solid var(--p2-border); color:var(--p2); }
+
+/* Phase cards */
+.phase-section { margin-bottom:32px; }
+.phase-header { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+.phase-header .phase-tag { font-size:13px; font-weight:700; padding:4px 12px; border-radius:6px; font-family:var(--mono); }
+.phase-header .phase-tag.p0 { background:var(--p0-bg); color:var(--p0); border:1px solid var(--p0-border); }
+.phase-header .phase-tag.p1 { background:var(--p1-bg); color:var(--p1); border:1px solid var(--p1-border); }
+.phase-header .phase-tag.p2 { background:var(--p2-bg); color:var(--p2); border:1px solid var(--p2-border); }
+.phase-header h3 { font-size:16px; font-weight:600; }
+.phase-header .phase-time { font-size:12px; color:var(--text-muted); font-family:var(--mono); margin-left:auto; }
+
+.gap-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(380px,1fr)); gap:16px; }
+.gap-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; transition:border-color 0.2s; }
+.gap-card:hover { border-color:var(--border-light); }
+.gap-card-header { padding:16px 20px; cursor:pointer; display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+.gap-card-header .gap-info { flex:1; }
+.gap-card-header .gap-num { font-size:11px; color:var(--text-muted); font-family:var(--mono); margin-bottom:2px; }
+.gap-card-header .gap-name { font-size:15px; font-weight:600; color:var(--text-primary); }
+.gap-card-header .pri-badge { font-size:10px; font-weight:600; padding:3px 10px; border-radius:20px; white-space:nowrap; font-family:var(--mono); }
+.gap-card-header .pri-badge.p0 { background:var(--p0-bg); color:var(--p0); }
+.gap-card-header .pri-badge.p1 { background:var(--p1-bg); color:var(--p1); }
+.gap-card-header .pri-badge.p2 { background:var(--p2-bg); color:var(--p2); }
+.gap-card-header .expand-icon { color:var(--text-muted); transition:transform 0.2s; font-size:12px; }
+.gap-card.expanded .expand-icon { transform:rotate(90deg); }
+.gap-card-body { display:none; padding:0 20px 20px; }
+.gap-card.expanded .gap-card-body { display:block; }
+.gap-card-body .state-block { margin-bottom:12px; }
+.gap-card-body .state-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+.gap-card-body .state-text { font-size:13px; color:var(--text-secondary); line-height:1.6; }
+.gap-card-body .task-list { list-style:none; margin:12px 0; padding:12px 0 0; border-top:1px solid var(--border); }
+.gap-card-body .task-list li { font-size:12px; color:var(--text-secondary); padding:6px 0 6px 16px; position:relative; line-height:1.6; }
+.gap-card-body .task-list li::before { content:''; position:absolute; left:0; top:13px; width:5px; height:5px; border-radius:50%; background:var(--border-light); }
+.gap-card-body .task-list li .task-week { color:var(--text-muted); font-family:var(--mono); font-size:10px; margin-left:6px; }
+.gap-card-body .verify-block { margin-top:12px; padding:12px; background:var(--bg-deep); border-radius:8px; border:1px solid var(--border); }
+.gap-card-body .verify-label { font-size:11px; color:var(--success); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; display:flex; align-items:center; gap:6px; }
+.gap-card-body .verify-text { font-size:12px; color:var(--text-secondary); }
+.gap-card-body .meta-row { display:flex; gap:16px; margin-top:12px; padding-top:12px; border-top:1px solid var(--border); flex-wrap:wrap; }
+.gap-card-body .meta-item { font-size:11px; }
+.gap-card-body .meta-item .meta-lbl { color:var(--text-muted); }
+.gap-card-body .meta-item .meta-val { color:var(--text-secondary); font-weight:500; }
+.gap-card-body .meta-item .meta-val.high { color:var(--danger); }
+.gap-card-body .meta-item .meta-val.medium { color:var(--warning); }
+.gap-card-body .meta-item .meta-val.low { color:var(--success); }
+
+/* Checklist */
+.checklist-wrap { display:grid; grid-template-columns:repeat(auto-fit,minmax(400px,1fr)); gap:20px; }
+.checklist-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+.checklist-card-hdr { padding:14px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+.checklist-card-hdr .cl-title { font-size:14px; font-weight:600; }
+.checklist-card-hdr .cl-progress { font-size:12px; font-family:var(--mono); color:var(--text-muted); }
+.checklist-progress-bar { height:4px; background:var(--bg-deep); position:relative; }
+.checklist-progress-bar .fill { height:100%; background:var(--accent); transition:width 0.3s; }
+.checklist-items { padding:8px 0; }
+.checklist-item { display:flex; align-items:flex-start; gap:10px; padding:10px 20px; cursor:pointer; transition:background 0.15s; }
+.checklist-item:hover { background:var(--bg-hover); }
+.checklist-item .cb { width:18px; height:18px; border:1.5px solid var(--border-light); border-radius:4px; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; transition:all 0.15s; }
+.checklist-item.done .cb { background:var(--success); border-color:var(--success); }
+.checklist-item.done .cb::after { content:''; width:8px; height:5px; border-left:2px solid var(--bg-deep); border-bottom:2px solid var(--bg-deep); transform:rotate(-45deg) translateY(-1px); }
+.checklist-item .ci-text { font-size:13px; color:var(--text-secondary); line-height:1.5; }
+.checklist-item.done .ci-text { color:var(--text-muted); text-decoration:line-through; }
+
+/* Risk Matrix */
+.risk-matrix { display:grid; grid-template-columns:80px repeat(3,1fr); gap:4px; background:var(--bg-surface); border:1px solid var(--border); border-radius:12px; padding:20px; max-width:700px; margin:0 auto; }
+.risk-matrix .rm-corner { }
+.risk-matrix .rm-axis { font-size:11px; color:var(--text-muted); text-transform:uppercase; text-align:center; padding:8px 0; font-weight:600; }
+.risk-matrix .rm-yaxis { font-size:11px; color:var(--text-muted); text-transform:uppercase; writing-mode:vertical-lr; transform:rotate(180deg); text-align:center; display:flex; align-items:center; justify-content:center; font-weight:600; }
+.risk-cell { border-radius:8px; padding:12px; min-height:100px; display:flex; flex-direction:column; gap:6px; }
+.risk-cell.low-low { background:rgba(74,222,128,0.06); border:1px solid rgba(74,222,128,0.15); }
+.risk-cell.low-med { background:rgba(74,222,128,0.04); border:1px solid rgba(251,191,36,0.12); }
+.risk-cell.low-high { background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.2); }
+.risk-cell.med-low { background:rgba(74,222,128,0.04); border:1px solid rgba(251,191,36,0.12); }
+.risk-cell.med-med { background:rgba(251,191,36,0.08); border:1px solid rgba(251,191,36,0.2); }
+.risk-cell.med-high { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); }
+.risk-cell.high-low { background:rgba(251,191,36,0.06); border:1px solid rgba(251,191,36,0.2); }
+.risk-cell.high-med { background:rgba(239,68,68,0.06); border:1px solid rgba(239,68,68,0.2); }
+.risk-cell.high-high { background:rgba(239,68,68,0.1); border:1px solid rgba(239,68,68,0.3); }
+.risk-item { font-size:11px; color:var(--text-secondary); padding:6px 8px; background:var(--bg-deep); border-radius:6px; line-height:1.4; }
+.risk-item .ri-name { display:block; font-weight:500; margin-bottom:2px; }
+.risk-item .ri-mit { color:var(--text-muted); font-size:10px; }
+.risk-legend { display:flex; justify-content:center; gap:24px; margin-top:16px; flex-wrap:wrap; }
+.risk-legend .lg-item { display:flex; align-items:center; gap:6px; font-size:12px; color:var(--text-secondary); }
+.risk-legend .lg-dot { width:10px; height:10px; border-radius:50%; }
+
+/* Responsive */
+@media (max-width:768px) {
+  .header h1 { font-size:22px; }
+  .gap-grid { grid-template-columns:1fr; }
+  .checklist-wrap { grid-template-columns:1fr; }
+  .risk-matrix { grid-template-columns:60px repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <h1>PMTEC 生产级交付升级计划</h1>
+  <div class="subtitle">Digital Battlefield System — 从竞赛原型到冠军品质的完整路线图</div>
+  <div class="badge-row">
+    <div class="stat-badge"><div class="lbl">整体就绪度</div><div class="val">65% → 95%+</div></div>
+    <div class="stat-badge"><div class="lbl">差距领域</div><div class="val">7 项</div></div>
+    <div class="stat-badge"><div class="lbl">关键 P0</div><div class="val p0">2 项</div></div>
+    <div class="stat-badge"><div class="lbl">高优 P1</div><div class="val p1">3 项</div></div>
+    <div class="stat-badge"><div class="lbl">中优 P2</div><div class="val p2">2 项</div></div>
+    <div class="stat-badge"><div class="lbl">总工期</div><div class="val">12 周</div></div>
+  </div>
+</div>
+
+<div class="nav-tabs">
+  <button class="nav-tab active" data-tab="gantt">阶段甘特图</button>
+  <button class="nav-tab" data-tab="cards">差距详情</button>
+  <button class="nav-tab" data-tab="checklist">验收检查清单</button>
+  <button class="nav-tab" data-tab="risks">风险评估</button>
+</div>
+
+<!-- ============ GANTT ============ -->
+<div class="section active" id="sec-gantt">
+  <div class="section-title">12 周分阶段实施甘特图</div>
+  <div class="gantt-wrap">
+    <div class="gantt-grid">
+      <div></div>
+      <div class="gantt-week-hdr phase-p0">W1</div><div class="gantt-week-hdr phase-p0">W2</div><div class="gantt-week-hdr phase-p0">W3</div><div class="gantt-week-hdr phase-p0">W4</div>
+      <div class="gantt-week-hdr phase-p1">W5</div><div class="gantt-week-hdr phase-p1">W6</div><div class="gantt-week-hdr phase-p1">W7</div><div class="gantt-week-hdr phase-p1">W8</div>
+      <div class="gantt-week-hdr phase-p2">W9</div><div class="gantt-week-hdr phase-p2">W10</div><div class="gantt-week-hdr phase-p2">W11</div><div class="gantt-week-hdr phase-p2">W12</div>
+
+      <!-- GAP 01 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p0)"></span>GAP 01 拦截率稳定性验证</div>
+      <div class="gantt-row"><div class="gantt-bar p0" style="grid-column:1 / span 3" title="W1-W3">Monte Carlo 验证框架 + 多样化对手策略 + 置信区间统计</div></div>
+      <!-- GAP 02 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p0)"></span>GAP 02 安全与认证体系</div>
+      <div class="gantt-row"><div class="gantt-bar p0" style="grid-column:1 / span 4" title="W1-W4">mTLS + JWT + RBAC + 审计日志</div></div>
+      <!-- GAP 03 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p1)"></span>GAP 03 多智能体协同重构</div>
+      <div class="gantt-row"><div class="gantt-bar p1" style="grid-column:5 / span 4" title="W5-W8">182维适配 + CTDE + 协作奖励 + 500K步训练</div></div>
+      <!-- GAP 04 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p1)"></span>GAP 04 gRPC 服务高可用</div>
+      <div class="gantt-row"><div class="gantt-bar p1" style="grid-column:5 / span 2" title="W5-W6">服务注册发现 + 连接池 + 优雅停机</div></div>
+      <!-- GAP 05 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p1)"></span>GAP 05 实时数据真实接入</div>
+      <div class="gantt-row"><div class="gantt-bar p1" style="grid-column:6 / span 3" title="W6-W8">AIS + ADSB + 气象API + 故障切换</div></div>
+      <!-- GAP 06 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p2)"></span>GAP 06 可观测性与运维</div>
+      <div class="gantt-row"><div class="gantt-bar p2" style="grid-column:9 / span 2" title="W9-W10">Prometheus + 结构化日志 + 分布式追踪</div></div>
+      <!-- GAP 07 -->
+      <div class="gantt-task-name"><span class="pri-dot" style="background:var(--p2)"></span>GAP 07 CI/CD 与自动化部署</div>
+      <div class="gantt-row"><div class="gantt-bar p2" style="grid-column:10 / span 3" title="W10-W12">CI流水线 + 自动化测试 + 蓝绿部署</div></div>
+      <!-- Milestone -->
+      <div class="gantt-task-name" style="color:var(--success)"><span class="pri-dot" style="background:var(--success)"></span>M1 P0 里程碑</div>
+      <div class="gantt-row"><div class="gantt-bar" style="grid-column:4 / span 1; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.35); color:var(--success); justify-content:center;" title="W4">M1</div></div>
+      <div class="gantt-task-name" style="color:var(--success)"><span class="pri-dot" style="background:var(--success)"></span>M2 P1 里程碑</div>
+      <div class="gantt-row"><div class="gantt-bar" style="grid-column:8 / span 1; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.35); color:var(--success); justify-content:center;" title="W8">M2</div></div>
+      <div class="gantt-task-name" style="color:var(--success)"><span class="pri-dot" style="background:var(--success)"></span>M3 生产就绪</div>
+      <div class="gantt-row"><div class="gantt-bar" style="grid-column:12 / span 1; background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.35); color:var(--success); justify-content:center;" title="W12">M3</div></div>
+    </div>
+  </div>
+  <div style="margin-top:16px; display:flex; gap:24px; flex-wrap:wrap; font-size:12px; color:var(--text-muted);">
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:3px;background:var(--p0-bg);border:1px solid var(--p0-border)"></span>P0 关键 (W1-W4)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:3px;background:var(--p1-bg);border:1px solid var(--p1-border)"></span>P1 高优 (W5-W8)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:3px;background:var(--p2-bg);border:1px solid var(--p2-border)"></span>P2 中优 (W9-W12)</span>
+    <span style="display:flex;align-items:center;gap:6px"><span style="width:14px;height:8px;border-radius:3px;background:rgba(74,222,128,0.12);border:1px solid rgba(74,222,128,0.35)"></span>里程碑</span>
+  </div>
+</div>
+
+<!-- ============ CARDS ============ -->
+<div class="section" id="sec-cards">
+  <div class="section-title">7 项差距领域详细方案</div>
+
+  <!-- Phase 0 -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-tag p0">P0</span>
+      <h3>关键基础阶段 (Week 1-4)</h3>
+      <span class="phase-time">4 周 · 2 项并行</span>
+    </div>
+    <div class="gap-grid">
+
+      <div class="gap-card" data-gap="01">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 01</div>
+            <div class="gap-name">拦截率稳定性验证</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p0">P0 关键</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">3 seed × 4 枚导弹 = 75%，样本量极小，单一对手策略，无置信区间</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">100+ episode、20+ 枚导弹、4 种对手策略下 95% CI 下界 > 70%</div>
+          </div>
+          <ul class="task-list">
+            <li>搭建 Monte Carlo 批量验证框架（多进程并行）<span class="task-week">W1</span></li>
+            <li>实现 4 种多样化对手策略：饱和攻击 / 隐身突防 / 电子干扰 / 诱饵弹群<span class="task-week">W2</span></li>
+            <li>Wilson 置信区间 + Bootstrap 统计报告生成<span class="task-week">W3</span></li>
+            <li>极端场景：多方向同时攻击 + 诱饵分散拦截资源<span class="task-week">W3</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">100 episode 均值拦截率 > 75%；95% CI 下界 > 70%；4 种策略各自 CI 下界 > 65%</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">DQN P6 模型 / pmtec-xpu</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val low">低</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">3 周</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-card" data-gap="02">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 02</div>
+            <div class="gap-name">安全与认证体系</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p0">P0 关键</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">gRPC/REST API 无认证、无 TLS、无 RBAC、无审计，完全裸奔</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">mTLS 双向认证 + JWT 令牌 + 三级 RBAC + 不可篡改审计链</div>
+          </div>
+          <ul class="task-list">
+            <li>生成 CA/Server/Client 证书，gRPC 添加 SSL/TLS Context<span class="task-week">W1-W2</span></li>
+            <li>JWT 令牌签发端点 + Token 校验拦截器 + 刷新机制<span class="task-week">W2-W3</span></li>
+            <li>RBAC 三级角色：指挥员(全权) / 操作员(运行级) / 观察员(只读)<span class="task-week">W3</span></li>
+            <li>操作审计日志：结构化记录 + Hash 链防篡改 + 查询 API<span class="task-week">W4</span></li>
+            <li>证书自动轮换机制（30 天到期前自动续签）<span class="task-week">W4</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">无 JWT 令牌的请求被拒绝；RBAC 阻断越权操作；审计日志完整记录全部 API 调用</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">grpc_server.py / proto / OpenSSL</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val medium">中</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">4 周</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Phase 1 -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-tag p1">P1</span>
+      <h3>系统加固阶段 (Week 5-8)</h3>
+      <span class="phase-time">4 周 · 3 项并行</span>
+    </div>
+    <div class="gap-grid">
+
+      <div class="gap-card" data-gap="03">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 03</div>
+            <div class="gap-name">多智能体协同重构</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p1">P1 高优</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">IQL/MADDPG 旧 122 维模型与 P6 182 维不兼容，优雅降级为单智能体</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">多平台协同拦截，Agent 间目标分配与区域分工，拦截率超过单智能体</div>
+          </div>
+          <ul class="task-list">
+            <li>182 维环境适配多智能体：per-agent 观测分解<span class="task-week">W5</span></li>
+            <li>协作奖励函数：共享拦截信用 + 区域覆盖 + 防碰撞<span class="task-week">W6</span></li>
+            <li>CTDE 架构：集中训练 Critic + 分布执行 Actor<span class="task-week">W7</span></li>
+            <li>500K 步 XPU 训练，2-Agent / 4-Agent 配置验证<span class="task-week">W8</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">多智能体拦截率 > 单智能体 DQN；无 Agent 碰撞；2-Agent 和 4-Agent 均可收敛</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">pmtec_env.py / pmtec-xpu</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val high">高</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">4 周</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-card" data-gap="04">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 04</div>
+            <div class="gap-name">gRPC 服务高可用</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p1">P1 高优</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">单实例、无健康检查、无重连、无连接池，重启即中断</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">多实例负载均衡、健康检查、自动重连 < 5s、零中断部署</div>
+          </div>
+          <ul class="task-list">
+            <li>服务注册发现（etcd/Consul）+ gRPC health check<span class="task-week">W5</span></li>
+            <li>客户端连接池 + Round-robin 负载均衡 + 指数退避重连<span class="task-week">W6</span></li>
+            <li>优雅停机：SIGTERM → 排空请求 → 零中断部署<span class="task-week">W6</span></li>
+            <li>Circuit Breaker 模式：故障自动熔断与恢复<span class="task-week">W6</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">服务重启 downtime < 1s；客户端自动重连 < 5s；Circuit Breaker 在 3 次失败后触发</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">grpcio-health-checking</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val low">低</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">2 周</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-card" data-gap="05">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 05</div>
+            <div class="gap-name">实时数据真实接入</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p1">P1 高优</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">AIS/ADSB/气象均为模拟数据生成器，无真实传感器对接</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">真实 API 对接 + 数据质量校验 + 主备源故障切换 < 10s</div>
+          </div>
+          <ul class="task-list">
+            <li>AIS 实时流接入（MarineTraffic API / 本地基站 NMEA 解析）<span class="task-week">W6</span></li>
+            <li>ADSB 真实数据源（Dump1090 / FlightAware Mode S 解析）<span class="task-week">W7</span></li>
+            <li>气象 API 对接（WRF 模型 / 气象局接口 → 仿真网格插值）<span class="task-week">W8</span></li>
+            <li>数据质量校验管道 + 异常检测 + 主备源自动切换<span class="task-week">W8</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">真实数据流通过系统全链路；数据源故障后 < 10s 切换到备用源</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">外部 API 访问权限</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val medium">中</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">3 周</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Phase 2 -->
+  <div class="phase-section">
+    <div class="phase-header">
+      <span class="phase-tag p2">P2</span>
+      <h3>生产运维阶段 (Week 9-12)</h3>
+      <span class="phase-time">4 周 · 2 项并行</span>
+    </div>
+    <div class="gap-grid">
+
+      <div class="gap-card" data-gap="06">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 06</div>
+            <div class="gap-name">可观测性与运维</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p2">P2 中优</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">基础 print 日志、无指标采集、无分布式追踪、无告警</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">Prometheus 指标 + 结构化日志 + OpenTelemetry 追踪 + 告警</div>
+          </div>
+          <ul class="task-list">
+            <li>Prometheus 指标采集 + Grafana 面板模板<span class="task-week">W9</span></li>
+            <li>结构化 JSON 日志（ELK / Loki 聚合）<span class="task-week">W9</span></li>
+            <li>OpenTelemetry 分布式追踪（gRPC Interceptor）<span class="task-week">W10</span></li>
+            <li>关键指标告警：拦截率 / 延迟 / 错误率 / 服务健康<span class="task-week">W10</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">所有指标在 Grafana 可视化；追踪覆盖完整请求生命周期；告警触发 < 1min</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">Prometheus / Grafana / OTel</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val low">低</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">2 周</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="gap-card" data-gap="07">
+        <div class="gap-card-header" onclick="toggleCard(this)">
+          <div class="gap-info">
+            <div class="gap-num">GAP 07</div>
+            <div class="gap-name">CI/CD 与自动化部署</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px"><span class="pri-badge p2">P2 中优</span><span class="expand-icon">▶</span></div>
+        </div>
+        <div class="gap-card-body">
+          <div class="state-block">
+            <div class="state-label">现状</div>
+            <div class="state-text">Dockerfile 就绪、无 CI 流水线、无自动化测试、无部署策略</div>
+          </div>
+          <div class="state-block">
+            <div class="state-label">目标</div>
+            <div class="state-text">完整 CI/CD + 三层测试覆盖 > 80% + 蓝绿部署 + 一键回滚</div>
+          </div>
+          <ul class="task-list">
+            <li>GitHub Actions 流水线：lint + type check + 单元 + 集成 + 仿真回归<span class="task-week">W10-W11</span></li>
+            <li>自动化测试套件：单元 / 集成 / 300s 仿真回归，覆盖 > 80%<span class="task-week">W11</span></li>
+            <li>蓝绿部署 + 健康检查滚动更新 + 一键回滚机制<span class="task-week">W12</span></li>
+            <li>Docker 镜像自动构建推送 + 版本标签管理<span class="task-week">W12</span></li>
+          </ul>
+          <div class="verify-block">
+            <div class="verify-label">✓ 验收标准</div>
+            <div class="verify-text">CI 全流程通过；部署 < 5min；回滚 < 2min；测试覆盖 > 80%</div>
+          </div>
+          <div class="meta-row">
+            <div class="meta-item"><span class="meta-lbl">依赖:</span> <span class="meta-val">GitHub Actions / Docker Registry</span></div>
+            <div class="meta-item"><span class="meta-lbl">风险:</span> <span class="meta-val low">低</span></div>
+            <div class="meta-item"><span class="meta-lbl">工作量:</span> <span class="meta-val">3 周</span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ CHECKLIST ============ -->
+<div class="section" id="sec-checklist">
+  <div class="section-title">分阶段验收检查清单</div>
+  <div class="checklist-wrap">
+
+    <div class="checklist-card" data-phase="P0">
+      <div class="checklist-card-hdr"><span class="cl-title" style="color:var(--p0)">P0 关键基础 (W1-W4)</span><span class="cl-progress">0/8</span></div>
+      <div class="checklist-progress-bar"><div class="fill" style="width:0%"></div></div>
+      <div class="checklist-items">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">Monte Carlo 框架支持 100+ episode 并行执行</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">4 种对手策略实现：饱和攻击 / 隐身突防 / 电子干扰 / 诱饵弹群</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">100 episode 拦截率均值 > 75%，95% CI 下界 > 70%</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">gRPC mTLS 双向认证部署，证书自动轮换就绪</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">JWT 令牌签发与校验中间件集成到 4 个 gRPC 服务</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">RBAC 三级角色：指挥员 / 操作员 / 观察员权限正确阻断越权</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">操作审计日志：Hash 链防篡改 + 查询 API 可用</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">300s 仿真回归测试通过，P1-P6 功能无退化</div></div>
+      </div>
+    </div>
+
+    <div class="checklist-card" data-phase="P1">
+      <div class="checklist-card-hdr"><span class="cl-title" style="color:var(--p1)">P1 系统加固 (W5-W8)</span><span class="cl-progress">0/9</span></div>
+      <div class="checklist-progress-bar"><div class="fill" style="width:0%"></div></div>
+      <div class="checklist-items">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">182 维环境适配多智能体 IQL/MADDPG，模型可加载</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">CTDE 架构实现：集中 Critic + 分布 Actor</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">500K 步训练完成，多智能体拦截率 > 单智能体 DQN</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">2-Agent 和 4-Agent 配置均可收敛，无碰撞</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">服务注册发现 + gRPC health check 部署</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">连接池 + 负载均衡 + Circuit Breaker 验证</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">AIS / ADSB 真实数据源接入，数据流通全链路</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">气象 API 对接，天气影响模型生效</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">数据质量校验 + 主备源故障切换 < 10s</div></div>
+      </div>
+    </div>
+
+    <div class="checklist-card" data-phase="P2">
+      <div class="checklist-card-hdr"><span class="cl-title" style="color:var(--p2)">P2 生产运维 (W9-W12)</span><span class="cl-progress">0/8</span></div>
+      <div class="checklist-progress-bar"><div class="fill" style="width:0%"></div></div>
+      <div class="checklist-items">
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">Prometheus 指标采集 + Grafana 面板可视化</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">结构化 JSON 日志 + ELK/Loki 聚合</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">OpenTelemetry 分布式追踪覆盖完整请求生命周期</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">关键指标告警规则：拦截率 / 延迟 / 错误率 / 服务健康</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">GitHub Actions CI 流水线全流程通过</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">自动化测试覆盖 > 80%（单元 + 集成 + 仿真回归）</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">蓝绿部署 + 健康检查滚动更新验证</div></div>
+        <div class="checklist-item" onclick="toggleCheck(this)"><div class="cb"></div><div class="ci-text">一键回滚 < 2min 验证通过</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ============ RISKS ============ -->
+<div class="section" id="sec-risks">
+  <div class="section-title">风险评估矩阵</div>
+  <div style="display:flex; justify-content:center; align-items:flex-start; gap:40px; flex-wrap:wrap;">
+    <div class="risk-matrix">
+      <div class="rm-corner"></div>
+      <div class="rm-axis">低影响</div>
+      <div class="rm-axis">中影响</div>
+      <div class="rm-axis">高影响</div>
+
+      <div class="rm-yaxis">高概率</div>
+      <div class="risk-cell high-low">
+        <div class="risk-item"><span class="ri-name">证书管理复杂</span><span class="ri-mit">cert-manager 自动续签</span></div>
+      </div>
+      <div class="risk-cell high-med">
+        <div class="risk-item"><span class="ri-name">外部 API 数据格式变异</span><span class="ri-mit">Schema 校验 + 多源冗余</span></div>
+        <div class="risk-item"><span class="ri-name">工期滑期</span><span class="ri-mit">P0 可并行 / P1-P2 有缓冲</span></div>
+      </div>
+      <div class="risk-cell high-high">
+        <div class="risk-item"><span class="ri-name">多智能体 RL 训练不稳定</span><span class="ri-mit">超参搜索 + 回退单智能体 DQN</span></div>
+      </div>
+
+      <div class="rm-yaxis">中概率</div>
+      <div class="risk-cell med-low"></div>
+      <div class="risk-cell med-med">
+        <div class="risk-item"><span class="ri-name">训练算力不足</span><span class="ri-mit">XPU 加速 + 断点续训</span></div>
+      </div>
+      <div class="risk-cell med-high">
+        <div class="risk-item"><span class="ri-name">gRPC mTLS 集成复杂度</span><span class="ri-mit">增量 proto 变更 + 兼容测试</span></div>
+      </div>
+
+      <div class="rm-yaxis">低概率</div>
+      <div class="risk-cell low-low"></div>
+      <div class="risk-cell low-med"></div>
+      <div class="risk-cell low-high">
+        <div class="risk-item"><span class="ri-name">Proto 契约破坏</span><span class="ri-mit">仅增量变更 + 向后兼容测试</span></div>
+      </div>
+    </div>
+
+    <div style="max-width:400px; flex:1; min-width:300px;">
+      <h4 style="font-size:14px; margin-bottom:16px; color:var(--text-secondary);">风险缓解策略</h4>
+      <div style="display:flex; flex-direction:column; gap:14px;">
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px 18px;">
+          <div style="font-size:13px; font-weight:600; color:var(--danger); margin-bottom:4px;">最高风险：多智能体 RL 不稳定</div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">多智能体 RL 训练不稳定是公认难题。缓解：(1) 先用 IPPO 做基线（稳定性优于 MADDPG）；(2) 超参网格搜索；(3) 若 500K 步不收敛，回退单智能体 DQN + 规则化分工。</div>
+        </div>
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px 18px;">
+          <div style="font-size:13px; font-weight:600; color:var(--warning); margin-bottom:4px;">中风险：Proto 契约兼容</div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">安全认证需要扩展 proto 定义。缓解：(1) 仅新增字段，不修改/删除已有字段；(2) 生成向后兼容代码；(3) 集成测试覆盖旧客户端调用。</div>
+        </div>
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px 18px;">
+          <div style="font-size:13px; font-weight:600; color:var(--accent); margin-bottom:4px;">低风险：工期可控</div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:1.6;">P0 两项可完全并行（安全认证 + 验证框架无依赖）。P1 中 GAP 03/04/05 有 1 周重叠但互不依赖。P2 两项并行。总缓冲约 1.5 周。</div>
+        </div>
+        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:14px 18px;">
+          <div style="font-size:13px; font-weight:600; color:var(--success); margin-bottom:4px;">关键里程碑</div>
+          <div style="font-size:12px; color:var(--text-secondary); line-height:1.8;">M1 (W4): P0 完成 → 可演示安全认证 + 统计级拦截率验证<br>M2 (W8): P1 完成 → 可演示多智能体协同 + 真实数据 + HA<br>M3 (W12): 生产就绪 → 全量交付</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="risk-legend">
+    <div class="lg-item"><div class="lg-dot" style="background:rgba(74,222,128,0.15)"></div>可接受</div>
+    <div class="lg-item"><div class="lg-dot" style="background:rgba(251,191,36,0.2)"></div>需关注</div>
+    <div class="lg-item"><div class="lg-dot" style="background:rgba(239,68,68,0.2)"></div>需缓解</div>
+    <div class="lg-item"><div class="lg-dot" style="background:rgba(239,68,68,0.3)"></div>关键风险</div>
+  </div>
+</div>
+
+</div>
+
+<script>
+function toggleCard(el) {
+  el.parentElement.classList.toggle('expanded');
+}
+function toggleCheck(el) {
+  el.classList.toggle('done');
+  var card = el.closest('.checklist-card');
+  var items = card.querySelectorAll('.checklist-item');
+  var done = card.querySelectorAll('.checklist-item.done');
+  var total = items.length;
+  var count = done.length;
+  card.querySelector('.cl-progress').textContent = count + '/' + total;
+  card.querySelector('.fill').style.width = (count / total * 100) + '%';
+  try { localStorage.setItem('pmtec-checklist-' + card.dataset.phase, count + '/' + total); } catch(e) {}
+}
+document.querySelectorAll('.nav-tab').forEach(function(tab) {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.nav-tab').forEach(function(t) { t.classList.remove('active'); });
+    document.querySelectorAll('.section').forEach(function(s) { s.classList.remove('active'); });
+    tab.classList.add('active');
+    document.getElementById('sec-' + tab.dataset.tab).classList.add('active');
+  });
+});
+document.querySelectorAll('.gap-card').forEach(function(c) { c.classList.add('expanded'); });
+try {
+  document.querySelectorAll('.checklist-card').forEach(function(card) {
+    var saved = localStorage.getItem('pmtec-checklist-' + card.dataset.phase);
+    if (saved) {
+      var parts = saved.split('/');
+      var count = parseInt(parts[0]);
+      var total = parseInt(parts[1]);
+      for (var i = 0; i < count && i < total; i++) {
+        var items = card.querySelectorAll('.checklist-item');
+        if (items[i]) items[i].classList.add('done');
+      }
+      card.querySelector('.cl-progress').textContent = count + '/' + total;
+      card.querySelector('.fill').style.width = (count / total * 100) + '%';
+    }
+  });
+} catch(e) {}
+</script>
+</body>
+</html>

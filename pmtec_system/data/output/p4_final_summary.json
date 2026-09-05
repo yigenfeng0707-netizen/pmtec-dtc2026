@@ -1,0 +1,233 @@
+{
+  "test": "P4 Final Verification",
+  "duration_sec": 300,
+  "timestamp": 1788485023.2917953,
+  "passed": 42,
+  "failed": 0,
+  "total": 42,
+  "core_metrics": {
+    "asda_cycles": 30,
+    "total_events": 253,
+    "total_entities": 51,
+    "kalman_tracks": 44,
+    "live_data_injected": 43,
+    "ma_iql_trained": true,
+    "ma_iql_timesteps": 6000,
+    "dqn_loaded": true,
+    "iql_loaded": true,
+    "dqn_device": "xpu:0",
+    "persistence_snapshots": 21
+  },
+  "results": [
+    {
+      "name": "Dockerfile exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "docker-compose.yml exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": ".dockerignore exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Docker has 4 services",
+      "ok": true,
+      "detail": "found 4"
+    },
+    {
+      "name": "ThreeDDisplay importable",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Has generate_html method",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "IQL intercept model exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "IQL dispersal model exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "IQL history exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DQN model exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Simulation starts",
+      "ok": true,
+      "detail": "Simulation started: P4-Final-Verify"
+    },
+    {
+      "name": "SQLite DB exists",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Table sim_snapshots has rows",
+      "ok": true,
+      "detail": "21 rows"
+    },
+    {
+      "name": "Table kalman_tracks has rows",
+      "ok": true,
+      "detail": "786 rows"
+    },
+    {
+      "name": "Table spear_events has rows",
+      "ok": true,
+      "detail": "105 rows"
+    },
+    {
+      "name": "Table dqn_metrics queryable",
+      "ok": true,
+      "detail": "0 rows"
+    },
+    {
+      "name": "Table checkpoints has rows",
+      "ok": true,
+      "detail": "1 rows"
+    },
+    {
+      "name": "3D HTML generated",
+      "ok": true,
+      "detail": "53593 bytes"
+    },
+    {
+      "name": "3D HTML no placeholders",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "3D has sensor spheres",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "3D has Kalman tracks",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "3D has missile/ballistic",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "3D has weather layer",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "MA IQL decision events",
+      "ok": true,
+      "detail": "7 events"
+    },
+    {
+      "name": "MA IQL trained",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "MA IQL algorithm",
+      "ok": true,
+      "detail": "IQL (Independent Q-Learning)"
+    },
+    {
+      "name": "MA IQL agents",
+      "ok": true,
+      "detail": "['intercept', 'dispersal']"
+    },
+    {
+      "name": "MA IQL timesteps",
+      "ok": true,
+      "detail": "6000"
+    },
+    {
+      "name": "SPEAR timeline HTML generated",
+      "ok": true,
+      "detail": "19510 bytes"
+    },
+    {
+      "name": "ASDA cycles >= 25",
+      "ok": true,
+      "detail": "30"
+    },
+    {
+      "name": "Total events >= 100",
+      "ok": true,
+      "detail": "253"
+    },
+    {
+      "name": "Total entities > 0",
+      "ok": true,
+      "detail": "51"
+    },
+    {
+      "name": "Kalman tracks > 0",
+      "ok": true,
+      "detail": "44"
+    },
+    {
+      "name": "Live data injected > 0",
+      "ok": true,
+      "detail": "43"
+    },
+    {
+      "name": "EW threat events present",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "Cyber threat events present",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "Adversary events present",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "DQN model loaded in engine",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "IQL model loaded in engine",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "DQN/IQL device xpu",
+      "ok": true,
+      "detail": "xpu:0"
+    },
+    {
+      "name": "Persistence snapshots > 0",
+      "ok": true,
+      "detail": "21"
+    },
+    {
+      "name": "Persistence kalman tracks > 0",
+      "ok": true,
+      "detail": "786"
+    }
+  ]
+}

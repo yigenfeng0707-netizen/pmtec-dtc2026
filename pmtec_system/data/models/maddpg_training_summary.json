@@ -1,0 +1,10 @@
+{
+  "timestamp": 1788538729.8636491,
+  "target_steps": 10000,
+  "device": "xpu:0",
+  "maddpg": {
+    "time_sec": 146.6,
+    "result": "{'algorithm': 'MADDPG', 'timesteps': 10000, 'elapsed_seconds': 146.5, 'agents': ['intercept', 'dispersal'], 'intercept_actions': 3, 'dispersal_actions': 3, 'device': 'xpu:0', 'hidden_actor': 128, 'hidden_critic': 256, 'gamma': 0.95, 'tau': 0.005, 'batch_size': 128, 'buffer_used': 10000, 'avg_reward_last_10': 871.85, 'total_episodes': 833, 'timestamp': 1788538729.8533192}",
+    "inference": "0"
+  }
+}

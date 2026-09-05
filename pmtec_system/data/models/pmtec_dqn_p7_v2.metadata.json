@@ -1,0 +1,28 @@
+{
+  "model_file": "pmtec_dqn_p7_v2.zip",
+  "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p7_v2.zip",
+  "file_hash": "beb099d986d3b48d",
+  "file_size_bytes": 543709,
+  "created_at": 1788536485.8591273,
+  "created_at_iso": "2026-09-04T15:41:25",
+  "algorithm": "DQN",
+  "library": "stable_baselines3",
+  "timesteps": 200000,
+  "obs_dim": 182,
+  "n_actions": 6,
+  "policy_arch": [
+    128,
+    64
+  ],
+  "activation": "ReLU",
+  "training_type": "curriculum_learning",
+  "evaluation": {
+    "stealth_intercept_rate": 0.791,
+    "overall_intercept_rate": 0.762,
+    "ci_95": [
+      0.747,
+      0.777
+    ]
+  },
+  "notes": "P7-v2 production model. Curriculum learning with 3 stages."
+}

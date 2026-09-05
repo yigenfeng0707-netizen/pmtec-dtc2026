@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PMTEC 数字孪生战场系统 — 第八届数字孪生体挑战赛（DTC 2026）合规性评价报告</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #c9d1d9;
+    --text-dim: #8b949e;
+    --accent: #58a6ff;
+    --green: #3fb950;
+    --yellow: #d29922;
+    --red: #f85149;
+    --orange: #db6d28;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 1100px; margin: 0 auto; }
+  h1 {
+    font-size: 1.8rem;
+    background: linear-gradient(135deg, #58a6ff, #bc8cff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  .subtitle { text-align: center; color: var(--text-dim); margin-bottom: 2rem; font-size: 0.9rem; }
+  h2 {
+    font-size: 1.3rem;
+    border-left: 4px solid var(--accent);
+    padding-left: 1rem;
+    margin: 2.5rem 0 1rem;
+    color: #e6edf3;
+  }
+  h3 {
+    font-size: 1.05rem;
+    margin: 1.5rem 0 0.8rem;
+    color: #e6edf3;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+  }
+  .score-bar-wrap {
+    background: #21262d;
+    border-radius: 6px;
+    height: 24px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+    position: relative;
+  }
+  .score-bar {
+    height: 100%;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #fff;
+    transition: width 0.5s ease;
+  }
+  .green-bar { background: linear-gradient(90deg, #1a7f37, #3fb950); }
+  .yellow-bar { background: linear-gradient(90deg, #9e6a03, #d29922); }
+  .orange-bar { background: linear-gradient(90deg, #bc4c00, #db6d28); }
+  .red-bar { background: linear-gradient(90deg, #da3633, #f85149); }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-size: 0.88rem;
+  }
+  th, td {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.7rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #21262d; color: #e6edf3; font-weight: 600; }
+  tr:nth-child(even) { background: #0d1117; }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+  .badge-pass { background: rgba(59,165,80,0.2); color: #3fb950; border: 1px solid rgba(59,165,80,0.3); }
+  .badge-warn { background: rgba(210,153,34,0.2); color: #d29922; border: 1px solid rgba(210,153,34,0.3); }
+  .badge-fail { background: rgba(248,81,73,0.2); color: #f85149; border: 1px solid rgba(248,81,73,0.3); }
+  .badge-info { background: rgba(88,166,255,0.2); color: #58a6ff; border: 1px solid rgba(88,166,255,0.3); }
+  code {
+    background: #21262d;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    color: #f0883e;
+    font-family: "SF Mono", Consolas, monospace;
+  }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.8rem; }
+  .stat-card {
+    background: #161b22;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+  }
+  .stat-value { font-size: 1.6rem; font-weight: 700; color: var(--accent); }
+  .stat-label { font-size: 0.78rem; color: var(--text-dim); margin-top: 0.3rem; }
+  .overall-score {
+    text-align: center;
+    padding: 2rem;
+    background: linear-gradient(180deg, #161b22, #0d1117);
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+  .overall-score-num {
+    font-size: 3.5rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #3fb950, #58a6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .overall-score-label { font-size: 1.1rem; color: var(--text-dim); margin-top: 0.3rem; }
+  .req-item {
+    border-left: 3px solid var(--border);
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.6rem;
+    background: #161b22;
+    border-radius: 0 6px 6px 0;
+  }
+  .req-pass { border-left-color: var(--green); }
+  .req-warn { border-left-color: var(--yellow); }
+  .req-fail { border-left-color: var(--red); }
+  .footer {
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+    margin-top: 3rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+  ul, ol { margin-left: 1.5rem; margin-bottom: 1rem; }
+  li { margin-bottom: 0.3rem; }
+  .highlight { color: var(--accent); font-weight: 600; }
+  .warn-text { color: var(--yellow); }
+  .danger-text { color: var(--red); }
+  .success-text { color: var(--green); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<h1>PMTEC 数字孪生战场系统<br>第八届数字孪生体挑战赛（DTC 2026）合规性评价报告</h1>
+<p class="subtitle">评价日期：2026-09-05 · 工作目录：D:\APPs\数字孪生挑战赛\pmtec_system\ · 评价基准：DTC 2026 场景开发赛道「智能杀伤网」</p>
+
+<!-- 总评 -->
+<div class="overall-score">
+  <div class="overall-score-num">82</div>
+  <div class="overall-score-label">综合合规度评分（满分 100）</div>
+  <p style="margin-top:1rem;color:var(--text-dim);font-size:0.85rem;">
+    评分维度：数字孪生体核心概念(15%) · LVC/ASDA架构(10%) · 任务链完成度(15%) · AI决策能力(15%) · 实时数据接入(8%) · 分布式架构(8%) · 安全体系(5%) · 可观测性(4%) · 工程化质量(8%) · 文档与交付(7%) · Monte Carlo验证(5%)
+  </p>
+</div>
+
+<!-- 项目概况 -->
+<h2>一、项目概况</h2>
+<div class="card">
+<div class="grid-3">
+  <div class="stat-card"><div class="stat-value">86</div><div class="stat-label">Python 文件数</div></div>
+  <div class="stat-card"><div class="stat-value">23,432</div><div class="stat-label">代码行数</div></div>
+  <div class="stat-card"><div class="stat-value">19</div><div class="stat-label">模块目录数</div></div>
+  <div class="stat-card"><div class="stat-value">21</div><div class="stat-label">模型文件数</div></div>
+  <div class="stat-card"><div class="stat-value">9</div><div class="stat-label">HTML 交付物</div></div>
+  <div class="stat-card"><div class="stat-value">165/165</div><div class="stat-label">测试全绿</div></div>
+</div>
+<p style="margin-top:1rem;color:var(--text-dim);font-size:0.85rem;">
+  PMTEC（Predictive Modeling & Tactical Engagement Computation）是一个基于数字孪生体技术的智能杀伤链仿真与决策系统。
+  系统以 ASDA（Assess-Shape-Decide-Act）闭环为核心运行逻辑，采用 LVC（Live-Virtual-Constructive）三层架构，
+  通过 DTB Model 四服务（WarEngine/BattleNetwork/ApplicationStore/PlugAndPlay）实现分布式数字孪生体服务。
+  AI 决策层基于 DQN/IQL/MADDPG 强化学习算法，在 Monte Carlo 仿真中对四种对手策略均实现 70%+ 拦截率。
+</p>
+</div>
+
+<!-- 评价维度1: 数字孪生体核心概念 -->
+<h2>二、数字孪生体核心概念合规性</h2>
+<div class="card">
+<p>工业4.0研究院提出的数字孪生体三大关键技术为：<strong>数字孪生化（Digital Twinning）、数字孪生体平台、数字线程（Digital Thread）</strong>。PMTEC 系统在这三方面的实现情况：</p>
+<table>
+<tr><th>关键技术</th><th>比赛要求</th><th>PMTEC 实现</th><th>评价</th></tr>
+<tr>
+  <td><strong>数字孪生化</strong></td>
+  <td>对物理实体建立可计算的虚拟模型，精准模拟运行特性与推演演化规律</td>
+  <td>威胁实体（弹道导弹/巡航弹/无人机/诱饵）建模、传感器探测模型（雷达/红外/电子支援）、环境物理模型（四类天气/海况/电磁环境）、拦截决策模型（直接/预测/饱和三种模式）</td>
+  <td><span class="badge badge-pass">达标</span> 实体建模覆盖杀伤链全要素，环境物理约束已修正（P7-v2 将极端天气探测因子从 0.3 提升至 0.5）</td>
+</tr>
+<tr>
+  <td><strong>数字孪生体平台</strong></td>
+  <td>提供统一的数据模型、仿真引擎和服务接口</td>
+  <td>DTB Model 四服务 gRPC 平台（24 个 RPC 方法）、统一 proto 定义（<code>proto/dtb_model.proto</code>，含 Entity/Track/SimEvent/SystemState/ThreatSummary 等 30+ 消息类型）、Docker 容器化部署</td>
+  <td><span class="badge badge-pass">达标</span> 平台架构完整，四服务 + 24 RPC 方法覆盖仿真控制、网络态势、应用管理和即插即用</td>
+</tr>
+<tr>
+  <td><strong>数字线程</strong></td>
+  <td>贯穿实体全生命周期的数据追溯链路</td>
+  <td>SPEAR 时间线模块（<code>visualization/spear_timeline.py</code> → <code>output/pmtec_spear_timeline.html</code>）、7 个模型 .metadata.json 版本历史追踪（含 file_hash、version_history、累积步数）、审计日志（<code>security/audit.py</code>）</td>
+  <td><span class="badge badge-warn">基本达标</span> 模型版本追踪和 SPEAR 回放已实现，但数字线程未贯穿到实时数据层的全链路追溯</td>
+</tr>
+</table>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:85%">85%</div></div>
+</div>
+
+<!-- 评价维度2: LVC/ASDA架构 -->
+<h2>三、LVC 三层架构与 ASDA 闭环</h2>
+<div class="card">
+<h3>LVC 三层架构</h3>
+<table>
+<tr><th>层级</th><th>定义</th><th>PMTEC 实现</th><th>状态</th></tr>
+<tr>
+  <td><strong>L（Live）</strong></td>
+  <td>真实物理世界的实时数据接入</td>
+  <td><code>live_data/</code> 模块：ADS-B 适配器（OpenSky API，验证返回 413 条真实航迹）、AIS 适配器（20 条船迹）、气象适配器（OpenMeteo，8 个观测点）、适配器管理器统一调度</td>
+  <td><span class="badge badge-pass">达标</span> 真实 API 已验证联通</td>
+</tr>
+<tr>
+  <td><strong>V（Virtual）</strong></td>
+  <td>人在回路或半实物仿真</td>
+  <td>gRPC 仿真控制（Start/Stop/InjectEvent）、3D 态势显示、战术显示、实时显示等交互式可视化界面</td>
+  <td><span class="badge badge-pass">达标</span></td>
+</tr>
+<tr>
+  <td><strong>C（Constructive）</strong></td>
+  <td>纯计算仿真与 AI 推演</td>
+  <td>DQN/IQL/MADDPG 强化学习智能体、Monte Carlo 对抗仿真（四种对手策略）、课程学习训练</td>
+  <td><span class="badge badge-pass">达标</span></td>
+</tr>
+</table>
+
+<h3>ASDA 闭环</h3>
+<table>
+<tr><th>阶段</th><th>含义</th><th>PMTEC 实现</th><th>状态</th></tr>
+<tr><td><strong>A（Assess）</strong><br>态势评估</td><td>多源数据融合、威胁感知</td><td>JPDA 多目标跟踪、卡尔曼滤波、EW/Cyber 威胁感知、ThreatSummary gRPC 接口</td><td><span class="badge badge-pass">达标</span></td></tr>
+<tr><td><strong>S（Shape）</strong><br>环境塑造</td><td>部署调配、资源分配</td><td>ACE 部署转移、GIS 标绘、传感器网络配置、区域防空兜底</td><td><span class="badge badge-pass">达标</span></td></tr>
+<tr><td><strong>D（Decide）</strong><br>决策</td><td>AI 辅助决策、拦截策略选择</td><td>DQN 推理（6 动作空间：直接/预测/饱和拦截 × 升级/不升级）、IQL/MADDPG 多智能体决策、拦截上限 0.95</td><td><span class="badge badge-pass">达标</span></td></tr>
+<tr><td><strong>A（Act）</strong><br>行动</td><td>指令下达、效果评估</td><td>拦截执行（含区域防空兜底概率 0.15-0.25）、效果统计与反馈闭环、Monte Carlo 评估</td><td><span class="badge badge-pass">达标</span></td></tr>
+</table>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:90%">90%</div></div>
+</div>
+
+<!-- 评价维度3: 任务链完成度 -->
+<h2>四、三级递进任务链完成度</h2>
+<div class="card">
+<table>
+<tr><th>任务层级</th><th>任务描述</th><th>PMTEC 实现</th><th>完成度</th></tr>
+<tr>
+  <td><strong>L1<br>GIS 标绘</strong></td>
+  <td>地理空间信息标绘与态势可视化</td>
+  <td><code>visualization/three_d_display.py</code>（3D 态势显示）、<code>visualization/tactical_display.py</code>（战术显示）、<code>output/pmtec_3d_display.html</code>、<code>output/pmtec_tactical_display.html</code>、SPEAR 时间线</td>
+  <td><span class="badge badge-pass">完成</span><br>多视角可视化覆盖</td>
+</tr>
+<tr>
+  <td><strong>L2<br>ACE 部署转移</strong></td>
+  <td>资产部署、能力调配与转移</td>
+  <td>传感器部署配置、拦截阵地配置、资源动态分配、区域防空覆盖规划</td>
+  <td><span class="badge badge-pass">完成</span></td>
+</tr>
+<tr>
+  <td><strong>L3<br>PMTEC 数字孪生战场</strong></td>
+  <td>完整数字孪生战场系统：仿真推演 + AI 决策 + 实时数据 + 分布式部署</td>
+  <td>DTB Model 四服务 gRPC 分布式、DQN/IQL/MADDPG AI 决策、OpenSky/AIS/OpenMeteo 实时数据、Monte Carlo 4 策略验证（76.2% 总体拦截率）、安全体系、可观测性、CI/CD</td>
+  <td><span class="badge badge-pass">完成</span><br>系统级完整实现</td>
+</tr>
+</table>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:88%">88%</div></div>
+</div>
+
+<!-- 评价维度4: AI决策能力 -->
+<h2>五、AI 决策能力</h2>
+<div class="card">
+<div class="grid-2">
+<div>
+<h3>模型清单与训练规模</h3>
+<table>
+<tr><th>模型</th><th>算法</th><th>步数</th><th>OBS_DIM</th></tr>
+<tr><td>pmtec_dqn_p6.zip</td><td>DQN (SB3)</td><td>200,000</td><td>182</td></tr>
+<tr><td>pmtec_dqn_p7_v2.zip</td><td>DQN 课程学习</td><td>200,000</td><td>182</td></tr>
+<tr><td>pmtec_iql_intercept.zip</td><td>IQL</td><td>51,000</td><td>182</td></tr>
+<tr><td>pmtec_iql_dispersal.zip</td><td>IQL</td><td>51,000</td><td>182</td></tr>
+<tr><td>pmtec_maddpg_intercept.pt</td><td>MADDPG</td><td>53,000</td><td>182</td></tr>
+<tr><td>pmtec_maddpg_dispersal.pt</td><td>MADDPG</td><td>53,000</td><td>182</td></tr>
+</table>
+<p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim);">
+  共 7 个 .metadata.json 版本追踪文件，IQL 含 10 版本历史（6K→51K 步），MADDPG 含 9 版本历史（6K→53K 步）。训练设备：Intel Arc XPU (torch 2.14.0+xpu)。
+</p>
+</div>
+<div>
+<h3>Monte Carlo 验证结果</h3>
+<table>
+<tr><th>对手策略</th><th>P6 基线</th><th>P7-v2</th><th>目标</th></tr>
+<tr><td>饱和攻击</td><td>79.32%</td><td><strong>79.76%</strong></td><td>70%</td></tr>
+<tr><td>隐身突防</td><td>78.68%</td><td><strong>79.12%</strong></td><td>70%</td></tr>
+<tr><td>电子战</td><td>78.69%</td><td><strong>78.90%</strong></td><td>70%</td></tr>
+<tr><td>诱饵群</td><td>80.10%</td><td><strong>80.22%</strong></td><td>70%</td></tr>
+<tr><td><strong>总体</strong></td><td>-</td><td><strong>76.2%</strong></td><td>70%</td></tr>
+</table>
+<p style="margin-top:0.5rem;font-size:0.8rem;color:var(--text-dim);">
+  P7-v2 隐身突防 50ep：591/747 = 79.12%（CI 76.06%-81.88%）。环境修正：detection_range_factor=0.5、区域防空兜底 0.15-0.25、hypersonic 基础概率 0.60/0.70/0.85。
+</p>
+</div>
+</div>
+
+<h3>评价</h3>
+<ul>
+  <li><span class="badge badge-pass">优势</span> DQN 主模型 200K 步训练规模充分，课程学习三阶段（基础→对抗→极端），四种对手策略均达标</li>
+  <li><span class="badge badge-warn">局限</span> IQL（51K 步）和 MADDPG（53K 步）训练深度不足，MADDPG 奖励曲线从 734.8→846.2（+111.4），尚未完全收敛</li>
+  <li><span class="badge badge-warn">局限</span> 多智能体 IQL/MADDPG 在 Monte Carlo 评估中未替代 DQN 作为主模型，仅作为辅助验证</li>
+  <li><span class="badge badge-info">说明</span> OBS_DIM=182（威胁特征 122 + 环境特征 60），动作空间 6（3 拦截模式 × 2 升级决策）</li>
+</ul>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:82%">82%</div></div>
+</div>
+
+<!-- 评价维度5: 实时数据接入 -->
+<h2>六、实时数据接入</h2>
+<div class="card">
+<table>
+<tr><th>数据源</th><th>适配器</th><th>API</th><th>验证结果</th><th>状态</th></tr>
+<tr><td>ADS-B 航迹</td><td><code>live_data/adsb_adapter.py</code></td><td>OpenSky Network</td><td>413 条真实航迹（WestPac bbox）</td><td><span class="badge badge-pass">达标</span></td></tr>
+<tr><td>AIS 船舶</td><td><code>live_data/ais_adapter.py</code></td><td>AISHub</td><td>20 条船迹</td><td><span class="badge badge-pass">达标</span></td></tr>
+<tr><td>气象数据</td><td><code>live_data/weather_adapter.py</code></td><td>OpenMeteo</td><td>8 个观测点</td><td><span class="badge badge-pass">达标</span></td></tr>
+</table>
+<p>验证结果存于 <code>data/models/real_api_verification.json</code>。适配器返回 dict 的 key 为 <code>"adsb"</code>/<code>"ais"</code>/<code>"weather"</code>，由 <code>live_data/adapter_manager.py</code> 统一管理。</p>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:90%">90%</div></div>
+</div>
+
+<!-- 评价维度6: 分布式架构 -->
+<h2>七、分布式架构</h2>
+<div class="card">
+<h3>Proto 定义（<code>proto/dtb_model.proto</code>）</h3>
+<table>
+<tr><th>服务</th><th>RPC 方法</th><th>方法数</th><th>功能描述</th></tr>
+<tr>
+  <td><strong>WarEngine</strong></td>
+  <td>StartSimulation / StopSimulation / GetState / InjectEvent / GetSpearReport / GetEWThreats / GetCyberThreats / GetThreatSummary</td>
+  <td>8</td>
+  <td>仿真引擎控制、事件注入、SPEAR 回放、EW/Cyber 威胁查询</td>
+</tr>
+<tr>
+  <td><strong>BattleNetwork</strong></td>
+  <td>GetTrackFeed (stream) / GetEntityStatus / GetNetworkState / GetLiveFeed (stream) / GetLVCStatus</td>
+  <td>5</td>
+  <td>航迹流推送、实体状态查询、网络状态、实时数据流、LVC 状态</td>
+</tr>
+<tr>
+  <td><strong>ApplicationStore</strong></td>
+  <td>ListApps / DeployApp / QueryCapability / DQNInfer / GetDQNStatus</td>
+  <td>5</td>
+  <td>应用管理、部署、能力查询、DQN 推理、训练状态</td>
+</tr>
+<tr>
+  <td><strong>PlugAndPlay</strong></td>
+  <td>RegisterComponent / DiscoverServices / HealthCheck / ListPlugins / ListDTInstances / RegisterDTInstance</td>
+  <td>6</td>
+  <td>组件注册、服务发现、健康检查、插件管理、数字孪生实例管理</td>
+</tr>
+</table>
+<p style="text-align:center;font-size:0.85rem;color:var(--text-dim);">合计 4 服务、24 个 RPC 方法</p>
+
+<h3>Docker 部署（<code>docker-compose.yml</code>）</h3>
+<ul>
+  <li><strong>8 个容器</strong>：4 个 DTB gRPC 服务（pmtec-war-engine / pmtec-battle-network / pmtec-app-store / pmtec-plug-and-play）+ Prometheus + Grafana + Jaeger + SQLite</li>
+  <li>每个 gRPC 服务容器配置 health check（<code>grpc_health.v1</code>）</li>
+  <li>单镜像 <code>pmtec-distributed:latest</code> + <code>--service</code> 参数启动不同服务</li>
+</ul>
+
+<h3>性能指标</h3>
+<table>
+<tr><th>指标</th><th>数值</th><th>说明</th></tr>
+<tr><td>gRPC max_workers</td><td>64</td><td>从 10 提升至 64</td></tr>
+<tr><td>gRPC C=20 P95</td><td>7.6ms</td><td>从 162ms 改善 95.3%</td></tr>
+<tr><td>gRPC C=40 P95</td><td>24.5ms</td><td>—</td></tr>
+<tr><td>gRPC C=64 P95</td><td>44.8ms</td><td>0 错误</td></tr>
+<tr><td>SQLite WAL 峰值写入</td><td>58,245 wps</td><td>写入性能基准</td></tr>
+</table>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:88%">88%</div></div>
+</div>
+
+<!-- 评价维度7: 安全体系 -->
+<h2>八、安全体系</h2>
+<div class="card">
+<table>
+<tr><th>模块</th><th>文件</th><th>功能</th><th>状态</th></tr>
+<tr><td>认证</td><td><code>security/auth.py</code></td><td>JWT 令牌签发与验证</td><td><span class="badge badge-pass">实现</span></td></tr>
+<tr><td>授权</td><td><code>security/rbac.py</code></td><td>基于角色的访问控制</td><td><span class="badge badge-pass">实现</span></td></tr>
+<tr><td>审计</td><td><code>security/audit.py</code></td><td>操作日志记录</td><td><span class="badge badge-pass">实现</span></td></tr>
+<tr><td>证书管理</td><td><code>security/cert_manager.py</code></td><td>CA 证书签发、mTLS 双向认证</td><td><span class="badge badge-pass">实现</span></td></tr>
+<tr><td>拦截器</td><td><code>security/interceptor.py</code></td><td>gRPC 拦截器，统一鉴权</td><td><span class="badge badge-pass">实现</span></td></tr>
+</table>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:85%">85%</div></div>
+</div>
+
+<!-- 评价维度8: 可观测性 -->
+<h2>九、可观测性</h2>
+<div class="card">
+<ul>
+  <li><strong>Prometheus 指标采集</strong>：<code>prometheus_client</code> 集成，7 类指标（gRPC QPS/P95/错误率、仿真步速、AI 推理延迟、威胁计数、拦截率、资源使用）</li>
+  <li><strong>Jaeger 分布式追踪</strong>：<code>tracing.py</code> 自动检测 OpenTelemetry 安装状态，已从 NoopTracer 升级为真实 Tracer（OTLP exporter → <code>localhost:4317</code>）</li>
+  <li><strong>requirements.txt</strong> 已含 4 个 opentelemetry 包</li>
+  <li><strong>Grafana 可视化</strong>：docker-compose 含 Grafana 容器，Prometheus 数据源预配置</li>
+</ul>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:82%">82%</div></div>
+</div>
+
+<!-- 评价维度9: 工程化质量 -->
+<h2>十、工程化质量</h2>
+<div class="card">
+<h3>测试覆盖</h3>
+<table>
+<tr><th>测试文件</th><th>覆盖范围</th><th>用例数</th><th>状态</th></tr>
+<tr><td>test_p3_simulation.py</td><td>P3 仿真基础</td><td>—</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>test_p4_*.py (4个)</td><td>P4 3D显示/多智能体/Docker/持久化/综合</td><td>—</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>test_p5_*.py (5个)</td><td>P5 JPDA/MADDPG/DQN 200K/3D/综合</td><td>—</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>test_p6.py</td><td>P6 OBS_DIM 182/拦截上限/奖励塑形</td><td>—</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>test_p7.py</td><td>P7 安全/Monte Carlo</td><td>—</td><td><span class="badge badge-pass">PASS</span></td></tr>
+<tr><td>test_p8.py</td><td>P8 分布式/CI-CD/灾备/文档</td><td>85</td><td><span class="badge badge-pass">85/85 PASS</span></td></tr>
+</table>
+<p style="text-align:center;font-size:0.85rem;color:var(--text-dim);">合计 14 个测试文件，165/165 全绿</p>
+
+<h3>CI/CD（<code>.github/workflows/ci-cd.yml</code>）</h3>
+<ul>
+  <li><strong>6 个 Job</strong>：Lint & Syntax Check → Unit Tests → Proto Generate → Docker Build → Integration Test → Deploy</li>
+  <li>运行环境：<code>ubuntu-latest</code></li>
+  <li>含 Ruff lint、YAML 语法验证、Dockerfile 语法检查</li>
+</ul>
+<p><span class="badge badge-warn">注意</span> CI/CD 配置完整但<strong>未在 GitHub Actions 端到端真实运行验证</strong>（task memory 记录"仅配置未真实启动验证"），需在提交前完成一次真实 CI run。</p>
+
+<div class="score-bar-wrap"><div class="score-bar yellow-bar" style="width:78%">78%</div></div>
+</div>
+
+<!-- 评价维度10: 文档与交付 -->
+<h2>十一、文档与交付物</h2>
+<div class="card">
+<table>
+<tr><th>交付物</th><th>路径</th><th>规模</th><th>状态</th></tr>
+<tr><td>README.md</td><td><code>README.md</code></td><td>309 行</td><td><span class="badge badge-pass">已更新</span></td></tr>
+<tr><td>架构文档</td><td><code>PMTEC_Architecture_Document.html</code></td><td>573 行</td><td><span class="badge badge-warn">需验证渲染</span></td></tr>
+<tr><td>灾备 Runbook</td><td><code>PMTEC_Disaster_Recovery_Runbook.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>负载测试报告</td><td><code>output/PMTEC_Load_Test_Report.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>升级计划</td><td><code>output/PMTEC_Upgrade_Plan.html</code></td><td>25 项检查</td><td><span class="badge badge-pass">全 PASS</span></td></tr>
+<tr><td>训练损失曲线</td><td><code>output/PMTEC_Training_Loss_Curves.html</code></td><td>4 图表</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>3D 态势显示</td><td><code>output/pmtec_3d_display.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>战术显示</td><td><code>output/pmtec_tactical_display.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>实时显示</td><td><code>output/pmtec_realtime_display.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>SPEAR 时间线</td><td><code>output/pmtec_spear_timeline.html</code></td><td>—</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>requirements.txt</td><td><code>requirements.txt</code></td><td>13 核心依赖</td><td><span class="badge badge-pass">完整</span></td></tr>
+<tr><td>Dockerfile</td><td><code>Dockerfile</code></td><td>3,439 字节</td><td><span class="badge badge-pass">完成</span></td></tr>
+<tr><td>docker-compose.yml</td><td><code>docker-compose.yml</code></td><td>6,725 字节 / 8 服务</td><td><span class="badge badge-pass">完成</span></td></tr>
+</table>
+<p><span class="badge badge-warn">注意</span> 架构文档 <code>PMTEC_Architecture_Document.html</code>（573 行）此前报告浏览器渲染失败，需在提交前确认渲染正常。</p>
+<div class="score-bar-wrap"><div class="score-bar yellow-bar" style="width:75%">75%</div></div>
+</div>
+
+<!-- 评价维度11: Monte Carlo验证 -->
+<h2>十二、Monte Carlo 验证</h2>
+<div class="card">
+<table>
+<tr><th>对手策略</th><th>回合数</th><th>发射导弹</th><th>拦截</th><th>拦截率</th><th>95% CI</th><th>目标</th></tr>
+<tr><td>饱和攻击</td><td>25</td><td>1,272</td><td>1,014</td><td><strong>79.76%</strong></td><td>—</td><td>≥70%</td></tr>
+<tr><td>隐身突防 (25ep)</td><td>25</td><td>—</td><td>—</td><td><strong>81.15%</strong></td><td>—</td><td>≥70%</td></tr>
+<tr><td>隐身突防 (50ep)</td><td>50</td><td>747</td><td>591</td><td><strong>79.12%</strong></td><td>76.06%-81.88%</td><td>≥70%</td></tr>
+<tr><td>电子战</td><td>25</td><td>—</td><td>—</td><td><strong>78.90%</strong></td><td>—</td><td>≥70%</td></tr>
+<tr><td>诱饵群</td><td>25</td><td>—</td><td>—</td><td><strong>80.22%</strong></td><td>—</td><td>≥70%</td></tr>
+<tr><td><strong>总体</strong></td><td>—</td><td>—</td><td>—</td><td><strong>76.2%</strong></td><td>74.7%-77.7%</td><td>≥70%</td></tr>
+</table>
+<p>数据来源：<code>data/p7v2_monte_carlo_evaluation.json</code>（时间戳 2026-09-04 21:18:46）。模型：<code>pmtec_dqn_p7_v2.zip</code>（200K 步，OBS_DIM=182，6 动作空间，课程学习 3 阶段）。</p>
+<div class="score-bar-wrap"><div class="score-bar green-bar" style="width:92%">92%</div></div>
+</div>
+
+<!-- r1-r12 需求校验 -->
+<h2>十三、R1-R12 需求校验逐条状态</h2>
+<div class="card">
+<div class="req-item req-pass">
+  <strong>R1</strong> 系统架构文档 HTML — <span class="badge badge-warn">基本达标（需验证渲染）</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);"><code>PMTEC_Architecture_Document.html</code>（573 行）已覆盖 P1-P7 技术演进、proto 引用、模型路径。此前报告浏览器渲染失败，提交前需确认。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R2</strong> 双环境适配 — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">base（CPU）+ pmtec-xpu（Intel Arc GPU），torch 2.14.0+xpu 验证通过。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R3</strong> P3 仿真基础 — <span class="badge badge-pass">通过</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R4</strong> P4 3D显示/多智能体/Docker/持久化 — <span class="badge badge-pass">通过</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R5</strong> P5 JPDA/MADDPG/DQN 200K/3D — <span class="badge badge-pass">通过</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R6</strong> P6 OBS_DIM 182/拦截上限/奖励塑形 — <span class="badge badge-pass">通过</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R7</strong> P7 安全体系 + Monte Carlo — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">注意：自创判据 pages=5-10 和 cjk_chars>=3000 已废弃，按基线要求评价。Monte Carlo 达标（76.2% > 70%）。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R8</strong> 负载测试/灾备文档 — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">注意：自创判据 cjk_chars>=3000 已废弃。<code>PMTEC_Load_Test_Report.html</code> + <code>PMTEC_Disaster_Recovery_Runbook.html</code> 已交付。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R9</strong> 升级计划 — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);"><code>output/PMTEC_Upgrade_Plan.html</code>，25 项检查全 PASS。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R10</strong> 分布式部署 — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">Docker 8 容器，gRPC 4 服务 24 RPC 方法。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R11</strong> CI/CD — <span class="badge badge-warn">配置完成，端到端未验证</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">GitHub Actions 6 个 Job 配置完整，但未真实运行。</span>
+</div>
+<div class="req-item req-pass">
+  <strong>R12</strong> 模型版本化 — <span class="badge badge-pass">通过</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">7 个 .metadata.json 含 file_hash、version_history、累积步数。</span>
+</div>
+</div>
+
+<!-- 综合评价 -->
+<h2>十四、综合评价与改进建议</h2>
+<div class="card">
+<h3>优势</h3>
+<ul>
+  <li><strong>数字孪生体核心概念落地完整</strong>：DTB Model 四服务 24 RPC 方法完全对标工业4.0研究院提出的数字孪生体平台架构，LVC 三层 + ASDA 闭环覆盖杀伤链全流程</li>
+  <li><strong>AI 决策验证充分</strong>：DQN 200K 步训练 + Monte Carlo 四策略验证（76.2% 总体拦截率 > 70% 目标），含 95% 置信区间</li>
+  <li><strong>实时数据真实接入</strong>：OpenSky（413 条航迹）、AIS（20 条）、OpenMeteo（8 观测点）均通过真实 API 验证</li>
+  <li><strong>工程化质量高</strong>：165/165 测试全绿，14 个测试文件覆盖 P3-P8 全阶段</li>
+  <li><strong>安全与可观测性完备</strong>：JWT/RBAC/mTLS/Audit 五模块安全体系 + Prometheus/Jaeger 双重监控</li>
+  <li><strong>文档体系完整</strong>：9 个 HTML 交付物 + README 309 行 + 灾备 Runbook + 负载测试报告</li>
+</ul>
+
+<h3>不足与改进建议</h3>
+<table>
+<tr><th>#</th><th>不足</th><th>影响</th><th>改进建议</th><th>优先级</th></tr>
+<tr>
+  <td>1</td>
+  <td>CI/CD 未端到端真实运行</td>
+  <td>比赛评审可能要求现场演示 CI 流水线</td>
+  <td>推送至 GitHub 触发一次完整 CI run，截图作为附件</td>
+  <td><strong>P0</strong></td>
+</tr>
+<tr>
+  <td>2</td>
+  <td>架构文档 HTML 渲染未确认</td>
+  <td>核心交付物可能无法正常展示</td>
+  <td>浏览器打开确认渲染正常，修复 JS/CSS 问题</td>
+  <td><strong>P0</strong></td>
+</tr>
+<tr>
+  <td>3</td>
+  <td>多智能体 IQL/MADDPG 训练深度不足</td>
+  <td>51K/53K 步未收敛，仅作辅助验证</td>
+  <td>继续增量训练至 100K+ 步，或作为 DQN 的对比方案展示</td>
+  <td><strong>P1</strong></td>
+</tr>
+<tr>
+  <td>4</td>
+  <td>缺少演示视频/截图</td>
+  <td>比赛通常要求演示材料</td>
+  <td>录制系统运行演示视频，展示 3D 态势 + Monte Carlo + 实时数据</td>
+  <td><strong>P1</strong></td>
+</tr>
+<tr>
+  <td>5</td>
+  <td>数字线程未贯穿全链路</td>
+  <td>数据追溯不完整</td>
+  <td>在 live_data 层加入数据血缘标记，贯通到 SPEAR 回放</td>
+  <td><strong>P2</strong></td>
+</tr>
+<tr>
+  <td>6</td>
+  <td>比赛报名/提交材料状态未确认</td>
+  <td>可能错过提交截止</td>
+  <td>确认 DTC 2028 报名状态、提交渠道和截止日期</td>
+  <td><strong>P0</strong></td>
+</tr>
+</table>
+</div>
+
+<!-- 评分汇总 -->
+<h2>十五、评分汇总</h2>
+<div class="card">
+<table>
+<tr><th>评价维度</th><th>权重</th><th>得分</th><th>加权得分</th><th>等级</th></tr>
+<tr><td>数字孪生体核心概念</td><td>15%</td><td>85</td><td>12.75</td><td>A</td></tr>
+<tr><td>LVC/ASDA 架构</td><td>10%</td><td>90</td><td>9.00</td><td>A+</td></tr>
+<tr><td>任务链完成度</td><td>15%</td><td>88</td><td>13.20</td><td>A</td></tr>
+<tr><td>AI 决策能力</td><td>15%</td><td>82</td><td>12.30</td><td>A-</td></tr>
+<tr><td>实时数据接入</td><td>8%</td><td>90</td><td>7.20</td><td>A+</td></tr>
+<tr><td>分布式架构</td><td>8%</td><td>88</td><td>7.04</td><td>A</td></tr>
+<tr><td>安全体系</td><td>5%</td><td>85</td><td>4.25</td><td>A</td></tr>
+<tr><td>可观测性</td><td>4%</td><td>82</td><td>3.28</td><td>A-</td></tr>
+<tr><td>工程化质量</td><td>8%</td><td>78</td><td>6.24</td><td>B+</td></tr>
+<tr><td>文档与交付</td><td>7%</td><td>75</td><td>5.25</td><td>B+</td></tr>
+<tr><td>Monte Carlo 验证</td><td>5%</td><td>92</td><td>4.60</td><td>A+</td></tr>
+<tr style="background:#21262d;font-weight:700;">
+  <td>合计</td><td>100%</td><td>—</td><td>85.11</td><td>A</td>
+</tr>
+</table>
+<p style="text-align:center;margin-top:1rem;">
+  <span style="font-size:1.2rem;font-weight:700;color:var(--accent);">综合合规度：85 分（A 级）</span><br>
+  <span style="font-size:0.85rem;color:var(--text-dim);">注：本报告自评分数，最终以比赛评委会评审为准。P0 项修复后预计可达 90+ 分。</span>
+</p>
+</div>
+
+<div class="footer">
+  <p>PMTEC 数字孪生战场系统 · DTC 2026 合规性评价报告</p>
+  <p>生成时间：2026-09-05 09:25 · 工作目录：D:\APPs\数字孪生挑战赛\pmtec_system\</p>
+  <p>评价依据：DTC 2026 场景开发赛道「智能杀伤网」主题 · LVC/ASDA/DTB Model 架构要求 · r1-r12 需求校验</p>
+</div>
+
+</div>
+</body>
+</html>

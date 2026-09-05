@@ -1,0 +1,16 @@
+[
+  {
+    "timesteps": 200000,
+    "elapsed_seconds": 3047.2,
+    "learning_rate": 0.0001,
+    "batch_size": 64,
+    "gamma": 0.95,
+    "exploration_final": 0.05,
+    "net_arch": [
+      128,
+      64
+    ],
+    "device": "xpu:0",
+    "timestamp": 1788489506.814649
+  }
+]

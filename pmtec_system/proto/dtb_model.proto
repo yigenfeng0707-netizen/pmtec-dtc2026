@@ -1,0 +1,433 @@
+syntax = "proto3";
+
+package dtb_model;
+
+option java_package = "com.dtc2026.dtb";
+option java_multiple_files = true;
+
+// ============================================================
+// DTB Model Messages
+// ============================================================
+
+message Entity {
+  string id = 1;
+  string type = 2;          // aircraft, missile, sensor, base
+  string subtype = 3;       // F-35A, DF-26, AN/TPS-80, etc.
+  double lat = 4;
+  double lon = 5;
+  double alt_m = 6;
+  double heading_deg = 7;
+  double speed_kmh = 8;
+  string affiliation = 9;   // friendly, hostile, neutral
+  string base_id = 10;      // home base if applicable
+  int64 timestamp = 11;
+  string status = 12;       // active, destroyed, transferring
+}
+
+message Track {
+  string track_id = 1;
+  string source = 2;        // radar, satellite, elint, visual
+  double lat = 3;
+  double lon = 4;
+  double alt_m = 5;
+  double heading_deg = 6;
+  double speed_kmh = 7;
+  double confidence = 8;
+  string classification = 9; // fighter, bomber, missile, unknown
+  int64 timestamp = 10;
+}
+
+message SimEvent {
+  string event_id = 1;
+  string event_type = 2;    // deploy, transfer, strike, detect, damage, recover
+  int64 timestamp = 3;
+  string actor = 4;
+  string target = 5;
+  string description = 6;
+  map<string, string> params = 7;
+}
+
+message SystemState {
+  int64 sim_time = 1;
+  int32 total_entities = 2;
+  int32 active_tracks = 3;
+  int32 asda_cycle = 4;
+  string asda_phase = 5;
+  double network_vulnerability = 6;
+  double strike_capability = 7;
+  repeated Entity entities = 8;
+  repeated Track tracks = 9;
+  repeated SimEvent recent_events = 10;
+}
+
+message Ack {
+  bool success = 1;
+  string message = 2;
+}
+
+message StartRequest {
+  string scenario_name = 1;
+  int32 duration_seconds = 2;
+  int32 seed = 3;
+}
+
+message StopRequest {}
+
+message StateRequest {
+  int64 at_time = 1;
+}
+
+message TrackQuery {
+  double min_lat = 1;
+  double max_lat = 2;
+  double min_lon = 3;
+  double max_lon = 4;
+  string classification_filter = 5;
+}
+
+message TrackUpdate {
+  repeated Track tracks = 1;
+  int64 timestamp = 2;
+}
+
+message EntityQuery {
+  string entity_id = 1;
+  string type_filter = 2;
+}
+
+message EntityStatus {
+  Entity entity = 1;
+  string health = 2;
+  double fuel_pct = 3;
+  int32 ammo_count = 4;
+}
+
+message NetQuery {}
+
+message NetworkState {
+  int32 total_nodes = 1;
+  int32 active_nodes = 2;
+  int32 degraded_nodes = 3;
+  double avg_latency_ms = 4;
+  repeated string node_status = 5;
+}
+
+message AppQuery {
+  string category = 1;
+}
+
+message AppInfo {
+  string app_id = 1;
+  string name = 2;
+  string version = 3;
+  string category = 4;
+  string description = 5;
+}
+
+message AppList {
+  repeated AppInfo apps = 1;
+}
+
+message DeployRequest {
+  string app_id = 1;
+  string target_base = 2;
+  int32 count = 3;
+}
+
+message DeployResult {
+  bool success = 1;
+  string message = 2;
+  string deployment_id = 3;
+}
+
+message CapabilityQuery {
+  string base_id = 1;
+}
+
+message CapabilityReport {
+  string base_id = 1;
+  int32 strike_capability = 2;
+  int32 defense_capability = 3;
+  int32 isr_capability = 4;
+  int32 logistics_capability = 5;
+}
+
+message ComponentInfo {
+  string component_id = 1;
+  string component_type = 2;
+  string endpoint = 3;
+  map<string, string> metadata = 4;
+}
+
+message RegResult {
+  bool success = 1;
+  string component_id = 2;
+  string message = 3;
+}
+
+message DiscoveryQuery {
+  string service_type = 1;
+}
+
+message ServiceInfo {
+  string service_id = 1;
+  string service_type = 2;
+  string endpoint = 3;
+  bool healthy = 4;
+}
+
+message ServiceList {
+  repeated ServiceInfo services = 1;
+}
+
+message HealthQuery {}
+
+message HealthStatus {
+  bool healthy = 1;
+  string version = 2;
+  int64 uptime_seconds = 3;
+  double cpu_usage = 4;
+  int32 active_connections = 5;
+}
+
+message SpearReplayRequest {
+  int64 start_time = 1;
+  int64 end_time = 2;
+  double playback_speed = 3;
+}
+
+message SpearReport {
+  int64 total_duration = 1;
+  int32 total_events = 2;
+  int32 total_tracks = 3;
+  repeated SimEvent timeline = 4;
+  string summary = 5;
+}
+
+// ============================================================
+// P2: Electronic Warfare Messages
+// ============================================================
+
+message EWThreat {
+  string threat_id = 1;
+  string ew_type = 2;       // KGJ-500, KN-200, IL-22PP
+  double lat = 3;
+  double lon = 4;
+  double alt_m = 5;
+  double power_kw = 6;
+  double jam_range_km = 7;
+  repeated string jammed_bands = 8;  // S, X, Ku, Ka
+  double effectiveness = 9;
+  string target_base_id = 10;
+  string status = 11;
+}
+
+message EWThreatQuery {
+  string target_base_id = 1;
+  bool active_only = 2;
+}
+
+message EWThreatList {
+  repeated EWThreat threats = 1;
+}
+
+message EWEffectReport {
+  string threat_id = 1;
+  repeated string jammed_sensor_ids = 2;
+  double avg_confidence_reduction = 3;
+  int32 affected_sensors = 4;
+}
+
+// ============================================================
+// P2: Cyber Threat Messages
+// ============================================================
+
+message CyberThreat {
+  string threat_id = 1;
+  string attack_type = 2;   // APT-intrusion, GPS-spoofing, comms-jamming, supply-chain
+  string target_base_id = 3;
+  string target_system = 4;  // C2_network, navigation, datalink, logistics
+  string phase = 5;          // infiltration, persistence, impact, remediated
+  double detection_difficulty = 6;
+  double impact_severity = 7;
+  double effectiveness = 8;
+  bool detected = 9;
+  double impact_score = 10;
+  string status = 11;
+}
+
+message CyberThreatQuery {
+  string target_base_id = 1;
+  bool detected_only = 2;
+}
+
+message CyberThreatList {
+  repeated CyberThreat threats = 1;
+}
+
+// ============================================================
+// P2: Platform Management Messages
+// ============================================================
+
+message DTInstanceInfo {
+  string instance_id = 1;
+  string name = 2;
+  string scenario = 3;
+  string status = 4;
+  int64 created_at = 5;
+  map<string, string> metadata = 6;
+  repeated string tags = 7;
+}
+
+message DTInstanceList {
+  repeated DTInstanceInfo instances = 1;
+}
+
+message DTRegisterRequest {
+  string name = 1;
+  string scenario = 2;
+  repeated string tags = 3;
+  map<string, string> metadata = 4;
+}
+
+message PluginInfo {
+  string plugin_id = 1;
+  string name = 2;
+  string version = 3;
+  string author = 4;
+  string description = 5;
+  string plugin_type = 6;
+  bool active = 7;
+  int32 call_count = 8;
+  int32 error_count = 9;
+}
+
+message PluginList {
+  repeated PluginInfo plugins = 1;
+}
+
+message PluginQuery {
+  string plugin_type = 1;
+  bool active_only = 2;
+}
+
+message ThreatSummary {
+  int32 ew_active = 1;
+  int32 cyber_active = 2;
+  int32 cyber_detected = 3;
+  int32 kinetic_active = 4;
+}
+
+// ============================================================
+// P2: LVC Live Data Messages
+// ============================================================
+
+message LiveSensorData {
+  string sensor_id = 1;
+  string sensor_type = 2;   // AIS, ADS-B, weather, radar
+  double lat = 3;
+  double lon = 4;
+  double alt_m = 5;
+  double heading_deg = 6;
+  double speed_kmh = 7;
+  string callsign = 8;
+  string affiliation = 9;   // friendly, hostile, neutral, unknown
+  double confidence = 10;
+  int64 timestamp = 11;
+  map<string, string> raw_data = 12;
+}
+
+message LiveFeedRequest {
+  string feed_type = 1;     // AIS, ADS-B, weather, all
+  double min_lat = 2;
+  double max_lat = 3;
+  double min_lon = 4;
+  double max_lon = 5;
+}
+
+message LiveFeedUpdate {
+  repeated LiveSensorData contacts = 1;
+  string feed_source = 2;
+  int64 timestamp = 3;
+}
+
+message LVCLayerStatus {
+  string layer_name = 1;    // Live, Virtual, Constructive
+  bool enabled = 2;
+  int32 entity_count = 3;
+  string description = 4;
+}
+
+message LVCStatus {
+  repeated LVCLayerStatus layers = 1;
+  int32 total_entities = 2;
+}
+
+// ============================================================
+// P2: DQN / Deep RL Messages
+// ============================================================
+
+message DQNInferenceRequest {
+  repeated double observation = 1;
+  bool deterministic = 2;
+}
+
+message DQNInferenceResult {
+  int32 action = 1;
+  repeated double q_values = 2;
+  string device = 3;        // xpu:0, cpu, cuda:0
+}
+
+message DQNTrainingStatus {
+  bool is_trained = 1;
+  int32 training_runs = 2;
+  int32 total_timesteps = 3;
+  string device = 4;
+  string policy_arch = 5;
+  int32 observation_dim = 6;
+  int32 action_space_size = 7;
+}
+
+// ============================================================
+// DTB Model Services
+// ============================================================
+
+service WarEngine {
+  rpc StartSimulation(StartRequest) returns (Ack);
+  rpc StopSimulation(StopRequest) returns (Ack);
+  rpc GetState(StateRequest) returns (SystemState);
+  rpc InjectEvent(SimEvent) returns (Ack);
+  rpc GetSpearReport(SpearReplayRequest) returns (SpearReport);
+  // P2: EW/Cyber threat management
+  rpc GetEWThreats(EWThreatQuery) returns (EWThreatList);
+  rpc GetCyberThreats(CyberThreatQuery) returns (CyberThreatList);
+  rpc GetThreatSummary(HealthQuery) returns (ThreatSummary);
+}
+
+service BattleNetwork {
+  rpc GetTrackFeed(TrackQuery) returns (stream TrackUpdate);
+  rpc GetEntityStatus(EntityQuery) returns (EntityStatus);
+  rpc GetNetworkState(NetQuery) returns (NetworkState);
+  // P2: LVC Live data feeds
+  rpc GetLiveFeed(LiveFeedRequest) returns (stream LiveFeedUpdate);
+  rpc GetLVCStatus(HealthQuery) returns (LVCStatus);
+}
+
+service ApplicationStore {
+  rpc ListApps(AppQuery) returns (AppList);
+  rpc DeployApp(DeployRequest) returns (DeployResult);
+  rpc QueryCapability(CapabilityQuery) returns (CapabilityReport);
+  // P2: DQN inference
+  rpc DQNInfer(DQNInferenceRequest) returns (DQNInferenceResult);
+  rpc GetDQNStatus(HealthQuery) returns (DQNTrainingStatus);
+}
+
+service PlugAndPlay {
+  rpc RegisterComponent(ComponentInfo) returns (RegResult);
+  rpc DiscoverServices(DiscoveryQuery) returns (ServiceList);
+  rpc HealthCheck(HealthQuery) returns (HealthStatus);
+  // P2: Platform management
+  rpc ListPlugins(PluginQuery) returns (PluginList);
+  rpc ListDTInstances(HealthQuery) returns (DTInstanceList);
+  rpc RegisterDTInstance(DTRegisterRequest) returns (DTInstanceInfo);
+}

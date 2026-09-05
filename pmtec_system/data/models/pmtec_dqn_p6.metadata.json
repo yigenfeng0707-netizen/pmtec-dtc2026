@@ -1,0 +1,23 @@
+{
+  "model_file": "pmtec_dqn_p6.zip",
+  "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p6.zip",
+  "file_hash": "3640ffc480c908ce",
+  "file_size_bytes": 543713,
+  "created_at": 1788536485.867959,
+  "created_at_iso": "2026-09-04T15:41:25",
+  "algorithm": "DQN",
+  "library": "stable_baselines3",
+  "timesteps": 200000,
+  "obs_dim": 182,
+  "n_actions": 6,
+  "policy_arch": [
+    128,
+    64
+  ],
+  "training_type": "xpu_accelerated",
+  "evaluation": {
+    "overall_intercept_rate": 0.762,
+    "stealth_intercept_rate": 0.537
+  },
+  "notes": "P6 production model. 182-dim observation space."
+}

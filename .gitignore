@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+*.egg
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archives (old/intermediate files, not needed for competition)
+pmtec_system/archive/
+
+# Training logs and checkpoints
+*.log
+
+# Large intermediate data (keep production models and JSON reports)
+pmtec_system/data/models/*_checkpoint*.zip
+pmtec_system/data/models/*_ckpt_*.zip
+pmtec_system/data/models/*_s1.zip
+pmtec_system/data/models/*_s2.zip
+
+# Sensitive
+.env
+*.key
+*.pem
+
+# Output temp
+tmp/
+.tmp/
+
+# DuMate internal working directory
+.dumate/

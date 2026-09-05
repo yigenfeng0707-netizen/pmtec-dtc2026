@@ -1,0 +1,20 @@
+# .dockerignore - keep image lean
+__pycache__/
+*.pyc
+*.pyo
+*.log
+*.egg-info/
+.git/
+.gitignore
+output/*.json
+output/*.html
+data/persistence/*.db
+data/persistence/*.db-wal
+data/persistence/*.db-shm
+p3_sim_*.log
+p4_*.log
+test_*.py
+.venv/
+venv/
+.env
+*.zip

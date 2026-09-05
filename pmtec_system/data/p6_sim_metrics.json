@@ -1,0 +1,36 @@
+{
+  "sim_time": "T+00:05:00",
+  "sim_seconds": 300.0,
+  "asda_cycle": 30,
+  "total_entities": 47,
+  "lvc_live_entities": 65,
+  "active_tracks": 9,
+  "kalman_tracks": 49,
+  "threat_stats": {
+    "total_missiles": 1,
+    "intercepted": 0,
+    "impacted": 0,
+    "active": 1,
+    "intercept_rate": 0.0
+  },
+  "live_data": {
+    "total_injected": 43,
+    "tracks_injected": 35,
+    "adsb_contacts": 15,
+    "ais_vessels": 20,
+    "weather_stations": 8
+  },
+  "persistence": {
+    "snapshots": 80,
+    "kalman_tracks": 3997,
+    "events": 400,
+    "dqn_metrics": 0,
+    "checkpoints": 1,
+    "last_cycle": 28,
+    "last_sim_seconds": 280.0
+  },
+  "dqn_agent": {
+    "active": true,
+    "model_name": "pmtec_dqn_p6"
+  }
+}

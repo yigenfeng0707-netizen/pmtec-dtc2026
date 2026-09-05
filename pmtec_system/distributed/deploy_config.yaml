@@ -1,0 +1,90 @@
+# PMTEC Distributed Deployment Configuration (P2-2)
+# Each service runs on its own gRPC port for independent deployment.
+# In production, each service can be containerized (Docker) or run as
+# a separate process on different nodes.
+
+deployment:
+  mode: distributed          # distributed | monolithic
+  host: localhost
+
+services:
+  WarEngine:
+    port: 50051
+    description: "Simulation core - ASDA loop, LVC coordination, EW/Cyber threats"
+    servicer: "WarEngineServicer"
+    rpcs:
+      - StartSimulation
+      - StopSimulation
+      - GetState
+      - InjectEvent
+      - GetSpearReport
+      - GetEWThreats
+      - GetCyberThreats
+      - GetThreatSummary
+
+  BattleNetwork:
+    port: 50052
+    description: "Track distribution, entity status, LVC live data feeds"
+    servicer: "BattleNetworkServicer"
+    rpcs:
+      - GetTrackFeed (streaming)
+      - GetEntityStatus
+      - GetNetworkState
+      - GetLiveFeed (streaming)
+      - GetLVCStatus
+
+  ApplicationStore:
+    port: 50053
+    description: "Capability modules, DQN inference, application deployment"
+    servicer: "ApplicationStoreServicer"
+    rpcs:
+      - ListApps
+      - DeployApp
+      - QueryCapability
+      - DQNInfer
+      - GetDQNStatus
+
+  PlugAndPlay:
+    port: 50054
+    description: "Component discovery, plugin lifecycle, DT instance registry"
+    servicer: "PlugAndPlayServicer"
+    rpcs:
+      - RegisterComponent
+      - DiscoverServices
+      - HealthCheck
+      - ListPlugins
+      - ListDTInstances
+      - RegisterDTInstance
+
+# Cross-service communication
+inter_service:
+  protocol: grpc
+  max_message_size_mb: 50
+  keepalive_ms: 30000
+  timeout_ms: 10000
+
+# Health monitoring
+health_check:
+  interval_s: 30
+  retry_count: 3
+  retry_delay_s: 5
+
+# Shared engine (single-process multi-port mode)
+# In true distributed mode, each service gets its own engine
+shared_engine: true
+
+# Maven equivalent: service contract definitions
+# Maps to Java package com.dtc2026.dtb for Maven multi-module builds
+maven_modules:
+  - name: dtb-war-engine
+    package: com.dtc2026.dtb.war
+    port: 50051
+  - name: dtb-battle-network
+    package: com.dtc2026.dtb.battle
+    port: 50052
+  - name: dtb-application-store
+    package: com.dtc2026.dtb.app
+    port: 50053
+  - name: dtb-plug-and-play
+    package: com.dtc2026.dtb.pnp
+    port: 50054

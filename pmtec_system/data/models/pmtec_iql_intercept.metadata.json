@@ -1,0 +1,79 @@
+{
+  "model_file": "pmtec_iql_intercept.zip",
+  "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_iql_intercept.zip",
+  "file_hash": "ccb3839ac2bcc0e0",
+  "file_size_bytes": 540661,
+  "created_at": 1788570001.9618766,
+  "created_at_iso": "2026-09-05T01:00:01",
+  "algorithm": "IQL",
+  "role": "intercept",
+  "timesteps": 51000,
+  "obs_dim": 182,
+  "n_actions": 3,
+  "device": "xpu:0",
+  "training_time_sec": 283.0,
+  "notes": "P8-v3 batch training: +5000 steps (total 51000, incremental resume)",
+  "inference": "{'intercept': 2, 'dispersal': 2}",
+  "version_history": [
+    {
+      "version": 1,
+      "previous_hash": "2c6a2587609309f2",
+      "previous_timesteps": 6000,
+      "updated_at": 1788538797.8242655
+    },
+    {
+      "version": 2,
+      "previous_hash": "b148f84a1577faa5",
+      "previous_timesteps": 10000,
+      "updated_at": 1788566651.305385
+    },
+    {
+      "version": 3,
+      "previous_hash": "6af32f244f31d4ad",
+      "previous_timesteps": 13000,
+      "updated_at": 1788567347.4869924
+    },
+    {
+      "version": 4,
+      "previous_hash": "edc487b48daf9b0a",
+      "previous_timesteps": 16000,
+      "updated_at": 1788567646.56498
+    },
+    {
+      "version": 5,
+      "previous_hash": "5aa0fa8ff0c511e4",
+      "previous_timesteps": 21000,
+      "updated_at": 1788568002.2627826
+    },
+    {
+      "version": 6,
+      "previous_hash": "caf4c3f4fd670b53",
+      "previous_timesteps": 26000,
+      "updated_at": 1788568305.7429533
+    },
+    {
+      "version": 7,
+      "previous_hash": "966c0284d90ff154",
+      "previous_timesteps": 31000,
+      "updated_at": 1788568689.649594
+    },
+    {
+      "version": 8,
+      "previous_hash": "48fb700a0e3435f1",
+      "previous_timesteps": 36000,
+      "updated_at": 1788569015.396847
+    },
+    {
+      "version": 9,
+      "previous_hash": "5deea62318092a43",
+      "previous_timesteps": 41000,
+      "updated_at": 1788569448.4481525
+    },
+    {
+      "version": 10,
+      "previous_hash": "6a81bd6698f5dc58",
+      "previous_timesteps": 46000,
+      "updated_at": 1788570001.9637234
+    }
+  ]
+}

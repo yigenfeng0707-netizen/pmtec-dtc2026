@@ -1,0 +1,22 @@
+grpcio>=1.60.0
+grpcio-tools>=1.60.0
+grpcio-health-checking>=1.60.0
+protobuf>=4.25.0
+websockets>=12.0
+prometheus_client>=0.20.0
+PyJWT>=2.8.0
+cryptography>=42.0.0
+numpy>=1.26.0
+scipy>=1.12.0
+networkx>=3.2
+
+# Deep RL (CPU-only for Docker; use XPU/GPU build for acceleration):
+torch>=2.0.0
+stable-baselines3>=2.0.0
+gymnasium>=0.29.0
+
+# Distributed Tracing (P8-v2: Jaeger/OpenTelemetry)
+opentelemetry-api>=1.44.0
+opentelemetry-sdk>=1.44.0
+opentelemetry-exporter-otlp>=1.44.0
+opentelemetry-instrumentation-grpc>=0.65b0

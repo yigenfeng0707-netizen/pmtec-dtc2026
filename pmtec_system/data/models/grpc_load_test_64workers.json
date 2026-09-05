@@ -1,0 +1,50 @@
+{
+  "config": {
+    "max_workers": 64,
+    "tls": false
+  },
+  "test_rpc": "GetThreatSummary",
+  "results": {
+    "C5": {
+      "avg_ms": 3.5,
+      "p50_ms": 3.5,
+      "p95_ms": 4.1,
+      "errors": 0,
+      "rps": 425.7
+    },
+    "C10": {
+      "avg_ms": 5.3,
+      "p50_ms": 5.1,
+      "p95_ms": 7.7,
+      "errors": 0,
+      "rps": 502.0
+    },
+    "C20": {
+      "avg_ms": 5.7,
+      "p50_ms": 5.9,
+      "p95_ms": 7.6,
+      "errors": 0,
+      "rps": 563.5
+    },
+    "C40": {
+      "avg_ms": 14.6,
+      "p50_ms": 15.1,
+      "p95_ms": 24.5,
+      "errors": 0,
+      "rps": 546.8
+    },
+    "C64": {
+      "avg_ms": 23.6,
+      "p50_ms": 22.6,
+      "p95_ms": 44.8,
+      "errors": 0,
+      "rps": 484.7
+    }
+  },
+  "comparison": {
+    "previous_workers": 10,
+    "previous_C20_p95_ms": 162,
+    "current_workers": 64,
+    "current_C20_p95_ms": 7.6
+  }
+}

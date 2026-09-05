@@ -1,0 +1,53 @@
+{
+  "timestamp": "2026-09-04 22:48:35",
+  "device": "xpu:0",
+  "obs_dim": 182,
+  "iql": {
+    "algorithm": "IQL",
+    "timesteps": 6000,
+    "elapsed_seconds": 217.5,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "net_arch": [
+      128,
+      64
+    ],
+    "timestamp": 1788533533.4420645,
+    "load_verification": true,
+    "inference_test": {
+      "intercept": 1,
+      "dispersal": 2
+    }
+  },
+  "maddpg": {
+    "algorithm": "MADDPG",
+    "timesteps": 6000,
+    "elapsed_seconds": 176.0,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "hidden_actor": 128,
+    "hidden_critic": 256,
+    "gamma": 0.95,
+    "tau": 0.005,
+    "batch_size": 128,
+    "buffer_used": 6000,
+    "avg_reward_last_10": 881.5599999999998,
+    "total_episodes": 500,
+    "timestamp": 1788533709.607133,
+    "load_verification": true,
+    "inference_test": {
+      "intercept": 1,
+      "dispersal": 2
+    }
+  }
+}

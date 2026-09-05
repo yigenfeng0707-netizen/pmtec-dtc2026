@@ -1,0 +1,50 @@
+{
+  "total_timesteps": 200000,
+  "elapsed_seconds": 2191.8,
+  "device": "xpu:0",
+  "learning_rate": 0.0001,
+  "batch_size": 128,
+  "buffer_size": 50000,
+  "exploration_initial_eps": 0.5,
+  "exploration_final_eps": 0.02,
+  "final_avg_reward": 294.43,
+  "final_avg_intercept_rate": 0.3334,
+  "eval_results": [
+    {
+      "episode": 0,
+      "total_reward": 319.5,
+      "intercept_rate": 1.0,
+      "survived": 135,
+      "intercepted": 1
+    },
+    {
+      "episode": 1,
+      "total_reward": 298.3,
+      "intercept_rate": 0.667,
+      "survived": 129,
+      "intercepted": 2
+    },
+    {
+      "episode": 2,
+      "total_reward": 288.8,
+      "intercept_rate": 0.0,
+      "survived": 136,
+      "intercepted": 0
+    },
+    {
+      "episode": 3,
+      "total_reward": 287.7,
+      "intercept_rate": 0.0,
+      "survived": 126,
+      "intercepted": 0
+    },
+    {
+      "episode": 4,
+      "total_reward": 277.85,
+      "intercept_rate": 0.0,
+      "survived": 126,
+      "intercepted": 0
+    }
+  ],
+  "saved_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_200k.zip"
+}

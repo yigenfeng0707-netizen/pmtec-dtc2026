@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-09-04 21:17:48",
+  "baseline_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p6.zip",
+  "final_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p7_v2.zip",
+  "device": "xpu:0",
+  "total_timesteps": 135000,
+  "stages": [
+    {
+      "stage": "stage3_extreme",
+      "description": "Extreme: 2-4 hypersonic, extreme weather, TTI 20-60s, +20% speed",
+      "total_timesteps": 15000,
+      "elapsed_seconds": 244.7,
+      "episodes": 1250,
+      "avg_intercept_rate": 0.8525,
+      "std_intercept_rate": 0.1379,
+      "avg_reward": 124.98,
+      "std_reward": 9.38,
+      "learning_rate": 2e-05,
+      "exploration_final_eps": 0.05,
+      "device": "xpu:0",
+      "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p7_v2.zip",
+      "timestamp": "2026-09-04 21:17:46"
+    }
+  ],
+  "evaluations": [
+    {
+      "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p7_v2.zip",
+      "n_episodes": 30,
+      "avg_intercept_rate": 0.8082,
+      "std_intercept_rate": 0.0518,
+      "min_intercept_rate": 0.6875,
+      "max_intercept_rate": 0.8824,
+      "avg_reward": 793.74
+    }
+  ],
+  "target_intercept_rate": 0.7,
+  "baseline_stealth_ir": 0.537,
+  "final_stealth_ir": 0.8082,
+  "improvement": 0.2712,
+  "passes_target": true
+}

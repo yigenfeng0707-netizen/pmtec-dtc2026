@@ -1,0 +1,62 @@
+# PMTEC Prometheus Scrape Configuration (P7-v2)
+# Scrapes metrics from all DTB services running Prometheus exporter
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    monitor: 'pmtec-dtc2026'
+
+rule_files:
+  - "alert_rules.yml"
+
+scrape_configs:
+  # PMTEC WarEngine (primary, with metrics endpoint)
+  - job_name: 'pmtec-war-engine'
+    static_configs:
+      - targets: ['war-engine:9090']
+        labels:
+          service: 'WarEngine'
+          component: 'simulation-core'
+    metrics_path: /metrics
+
+  # PMTEC BattleNetwork
+  - job_name: 'pmtec-battle-network'
+    static_configs:
+      - targets: ['battle-network:9090']
+        labels:
+          service: 'BattleNetwork'
+          component: 'track-distribution'
+    metrics_path: /metrics
+
+  # PMTEC ApplicationStore
+  - job_name: 'pmtec-application-store'
+    static_configs:
+      - targets: ['application-store:9090']
+        labels:
+          service: 'ApplicationStore'
+          component: 'capability-dqn'
+    metrics_path: /metrics
+
+  # PMTEC PlugAndPlay
+  - job_name: 'pmtec-plug-and-play'
+    static_configs:
+      - targets: ['plug-and-play:9090']
+        labels:
+          service: 'PlugAndPlay'
+          component: 'discovery-registry'
+    metrics_path: /metrics
+
+  # HA Backup instance
+  - job_name: 'pmtec-war-engine-backup'
+    static_configs:
+      - targets: ['war-engine-backup:9090']
+        labels:
+          service: 'WarEngine'
+          component: 'backup-ha'
+    metrics_path: /metrics
+
+  # Prometheus self-monitoring
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']

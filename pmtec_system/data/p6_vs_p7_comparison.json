@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-09-04 18:05:49",
+  "p6_stealth": {
+    "model": "pmtec_dqn_p6.zip",
+    "n_episodes": 50,
+    "total_missiles": 751,
+    "total_intercepted": 401,
+    "intercept_rate": 0.534,
+    "ci_lower": 0.4982,
+    "ci_upper": 0.5694,
+    "mean_episode_rate": 0.5345,
+    "std_episode_rate": 0.1521,
+    "min_rate": 0.1875,
+    "max_rate": 0.875
+  },
+  "p7_stealth": {
+    "model": "pmtec_dqn_p7.zip",
+    "n_episodes": 50,
+    "total_missiles": 753,
+    "total_intercepted": 410,
+    "intercept_rate": 0.5445,
+    "ci_lower": 0.5088,
+    "ci_upper": 0.5797,
+    "mean_episode_rate": 0.5457,
+    "std_episode_rate": 0.1264,
+    "min_rate": 0.2857,
+    "max_rate": 0.7857
+  }
+}

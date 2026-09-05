@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ACE Deployment Visualization - DTC 2026 Level 2</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0a0e17; color: #e0e0e0; }
+#map { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+#info-panel { position: absolute; top: 10px; right: 10px; z-index: 1000;
+  background: rgba(15,23,35,0.95); padding: 16px; border-radius: 8px;
+  border: 1px solid #2a3f5f; max-width: 320px; font-size: 12px; }
+#info-panel h3 { color: #4fc3f7; margin-bottom: 8px; font-size: 14px; }
+#info-panel .stat { display: flex; justify-content: space-between; margin: 4px 0; }
+#info-panel .stat-label { color: #888; }
+#info-panel .stat-value { color: #4fc3f7; font-weight: bold; }
+.legend { position: absolute; bottom: 20px; left: 10px; z-index: 1000;
+  background: rgba(15,23,35,0.95); padding: 12px; border-radius: 8px;
+  border: 1px solid #2a3f5f; font-size: 11px; }
+.legend-item { display: flex; align-items: center; margin: 4px 0; }
+.legend-dot { width: 12px; height: 12px; border-radius: 50%; margin-right: 8px; border: 2px solid #fff; }
+</style>
+</head>
+<body>
+<div id="map"></div>
+<div id="info-panel">
+  <h3>ACE Deployment Engine</h3>
+  <div class="stat"><span class="stat-label">Total Bases</span><span class="stat-value" id="stat-bases">0</span></div>
+  <div class="stat"><span class="stat-label">Total Aircraft</span><span class="stat-value" id="stat-aircraft">0</span></div>
+  <div class="stat"><span class="stat-label">ACE Hubs</span><span class="stat-value" id="stat-hubs">0</span></div>
+  <div class="stat"><span class="stat-label">Network Vulnerability</span><span class="stat-value" id="stat-vuln">0</span></div>
+  <div class="stat"><span class="stat-label">Transfers</span><span class="stat-value" id="stat-transfers">0</span></div>
+  <div class="stat"><span class="stat-label">Threats</span><span class="stat-value" id="stat-threats">0</span></div>
+</div>
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#d32f2f"></div>ACE Hub (high value)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#1565c0"></div>Spoke Base</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#e65100"></div>Threat Target</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#c62828;border-color:#f44336"></div>Damaged Base</div>
+  <div style="width:24px;height:3px;background:#4fc3f7;margin:4px 0;"></div>Transfer Route</div>
+</div>
+<script>
+const bases = [{"id": "JP-MISAWA", "name": "Misawa Air Base", "name_cn": "三泽空军基地", "lat": 40.7058, "lon": 141.3814, "region": "Japan-North", "ace_hub": false, "branch": "USAF", "ac_count": 18, "ac_types": {"F-16C": 18}, "vulnerability": 17.1, "defense_level": 1, "utilization": 45.0, "parking_capacity": 40, "role": "Tactical strike, air superiority, SEAD"}, {"id": "JP-YOKOTA", "name": "Yokota Air Base", "name_cn": "横田空军基地", "lat": 35.7447, "lon": 139.3475, "region": "Japan-Central", "ace_hub": true, "branch": "USAF", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 2, "utilization": 0.0, "parking_capacity": 40, "role": "Command hub, tactical airlift, special operations"}, {"id": "JP-KADENA", "name": "Kadena Air Base", "name_cn": "嘉手纳空军基地", "lat": 26.3505, "lon": 127.7686, "region": "Japan-Okinawa", "ace_hub": true, "branch": "USAF", "ac_count": 1, "ac_types": {"F-35A": 1}, "vulnerability": 0.26, "defense_level": 2, "utilization": 2.0, "parking_capacity": 40, "role": "Pacific keystone, forward strike hub, First Island Chain spear"}, {"id": "JP-FUTENMA", "name": "MCAS Futenma", "name_cn": "普天间航空站", "lat": 26.2783, "lon": 127.7658, "region": "Japan-Okinawa", "ace_hub": false, "branch": "USMC", "ac_count": 12, "ac_types": {"F-35A": 12}, "vulnerability": 9.6, "defense_level": 1, "utilization": 100.0, "parking_capacity": 12, "role": "Marine air hub, rapid response, amphibious assault"}, {"id": "JP-SASEBO", "name": "Sasebo Naval Base", "name_cn": "佐世保海军基地", "lat": 33.1611, "lon": 129.7225, "region": "Japan-South", "ace_hub": false, "branch": "USN", "ac_count": 4, "ac_types": {"F-35A": 4}, "vulnerability": 2.4, "defense_level": 1, "utilization": 50.0, "parking_capacity": 8, "role": "Amphibious operations core, Seventh Fleet support"}, {"id": "JP-YOKOSUKA", "name": "Yokosuka Naval Base", "name_cn": "横须贺海军基地", "lat": 35.2906, "lon": 139.6672, "region": "Japan-Central", "ace_hub": true, "branch": "USN", "ac_count": 4, "ac_types": {"F-15C": 4}, "vulnerability": 1.2, "defense_level": 2, "utilization": 50.0, "parking_capacity": 8, "role": "7th Fleet HQ, nuclear carrier homeport, Pacific maritime command"}, {"id": "JP-IWAKUNI", "name": "MCAS Iwakuni", "name_cn": "岩国海军陆战队航空站", "lat": 34.1442, "lon": 132.2347, "region": "Japan-South", "ace_hub": false, "branch": "USMC", "ac_count": 12, "ac_types": {"F-15C": 9, "F-16C": 3}, "vulnerability": 9.6, "defense_level": 1, "utilization": 30.0, "parking_capacity": 40, "role": "Marine air operations, F-35B deployment"}, {"id": "GU-ANDERSEN", "name": "Andersen AFB", "name_cn": "安德森空军基地", "lat": 13.5839, "lon": 144.9167, "region": "Guam", "ace_hub": true, "branch": "USAF", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 3, "utilization": 0.0, "parking_capacity": 40, "role": "360-degree Guam Defense core, strategic bomber forward base, PMTEC hub"}, {"id": "GU-APRA", "name": "Naval Base Guam", "name_cn": "阿普拉海军基地", "lat": 13.4469, "lon": 144.6589, "region": "Guam", "ace_hub": false, "branch": "USN", "ac_count": 8, "ac_types": {"F-35A": 8}, "vulnerability": 5.6, "defense_level": 1, "utilization": 100.0, "parking_capacity": 8, "role": "Naval support, submarine maintenance, maritime domain awareness"}, {"id": "KR-HUMPHREYS", "name": "Camp Humphreys", "name_cn": "汉弗莱营", "lat": 36.9647, "lon": 127.0336, "region": "Korea", "ace_hub": true, "branch": "US Army", "ac_count": 13, "ac_types": {"F-16C": 13}, "vulnerability": 5.36, "defense_level": 2, "utilization": 32.0, "parking_capacity": 40, "role": "USFK command hub, largest overseas US base"}, {"id": "KR-OSAN", "name": "Osan Air Base", "name_cn": "乌山空军基地", "lat": 37.0906, "lon": 127.0336, "region": "Korea", "ace_hub": true, "branch": "USAF", "ac_count": 4, "ac_types": {"F-15C": 4}, "vulnerability": 0.8, "defense_level": 3, "utilization": 10.0, "parking_capacity": 40, "role": "Northeast Asia air sentinel, Korea defense"}, {"id": "KR-KUNSAN", "name": "Kunsan Air Base", "name_cn": "群山空军基地", "lat": 35.9014, "lon": 126.6156, "region": "Korea", "ace_hub": false, "branch": "USAF", "ac_count": 21, "ac_types": {"F-15C": 19, "F-16C": 2}, "vulnerability": 7.0, "defense_level": 3, "utilization": 52.0, "parking_capacity": 40, "role": "Korea west coast air defense, mutual support with Osan"}, {"id": "HI-PHICKAM", "name": "Joint Base Pearl Harbor-Hickam", "name_cn": "珍珠港-希卡姆联合基地", "lat": 21.3694, "lon": -157.9622, "region": "Hawaii", "ace_hub": true, "branch": "USN/USAF", "ac_count": 9, "ac_types": {"KC-135": 9}, "vulnerability": 3.26, "defense_level": 2, "utilization": 22.0, "parking_capacity": 40, "role": "USINDOPACOM HQ, Pacific Fleet HQ, Pacific Air Force HQ"}, {"id": "HI-SCHOFIELD", "name": "Schofield Barracks", "name_cn": "薛菲尔德兵营", "lat": 21.495, "lon": -158.0636, "region": "Hawaii", "ace_hub": false, "branch": "US Army", "ac_count": 7, "ac_types": {"KC-135": 3, "E-3": 4}, "vulnerability": 4.73, "defense_level": 1, "utilization": 88.0, "parking_capacity": 8, "role": "Pacific ground force staging, rapid deployment"}, {"id": "AK-JBER", "name": "Joint Base Elmendorf-Richardson", "name_cn": "埃尔门多夫-理查森联合基地", "lat": 61.2647, "lon": -149.7275, "region": "Alaska", "ace_hub": true, "branch": "USAF/US Army", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 3, "utilization": 0.0, "parking_capacity": 40, "role": "Arctic military readiness, northern air defense, strategic bomber base"}, {"id": "AK-EIELSON", "name": "Eielson AFB", "name_cn": "艾尔森空军基地", "lat": 64.6431, "lon": -147.6106, "region": "Alaska", "ace_hub": false, "branch": "USAF", "ac_count": 20, "ac_types": {"F-22A": 20}, "vulnerability": 20.0, "defense_level": 1, "utilization": 50.0, "parking_capacity": 40, "role": "Arctic air power, aggressor training, F-35 deployment"}, {"id": "AU-DARWIN", "name": "RAAF Base Darwin", "name_cn": "达尔文皇家空军基地", "lat": -12.4153, "lon": 130.8769, "region": "Australia", "ace_hub": false, "branch": "RAAF/USMC", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 1, "utilization": 0.0, "parking_capacity": 40, "role": "Southern ACE dispersal point, second island chain southern terminus"}, {"id": "AU-TINDAL", "name": "RAAF Base Tindal", "name_cn": "廷达尔皇家空军基地", "lat": -14.5236, "lon": 132.3789, "region": "Australia", "ace_hub": false, "branch": "RAAF", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 3, "utilization": 0.0, "parking_capacity": 40, "role": "Northern Australia air defense, US force posture initiative"}, {"id": "PH-CAMILO", "name": "NB Camilo Osias", "name_cn": "卡米洛·奥西亚斯海军基地", "lat": 18.5667, "lon": 121.1833, "region": "Philippines", "ace_hub": false, "branch": "USN/USMC", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 1, "utilization": 0.0, "parking_capacity": 8, "role": "Northern Luzon forward point, Taiwan Strait monitoring"}, {"id": "PH-LALLO", "name": "Lal-lo Airport", "name_cn": "拉尔洛机场", "lat": 18.2, "lon": 121.4, "region": "Philippines", "ace_hub": false, "branch": "USAF/USMC", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 1, "utilization": 0.0, "parking_capacity": 12, "role": "Northern Luzon dispersal airfield"}, {"id": "PH-BALABAC", "name": "Balabac Island", "name_cn": "巴拉巴克岛", "lat": 8.0333, "lon": 117.05, "region": "Philippines", "ace_hub": false, "branch": "USMC", "ac_count": 0, "ac_types": {}, "vulnerability": 0.0, "defense_level": 1, "utilization": 0.0, "parking_capacity": 8, "role": "Southwest Pacific approach monitoring, South China Sea gateway"}, {"id": "CNMI-TINIAN", "name": "Tinian North Field", "name_cn": "天宁岛北机场", "lat": 15.0833, "lon": 145.6167, "region": "Mariana Islands", "ace_hub": false, "branch": "USAF", "ac_count": 16, "ac_types": {"F-35A": 16}, "vulnerability": 14.4, "defense_level": 1, "utilization": 40.0, "parking_capacity": 40, "role": "ACE distributed dispersal node, Second Island Chain depth"}];
+const transfers = [{"from_lat": 35.2906, "from_lon": 139.6672, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 1181.2}, {"from_lat": 35.2906, "from_lon": 139.6672, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 1181.2}, {"from_lat": 35.2906, "from_lon": 139.6672, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 1181.2}, {"from_lat": 35.2906, "from_lon": 139.6672, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 1181.2}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 124.0}, {"from_lat": 37.0906, "from_lon": 127.0336, "to_lat": 34.1442, "to_lon": 132.2347, "ac_type": "F-15C", "distance_km": 572.9}, {"from_lat": 37.0906, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 137.4}, {"from_lat": 37.0906, "from_lon": 127.0336, "to_lat": 34.1442, "to_lon": 132.2347, "ac_type": "F-15C", "distance_km": 572.9}, {"from_lat": 37.0906, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-15C", "distance_km": 137.4}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 34.1442, "to_lon": 132.2347, "ac_type": "F-16C", "distance_km": 565.3}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-16C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 34.1442, "to_lon": 132.2347, "ac_type": "F-16C", "distance_km": 565.3}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 35.9014, "to_lon": 126.6156, "ac_type": "F-16C", "distance_km": 124.0}, {"from_lat": 36.9647, "from_lon": 127.0336, "to_lat": 34.1442, "to_lon": 132.2347, "ac_type": "F-16C", "distance_km": 565.3}];
+const threats = [{"lat": 13.5839, "lon": 144.9167, "type": "DF-26", "quantity": 6, "warhead_kg": 1500, "target": "Andersen AFB"}, {"lat": 26.3505, "lon": 127.7686, "type": "DF-26", "quantity": 4, "warhead_kg": 1500, "target": "Kadena Air Base"}, {"lat": 35.7447, "lon": 139.3475, "type": "DF-17", "quantity": 3, "warhead_kg": 800, "target": "Yokota Air Base"}, {"lat": 35.9014, "lon": 126.6156, "type": "CJ-10", "quantity": 8, "warhead_kg": 500, "target": "Kunsan Air Base"}];
+const damages = [{"lat": 13.5839, "lon": 144.9167, "name": "Andersen AFB", "aircraft_destroyed": 0, "runway_destroyed": true, "repair_hours": 8.2}, {"lat": 26.3505, "lon": 127.7686, "name": "Kadena Air Base", "aircraft_destroyed": 0, "runway_destroyed": true, "repair_hours": 6.9}, {"lat": 35.7447, "lon": 139.3475, "name": "Yokota Air Base", "aircraft_destroyed": 0, "runway_destroyed": true, "repair_hours": 10.0}, {"lat": 35.9014, "lon": 126.6156, "name": "Kunsan Air Base", "aircraft_destroyed": 21, "runway_destroyed": true, "repair_hours": 16.3}];
+
+const map = L.map('map', { zoomControl: true }).setView([20, 140], 3);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; OpenStreetMap, &copy; CARTO',
+  maxZoom: 18
+}).addTo(map);
+
+let totalAircraft = 0, hubCount = 0, totalVuln = 0;
+const damageMap = {};
+damages.forEach(d => damageMap[d.lat + ',' + d.lon] = d);
+
+bases.forEach(b => {
+  totalAircraft += b.ac_count;
+  if (b.ace_hub) hubCount++;
+  totalVuln += b.vulnerability;
+
+  const isDamaged = damageMap[b.lat + ',' + b.lon];
+  let color;
+  if (isDamaged) color = '#c62828';
+  else if (b.ace_hub) color = '#d32f2f';
+  else color = '#1565c0';
+
+  const radius = Math.max(6, Math.min(16, 4 + b.ac_count * 0.6));
+
+  const marker = L.circleMarker([b.lat, b.lon], {
+    radius: radius, color: '#fff', weight: 2, fillColor: color, fillOpacity: 0.8
+  }).addTo(map);
+
+  let popContent = '<div style="min-width:200px;">';
+  popContent += '<b>' + b.name + '</b> (' + b.name_cn + ')<br>';
+  popContent += '<hr style="border-color:#333;margin:4px 0;">';
+  popContent += 'Region: ' + b.region + '<br>';
+  popContent += 'Branch: ' + b.branch + '<br>';
+  popContent += 'ACE Hub: ' + (b.ace_hub ? 'Yes' : 'No') + '<br>';
+  popContent += 'Defense Level: ' + b.defense_level + '/3<br>';
+  popContent += 'Aircraft: <b>' + b.ac_count + '</b>/' + b.parking_capacity + '<br>';
+  popContent += 'Utilization: ' + b.utilization + '%<br>';
+  popContent += 'Vulnerability: ' + b.vulnerability + '<br>';
+  if (Object.keys(b.ac_types).length > 0) {
+    popContent += '<hr style="border-color:#333;margin:4px 0;">';
+    popContent += '<b>Aircraft Types:</b><br>';
+    for (const [type, count] of Object.entries(b.ac_types)) {
+      popContent += '&nbsp;&nbsp;' + type + ': ' + count + '<br>';
+    }
+  }
+  if (isDamaged) {
+    popContent += '<hr style="border-color:#333;margin:4px 0;">';
+    popContent += '<span style="color:#f44336;">DAMAGE: ' + isDamaged.aircraft_destroyed + ' aircraft lost</span><br>';
+    popContent += '<span style="color:#f44336;">Runway: ' + (isDamaged.runway_destroyed ? 'DESTROYED' : 'OK') + '</span><br>';
+    popContent += '<span style="color:#f44336;">Repair: ' + isDamaged.repair_hours + 'h</span><br>';
+  }
+  popContent += '</div>';
+  marker.bindPopup(popContent);
+});
+
+// Draw transfer routes
+transfers.forEach(t => {
+  L.polyline([
+    [t.from_lat, t.from_lon],
+    [t.to_lat, t.to_lon]
+  ], {
+    color: '#4fc3f7', weight: 2, opacity: 0.6, dashArray: '5,5'
+  }).addTo(map);
+});
+
+// Draw threat indicators
+threats.forEach(t => {
+  L.circleMarker([t.lat, t.lon], {
+    radius: 20, color: '#e65100', weight: 3, fillColor: '#ff5722', fillOpacity: 0.15
+  }).addTo(map).bindPopup(
+    '<b>THREAT: ' + t.type + '</b><br>' +
+    'Target: ' + t.target + '<br>' +
+    'Quantity: ' + t.quantity + '<br>' +
+    'Warhead: ' + t.warhead_kg + ' kg'
+  );
+});
+
+document.getElementById('stat-bases').textContent = bases.length;
+document.getElementById('stat-aircraft').textContent = totalAircraft;
+document.getElementById('stat-hubs').textContent = hubCount;
+document.getElementById('stat-vuln').textContent = totalVuln.toFixed(1);
+document.getElementById('stat-transfers').textContent = transfers.length;
+document.getElementById('stat-threats').textContent = threats.length;
+</script>
+</body>
+</html>
