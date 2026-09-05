@@ -1,0 +1,89 @@
+# PMTEC 生产环境 Docker Compose Override
+# 用法: docker compose -f docker-compose.yml -f deploy/docker-compose.prod.yml up -d
+#
+# 与基础 docker-compose.yml 的差异:
+#   1. 命名卷 -> bind mount (直接挂载宿主机 data/ 目录, 模型文件立即可用)
+#   2. 添加资源限制 (适配 2C4G / 4C8G ECS)
+#   3. Prometheus 端口统一为 9091
+#   4. 默认不启动 HA 备份实例 (节省资源)
+
+version: "3.8"
+
+services:
+  war-engine:
+    volumes:
+      - ./data:/pmtec/data
+      - ./output:/pmtec/output
+    environment:
+      - PMTEC_HOST=0.0.0.0
+      - PMTEC_HEADLESS=1
+      - PROMETHEUS_ENABLED=1
+      - PROMETHEUS_PORT=9090
+      - SECURITY_ENABLED=0
+      - LIVE_DATA_USE_REAL_API=0
+      - GRPC_HA_ENABLED=0
+      - PMTEC_TRACING=1
+      - PMTEC_TRACING_ENDPOINT=jaeger:4317
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 768M
+        reservations:
+          memory: 256M
+
+  battle-network:
+    volumes:
+      - ./data:/pmtec/data
+      - ./output:/pmtec/output
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 384M
+        reservations:
+          memory: 128M
+
+  application-store:
+    volumes:
+      - ./data:/pmtec/data
+      - ./output:/pmtec/output
+    deploy:
+      resources:
+        limits:
+          cpus: "1.5"
+          memory: 768M
+        reservations:
+          memory: 256M
+
+  plug-and-play:
+    volumes:
+      - ./data:/pmtec/data
+      - ./output:/pmtec/output
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 384M
+        reservations:
+          memory: 128M
+
+  prometheus:
+    ports:
+      - "9091:9090"
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+
+  grafana:
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+
+  jaeger:
+    deploy:
+      resources:
+        limits:
+          memory: 256M
