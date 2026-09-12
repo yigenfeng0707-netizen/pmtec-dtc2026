@@ -57,3 +57,5 @@ _tmp_*.md
 
 # CodeBuddy internal
 .codebuddy/
+pmtec_system/output/tts/
+

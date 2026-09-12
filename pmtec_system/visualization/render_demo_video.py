@@ -12,15 +12,19 @@ Run: D:/miniconda3/envs/pmtec-xpu/python.exe visualization/render_demo_video.py
 """
 
 import json
+import math
 import os
 import subprocess
 import sys
+import wave
 
+import numpy as np
 from PIL import Image, ImageDraw, ImageFont
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_PATH = os.path.join(PROJECT_ROOT, "data", "bases_v2.geojson")
 OUTPUT_PATH = os.path.join(PROJECT_ROOT, "output", "pmtec_demo_video.mp4")
+TTS_DIR = os.path.join(PROJECT_ROOT, "output", "tts")
 FFMPEG = "ffmpeg"
 
 W, H, FPS = 1920, 1080, 30
@@ -222,37 +226,135 @@ def draw_results_frame(base_img):
     return img
 
 
+def ensure_narration():
+    """P13 修复#6: 为每个场景合成中文 TTS 旁白（Windows SAPI, Huihui zh-CN）。
+
+    返回各场景旁白时长（秒）；未成功合成时对应项为 None。
+    """
+    os.makedirs(TTS_DIR, exist_ok=True)
+    ps_script = os.path.join(TTS_DIR, "_tts_one.ps1")
+    with open(ps_script, "w", encoding="utf-8-sig") as f:
+        f.write(
+            "param([string]$Text, [string]$Out)\n"
+            "Add-Type -AssemblyName System.Speech\n"
+            "$s = New-Object System.Speech.Synthesis.SpeechSynthesizer\n"
+            "$s.SelectVoice('Microsoft Huihui Desktop')\n"
+            "$s.Rate = 0\n"
+            "$s.SetOutputToWaveFile($Out)\n"
+            "$s.Speak($Text)\n"
+            "$s.Dispose()\n"
+        )
+    durs = []
+    for i, scene in enumerate(SCENES):
+        wav_path = os.path.join(TTS_DIR, f"scene_{i}.wav")
+        if not os.path.exists(wav_path):
+            # TTS 文本净化：箭头/分隔符会被朗读器误读
+            text = (scene["sub"]
+                    .replace("→", "，")
+                    .replace("｜", "，")
+                    .replace("·", "，")
+                    .replace("⇄", "")
+                    .replace("  ", " "))
+            r = subprocess.run(
+                ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass",
+                 "-File", ps_script, "-Text", text, "-Out", wav_path],
+                capture_output=True,
+            )
+        if os.path.exists(wav_path) and os.path.getsize(wav_path) > 1000:
+            with wave.open(wav_path, "rb") as w:
+                durs.append(w.getnframes() / w.getframerate())
+        else:
+            durs.append(None)
+            print(f"    [TTS] 场景 {i} 合成失败，该场景保持静音")
+    return durs
+
+
+def build_narration_track(durations, scene_durs, path):
+    """将各场景旁白放置到对应场景起点，剩余补静音，输出 22050Hz 单声道 wav。"""
+    frames = []
+    params = None
+    for i, scene in enumerate(SCENES):
+        wav_path = os.path.join(TTS_DIR, f"scene_{i}.wav")
+        if durations[i] is None:
+            data = None
+        else:
+            with wave.open(wav_path, "rb") as w:
+                if params is None:
+                    params = w.getparams()
+                data = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
+        scene_frames = int(round(scene_durs[i] * FPS * params.framerate / FPS)) \
+            if params else 0
+        scene_samples = int(round(scene_durs[i] * (params.framerate if params else 22050)))
+        buf = np.zeros(scene_samples, dtype=np.int16)
+        if data is not None:
+            n = min(len(data), len(buf))
+            buf[:n] = data[:n]
+        frames.append(buf)
+
+    track = np.concatenate(frames)
+    with wave.open(path, "wb") as w:
+        w.setnchannels(1)
+        w.setsampwidth(2)
+        w.setframerate(params.framerate if params else 22050)
+        w.writeframes(track.tobytes())
+    return len(track) / (params.framerate if params else 22050)
+
+
 def main():
     sys.stdout.reconfigure(encoding="utf-8")
     bases = load_bases()
     base_img = Image.new("RGB", (W, H), BG)
 
-    total_frames = sum(s["dur"] for s in SCENES) * FPS
+    # P13 修复#6: TTS 旁白 -> 场景时长动态扩展（语音 + 1s 呼吸，取与原计划较大值）
+    print("[P13] 合成中文旁白（SAPI Huihui）...")
+    tts_durs = ensure_narration()
+    scene_durs = []
+    for i, scene in enumerate(SCENES):
+        planned = scene["dur"]
+        if tts_durs[i] is not None:
+            scene_durs.append(max(planned, math.ceil(tts_durs[i] + 0.8)))
+        else:
+            scene_durs.append(planned)
+    total_sec = sum(scene_durs)
+    print(f"    场景时长: {scene_durs} (总 {total_sec}s)")
+
+    narration_path = os.path.join(TTS_DIR, "narration.wav")
+    audio_sec = build_narration_track(tts_durs, scene_durs, narration_path)
+    print(f"    旁白音轨: {narration_path} ({audio_sec:.1f}s)")
+
+    total_frames = total_sec * FPS
     print(f"[P13] 渲染演示视频: {total_frames} 帧 @ {FPS}fps -> {OUTPUT_PATH}")
 
     cmd = [
-        FFMPEG, "-y", "-f", "rawvideo", "-pix_fmt", "rgb24",
-        "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-",
+        FFMPEG, "-y",
+        "-f", "rawvideo", "-pix_fmt", "rgb24", "-s", f"{W}x{H}",
+        "-r", str(FPS), "-i", "-",
+        "-i", narration_path,
+        "-map", "0:v", "-map", "1:a",
         "-c:v", "libx264", "-preset", "medium", "-crf", "20",
-        "-pix_fmt", "yuv420p", OUTPUT_PATH,
+        "-pix_fmt", "yuv420p", "-c:a", "aac", "-b:a", "128k",
+        "-shortest", OUTPUT_PATH,
     ]
     proc = subprocess.Popen(cmd, stdin=subprocess.PIPE,
                             stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
+    frame_idx = 0
     for si, scene in enumerate(SCENES):
-        for f in range(scene["dur"] * FPS):
-            frac = f / (scene["dur"] * FPS)
+        n = scene_durs[si] * FPS
+        for f in range(n):
+            frac = f / n
             if scene.get("results"):
                 img = draw_results_frame(base_img)
             else:
                 img = draw_frame(base_img, bases, scene, frac)
             proc.stdin.write(img.tobytes())
-        print(f"    场景 {si}/6 完成 ({scene['tag']})")
+            frame_idx += 1
+        print(f"    场景 {si}/6 完成 ({scene['tag']}, {n} 帧)")
 
     proc.stdin.close()
     proc.wait()
     size = os.path.getsize(OUTPUT_PATH)
-    print(f"[P13] 演示视频完成: {OUTPUT_PATH} ({size / 1e6:.1f} MB, {total_frames / FPS:.0f}s)")
+    print(f"[P13] 演示视频完成: {OUTPUT_PATH} ({size / 1e6:.1f} MB, {frame_idx / FPS:.0f}s, 含配音)")
 
 
 if __name__ == "__main__":
