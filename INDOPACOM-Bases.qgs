@@ -1,22 +1,22 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="INDOPACOM Military Bases" version="3.34.0">
+<qgis projectname="INDOPACOM Military Sites v2" version="3.34.0">
   <homePath path=""/>
-  <title>INDOPACOM Military Bases - DTC 2026 Level 1</title>
+  <title>INDOPACOM Military Sites P9 v2 - DTC 2026 Level 1</title>
   <autotransaction enabled="0"/>
   <evaluateDefaultValues enabled="0"/>
   <layer-tree-group>
-    <layer-tree-layer name="INDOPACOM Bases" source="../indopacom_bases.geojson|layername=INDOPACOM Military Bases" provider="ogr" id="indopacom_bases_1234abcd">
+    <layer-tree-layer name="INDOPACOM Sites v2" source="../indopacom_bases_v2.geojson|layername=INDOPACOM Military Bases" provider="ogr" id="indopacom_bases_v2_p9">
       <layer-tree-legend patch-size="0,0" name=""/>
     </layer-tree-layer>
   </layer-tree-group>
   <projectlayers>
-    <maplayer name="INDOPACOM Bases" type="vector" maxScale="0" minScale="1e+8" geometry="Point" simplifyDrawingTol="1" simplifyMaxScale="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" styleCategories="AllStyleCategories" refreshOnNotifyMessage="" autoRefreshTime="0" hasScaleBasedVisibility="0" simplifyDrawingHints="1">
-      <id>indopacom_bases_1234abcd</id>
-      <datasource>./indopacom_bases.geojson|layername=INDOPACOM Military Bases</datasource>
+    <maplayer name="INDOPACOM Sites v2" type="vector" maxScale="0" minScale="1e+8" geometry="Point" simplifyDrawingTol="1" simplifyMaxScale="1" refreshOnNotifyEnabled="0" autoRefreshEnabled="0" simplifyAlgorithm="0" simplifyLocal="1" styleCategories="AllStyleCategories" refreshOnNotifyMessage="" autoRefreshTime="0" hasScaleBasedVisibility="0" simplifyDrawingHints="1">
+      <id>indopacom_bases_v2_p9</id>
+      <datasource>./indopacom_bases_v2.geojson|layername=INDOPACOM Military Bases</datasource>
       <keywordList>
         <value></value>
       </keywordList>
-      <layername>INDOPACOM Bases</layername>
+      <layername>INDOPACOM Sites v2</layername>
       <srs>
         <spatialrefsys nativeFormat="Wkt">
           <wkt>GEOGCRS["WGS 84",DATUM["World Geodetic System 1984",ELLIPSOID["WGS 84",6378137,298.257223563]],CS[ellipsoidal,2],AXIS["Latitude",north],AXIS["Longitude",east],UNIT["degree",9.86808271708726e-18],ID["EPSG",4326]]</wkt>
@@ -27,44 +27,30 @@
       </srs>
       <provider>ogr</provider>
       <vectorjestimation type="base" inforeground="0" vertical="0"/>
-      <renderer-v2 type="categorizedSymbol" attr="region">
+      <renderer-v2 type="categorizedSymbol" attr="tier">
         <categories>
-          <category render="true" label="Japan (North)" value="Japan-North" symbol="0"/>
-          <category render="true" label="Japan (Central)" value="Japan-Central" symbol="1"/>
-          <category render="true" label="Japan (Okinawa)" value="Japan-Okinawa" symbol="2"/>
-          <category render="true" label="Japan (South)" value="Japan-South" symbol="3"/>
-          <category render="true" label="Guam" value="Guam" symbol="4"/>
-          <category render="true" label="Korea" value="Korea" symbol="5"/>
-          <category render="true" label="Hawaii" value="Hawaii" symbol="6"/>
-          <category render="true" label="Alaska" value="Alaska" symbol="7"/>
-          <category render="true" label="Australia" value="Australia" symbol="8"/>
-          <category render="true" label="Philippines" value="Philippines" symbol="9"/>
-          <category render="true" label="Mariana Islands" value="Mariana Islands" symbol="10"/>
+          <category render="true" label="Tier 1 战略核心" value="1" symbol="0"/>
+          <category render="true" label="Tier 2 主要作战基地" value="2" symbol="1"/>
+          <category render="true" label="Tier 3 专用功能站点" value="3" symbol="2"/>
+          <category render="true" label="Tier 4 准入/轮换" value="4" symbol="3"/>
         </categories>
         <symbols>
-          <symbol type="marker" name="0" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="21,101,192"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="1" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="25,118,210"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="2" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="30,136,229"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="3" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="33,150,243"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="4" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="211,47,47"/><prop k="size" v="8"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="5" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="56,142,60"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="6" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="123,31,162"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="7" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="0,131,143"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="8" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="245,124,0"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="9" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="93,64,55"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
-          <symbol type="marker" name="10" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="198,40,40"/><prop k="size" v="6"/><prop k="outline_color" v="255,255,255"/></layer></symbol>
+          <symbol type="marker" name="0" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="230,81,0"/><prop k="size" v="10"/><prop k="outline_color" v="255,255,255"/><prop k="outline_style" v="solid"/></layer></symbol>
+          <symbol type="marker" name="1" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="79,195,247"/><prop k="size" v="7"/><prop k="outline_color" v="255,255,255"/><prop k="outline_style" v="solid"/></layer></symbol>
+          <symbol type="marker" name="2" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="156,204,101"/><prop k="size" v="5"/><prop k="outline_color" v="255,255,255"/><prop k="outline_style" v="solid"/></layer></symbol>
+          <symbol type="marker" name="3" alpha="1" clip_to_extent="1"><layer class="SimpleMarker" locked="0" enabled="1"><prop k="color" v="255,167,38"/><prop k="size" v="5"/><prop k="outline_color" v="255,255,255"/><prop k="outline_style" v="dash"/></layer></symbol>
         </symbols>
       </renderer-v2>
       <labeling type="simple">
         <settings>
-          <text-style fontSize="8" fieldName="name_cn"/>
+          <text-style fontSize="7" fieldName="name"/>
         </settings>
       </labeling>
     </maplayer>
   </projectlayers>
   <mapcanvas>
     <settings>
-      <extent xmin="60" xmax="-60" ymin="-20" ymax="70" maxalone="0"/>
+      <extent xmin="60" xmax="-60" ymin="-25" ymax="72" maxalone="0"/>
       <rotation>0</rotation>
       <destCRS>EPSG:4326</destCRS>
     </settings>
