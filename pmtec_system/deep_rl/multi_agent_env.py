@@ -45,13 +45,16 @@ class MultiAgentPMTECEnv(gym.Env):
         bases: list = None,
         duration: int = 120,
         seed: int = 42,
+        political: bool = False,
     ):
         super().__init__()
-        self._inner = PMTECEnv(bases=bases, duration=duration, seed=seed)
+        self._inner = PMTECEnv(bases=bases, duration=duration, seed=seed,
+                               political=political)
 
-        # Shared observation space
+        # Shared observation space (P12-2: expanded when political=True)
+        obs_dim = self._inner.observation_space.shape[0]
         self.observation_space = spaces.Box(
-            low=0.0, high=1.0, shape=(OBS_DIM,), dtype=np.float32
+            low=0.0, high=1.0, shape=(obs_dim,), dtype=np.float32
         )
         # Per-agent action spaces (MultiDiscrete style, but we expose as dict)
         self.action_space = spaces.Dict(

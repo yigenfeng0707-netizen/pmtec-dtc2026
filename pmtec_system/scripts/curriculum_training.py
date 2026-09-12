@@ -159,8 +159,9 @@ class CurriculumEnv(PMTECEnv):
         duration: int = 120,
         seed: int = 42,
         randomize_seed: bool = True,
+        political: bool = False,
     ):
-        super().__init__(duration=duration, seed=seed)
+        super().__init__(duration=duration, seed=seed, political=political)
         self._stage = stage_config
         self._randomize_seed = randomize_seed
         self._episode_counter = 0

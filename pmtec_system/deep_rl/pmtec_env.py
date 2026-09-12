@@ -9,6 +9,12 @@ State: 22 bases x 5 features + 12 global + 10 threats x 6 features = 182-dim flo
 Actions: 6 discrete (3 intercept strategies x 2 dispersal options)
 Reward: intercept success + base survival - damage - time penalty
 
+P12-2: optional political access observation (political=True):
+  + 1 dim per ally site (access capacity factor, Full=1.0/Restricted/Denied=0.0)
+  + 1 dim global escalation level
+  Political states evolve per ASDA cycle (grey-zone provocation driven by missile
+  activity, RAND-style); escalation emboldens the adversary (extra threat waves).
+
 Uses scipy.stats for Monte Carlo damage assessment,
 networkx for battle network topology and dispersal path optimization.
 """
@@ -41,7 +47,6 @@ THREAT_OBS_DIM = MAX_THREATS * THREAT_FEATURES  # 60
 OBS_DIM = NUM_BASES * BASE_FEATURES + GLOBAL_FEATURES + THREAT_OBS_DIM  # 182
 NUM_ACTIONS = 6
 ASDA_CYCLE_SECONDS = 10
-
 # Threat types
 THREAT_TYPES = ["ballistic", "cruise", "hypersonic"]
 
@@ -56,6 +61,7 @@ class PMTECEnv(gym.Env):
         bases: list = None,
         duration: int = 120,
         seed: int = 42,
+        political: bool = False,
     ):
         super().__init__()
         self.duration = duration
@@ -63,9 +69,19 @@ class PMTECEnv(gym.Env):
         self._bases = bases or self._default_bases()
         self._build_network()
 
+        # P12-2: optional political access observation (default off, 182-dim intact)
+        self.political = political
+        self._political_model = None
+        self._political_ally_ids: list = []
+        if political:
+            self._init_political_model(seed)
+            obs_dim = OBS_DIM + len(self._political_ally_ids) + 1
+        else:
+            obs_dim = OBS_DIM
+
         # Spaces
         self.observation_space = spaces.Box(
-            low=0.0, high=1.0, shape=(OBS_DIM,), dtype=np.float32
+            low=0.0, high=1.0, shape=(obs_dim,), dtype=np.float32
         )
         self.action_space = spaces.Discrete(NUM_ACTIONS)
 
@@ -128,6 +144,92 @@ class PMTECEnv(gym.Env):
                     }
                 )
         return bases[:NUM_BASES]
+
+    def _init_political_model(self, seed: int):
+        """P12-2: build the political access model from data/bases_v2.geojson."""
+        from models.political_access import PoliticalAccessModel
+
+        geojson_path = os.path.join(
+            os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+            "data",
+            "bases_v2.geojson",
+        )
+        rows = []
+        if os.path.exists(geojson_path):
+            with open(geojson_path, encoding="utf-8") as f:
+                data = json.load(f)
+            for feat in data.get("features", []):
+                p = feat.get("properties", {})
+                if p.get("access_uncertainty") is not None:
+                    rows.append(
+                        {
+                            "id": p["id"],
+                            "country": p.get("country", ""),
+                            "access_uncertainty": p.get("access_uncertainty"),
+                        }
+                    )
+        self._political_model = PoliticalAccessModel.from_bases(rows, seed=seed)
+        self._political_ally_ids = sorted(self._political_model.sites.keys())
+
+    def _update_political(self):
+        """P12-2: evolve political access states each ASDA cycle.
+
+        RAND insight: adversaries actively manufacture political divergence
+        (grey-zone actions) to trigger access degradation on allied bases;
+        escalation emboldens them -> extra threat waves beyond the fixed tempo.
+        """
+        from models.political_access import (
+            EVENT_GREY_ZONE,
+            EVENT_REASSURANCE,
+            PoliticalEvent,
+        )
+
+        m = self._political_model
+        active_threats = sum(1 for x in self._missiles if x["status"] == "active")
+        missile_activity = min(active_threats / 8.0, 1.0)
+
+        events = []
+        countries = sorted(m.ally_countries)
+        if self._rng.random() < 0.10 + 0.20 * m.escalation_level:
+            # Grey-zone provocation (probability scales with escalation)
+            events.append(
+                PoliticalEvent(
+                    EVENT_GREY_ZONE,
+                    self._rng.choice(countries),
+                    intensity=0.5 + 0.5 * self._rng.random(),
+                    cycle=self._asda_cycle,
+                )
+            )
+        elif self._rng.random() < 0.08:
+            # Reassurance diplomacy (recovery pressure)
+            events.append(
+                PoliticalEvent(
+                    EVENT_REASSURANCE,
+                    self._rng.choice(countries),
+                    intensity=self._rng.random(),
+                    cycle=self._asda_cycle,
+                )
+            )
+        m.update_cycle(
+            cycle=self._asda_cycle,
+            missile_activity=missile_activity,
+            events=events,
+        )
+
+        # Escalation emboldens the adversary: occasional extra threat wave
+        esc = m.escalation_level
+        if esc > 0.25 and self._rng.random() < 0.5 * esc:
+            self._spawn_threats()
+
+    def _political_obs(self) -> np.ndarray:
+        """P12-2: per-ally-site access capacity factor + global escalation level."""
+        m = self._political_model
+        feats = [
+            m.sites[aid].state.capacity_factor if aid in m.sites else 1.0
+            for aid in self._political_ally_ids
+        ]
+        feats.append(min(max(m.escalation_level, 0.0), 1.0))
+        return np.asarray(feats, dtype=np.float32)
 
     def _build_network(self):
         """Build battle network topology graph with networkx."""
@@ -200,6 +302,12 @@ class PMTECEnv(gym.Env):
         self._ew_threats = []
         self._cyber_threats = []
         self._weather_state = self._roll_weather()
+
+        # P12-2: per-episode baseline perturbation (ally access uncertainty)
+        if self.political and self._political_model is not None:
+            self._political_model.perturb_baselines(
+                sigma=0.10, seed=self._rng.randint(0, 99999)
+            )
 
         # Spawn aircraft: 5-8 per base, 7 F-35 + others
         ac_types = ["F-35A", "F-22", "F-15EX", "F-16C"]
@@ -421,6 +529,10 @@ class PMTECEnv(gym.Env):
 
         # --- Update EW/Cyber/Weather state ---
         self._update_ew_cyber_weather()
+
+        # P12-2: political access evolution (ASDA-Adapt political dimension)
+        if self.political and self._political_model is not None:
+            self._update_political()
 
         # --- Advance time ---
         self._sim_time += ASDA_CYCLE_SECONDS
@@ -770,6 +882,10 @@ class PMTECEnv(gym.Env):
                 / 5.0
             )
             obs[base_idx + 5] = min(sensor_cov, 1.0)
+
+        # P12-2: append political access features when enabled
+        if self.political and self._political_model is not None:
+            obs = np.concatenate([obs, self._political_obs()])
 
         return obs
 

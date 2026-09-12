@@ -137,9 +137,13 @@ class StrategyEnv(PMTECEnv):
     """PMTEC environment patched with a specific adversary strategy."""
 
     def __init__(
-        self, strategy: AdversaryStrategy, duration: int = 120, seed: int = 42
+        self,
+        strategy: AdversaryStrategy,
+        duration: int = 120,
+        seed: int = 42,
+        political: bool = False,
     ):
-        super().__init__(duration=duration, seed=seed)
+        super().__init__(duration=duration, seed=seed, political=political)
         self._strategy = strategy
 
     def _roll_weather(self) -> dict:
