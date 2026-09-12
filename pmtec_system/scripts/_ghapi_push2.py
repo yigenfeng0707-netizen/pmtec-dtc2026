@@ -40,7 +40,7 @@ log(f"remote head: {remote[:10]}")
 
 # 1) 差异 (API 提交对象不在本地库, 用等价本地树 8ebb2e3 作 diff 基准:
 #    492f1b6 的 tree 与本地 8ebb2e3 完全一致 —— 上一轮 API 推送即该差异)
-LOCAL_BASE = "8ebb2e3"
+LOCAL_BASE = "4ad51e2"
 raw = subprocess.run(["git", "-C", ROOT, "diff", "--name-only", "-z",
                       f"{LOCAL_BASE}..HEAD"], capture_output=True,
                      text=True, encoding="utf-8", errors="replace").stdout
