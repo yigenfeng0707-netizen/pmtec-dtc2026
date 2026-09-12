@@ -178,8 +178,12 @@ class TransferPlanner:
         return plan
 
     def _find_destinations(self, base_id: str) -> list[tuple]:
-        """Find candidate destination bases sorted by distance."""
-        return self.network.nearby_bases(base_id, max_distance_km=3000)
+        """Find candidate destination bases sorted by distance.
+
+        P10: DENIED ally bases are excluded from evacuation destinations
+        (RAND: basing access is a wartime precondition)."""
+        candidates = self.network.nearby_bases(base_id, max_distance_km=3000)
+        return [(b, d) for (b, d) in candidates if b.politically_accessible]
 
     def execute_plan(self, plan: TransferPlan) -> dict:
         """Execute the transfer plan - actually move aircraft in the simulation."""

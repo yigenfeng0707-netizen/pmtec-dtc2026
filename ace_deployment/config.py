@@ -7,7 +7,8 @@ import os
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
-BASES_GEOJSON = os.path.join(DATA_DIR, "bases.geojson")
+# P9: v2 权威数据库（67 实体；CRS 66 + Tinian）；旧 22 基地版保留为 bases.geojson
+BASES_GEOJSON = os.path.join(DATA_DIR, "bases_v2.geojson")
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
 
 EARTH_RADIUS_KM = 6371.0

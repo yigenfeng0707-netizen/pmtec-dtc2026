@@ -32,11 +32,26 @@ class MilitaryBase:
     vs26_role: str = ""
     dtb_mapping: str = ""
     asda_mapping: str = ""
+    # P10: 政治准入（v2 数据字段；旧数据缺省不受约束）
+    access_uncertainty: str = None
     # Computed/derived
     parking_capacity: int = 0
     has_shelters: bool = False
     defense_level: int = 1  # 1=basic, 2=enhanced, 3=IAMD
     current_aircraft: list = field(default_factory=list)
+    # P10: 政治准入约束（由 ASDAEngine 注入 PoliticalConstraint）
+    political: object = None
+
+    @property
+    def access_state(self) -> str:
+        if self.political is None:
+            return "full"
+        return self.political.state(self.id)
+
+    @property
+    def politically_accessible(self) -> bool:
+        """P10: DENIED 基地不可用于分散/疏散目的地。"""
+        return self.access_state != "denied"
 
     def __post_init__(self):
         if self.parking_capacity == 0:
@@ -56,7 +71,11 @@ class MilitaryBase:
     @property
     def available_parking(self) -> int:
         used = sum(1 for _ in self.current_aircraft)
-        return max(0, self.parking_capacity - used)
+        # P10: 政治准入折减容量（restricted 减半，denied 归零）
+        cap = self.parking_capacity
+        if self.political is not None:
+            cap = int(cap * self.political.capacity_factor(self.id))
+        return max(0, cap - used)
 
     @property
     def utilization(self) -> float:
@@ -82,7 +101,9 @@ class MilitaryBase:
 
     @property
     def strike_capability(self) -> float:
-        """Aggregate strike power of based aircraft."""
+        """Aggregate strike power of based aircraft (P10: denied sites contribute 0)."""
+        if not self.politically_accessible:
+            return 0.0
         from .aircraft import Aircraft
 
         total = 0.0
@@ -161,8 +182,10 @@ class BaseNetwork:
         net = cls()
         with open(geojson_path, "r", encoding="utf-8") as f:
             data = json.load(f)
+        props_list = []
         for feat in data["features"]:
             p = feat["properties"]
+            props_list.append(p)
             lon, lat = feat["geometry"]["coordinates"]
             base = MilitaryBase(
                 id=p["id"],
@@ -185,8 +208,15 @@ class BaseNetwork:
                 vs26_role=p.get("vs26_role", ""),
                 dtb_mapping=p.get("dtb_mapping", ""),
                 asda_mapping=p.get("asda_mapping", ""),
+                access_uncertainty=p.get("access_uncertainty"),
             )
             net.bases[base.id] = base
+        # P10: 附加政治准入约束（演化场景；无盟友站点时为空约束，行为不变）
+        from .political import PoliticalConstraint
+
+        net.political = PoliticalConstraint.from_geojson_props(props_list)
+        for base in net.bases.values():
+            base.political = net.political
         net._build_adjacency()
         return net
 

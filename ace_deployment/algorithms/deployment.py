@@ -125,7 +125,14 @@ class DeploymentOptimizer:
         return candidates
 
     def _score_spoke_bases(self) -> dict[str, float]:
-        """Score each spoke base for suitability as dispersal destination."""
+        """Score each spoke base for suitability as dispersal destination.
+
+        P10: Political access constraint (RAND: ally basing access is a
+        wartime precondition, not a constant):
+          - DENIED sites are excluded outright (score 0)
+          - RESTRICTED sites are discounted by capacity factor + political cost
+          - Wartime negotiation delay penalizes ally destinations
+        """
         scores = {}
         for spoke in self.network.spokes():
             if spoke.available_parking < MIN_SPOKE_CAPACITY:
@@ -153,6 +160,15 @@ class DeploymentOptimizer:
                 + runway_score * 0.15
                 + geo_score * 0.15
             )
+            # P10: 政治准入折扣（DENIED 已因容量归零被排除，此处再显式排除）
+            if not spoke.politically_accessible:
+                scores[spoke.id] = 0.0
+                continue
+            pol_cost = spoke.political.political_cost(spoke.id) if spoke.political else 0.0
+            delay_h = spoke.political.negotiation_delay_h(spoke.id) if spoke.political else 0.0
+            # 政治成本直接惩罚；谈判延迟（小时级）折算轻惩罚（0.5%/h，24h 封顶）
+            delay_penalty = min(0.12, delay_h * 0.005)
+            score *= max(0.0, 1.0 - pol_cost * 0.6 - delay_penalty)
             scores[spoke.id] = score
         return scores
 

@@ -232,6 +232,78 @@ class AdversaryAgent:
             "reasoning": reasoning,
         }
 
+    def decide_political_warfare(self, political, asda_cycle: int) -> dict:
+        """
+        P10: 对手政治战决策——灰色地带行动（RAND：对手主动制造政治分化，
+        如针对盟友本土/专属经济区的灰色地带行动，以触发准入降级）。
+
+        策略：选择"最接近降级边界"的东道国（一推即倒的薄弱环节），
+        优先高挑衅回应度的国家（菲律宾/日本），强度随冲突升级度上升。
+
+        Returns dict:
+          execute: bool
+          target_country: str or None
+          intensity: float (0~1)
+          reasoning: str
+        """
+        if political is None or not political.sites:
+            return {"execute": False, "target_country": None,
+                    "intensity": 0.0, "reasoning": "No ally sites in scope"}
+
+        # 动机：我方动能打击被高效拦截时，政治战成为替代路线
+        recent = self._attack_history[-5:]
+        intercept_pressure = 0.0
+        if recent:
+            intercept_pressure = sum(
+                1 for a in recent if a.get("intercepted")
+            ) / len(recent)
+
+        # 时序：前 2 个周期侦察，之后概率上升
+        timing = 0.2 if asda_cycle < 2 else min(0.5, 0.25 + 0.05 * asda_cycle)
+        action_prob = self.baseline_aggression * (
+            0.5 + 0.5 * intercept_pressure + political.escalation_level * 0.3
+        ) + timing
+        action_prob = min(action_prob, 0.55)  # 灰色地带行动保持节制（可否认性）
+
+        if self._rng.random() > action_prob:
+            return {"execute": False, "target_country": None,
+                    "intensity": 0.0,
+                    "reasoning": f"Political warfare prob {action_prob:.2f} not met"}
+
+        # 目标选择：最接近降级边界 × 挑衅回应度 × 战略价值（站点数）
+        best_country, best_score, best_meta = None, -1.0, None
+        by_country = {}
+        for site in political.sites.values():
+            by_country.setdefault(site.country, []).append(site)
+        for country, sites in by_country.items():
+            probs = [s.current_prob for s in sites]
+            avg_prob = sum(probs) / len(probs)
+            resp = max(s.provocation_response for s in sites)
+            # 距最近降级边界的距离（越小越容易触发转移）
+            dist_full = abs(avg_prob - 0.60)
+            dist_denied = abs(avg_prob - 0.30)
+            dist = min(dist_full, dist_denied)
+            score = (1.0 / (1.0 + dist * 10)) * (0.5 + resp) * (1 + len(sites) * 0.05)
+            if score > best_score:
+                best_score = score
+                best_country = country
+                best_meta = {"avg_prob": avg_prob, "provocation_response": resp,
+                             "sites": len(sites)}
+
+        intensity = min(
+            1.0,
+            0.5 + political.escalation_level * 0.3 + self._rng.uniform(0, 0.2),
+        )
+        reasoning = (
+            f"Weakest-link targeting: {best_country} "
+            f"(avg_prob={best_meta['avg_prob']:.2f}, "
+            f"provocation_response={best_meta['provocation_response']:.2f}, "
+            f"{best_meta['sites']} sites). "
+            f"Intercept pressure {intercept_pressure:.2f} pushes political warfare."
+        )
+        return {"execute": True, "target_country": best_country,
+                "intensity": round(intensity, 2), "reasoning": reasoning}
+
     def record_outcome(self, attack_id: str, hit: bool, intercepted: bool):
         """Record attack outcome for adaptive learning."""
         self._attack_history.append(

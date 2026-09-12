@@ -1,0 +1,96 @@
+{
+  "_meta": {
+    "name": "P10 政治准入模型配置",
+    "source": "RAND RRA967-2 (U.S. Major Combat Operations in the Indo-Pacific: Partner and Ally Views) + CRS R47589",
+    "note": "参数为 RAND 盟友观点的量化近似，支持蒙特卡洛敏感性分析（baseline ± 扰动）"
+  },
+  "countries": {
+    "Japan": {
+      "baseline_access_prob": 0.85,
+      "escalation_sensitivity": 0.60,
+      "provocation_response": 0.45,
+      "credibility_weight": 0.80,
+      "domestic_pressure": 0.55,
+      "wartime_negotiation_delay_h": 12,
+      "notes": "美日同盟坚固；但冲绳基地国内压力高，且日本对被卷入主动挑衅高度敏感（RAND 核心观点）"
+    },
+    "South Korea": {
+      "baseline_access_prob": 0.80,
+      "escalation_sensitivity": 0.75,
+      "provocation_response": 0.35,
+      "credibility_weight": 0.70,
+      "domestic_pressure": 0.60,
+      "wartime_negotiation_delay_h": 24,
+      "notes": "韩美同盟强，但半岛冲突升级敏感性最高；战时作战指挥权转移谈判延迟长"
+    },
+    "Philippines": {
+      "baseline_access_prob": 0.65,
+      "escalation_sensitivity": 0.55,
+      "provocation_response": 0.60,
+      "credibility_weight": 0.50,
+      "domestic_pressure": 0.70,
+      "wartime_negotiation_delay_h": 6,
+      "notes": "EDCA 框架下 9 站点准入；国内政治摇摆大（历史先例：1992 苏比克撤离），对南海灰色地带挑衅反应强"
+    },
+    "Australia": {
+      "baseline_access_prob": 0.92,
+      "escalation_sensitivity": 0.30,
+      "provocation_response": 0.20,
+      "credibility_weight": 0.90,
+      "domestic_pressure": 0.25,
+      "wartime_negotiation_delay_h": 4,
+      "notes": "AUKUS 框架最紧密盟友；MRF-D 轮换制度化；核潜艇 HMAS Stirling 2027 起"
+    },
+    "Singapore": {
+      "baseline_access_prob": 0.55,
+      "escalation_sensitivity": 0.80,
+      "provocation_response": 0.30,
+      "credibility_weight": 0.40,
+      "domestic_pressure": 0.45,
+      "wartime_negotiation_delay_h": 8,
+      "notes": "协议限制：仅补给/后勤/马六甲护航类非战斗用途（常年有限准入）"
+    },
+    "Marshall Islands": {
+      "baseline_access_prob": 0.88,
+      "escalation_sensitivity": 0.25,
+      "provocation_response": 0.15,
+      "credibility_weight": 0.85,
+      "domestic_pressure": 0.20,
+      "wartime_negotiation_delay_h": 2,
+      "notes": "COFA 自由联合协定；夸贾林导弹试验场"
+    },
+    "British Indian Ocean Territory": {
+      "baseline_access_prob": 0.90,
+      "escalation_sensitivity": 0.35,
+      "provocation_response": 0.20,
+      "credibility_weight": 0.85,
+      "domestic_pressure": 0.15,
+      "wartime_negotiation_delay_h": 3,
+      "notes": "英属迪戈加西亚；2016 联大查戈斯决议带来主权谈判长期不确定性"
+    }
+  },
+  "defaults": {
+    "baseline_access_prob": 0.70,
+    "escalation_sensitivity": 0.50,
+    "provocation_response": 0.40,
+    "credibility_weight": 0.60,
+    "domestic_pressure": 0.50,
+    "wartime_negotiation_delay_h": 12
+  },
+  "thresholds": {
+    "full": 0.60,
+    "restricted": 0.30,
+    "recovery_full": 0.75,
+    "recovery_denied": 0.45
+  },
+  "dynamics": {
+    "recovery_per_cycle": 0.015,
+    "escalation_per_missile_cycle": 0.05,
+    "grey_zone_impact_base": 0.12,
+    "reassurance_impact": 0.08,
+    "domestic_shift_sigma": 0.03,
+    "mrfd_rotation_days": 180,
+    "mrfd_changeover_window_days": 30,
+    "mrfd_wartime_freeze_cost": 0.35
+  }
+}

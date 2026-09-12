@@ -24,6 +24,11 @@ if project_root not in sys.path:
 from models.base import BaseNetwork
 from models.aircraft import Aircraft, AircraftFleet
 from models.threat import Threat, ThreatPackage
+from models.political import (
+    SCENARIO_FULL,
+    SCENARIO_EVOLVED,
+    SCENARIO_DENIED,
+)
 from algorithms.deployment import DeploymentOptimizer
 from algorithms.transfer import TransferPlanner
 from algorithms.damage import DamageAssessor
@@ -33,7 +38,12 @@ from visualization.map_viz import MapVisualizer
 from config import BASES_GEOJSON, OUTPUT_DIR
 
 
-def run_simulation(scenario_name: str = "salvo", n_sim: int = 100, seed: int = 42):
+def run_simulation(
+    scenario_name: str = "salvo",
+    n_sim: int = 100,
+    seed: int = 42,
+    political_scenario: str = SCENARIO_EVOLVED,
+):
     """Run complete ASDA simulation and generate all outputs."""
     print("=" * 70)
     print("ACE DEPLOYMENT ENGINE - DTC 2026 Level 2")
@@ -42,6 +52,14 @@ def run_simulation(scenario_name: str = "salvo", n_sim: int = 100, seed: int = 4
 
     # Initialize engine
     engine = ASDAEngine(geojson_path=BASES_GEOJSON, seed=seed)
+    # P10: 政治准入场景（full_access / evolved_access / all_denied）
+    if engine.network.political and engine.network.political.constrained_ids():
+        engine.network.political.set_scenario(political_scenario)
+        psnap = engine.network.political.snapshot()
+        print(
+            f"\n[P10] Political access scenario: {psnap['scenario']} "
+            f"({psnap['constrained_sites']} ally sites: {psnap['by_state']})"
+        )
     engine.damage_assessor = DamageAssessor(
         engine.network, engine.fleet, n_simulations=n_sim
     )
@@ -216,12 +234,19 @@ def main():
     parser.add_argument(
         "--seed", type=int, default=42, help="Random seed for reproducibility"
     )
+    parser.add_argument(
+        "--political",
+        choices=[SCENARIO_FULL, SCENARIO_EVOLVED, SCENARIO_DENIED],
+        default=SCENARIO_EVOLVED,
+        help="P10 political access scenario (full/evolved/denied)",
+    )
     args = parser.parse_args()
 
     run_simulation(
         scenario_name=args.scenario,
         n_sim=args.sim_runs,
         seed=args.seed,
+        political_scenario=args.political,
     )
 
 

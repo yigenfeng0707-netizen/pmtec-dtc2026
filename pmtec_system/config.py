@@ -151,10 +151,22 @@ DISTRIBUTED_HOST = os.environ.get("PMTEC_HOST", "localhost")
 
 # DTB Model mapping
 DTB_COMPONENTS = {
-    "WarEngine": "PMTEC simulation core - drives LVC time-space coordination",
-    "BattleNetwork": "gRPC track distribution + entity status broadcast",
-    "ApplicationStore": "Capability modules (F-35 strike, IAMD defense, ISR collection)",
-    "PlugAndPlay": "Dynamic component registration via gRPC service discovery",
+    "WarEngine": (
+        "PMTEC simulation core - drives LVC time-space coordination"
+        " | P11.4 司令部职能: 战区联合指挥（INDOPACOM TJOC/J-3 作战）"
+    ),
+    "BattleNetwork": (
+        "gRPC track distribution + entity status broadcast"
+        " | P11.4 司令部职能: 网络域感知与共同作战图（J-6/J-39）"
+    ),
+    "ApplicationStore": (
+        "Capability modules (F-35 strike, IAMD defense, ISR collection)"
+        " | P11.4 司令部职能: 能力交付与兵力发展（J-8）"
+    ),
+    "PlugAndPlay": (
+        "Dynamic component registration via gRPC service discovery"
+        " | P11.4 司令部职能: 联接集成与互操作（J-6 C4 系统）"
+    ),
 }
 
 ASDA_PHASES = ["Act", "Sense", "Decide", "Adapt"]

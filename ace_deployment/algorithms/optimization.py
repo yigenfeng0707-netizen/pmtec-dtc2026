@@ -55,6 +55,7 @@ class MultiObjectiveOptimizer:
     3. Minimize total transfer distance (logistics cost)
     4. Maximize coverage diversity (spread across regions)
     5. Minimize single-point-of-failure risk
+    6. Minimize political risk exposure (P10: ally access uncertainty)
     """
 
     def __init__(self, network: BaseNetwork, fleet: AircraftFleet):
@@ -69,14 +70,14 @@ class MultiObjectiveOptimizer:
         v = self.network.network_vulnerability
         result.objectives.append(
             Objective(
-                name="network_vulnerability", weight=0.30, value=v, target="minimize"
+                name="network_vulnerability", weight=0.28, value=v, target="minimize"
             )
         )
 
         # Objective 2: Strike capability retention (maximize)
         s = self.network.network_strike_capability
         result.objectives.append(
-            Objective(name="strike_capability", weight=0.25, value=s, target="maximize")
+            Objective(name="strike_capability", weight=0.24, value=s, target="maximize")
         )
 
         # Objective 3: Distribution diversity (maximize)
@@ -84,7 +85,7 @@ class MultiObjectiveOptimizer:
         result.objectives.append(
             Objective(
                 name="distribution_diversity",
-                weight=0.15,
+                weight=0.13,
                 value=diversity,
                 target="maximize",
             )
@@ -93,7 +94,7 @@ class MultiObjectiveOptimizer:
         # Objective 4: Single-point-of-failure risk (minimize)
         spof_risk = self._compute_spof_risk()
         result.objectives.append(
-            Objective(name="spof_risk", weight=0.15, value=spof_risk, target="minimize")
+            Objective(name="spof_risk", weight=0.13, value=spof_risk, target="minimize")
         )
 
         # Objective 5: Defense coverage (maximize)
@@ -101,9 +102,22 @@ class MultiObjectiveOptimizer:
         result.objectives.append(
             Objective(
                 name="defense_coverage",
-                weight=0.15,
+                weight=0.12,
                 value=defense_cov,
                 target="maximize",
+            )
+        )
+
+        # Objective 6: Political risk exposure (minimize, P10)
+        # Σ asset value × (1 - access capacity factor): capability stranded
+        # in restricted/denied ally bases counts as politically at-risk.
+        pol_risk = self._compute_political_risk_exposure()
+        result.objectives.append(
+            Objective(
+                name="political_risk_exposure",
+                weight=0.10,
+                value=pol_risk,
+                target="minimize",
             )
         )
 
@@ -161,6 +175,20 @@ class MultiObjectiveOptimizer:
                 total_weight += n_ac
                 total_score += n_ac * b.defense_level
         return (total_score / total_weight * 33.3) if total_weight > 0 else 0.0
+
+    def _compute_political_risk_exposure(self) -> float:
+        """P10: Σ asset value × (1 - access capacity factor) across ally bases."""
+        political = getattr(self.network, "political", None)
+        if political is None:
+            return 0.0
+        assets_by_base = {}
+        for b in self.network.bases.values():
+            value = sum(
+                getattr(a, "value", 0) for a in b.current_aircraft
+            )
+            if value > 0:
+                assets_by_base[b.id] = value
+        return political.political_risk_exposure(assets_by_base)
 
     def compare_plans(
         self, plan_a: OptimizationResult, plan_b: OptimizationResult
