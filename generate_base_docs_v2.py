@@ -31,6 +31,19 @@ TIER_NAMES = {
 STATE_CN = {"full": "全面准入", "restricted": "有限准入", "denied": "准入被拒"}
 
 
+def precision_grade(p):
+    """P13 修复#7: 坐标精度等级标注（依据 data_source 溯源链）。"""
+    src = p.get("data_source", "")
+    bid = p.get("id", "")
+    if "TINIAN" in bid.upper():
+        return "B（特殊站点，计划允许降级精度）"
+    if "web-verified" in src:
+        return "A（CRS + FY2024 + Web 多源交叉验证）"
+    if src.startswith("v1"):
+        return "A-（P1-P8 多源验证沿用）"
+    return "B（单源，建议复核）"
+
+
 def esc(v):
     return str(v if v is not None else "—")
 
@@ -63,7 +76,8 @@ def main():
                     f"<tr><td>{crs_seq}</td><td>{bid}</td><td>{esc(p.get('name'))}</td>"
                     f"<td>{esc(p.get('branch'))}</td><td>Tier-{p.get('tier')}</td>"
                     f"<td>{esc(p.get('fy24_prv_quartile'))}</td>"
-                    f"<td>{esc(p.get('access_uncertainty'))}</td></tr>\n"
+                    f"<td>{esc(p.get('access_uncertainty'))}</td>"
+                    f"<td>{esc(precision_grade(p))}</td></tr>\n"
                 )
                 au = p.get("access_uncertainty")
                 pol_cell = (
@@ -94,6 +108,7 @@ def main():
         <th>VS26 角色</th><td>{esc(p.get('vs26_role'))}</td></tr>
     <tr><th>人员</th><td>{esc(p.get('personnel'))}</td>
         <th>跑道</th><td>{esc(p.get('runway_m'))} m</td></tr>
+    <tr><th>坐标精度（P13）</th><td colspan="3">{esc(precision_grade(p))}</td></tr>
     <tr><th>政治准入（P10）</th><td colspan="3">{pol_cell}</td></tr>
     <tr><th>DTB 映射</th><td colspan="3">{esc(p.get('dtb_mapping'))} · ASDA: {esc(p.get('asda_mapping'))}</td></tr>
   </table>
@@ -132,7 +147,7 @@ RAND RRA967-2（政治准入属性）｜ 根深叶茂团队 · 2026-09-12</p>
 
 <h2>总索引</h2>
 <table class="idx">
-<tr><th>#</th><th>ID</th><th>名称</th><th>军种</th><th>Tier</th><th>PRV 四分位</th><th>准入不确定性</th></tr>
+<tr><th>#</th><th>ID</th><th>名称</th><th>军种</th><th>Tier</th><th>PRV 四分位</th><th>准入不确定性</th><th>坐标精度</th></tr>
 {idx_rows}
 </table>
 
