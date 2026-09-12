@@ -6,6 +6,8 @@ __pycache__/
 *.egg
 dist/
 build/
+_ghapi_tmp_*.json
+_ghapi_push*.log
 
 # Virtual environments
 .venv/

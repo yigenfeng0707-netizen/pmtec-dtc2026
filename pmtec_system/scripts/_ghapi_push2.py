@@ -51,16 +51,23 @@ if not paths:
 changes = [("A", p) for p in paths]
 log(f"待推送: {len(changes)} 个文件 ({', '.join(p[:50] for p in paths)})")
 
-# 2) blobs
+# 2) blobs (优先 git 对象库读取 — 不依赖磁盘状态, 天然处理 Unicode 路径;
+#    HEAD 中不存在的路径 = 删除条目, 以 sha:null 传播删除)
 entries = []
 for k, (st, path) in enumerate(changes):
-    fp = os.path.join(ROOT, path.replace("/", os.sep))
-    with open(fp, "rb") as f:
-        b64 = base64.b64encode(f.read()).decode()
+    cat = subprocess.run(["git", "-C", ROOT, "cat-file", "blob", f"HEAD:{path}"],
+                         capture_output=True)
+    if cat.returncode != 0:
+        entries.append({"path": path, "mode": "100644",
+                        "type": "blob", "sha": None})
+        log(f"  [{k + 1}/{len(changes)}] {path} -> DELETE")
+        continue
+    raw_bytes = cat.stdout
+    b64 = base64.b64encode(raw_bytes).decode()
     blob = gh("git/blobs", {"content": b64, "encoding": "base64"})
     entries.append({"path": path, "mode": "100644",
                     "type": "blob", "sha": blob["sha"]})
-    log(f"  [{k + 1}/{len(changes)}] {path} ({os.path.getsize(fp) / 1e3:.0f} KB)"
+    log(f"  [{k + 1}/{len(changes)}] {path} ({len(raw_bytes) / 1e3:.0f} KB)"
         f" -> {blob['sha'][:10]}")
 
 # 3) tree
