@@ -30,8 +30,17 @@ def gh(endpoint, payload=None, method=None):
     if os.path.exists(TMP):
         os.remove(TMP)
     if r.returncode != 0:
-        raise RuntimeError(r.stderr[:500])
+        raise RuntimeError(r.stderr[:2000])
     return json.loads(r.stdout) if r.stdout.strip() else None
+
+
+def remote_exists(path):
+    """路径是否存在于远端 main (避免对不存在路径发 DELETE -> 422 BadObjectState)"""
+    from urllib.parse import quote
+    cmd = ["gh", "api", f"repos/{REPO}/contents/{quote(path)}?ref=main"]
+    r = subprocess.run(cmd, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
+    return r.returncode == 0
 
 
 # 0) 远端当前 head
@@ -58,9 +67,12 @@ for k, (st, path) in enumerate(changes):
     cat = subprocess.run(["git", "-C", ROOT, "cat-file", "blob", f"HEAD:{path}"],
                          capture_output=True)
     if cat.returncode != 0:
-        entries.append({"path": path, "mode": "100644",
-                        "type": "blob", "sha": None})
-        log(f"  [{k + 1}/{len(changes)}] {path} -> DELETE")
+        if remote_exists(path):
+            entries.append({"path": path, "mode": "100644",
+                            "type": "blob", "sha": None})
+            log(f"  [{k + 1}/{len(changes)}] {path} -> DELETE")
+        else:
+            log(f"  [{k + 1}/{len(changes)}] {path} -> skip DELETE (远端不存在)")
         continue
     raw_bytes = cat.stdout
     b64 = base64.b64encode(raw_bytes).decode()
@@ -69,6 +81,23 @@ for k, (st, path) in enumerate(changes):
                     "type": "blob", "sha": blob["sha"]})
     log(f"  [{k + 1}/{len(changes)}] {path} ({len(raw_bytes) / 1e3:.0f} KB)"
         f" -> {blob['sha'][:10]}")
+
+# 2b) 远端残留垃圾显式清理 (本地先加后删 -> diff 不含, 但远端存在)
+REMOTE_JUNK = [
+    "参考视频.mp4",
+    "工业互联网研究院的视频.mp4",
+    "_ref_readme.md",
+    "pmtec_system/output/_ref_frames/ref_0.jpg",
+    "pmtec_system/output/_ref_frames/ref_1.jpg",
+    "pmtec_system/output/_ref_frames/ref_2.jpg",
+]
+for p in REMOTE_JUNK:
+    if remote_exists(p):
+        entries.append({"path": p, "mode": "100644", "type": "blob",
+                        "sha": None})
+        log(f"  [junk] {p} -> DELETE")
+    else:
+        log(f"  [junk] {p} -> 远端不存在, 跳过")
 
 # 3) tree
 tree_sha = gh(f"commits/{remote}")["commit"]["tree"]["sha"]
