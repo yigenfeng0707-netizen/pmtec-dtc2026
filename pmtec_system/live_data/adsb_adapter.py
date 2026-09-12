@@ -19,13 +19,11 @@ Each state vector contains:
 Normalized output: list of LiveSensorData dicts with lat/lon/alt/heading/speed.
 """
 
-import time
 import logging
-import random
-import math
 import os
+import random
 import sys
-from typing import Optional
+import time
 from dataclasses import dataclass
 
 logger = logging.getLogger("pmtec.live_data.adsb")
@@ -37,8 +35,8 @@ if _PROJECT_ROOT not in sys.path:
 
 try:
     from config import LIVE_DATA_OPENSKY_URL as _API_URL
-    from config import LIVE_DATA_TIMEOUT_S as _TIMEOUT
     from config import LIVE_DATA_RETRY_ATTEMPTS as _RETRIES
+    from config import LIVE_DATA_TIMEOUT_S as _TIMEOUT
 except ImportError:
     _API_URL = "https://opensky-network.org/api/states/all"
     _TIMEOUT = 10
@@ -137,8 +135,8 @@ class ADSBAdapter:
         Retries on failure, returns empty list if all attempts fail
         (triggering fallback to simulation).
         """
-        import urllib.request
         import json
+        import urllib.request
 
         min_lat, max_lat, min_lon, max_lon = self.bbox
         url = (

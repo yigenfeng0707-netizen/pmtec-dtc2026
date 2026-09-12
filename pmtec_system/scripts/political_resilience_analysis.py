@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P13 分析交付物：《盟友准入不确定性对印太防空体系韧性的影响》
 
@@ -27,11 +26,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 sys.stdout.reconfigure(encoding="utf-8")
 
-from models.political_access import (  # noqa: E402
-    AccessState,
+from models.political_access import (
     EVENT_GREY_ZONE,
     EVENT_REASSURANCE,
     EVENT_SOVEREIGN_STRIKE,
+    AccessState,
     PoliticalAccessModel,
     PoliticalEvent,
 )

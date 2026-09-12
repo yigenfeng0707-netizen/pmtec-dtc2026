@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P11 Test Suite: INDOPACOM Command & Control Organization Modeling
 
@@ -40,7 +39,7 @@ def test(name, condition, detail=""):
 # 1) CommandChain 指挥链
 # ============================================================
 print("\n[1/3] CommandChain 指挥链建模...")
-from models.c2_chain import CommandChain, normalize_branch  # noqa: E402
+from models.c2_chain import CommandChain, normalize_branch
 
 with open(GEOJSON, encoding="utf-8") as f:
     gj = json.load(f)
@@ -110,7 +109,7 @@ test("normalize_branch('RAAF/USMC') 仅保留美军军种", normalize_branch("RA
 # 2) RBAC 军种扩展
 # ============================================================
 print("\n[2/3] RBAC 军种属性扩展...")
-from security.rbac import Role, RBACManager, normalize_branch_token  # noqa: E402
+from security.rbac import RBACManager, Role, normalize_branch_token
 
 rbac = RBACManager()
 test("OPERATOR(usaf) 可访问 usaf 资产",
@@ -134,7 +133,7 @@ test("军种限定角色标签生成", bool(label), f"{label}")
 # 3) Auth branch claim
 # ============================================================
 print("\n[3/3] JWT branch claim...")
-from security.auth import AuthManager, AuthError  # noqa: E402
+from security.auth import AuthError, AuthManager
 
 auth = AuthManager(secret="p11_test_secret_padding_to_32_bytes_xx", expiration_hours=1)
 t = auth.issue_token("u1", "operator", branch="usaf")

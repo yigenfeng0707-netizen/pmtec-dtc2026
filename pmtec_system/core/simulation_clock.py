@@ -1,8 +1,8 @@
 """Simulation Clock - manages PMTEC simulation time."""
 
 import time
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Optional, Callable
 
 
 @dataclass

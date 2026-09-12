@@ -4,10 +4,8 @@ DTB Model: War Engine (LVC coordination) + Plug-and-Play (layer composition)
 """
 
 import math
-import random
-import uuid
 from dataclasses import dataclass, field
-from typing import Optional
+
 from config import EARTH_RADIUS_KM
 
 
@@ -127,7 +125,7 @@ class KalmanTrack:
         self.x = new_x
         # P = F * P * F' + Q
         FP = _mat_mul(self.F, self.P)
-        FPt = _mat_transpose(FP)
+        _mat_transpose(FP)
         new_P = _mat_add(_mat_mul(FP, _mat_transpose(self.F)), self.Q)
         self.P = new_P
         # Increment misses (will be reset on update)
@@ -364,7 +362,7 @@ class LVCArchitecture:
                 result.extend(layer.entities)
         return result
 
-    def get_layer(self, name: str) -> Optional[LVCLayer]:
+    def get_layer(self, name: str) -> LVCLayer | None:
         for layer in self.layers:
             if layer.layer_name.lower() == name.lower():
                 return layer
@@ -451,12 +449,11 @@ class LVCArchitecture:
             return
 
         GATE_KM = 15.0  # Association gate in km
-        GATE_KM_SQ = GATE_KM * GATE_KM
+        GATE_KM * GATE_KM
 
         # Build gated association: for each track, which observations are within gate?
         # association_map[track_idx] = [(obs_idx, innovation, inv_cov, likelihood), ...]
         association_map = {}  # track_idx -> list of (obs_idx, innovation, S_inv, likelihood)
-        associated_obs_per_track = {}  # track_idx -> list of obs dicts
 
         for t_idx, (tid, track) in enumerate(active_tracks):
             gated = []
@@ -473,8 +470,7 @@ class LVCArchitecture:
                     # Gaussian likelihood: N(innov; 0, S)
                     # det(S) for 2x2
                     det_S = S[0][0] * S[1][1] - S[0][1] * S[1][0]
-                    if det_S < 1e-12:
-                        det_S = 1e-12
+                    det_S = max(det_S, 1e-12)
                     # Mahalanobis distance squared
                     mahal_sq = (
                         innov[0] * innov[0] * S_inv[0][0]
@@ -496,7 +492,6 @@ class LVCArchitecture:
         # clutter_term accounts for "no association" (new target / false alarm)
         CLUTTER_PRIOR = 0.1  # 10% prior probability of no association
 
-        updated_any = False
         new_obs_indices = set(range(len(observations)))  # Start with all as "new"
 
         for t_idx, (tid, track) in enumerate(active_tracks):
@@ -525,7 +520,6 @@ class LVCArchitecture:
             # Apply JPDA Kalman update
             track.update_jpda(weighted_innov)
             track.update_jpda_meta(associated_obs)
-            updated_any = True
 
         # Create new tracks for unmatched observations
         for o_idx in new_obs_indices:

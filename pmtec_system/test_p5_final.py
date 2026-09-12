@@ -10,7 +10,9 @@ Verifies:
   Plus P1-P4 features still functional (weather, Kalman, adversary, persistence, etc.)
 """
 
-import sys, os, time, json
+import os
+import sys
+import time
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
@@ -18,8 +20,8 @@ if PROJECT_ROOT not in sys.path:
 
 os.environ["PMTEC_HEADLESS"] = "1"
 
-from services.grpc_server import PMTECEngine
 from deep_rl.dqn_agent import DQNAgent
+from services.grpc_server import PMTECEngine
 
 results = []
 
@@ -63,7 +65,7 @@ check(
 check(
     "Plugin manager",
     getattr(engine, "plugin_manager", None) is not None,
-    f"PMTEC platform",
+    "PMTEC platform",
 )
 check(
     "DT registry",

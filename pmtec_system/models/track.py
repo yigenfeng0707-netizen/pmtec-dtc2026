@@ -3,7 +3,7 @@
 import time
 import uuid
 from dataclasses import dataclass, field
-from typing import Optional
+
 from config import TRACK_MAX_AGE_S, TRACK_MIN_CONFIDENCE
 
 

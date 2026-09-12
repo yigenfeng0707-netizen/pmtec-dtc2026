@@ -26,9 +26,6 @@ Dependencies (optional, gracefully degrades if not installed):
 """
 
 import os
-import sys
-import time
-from typing import Optional
 
 # ============================================================
 # Configuration
@@ -95,12 +92,12 @@ class TracingManager:
 
         try:
             from opentelemetry import trace
+            from opentelemetry.sdk.resources import Resource
             from opentelemetry.sdk.trace import TracerProvider
             from opentelemetry.sdk.trace.export import (
                 BatchSpanProcessor,
                 ConsoleSpanExporter,
             )
-            from opentelemetry.sdk.resources import Resource
         except ImportError:
             print("[Tracing] opentelemetry not installed; tracing disabled (no-op)")
             return False

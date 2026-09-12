@@ -13,9 +13,10 @@ Validates:
 Run: D:/miniconda3/envs/pmtec-xpu/python.exe test_p7.py
 """
 
-import sys
-import os
 import json
+import os
+import sys
+
 import numpy as np
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +43,6 @@ def test(name, condition, detail=""):
 print("\n[1/6] Testing Monte Carlo framework structure...")
 
 from scripts.monte_carlo_validation import (
-    AdversaryStrategy,
     STRATEGIES,
     StrategyEnv,
 )
@@ -82,7 +82,7 @@ test("decoy is mostly cruise missiles", cruise_count >= len(decoy.threat_pool) /
 print("\n[2/6] Testing DQN P7-v2 model...")
 
 from deep_rl.dqn_agent import DQNAgent, detect_best_device
-from deep_rl.pmtec_env import OBS_DIM, NUM_ACTIONS
+from deep_rl.pmtec_env import NUM_ACTIONS, OBS_DIM
 
 device = detect_best_device()
 agent = DQNAgent(device=device)
@@ -257,6 +257,7 @@ if os.path.exists(model_p6) and os.path.exists(model_p7v2):
 print("\n[6/6] Testing P7-v2 environment fixes...")
 
 import inspect
+
 from deep_rl.pmtec_env import PMTECEnv
 
 # Check extreme weather detection_range_factor = 0.5 (was 0.3)

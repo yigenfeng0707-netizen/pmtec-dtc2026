@@ -10,7 +10,8 @@ Verifies:
 6. docker-compose config valid (if docker available)
 """
 
-import sys, os, re
+import os
+import sys
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 

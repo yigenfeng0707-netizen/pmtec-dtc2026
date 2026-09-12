@@ -408,7 +408,7 @@ class CommandChain:
         report = self.report_event(
             source_base,
             request_type,
-            payload={**{"request_type": request_type}, **(payload or {})},
+            payload={"request_type": request_type, **(payload or {})},
             sim_time=sim_time,
         )
         msgs.append(report)

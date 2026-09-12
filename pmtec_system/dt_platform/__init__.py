@@ -6,8 +6,8 @@ Provides:
 - DTRegistry: Digital twin instance registry and lifecycle management
 """
 
+from .dt_registry import DTRegistry
 from .plugin_manager import PluginManager
 from .rest_gateway import RestGateway
-from .dt_registry import DTRegistry
 
-__all__ = ["PluginManager", "RestGateway", "DTRegistry"]
+__all__ = ["DTRegistry", "PluginManager", "RestGateway"]

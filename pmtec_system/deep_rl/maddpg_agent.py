@@ -15,28 +15,25 @@ Key difference from IQL:
 Integration: drop-in replacement for MultiAgentDQN in grpc_server.py.
 """
 
-import os
 import json
-import time
-import math
+import os
 import random
+import time
+from collections import deque
+
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.optim as optim
 import torch.nn.functional as F
-from collections import deque
-from typing import Optional
+from torch import nn, optim
 
 from deep_rl.dqn_agent import detect_best_device
 from deep_rl.multi_agent_env import (
-    MultiAgentPMTECEnv,
-    SingleAgentWrapper,
-    INTERCEPT_AGENT,
+    AGENT_IDS,
+    DISPERSAL_ACTIONS,
     DISPERSAL_AGENT,
     INTERCEPT_ACTIONS,
-    DISPERSAL_ACTIONS,
-    AGENT_IDS,
+    INTERCEPT_AGENT,
+    MultiAgentPMTECEnv,
 )
 from deep_rl.pmtec_env import OBS_DIM
 
@@ -480,7 +477,7 @@ class MADDPGAgent:
             },
             self.dispersal_model_path,
         )
-        print(f"[MADDPG] Models saved")
+        print("[MADDPG] Models saved")
 
     def predict(self, observation, agent_id: str = None) -> dict:
         """Predict actions from both agents (decentralized execution).

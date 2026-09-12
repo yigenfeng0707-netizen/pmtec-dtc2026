@@ -24,11 +24,10 @@ Usage:
         print("Model metadata mismatch!")
 """
 
-import os
-import json
-import time
 import hashlib
-from typing import Optional
+import json
+import os
+import time
 
 _MODEL_DIR = os.path.join(
     os.path.dirname(os.path.abspath(__file__)),
@@ -115,7 +114,7 @@ class ModelMetadataManager:
 
         return meta_path
 
-    def load(self, model_filename: str) -> Optional[dict]:
+    def load(self, model_filename: str) -> dict | None:
         """Load metadata for a model file. Returns None if not found."""
         meta_path = self._meta_path(model_filename)
         if not os.path.exists(meta_path):

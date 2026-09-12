@@ -8,7 +8,9 @@ Verifies:
 - P3-4: AdversaryAgent (rule-driven targeting, coordinated EW/Cyber)
 """
 
-import sys, os, time, json, threading
+import os
+import sys
+import time
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:
@@ -73,7 +75,7 @@ def main():
         f"Live data injected: {lds.get('total_injected', 0) if isinstance(lds, dict) else 0}"
     )
 
-    print(f"\nAdversary Stats:")
+    print("\nAdversary Stats:")
     for k, v in adversary_stats.items():
         print(f"  {k}: {v}")
 
@@ -123,7 +125,7 @@ def main():
         wx_feat = obs[110 + 9]  # wx_detection_factor
         print(f"  EW={ew_feat:.3f}, Cyber={cyber_feat:.3f}, Weather={wx_feat:.3f}")
     else:
-        print(f"[WARN] P3-3 DQN not trained")
+        print("[WARN] P3-3 DQN not trained")
 
     # P3-4: AdversaryAgent
     has_adversary = adversary_stats.get("total_attacks", 0) > 0

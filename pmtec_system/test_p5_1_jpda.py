@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P5-1: JPDA (Joint Probabilistic Data Association) Unit Test
 
@@ -14,7 +13,6 @@ Verify that:
 8. Status reports JPDA algorithm
 """
 
-import math
 import os
 import sys
 
@@ -23,10 +21,6 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from core.lvc_architecture import (
     KalmanTrack,
     LVCArchitecture,
-    haversine,
-    _mat_mul,
-    _mat_transpose,
-    _mat_inv_2x2,
 )
 
 

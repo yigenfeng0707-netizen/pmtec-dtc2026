@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P10 Test Suite: Allied Cooperation & Political Access Constraint Modeling
 
@@ -55,12 +54,11 @@ all_ids = [r["id"] for r in base_rows]
 # ============================================================
 # Phase 1 (A): state machine + (C): grey-zone chain replay
 # ============================================================
-from models.political_access import (  # noqa: E402
-    AccessState,
-    EVENT_ESCALATION,
+from models.political_access import (
     EVENT_GREY_ZONE,
     EVENT_REASSURANCE,
     EVENT_SOVEREIGN_STRIKE,
+    AccessState,
     MRFDRotation,
     PoliticalAccessModel,
     PoliticalEvent,
@@ -200,8 +198,8 @@ for mod_name in [k for k in sys.modules
 sys.path.remove(PROJECT_ROOT)
 sys.path.insert(0, ACE_ROOT)
 
-from engine.asda_engine import ASDAEngine  # noqa: E402
-from models.political import (  # noqa: E402
+from engine.asda_engine import ASDAEngine
+from models.political import (
     SCENARIO_DENIED,
     SCENARIO_EVOLVED,
     SCENARIO_FULL,

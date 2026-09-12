@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P12-3: Real-time tactical map v2 — 67-entity layered live situation display.
 

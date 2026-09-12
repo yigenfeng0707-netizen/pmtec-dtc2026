@@ -16,12 +16,11 @@ Features:
   - Thread-safe (one connection per thread)
 """
 
-import os
 import json
-import time
+import os
 import sqlite3
 import threading
-from typing import Optional
+import time
 
 
 class SimulationStateStore:
@@ -104,7 +103,7 @@ class SimulationStateStore:
     CREATE INDEX IF NOT EXISTS idx_dqn_step ON dqn_metrics(step);
     """
 
-    def __init__(self, db_path: Optional[str] = None):
+    def __init__(self, db_path: str | None = None):
         """Initialize the store. db_path=None uses default path in data/."""
         if db_path is None:
             data_dir = os.path.join(
@@ -352,7 +351,7 @@ class SimulationStateStore:
         )
         conn.commit()
 
-    def load_checkpoint(self, name: str) -> Optional[dict]:
+    def load_checkpoint(self, name: str) -> dict | None:
         """Load the latest checkpoint by name."""
         conn = self._get_conn()
         row = conn.execute(

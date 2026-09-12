@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P12-1/P12-2 Test Suite: Observation Space Expansion (political access features)
 
@@ -21,7 +20,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, PROJECT_ROOT)
 sys.stdout.reconfigure(encoding="utf-8")
 
-import numpy as np  # noqa: E402
+import numpy as np
 
 PASS, FAIL = 0, 0
 
@@ -38,7 +37,7 @@ def test(name, condition, detail=""):
 # 1) 后向兼容：默认 182 维不变
 # ============================================================
 print("\n[1/4] 默认环境后向兼容（182 维观测不变）...")
-from deep_rl.pmtec_env import PMTECEnv, OBS_DIM  # noqa: E402
+from deep_rl.pmtec_env import OBS_DIM, PMTECEnv
 
 env0 = PMTECEnv(duration=60, seed=42)
 obs0, _ = env0.reset(seed=42)
@@ -105,7 +104,7 @@ test("全部步骤观测有限", bool(np.isfinite(arr).all()))
 # 4) 多智能体包装透传
 # ============================================================
 print("\n[4/4] 多智能体包装透传（MultiAgentPMTECEnv）...")
-from deep_rl.multi_agent_env import MultiAgentPMTECEnv  # noqa: E402
+from deep_rl.multi_agent_env import MultiAgentPMTECEnv
 
 ma_env = MultiAgentPMTECEnv(duration=60, seed=42, political=True)
 ma_obs, ma_info = ma_env.reset(seed=42)

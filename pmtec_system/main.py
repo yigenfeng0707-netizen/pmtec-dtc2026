@@ -7,11 +7,11 @@ ASDA: Act -> Sense -> Decide -> Adapt loop
 LVC: Live (sensors) + Virtual (CGF) + Constructive (command)
 """
 
-import sys
-import os
-import time
-import json
 import argparse
+import json
+import os
+import sys
+import time
 
 # Ensure project root in path
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -19,17 +19,16 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from config import (
+    ASDA_CYCLE_SECONDS,
+    ASDA_PHASES,
+    DTB_COMPONENTS,
     GRPC_HOST,
     GRPC_PORT,
+    OUTPUT_DIR,
     SIM_DURATION_SECONDS,
     SIM_RANDOM_SEED,
-    OUTPUT_DIR,
-    DTB_COMPONENTS,
-    ASDA_PHASES,
-    ASDA_CYCLE_SECONDS,
 )
 from services.grpc_server import PMTECServer
-from services.spear_replay import SpearReplay
 from visualization.tactical_display import TacticalDisplay
 
 # P0-1: Realtime tactical display
@@ -85,7 +84,7 @@ def run_simulation(
         server.start()
         print(f"[2/7] gRPC server started at {server.address}")
         print(
-            f"       Services: WarEngine, BattleNetwork, ApplicationStore, PlugAndPlay"
+            "       Services: WarEngine, BattleNetwork, ApplicationStore, PlugAndPlay"
         )
         print(f"       DTB Components: {len(DTB_COMPONENTS)}")
         for name, desc in DTB_COMPONENTS.items():
@@ -98,21 +97,21 @@ def run_simulation(
     if HAS_REALTIME and engine.realtime:
         ws_ok = engine.realtime.start()
         if ws_ok:
-            print(f"[2.5] Realtime WebSocket server: ws://localhost:8765")
+            print("[2.5] Realtime WebSocket server: ws://localhost:8765")
         else:
-            print(f"[2.5] Realtime: WebSocket unavailable (using file-based updates)")
+            print("[2.5] Realtime: WebSocket unavailable (using file-based updates)")
         rd = RealtimeDisplay()
         realtime_display_path = rd.generate_html()
         print(f"       Realtime display: {realtime_display_path}")
     else:
-        print(f"[2.5] Realtime display: module not available")
+        print("[2.5] Realtime display: module not available")
 
     # P1-2: Start REST API gateway
     if engine.rest_gateway:
         engine.rest_gateway.start()
-        print(f"[2.6] REST API gateway: http://localhost:8080/api/v1/health")
+        print("[2.6] REST API gateway: http://localhost:8080/api/v1/health")
     else:
-        print(f"[2.6] REST API gateway: not available")
+        print("[2.6] REST API gateway: not available")
 
     # 3. Start simulation
     print(f"[3/7] Starting simulation: {scenario_name}")
@@ -204,17 +203,17 @@ def run_simulation(
     # P0-1: Stop realtime server
     if engine.realtime:
         engine.realtime.stop()
-        print(f"       Realtime server stopped")
+        print("       Realtime server stopped")
 
     # P1-2: Stop REST gateway
     if engine.rest_gateway:
         engine.rest_gateway.stop()
-        print(f"       REST gateway stopped")
+        print("       REST gateway stopped")
 
     # P1-2: Shutdown plugins
     if engine.plugin_manager:
         engine.plugin_manager.shutdown()
-        print(f"       Plugins shut down")
+        print("       Plugins shut down")
 
     # P1-1: Generate SPEAR interactive replay timeline
     spear_timeline_path = None
@@ -230,7 +229,7 @@ def run_simulation(
     # Stop gRPC server
     if start_grpc:
         server.stop()
-        print(f"\ngRPC server stopped.")
+        print("\ngRPC server stopped.")
 
     # Print summary
     print()
@@ -263,7 +262,7 @@ def run_simulation(
         lstats = engine.learning.get_statistics()
         print("  ASDA Learning (P0-3 UCB1/Q-Learning):")
         print(f"    Cycles completed: {lstats.get('cycles_completed', 0)}")
-        print(f"    Intercept strategy success rates:")
+        print("    Intercept strategy success rates:")
         for s, r in lstats.get("intercept_success_rates", {}).items():
             print(f"      {s:15s}: {r:.0%}")
         print(f"    Q-learning states explored: {lstats.get('qlearning_states', 0)}")

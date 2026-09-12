@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P4 Final Verification: 300s full simulation validating ALL P4 features.
 - P4-1: Persistence (SQLite snapshots, Kalman tracks, SPEAR events)
@@ -9,11 +8,11 @@ P4 Final Verification: 300s full simulation validating ALL P4 features.
 Plus all prior P1-P3 features still functional.
 """
 
+import json
 import os
+import sqlite3
 import sys
 import time
-import json
-import sqlite3
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ["PMTEC_HEADLESS"] = "1"

@@ -18,40 +18,28 @@ Usage:
   python scripts/curriculum_training.py --stage1-steps 60000 --stage2-steps 60000 --stage3-steps 80000
 """
 
+import argparse
+import json
+import math
 import os
 import sys
 import time
-import json
-import math
-import random
-import argparse
-import numpy as np
-import torch
-import torch.nn as nn
-from typing import Optional
 from dataclasses import dataclass
+
+import numpy as np
 from stable_baselines3 import DQN
-from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.noise import NormalActionNoise
+from stable_baselines3.common.vec_env import DummyVecEnv
+from torch import nn
 
 # Add project root to path
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
+from deep_rl.dqn_agent import detect_best_device
 from deep_rl.pmtec_env import (
     PMTECEnv,
-    OBS_DIM,
-    NUM_BASES,
-    BASE_FEATURES,
-    GLOBAL_FEATURES,
-    MAX_THREATS,
-    THREAT_FEATURES,
-    NUM_ACTIONS,
-    ASDA_CYCLE_SECONDS,
-    THREAT_TYPES,
 )
-from deep_rl.dqn_agent import detect_best_device
 
 # Model paths
 _MODEL_DIR = os.path.join(PROJECT_ROOT, "data", "models")
@@ -166,7 +154,7 @@ class CurriculumEnv(PMTECEnv):
         self._randomize_seed = randomize_seed
         self._episode_counter = 0
 
-    def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
+    def reset(self, seed: int | None = None, options: dict | None = None):
         """Override reset to randomize seed per episode for diversity."""
         if self._randomize_seed and seed is None:
             # Use a different seed each episode to avoid overfitting
@@ -370,9 +358,9 @@ def train_stage(
             exploration_final_eps=stage.exploration_final_eps,
             exploration_fraction=0.2,  # shorter exploration for fine-tuning
         )
-        print(f"[Curriculum] Model loaded successfully")
+        print("[Curriculum] Model loaded successfully")
     else:
-        print(f"[Curriculum] No pre-trained model found, creating new model")
+        print("[Curriculum] No pre-trained model found, creating new model")
         model = DQN(
             "MlpPolicy",
             vec_env,

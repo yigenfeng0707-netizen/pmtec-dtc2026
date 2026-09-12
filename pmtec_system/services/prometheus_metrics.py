@@ -18,12 +18,10 @@ Usage:
 Metrics are exposed at http://host:9090/metrics in Prometheus text format.
 """
 
+import logging
 import os
 import sys
-import time
-import logging
 import threading
-from typing import Optional
 
 logger = logging.getLogger("pmtec.metrics")
 
@@ -33,15 +31,14 @@ if _PROJECT_ROOT not in sys.path:
 
 try:
     from prometheus_client import (
+        CONTENT_TYPE_LATEST,
+        REGISTRY,
         Counter,
         Gauge,
         Histogram,
         Info,
-        start_http_server,
         generate_latest,
-        CONTENT_TYPE_LATEST,
-        REGISTRY,
-        CollectorRegistry,
+        start_http_server,
     )
 
     _PROMETHEUS_AVAILABLE = True
@@ -51,7 +48,7 @@ except ImportError:
 
 # Config
 try:
-    from config import PROMETHEUS_ENABLED, PROMETHEUS_PORT, PROMETHEUS_METRICS_PATH
+    from config import PROMETHEUS_ENABLED, PROMETHEUS_METRICS_PATH, PROMETHEUS_PORT
 except ImportError:
     PROMETHEUS_ENABLED = True
     PROMETHEUS_PORT = 9090
@@ -76,7 +73,7 @@ class MetricsExporter:
 
     def __init__(self, enabled: bool = None):
         self.enabled = enabled if enabled is not None else PROMETHEUS_ENABLED
-        self._http_thread: Optional[threading.Thread] = None
+        self._http_thread: threading.Thread | None = None
         self._http_running = False
 
         if not self.enabled or not _PROMETHEUS_AVAILABLE:
@@ -326,7 +323,7 @@ class MetricsExporter:
         stats = state.get("interception_stats", {})
         total = stats.get("total_missiles", 0)
         intercepted = stats.get("intercepted", 0)
-        missed = stats.get("missed", 0)
+        stats.get("missed", 0)
         rate = (intercepted / total) if total > 0 else 0.0
 
         self.intercept_rate.set(rate)
@@ -510,7 +507,7 @@ class MetricsExporter:
 
 
 # Singleton instance for global access
-_exporter: Optional[MetricsExporter] = None
+_exporter: MetricsExporter | None = None
 
 
 def get_metrics_exporter() -> MetricsExporter:

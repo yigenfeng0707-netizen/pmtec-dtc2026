@@ -6,17 +6,16 @@ Trains on PMTECEnv, persists model, provides inference for grpc_server.
 P2: Added XPU (Intel Arc GPU) auto-detection for GPU-accelerated training.
 """
 
-import os
 import json
+import os
 import time
+
 import numpy as np
 import torch
-import torch.nn as nn
-from typing import Optional
 from stable_baselines3 import DQN
-from stable_baselines3.common.vec_env import DummyVecEnv
 from stable_baselines3.common.callbacks import BaseCallback
-from stable_baselines3.common.noise import NormalActionNoise
+from stable_baselines3.common.vec_env import DummyVecEnv
+from torch import nn
 
 
 def detect_best_device() -> str:
@@ -92,7 +91,7 @@ class DQNAgent:
         if device == "auto":
             device = detect_best_device()
         self.device = device
-        self._model: Optional[DQN] = None
+        self._model: DQN | None = None
         self._is_trained = False
         self._training_history: list[dict] = []
 
@@ -122,7 +121,7 @@ class DQNAgent:
         self,
         env,
         total_timesteps: int = 5000,
-        callback: Optional[BaseCallback] = None,
+        callback: BaseCallback | None = None,
     ):
         """Train DQN on the given environment."""
         vec_env = DummyVecEnv([lambda: env])

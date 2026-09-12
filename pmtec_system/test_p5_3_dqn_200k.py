@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """Verify 200K DQN model loads correctly and engine integration works."""
 
-import sys, os
+import os
+import sys
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ["PMTEC_HEADLESS"] = "1"

@@ -20,14 +20,12 @@ Usage:
   # CLI: python -m distributed.service_launcher --service war_engine
 """
 
-import sys
-import os
-import time
-import signal
-import threading
 import logging
+import os
+import sys
+import threading
+import time
 from concurrent import futures
-from typing import Optional
 
 # Add project root to path
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -38,23 +36,19 @@ _GEN_DIR = os.path.join(_PROJECT_ROOT, "proto", "generated")
 if _GEN_DIR not in sys.path:
     sys.path.insert(0, _GEN_DIR)
 
-import grpc
 import dtb_model_pb2_grpc as pb_grpc
+import grpc
 
 from config import (
     DISTRIBUTED_HOST,
     DISTRIBUTED_PORTS,
-    SIM_DURATION_SECONDS,
-    SIM_RANDOM_SEED,
-    ASDA_PHASES,
-    ASDA_CYCLE_SECONDS,
 )
 from services.grpc_server import (
+    ApplicationStoreServicer,
+    BattleNetworkServicer,
+    PlugAndPlayServicer,
     PMTECEngine,
     WarEngineServicer,
-    BattleNetworkServicer,
-    ApplicationStoreServicer,
-    PlugAndPlayServicer,
 )
 
 logger = logging.getLogger("pmtec.distributed")
@@ -62,7 +56,7 @@ logger = logging.getLogger("pmtec.distributed")
 # Singleton shared engine for single-process multi-port mode.
 # In a real distributed deployment, each service gets its own engine
 # and communicates via gRPC clients (see grpc_clients.py).
-_shared_engine: Optional[PMTECEngine] = None
+_shared_engine: PMTECEngine | None = None
 _shared_engine_lock = threading.Lock()
 
 
@@ -95,8 +89,8 @@ class _DistributedService:
         self.port = port
         self._servicer = servicer
         self._add_fn = servicer_add_fn
-        self._server: Optional[grpc.Server] = None
-        self._thread: Optional[threading.Thread] = None
+        self._server: grpc.Server | None = None
+        self._thread: threading.Thread | None = None
 
     def start(self, blocking: bool = False):
         """Start this service. If blocking=True, blocks until interrupted."""

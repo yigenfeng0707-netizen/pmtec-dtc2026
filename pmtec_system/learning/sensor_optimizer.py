@@ -5,8 +5,6 @@ Pure Python, no GPU dependency.
 """
 
 import random
-from typing import Optional
-from collections import defaultdict
 
 
 class SensorOptimizer:
@@ -39,8 +37,8 @@ class SensorOptimizer:
             threat_boost = 0.0
             if current_threats:
                 for t in current_threats:
-                    t_lat = getattr(t, "lat", 0)
-                    t_lon = getattr(t, "lon", 0)
+                    getattr(t, "lat", 0)
+                    getattr(t, "lon", 0)
                     threat_boost += 0.1
             scored.append(
                 (bid, base_score + random.uniform(0, self.perturbation_strength))

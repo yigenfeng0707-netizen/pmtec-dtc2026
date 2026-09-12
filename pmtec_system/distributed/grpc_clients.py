@@ -17,12 +17,11 @@ Usage:
   health = client.plug_and_play.health_check()
 """
 
-import sys
-import os
-import time
-import threading
 import logging
-from typing import Optional
+import os
+import sys
+import threading
+import time
 
 # Add proto generated path
 _GEN_DIR = os.path.join(
@@ -35,9 +34,9 @@ _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
-import grpc
 import dtb_model_pb2 as pb
 import dtb_model_pb2_grpc as pb_grpc
+import grpc
 
 from config import (
     DISTRIBUTED_HOST,
@@ -49,13 +48,25 @@ from config import (
 # HA config (P7-v2) - safe import with defaults
 try:
     from config import (
-        GRPC_HA_ENABLED as _HA_ENABLED,
         GRPC_HA_BACKUP_HOSTS as _HA_BACKUP_HOSTS,
+    )
+    from config import (
+        GRPC_HA_ENABLED as _HA_ENABLED,
+    )
+    from config import (
         GRPC_HEALTH_CHECK_INTERVAL_S as _HC_INTERVAL,
+    )
+    from config import (
         GRPC_RECONNECT_INITIAL_MS as _RC_INIT_MS,
-        GRPC_RECONNECT_MAX_MS as _RC_MAX_MS,
-        GRPC_RECONNECT_MULTIPLIER as _RC_MULT,
+    )
+    from config import (
         GRPC_RECONNECT_MAX_ATTEMPTS as _RC_MAX_ATTEMPTS,
+    )
+    from config import (
+        GRPC_RECONNECT_MAX_MS as _RC_MAX_MS,
+    )
+    from config import (
+        GRPC_RECONNECT_MULTIPLIER as _RC_MULT,
     )
 except ImportError:
     _HA_ENABLED = False
@@ -83,7 +94,7 @@ class _HAChannelManager:
     - Polls gRPC Health Check protocol when available.
     """
 
-    def __init__(self, primary: str, backups: Optional[list] = None):
+    def __init__(self, primary: str, backups: list | None = None):
         self._primary = primary
         self._backups = list(backups) if backups else []
         self._all_endpoints = [primary] + self._backups
@@ -94,7 +105,7 @@ class _HAChannelManager:
         ] = {}  # "IDLE" | "CONNECTING" | "READY" | "TRANSIENT_FAILURE"
         self._reconnect_attempts: dict[str, int] = {}
         self._lock = threading.Lock()
-        self._health_thread: Optional[threading.Thread] = None
+        self._health_thread: threading.Thread | None = None
         self._health_stop = threading.Event()
 
         # Create all channels upfront
@@ -335,7 +346,7 @@ class WarEngineClient:
     def __init__(self, host: str = None, port: int = None):
         self._host = host or DISTRIBUTED_HOST
         self._port = port or DISTRIBUTED_PORTS["WarEngine"]
-        self._stub: Optional[pb_grpc.WarEngineStub] = None
+        self._stub: pb_grpc.WarEngineStub | None = None
 
     @property
     def stub(self) -> pb_grpc.WarEngineStub:
@@ -403,7 +414,7 @@ class BattleNetworkClient:
     def __init__(self, host: str = None, port: int = None):
         self._host = host or DISTRIBUTED_HOST
         self._port = port or DISTRIBUTED_PORTS["BattleNetwork"]
-        self._stub: Optional[pb_grpc.BattleNetworkStub] = None
+        self._stub: pb_grpc.BattleNetworkStub | None = None
 
     @property
     def stub(self) -> pb_grpc.BattleNetworkStub:
@@ -451,7 +462,7 @@ class ApplicationStoreClient:
     def __init__(self, host: str = None, port: int = None):
         self._host = host or DISTRIBUTED_HOST
         self._port = port or DISTRIBUTED_PORTS["ApplicationStore"]
-        self._stub: Optional[pb_grpc.ApplicationStoreStub] = None
+        self._stub: pb_grpc.ApplicationStoreStub | None = None
 
     @property
     def stub(self) -> pb_grpc.ApplicationStoreStub:
@@ -490,7 +501,7 @@ class PlugAndPlayClient:
     def __init__(self, host: str = None, port: int = None):
         self._host = host or DISTRIBUTED_HOST
         self._port = port or DISTRIBUTED_PORTS["PlugAndPlay"]
-        self._stub: Optional[pb_grpc.PlugAndPlayStub] = None
+        self._stub: pb_grpc.PlugAndPlayStub | None = None
 
     @property
     def stub(self) -> pb_grpc.PlugAndPlayStub:

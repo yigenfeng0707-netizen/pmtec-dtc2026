@@ -5,10 +5,11 @@ Retrains both IQL and MADDPG with the current 182-dim observation space,
 replacing old 122-dim models that get skipped on load.
 """
 
+import json
 import os
 import sys
-import json
 import time
+
 import numpy as np
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -16,9 +17,9 @@ if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
 from deep_rl.dqn_agent import detect_best_device
-from deep_rl.multi_agent_env import MultiAgentPMTECEnv
-from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.maddpg_agent import MADDPGAgent
+from deep_rl.multi_agent_dqn import MultiAgentDQN
+from deep_rl.multi_agent_env import MultiAgentPMTECEnv
 
 MODEL_DIR = os.path.join(PROJECT_ROOT, "data", "models")
 REPORT_PATH = os.path.join(MODEL_DIR, "p8_retraining_report.json")
@@ -126,9 +127,9 @@ def main():
     print(
         f"  MADDPG: {maddpg_elapsed:.1f}s, 6000 steps, avg_reward={maddpg_result.get('avg_reward_last_10', 'N/A')}"
     )
-    print(f"  IQL models:    pmtec_iql_intercept.zip, pmtec_iql_dispersal.zip")
-    print(f"  MADDPG models: pmtec_maddpg_intercept.pt, pmtec_maddpg_dispersal.pt")
-    print(f"  All models now use OBS_DIM=182")
+    print("  IQL models:    pmtec_iql_intercept.zip, pmtec_iql_dispersal.zip")
+    print("  MADDPG models: pmtec_maddpg_intercept.pt, pmtec_maddpg_dispersal.pt")
+    print("  All models now use OBS_DIM=182")
 
     # Check file sizes
     for f in [

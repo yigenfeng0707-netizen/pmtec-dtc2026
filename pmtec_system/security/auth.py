@@ -7,14 +7,14 @@ expiration. Supports refresh within a grace window before expiry.
 
 import os
 import time
-import jwt
 from dataclasses import dataclass
+
+import jwt
 
 
 class AuthError(Exception):
     """Raised when token operations fail."""
 
-    pass
 
 
 @dataclass

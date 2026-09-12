@@ -9,21 +9,19 @@ Capture training metrics (loss/reward) and generate visualization.
 5. Generate HTML chart
 """
 
+import io
 import json
 import os
-import sys
 import re
-import io
+import sys
 import time
-from contextlib import redirect_stdout
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, _PROJECT_ROOT)
 
 from deep_rl.dqn_agent import detect_best_device
-from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.maddpg_agent import MADDPGAgent
-from deep_rl.pmtec_env import PMTECEnv, OBS_DIM
+from deep_rl.multi_agent_dqn import MultiAgentDQN
 
 _MODEL_DIR = os.path.join(_PROJECT_ROOT, "data", "models")
 

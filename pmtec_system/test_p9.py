@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P9 Test Suite: Authoritative Base Database Upgrade (22 -> 67 entities)
 
@@ -65,7 +64,7 @@ test("四级 Tier 分层齐全", all(t in tiers for t in (1, 2, 3, 4)), f"{tiers
 # 2) PMTEC 引擎冒烟启动（67 实体 + ASDA 闭环）
 # ============================================================
 print("\n[2/4] PMTECEngine 冒烟启动（67 实体）...")
-from services.grpc_server import PMTECEngine  # noqa: E402
+from services.grpc_server import PMTECEngine
 
 engine = PMTECEngine()
 n = engine.load_bases(GEOJSON_V2)
@@ -89,7 +88,7 @@ test("ASDA 闭环 2 轮无异常", cycles_ok,
 # 3) RL 环境前向兼容（182 维观测不变）
 # ============================================================
 print("\n[3/4] PMTECEnv 前向兼容（新数据 -> 既有 182 维观测空间）...")
-from deep_rl.pmtec_env import PMTECEnv, OBS_DIM  # noqa: E402
+from deep_rl.pmtec_env import OBS_DIM, PMTECEnv
 
 v2_bases = [
     {
@@ -107,7 +106,7 @@ v2_top22 = sorted(
     v2_bases, key=lambda b: (tier_order.get(tier_by_id.get(b["id"], 2), 2), b["id"])
 )[:22]
 
-import numpy as np  # noqa: E402
+import numpy as np
 
 env = PMTECEnv(bases=v2_top22, duration=60, seed=42)
 obs, info = env.reset(seed=42)

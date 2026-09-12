@@ -15,11 +15,9 @@ Each instance carries:
 - SPEAR replay data snapshot
 """
 
-import time
-import json
-import uuid
 import logging
-from typing import Optional
+import time
+import uuid
 from dataclasses import dataclass, field
 from enum import Enum
 
@@ -45,7 +43,7 @@ class DTInstance:
     status: DTStatus = DTStatus.REGISTERED
     created_at: float = field(default_factory=time.time)
     updated_at: float = field(default_factory=time.time)
-    engine_ref: Optional[object] = None  # Reference to PMTECEngine if local
+    engine_ref: object | None = None  # Reference to PMTECEngine if local
     metadata: dict = field(default_factory=dict)
     stats: dict = field(default_factory=dict)
     tags: list = field(default_factory=list)
@@ -76,7 +74,7 @@ class DTRegistry:
 
     def __init__(self):
         self._instances: dict[str, DTInstance] = {}
-        self._default_instance: Optional[str] = None
+        self._default_instance: str | None = None
 
     def register(self, config: dict = None) -> dict:
         """Register a new digital twin instance.
@@ -114,7 +112,7 @@ class DTRegistry:
             return True
         return False
 
-    def get(self, instance_id: str) -> Optional[DTInstance]:
+    def get(self, instance_id: str) -> DTInstance | None:
         return self._instances.get(instance_id)
 
     def update_status(self, instance_id: str, status: DTStatus) -> bool:
@@ -156,7 +154,7 @@ class DTRegistry:
             results.append(inst.to_dict())
         return results
 
-    def get_default(self) -> Optional[DTInstance]:
+    def get_default(self) -> DTInstance | None:
         """Get the default DT instance."""
         if self._default_instance:
             return self._instances.get(self._default_instance)

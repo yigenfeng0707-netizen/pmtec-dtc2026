@@ -10,9 +10,8 @@ targeting based on:
   - Learning from attack history (success rate feedback)
 """
 
-import random
 import math
-from typing import Optional
+import random
 
 
 class AdversaryAgent:

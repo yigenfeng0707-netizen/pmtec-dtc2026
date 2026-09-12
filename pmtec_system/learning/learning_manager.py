@@ -7,12 +7,10 @@ Provides JSON persistence and SPEAR history extraction.
 import json
 import os
 import time
-import math
-import random
-from typing import Optional
-from .ucb1_intercept import UCB1Intercept
+
 from .qlearning_dispersal import QLearningDispersal
 from .sensor_optimizer import SensorOptimizer
+from .ucb1_intercept import UCB1Intercept
 
 
 class LearningManager:

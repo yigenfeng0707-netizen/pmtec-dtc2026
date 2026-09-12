@@ -6,7 +6,7 @@ interpolation, and time-axis pause/replay controls.
 
 import json
 import os
-from typing import Optional
+
 from config import OUTPUT_DIR
 
 

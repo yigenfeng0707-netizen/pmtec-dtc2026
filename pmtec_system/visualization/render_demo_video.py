@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P13: 演示视频 MP4 渲染 — 灰色地带演化链路 (1920x1080 @ 30fps, 约 46s)
 
@@ -143,7 +142,7 @@ def draw_frame(base_img, bases, scene, frac):
             dst = hubs[i % len(hubs)]
             mid = ((src["x"] + dst["x"]) / 2, min(src["y"], dst["y"]) - 60 - i * 12)
             pts = []
-            for t in range(0, 21):
+            for t in range(21):
                 u = t / 20
                 x = (1 - u) ** 2 * src["x"] + 2 * (1 - u) * u * mid[0] + u ** 2 * dst["x"]
                 y = (1 - u) ** 2 * src["y"] + 2 * (1 - u) * u * mid[1] + u ** 2 * dst["y"]
@@ -255,7 +254,7 @@ def ensure_narration():
                     .replace("·", "，")
                     .replace("⇄", "")
                     .replace("  ", " "))
-            r = subprocess.run(
+            subprocess.run(
                 ["powershell", "-NoProfile", "-ExecutionPolicy", "Bypass",
                  "-File", ps_script, "-Text", text, "-Out", wav_path],
                 capture_output=True,
@@ -282,7 +281,7 @@ def build_narration_track(durations, scene_durs, path):
                 if params is None:
                     params = w.getparams()
                 data = np.frombuffer(w.readframes(w.getnframes()), dtype=np.int16)
-        scene_frames = int(round(scene_durs[i] * FPS * params.framerate / FPS)) \
+        int(round(scene_durs[i] * FPS * params.framerate / FPS)) \
             if params else 0
         scene_samples = int(round(scene_durs[i] * (params.framerate if params else 22050)))
         buf = np.zeros(scene_samples, dtype=np.int16)

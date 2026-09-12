@@ -13,8 +13,9 @@ Validates:
 Run: D:/miniconda3/envs/pmtec-xpu/python.exe test_p6.py
 """
 
-import sys
 import os
+import sys
+
 import numpy as np
 
 # Add project root to path
@@ -42,15 +43,15 @@ def test(name, condition, detail=""):
 print("\n[1/6] Testing OBS_DIM = 182...")
 
 from deep_rl.pmtec_env import (
-    PMTECEnv,
-    OBS_DIM,
-    NUM_BASES,
     BASE_FEATURES,
     GLOBAL_FEATURES,
     MAX_THREATS,
-    THREAT_FEATURES,
     NUM_ACTIONS,
+    NUM_BASES,
+    OBS_DIM,
+    THREAT_FEATURES,
     THREAT_TYPES,
+    PMTECEnv,
 )
 
 test("OBS_DIM == 182", OBS_DIM == 182, f"got {OBS_DIM}")

@@ -25,12 +25,10 @@ Maps to ASDA: Decide (政治成本评估) + Adapt (准入状态反馈)
 """
 
 import json
-import math
 import os
 import random
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import Optional
 
 CONFIG_PATH = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -145,7 +143,7 @@ class AllySiteAccess:
         self.current_prob = max(0.0, min(1.0, self.current_prob + delta))
         return self.current_prob - old
 
-    def transition(self, cycle: int) -> Optional[dict]:
+    def transition(self, cycle: int) -> dict | None:
         """按迟滞阈值重判状态；变更时返回转移记录。"""
         recovering = self.current_prob > self.baseline_prob * 0.98
         # 概率显著高于基线视为恢复路径（迟滞）；低于/等于基线走降级路径

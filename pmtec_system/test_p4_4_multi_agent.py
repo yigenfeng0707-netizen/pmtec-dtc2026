@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P4-4: Multi-Agent RL Test
 Verify IQL integration: both agents load, predict, and drive ASDA decisions.
@@ -12,14 +11,14 @@ import time
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ["PMTEC_HEADLESS"] = "1"
 
+from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.multi_agent_env import (
-    MultiAgentPMTECEnv,
-    INTERCEPT_AGENT,
+    DISPERSAL_ACTIONS,
     DISPERSAL_AGENT,
     INTERCEPT_ACTIONS,
-    DISPERSAL_ACTIONS,
+    INTERCEPT_AGENT,
+    MultiAgentPMTECEnv,
 )
-from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.pmtec_env import OBS_DIM
 
 

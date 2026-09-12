@@ -20,16 +20,15 @@ networkx for battle network topology and dispersal path optimization.
 """
 
 import json
-import os
 import math
+import os
 import random
-import numpy as np
-import gymnasium as gym
-from gymnasium import spaces
-from scipy.stats import norm, lognorm
-import networkx as nx
-from typing import Optional
 
+import gymnasium as gym
+import networkx as nx
+import numpy as np
+from gymnasium import spaces
+from scipy.stats import lognorm
 
 # ---- Constants ----
 NUM_BASES = 22
@@ -287,7 +286,7 @@ class PMTECEnv(gym.Env):
         a = math.sin(dp / 2) ** 2 + math.cos(p1) * math.cos(p2) * math.sin(dl / 2) ** 2
         return 2 * R * math.atan2(math.sqrt(a), math.sqrt(1 - a))
 
-    def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
+    def reset(self, seed: int | None = None, options: dict | None = None):
         """Reset episode: spawn aircraft at bases, add sensors, generate threats."""
         super().reset(seed=seed)
         self._rng = random.Random(seed or self.base_seed)
@@ -512,7 +511,7 @@ class PMTECEnv(gym.Env):
         should_disperse = action % 2 == 1
 
         prev_destroyed = sum(1 for a in self._aircraft if a["status"] == "destroyed")
-        prev_total = len(self._aircraft)
+        len(self._aircraft)
 
         # --- Act phase ---
         if should_disperse:
@@ -548,7 +547,7 @@ class PMTECEnv(gym.Env):
         intercepted_count = sum(
             1 for m in self._missiles if m["intercepted"] and m["status"] == "destroyed"
         )
-        new_intercepts = (
+        (
             len(self._intercept_results) - sum(self._intercept_results[:-1])
             if self._intercept_results
             else 0
@@ -819,7 +818,7 @@ class PMTECEnv(gym.Env):
         offset = NUM_BASES * BASE_FEATURES
         active_threats = sum(1 for m in self._missiles if m["status"] == "active")
         total_tracks = len(self._tracks)
-        vuln = dest_overall = sum(
+        vuln = sum(
             1 for a in self._aircraft if a["status"] == "destroyed"
         ) / max(len(self._aircraft), 1)
         ir = (

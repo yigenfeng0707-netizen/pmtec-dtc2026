@@ -17,35 +17,28 @@ Usage:
   python scripts/monte_carlo_validation.py --episodes 200 --workers 8
 """
 
-import os
-import sys
-import json
-import time
 import argparse
+import json
 import math
 import multiprocessing as mp
-from dataclasses import dataclass, field, asdict
-from typing import Optional
+import os
+import sys
+import time
+from dataclasses import dataclass
 
 # Add project root to path
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
-from deep_rl.pmtec_env import (
-    PMTECEnv,
-    OBS_DIM,
-    NUM_BASES,
-    BASE_FEATURES,
-    GLOBAL_FEATURES,
-    MAX_THREATS,
-    THREAT_FEATURES,
-    NUM_ACTIONS,
-    ASDA_CYCLE_SECONDS,
-    THREAT_TYPES,
-)
-from deep_rl.dqn_agent import DQNAgent
 import numpy as np
 
+from deep_rl.dqn_agent import DQNAgent
+from deep_rl.pmtec_env import (
+    NUM_ACTIONS,
+    NUM_BASES,
+    OBS_DIM,
+    PMTECEnv,
+)
 
 # ============================================================
 #  Adversary Strategies
@@ -214,7 +207,6 @@ class StrategyEnv(PMTECEnv):
 
     def _spawn_threats(self):
         """Override threat spawning with adversary strategy parameters."""
-        import random as _rng_mod
 
         n_threats = self._rng.randint(
             self._strategy.n_threats_min, self._strategy.n_threats_max
@@ -400,18 +392,22 @@ def run_episode(args):
                     f"[MC] dim mismatch: model {model_dim} != env {env_obs_dim} "
                     f"-> random policy"
                 )
-                action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
+                def action_fn(o):
+                    return np.random.randint(0, NUM_ACTIONS)
         except Exception as e:
             print(f"[MC] model load failed: {e} -> random policy")
-            action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
+            def action_fn(o):
+                return np.random.randint(0, NUM_ACTIONS)
     else:
         agent = DQNAgent(device="cpu")  # CPU for inference stability in parallel
         loaded = agent.load()
         if loaded:
-            action_fn = lambda o: agent.predict(o, deterministic=True)
+            def action_fn(o):
+                return agent.predict(o, deterministic=True)
         else:
             # Fallback: random policy if model not found
-            action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
+            def action_fn(o):
+                return np.random.randint(0, NUM_ACTIONS)
 
     # Run episode
     episode_reward = 0.0

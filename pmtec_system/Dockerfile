@@ -13,8 +13,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /build
 
+# P13: CPU-only torch first (satisfies torch>=2.0.0, avoids ~3GB CUDA wheels)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --timeout 120 -r requirements.txt
 
 # Copy proto files and generate gRPC stubs
 COPY proto/ ./proto/
@@ -41,9 +44,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /pmtec
 
-# Install Python dependencies
+# Install Python dependencies (CPU torch first, see builder stage)
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --timeout 120 -r requirements.txt
 
 # Copy generated proto stubs from builder
 COPY --from=builder /build/proto/generated/ ./proto/generated/

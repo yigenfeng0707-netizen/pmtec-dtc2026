@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P12 Final Test Suite: P12.4 SPEAR Political Timeline + P12.5 Extended Threats
               + P12.6 Maven Service Contracts (REST completion)
@@ -20,7 +19,6 @@ P12-6: Maven service contracts completed for the four DTB services
 Run: D:/miniconda3/envs/pmtec-xpu/python.exe test_p12_final.py
 """
 
-import importlib.util
 import json
 import os
 import sys
@@ -47,7 +45,7 @@ def test(name, condition, detail=""):
 # 1) P12-4: SPEAR 时间轴政治泳道
 # ============================================================
 print("\n[1/3] P12-4 SPEAR 交互式回放时间轴升级...")
-from visualization.spear_timeline import SpearTimeline  # noqa: E402
+from visualization.spear_timeline import SpearTimeline
 
 fake_spear = SimpleNamespace(
     snapshots=[
@@ -114,7 +112,7 @@ os.remove(html_path)
 print("\n[2/3] P12-5 多威胁扩展（RAND 风格策略库）...")
 _scripts_dir = os.path.join(PROJECT_ROOT, "scripts")
 sys.path.insert(0, _scripts_dir)
-import monte_carlo_validation as mcv  # noqa: E402
+import monte_carlo_validation as mcv
 
 names = [s.name for s in mcv.STRATEGIES]
 test("策略库扩展至 6 项", len(names) == 6, f"{names}")
@@ -156,8 +154,8 @@ test("political_divergence 策略 episode 可运行", ok)
 # 3) P12-6: Maven 服务契约 REST 补全
 # ============================================================
 print("\n[3/3] P12-6 四大服务 Maven 接口补全...")
-from dt_platform.rest_gateway import RestGateway  # noqa: E402
-from services.grpc_server import PMTECEngine  # noqa: E402
+from dt_platform.rest_gateway import RestGateway
+from services.grpc_server import PMTECEngine
 
 GEOJSON_V2 = os.path.join(PROJECT_ROOT, "data", "bases_v2.geojson")
 engine = PMTECEngine()

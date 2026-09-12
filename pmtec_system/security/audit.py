@@ -9,13 +9,12 @@ Every gRPC call is logged with:
 The audit trail is stored in SQLite for queryability and durability.
 """
 
-import os
-import json
-import time
-import sqlite3
 import hashlib
+import json
+import os
+import sqlite3
 import threading
-from typing import Optional
+import time
 
 
 class AuditLogger:
@@ -162,11 +161,11 @@ class AuditLogger:
 
     def query(
         self,
-        user_id: Optional[str] = None,
-        service: Optional[str] = None,
-        decision: Optional[str] = None,
-        start_time: Optional[float] = None,
-        end_time: Optional[float] = None,
+        user_id: str | None = None,
+        service: str | None = None,
+        decision: str | None = None,
+        start_time: float | None = None,
+        end_time: float | None = None,
         limit: int = 100,
     ) -> list:
         """Query audit log entries with filters."""

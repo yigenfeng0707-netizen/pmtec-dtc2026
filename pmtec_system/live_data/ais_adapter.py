@@ -17,12 +17,11 @@ In simulation mode, generates realistic vessel tracks including:
 Normalized output: list of LiveSensorData dicts with lat/lon/speed/heading.
 """
 
-import time
 import logging
-import random
 import math
+import random
+import time
 from dataclasses import dataclass
-from typing import Optional
 
 logger = logging.getLogger("pmtec.live_data.ais")
 

@@ -5,10 +5,8 @@ Reward = -loss_rate (lower loss = higher reward).
 Pure NumPy table-based Q-learning, no GPU dependency.
 """
 
-import json
-from typing import Optional
-from collections import defaultdict
 import random
+from collections import defaultdict
 
 
 class QLearningDispersal:

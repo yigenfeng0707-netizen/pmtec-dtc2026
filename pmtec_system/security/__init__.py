@@ -9,19 +9,19 @@ Components:
   - interceptor: gRPC server interceptor enforcing JWT + RBAC + audit on every call
 """
 
-from security.auth import AuthManager, AuthError
-from security.rbac import RBACManager, Role, Permission
 from security.audit import AuditLogger
+from security.auth import AuthError, AuthManager
 from security.cert_manager import CertificateManager
 from security.interceptor import AuthInterceptor
+from security.rbac import Permission, RBACManager, Role
 
 __all__ = [
-    "AuthManager",
+    "AuditLogger",
     "AuthError",
+    "AuthInterceptor",
+    "AuthManager",
+    "CertificateManager",
+    "Permission",
     "RBACManager",
     "Role",
-    "Permission",
-    "AuditLogger",
-    "CertificateManager",
-    "AuthInterceptor",
 ]

@@ -11,14 +11,9 @@ Design:
 - Lifecycle: discover -> load -> init -> [active] -> shutdown
 """
 
-import os
-import sys
-import importlib
-import inspect
-import json
-import time
 import logging
-from typing import Callable, Optional
+import os
+import time
 from dataclasses import dataclass, field
 
 logger = logging.getLogger("pmtec.plugin")
@@ -194,7 +189,7 @@ class PluginManager:
 
             def post_asda_sense(self, engine):
                 """Hook: apply EW effects to sensor confidence."""
-                from models.entity import EWThreatEntity, SensorEntity
+                from models.entity import EWThreatEntity
 
                 ew_entities = [
                     e
@@ -320,7 +315,7 @@ class PluginManager:
             for pi in self._plugins.values()
         ]
 
-    def get_plugin(self, plugin_id: str) -> Optional[PluginInstance]:
+    def get_plugin(self, plugin_id: str) -> PluginInstance | None:
         return self._plugins.get(plugin_id)
 
     def shutdown(self):

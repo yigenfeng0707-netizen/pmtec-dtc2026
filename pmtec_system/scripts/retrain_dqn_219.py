@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 PMTEC P12.2: DQN Retraining with Political Access Observation (219-dim)
 
@@ -30,16 +29,17 @@ import sys
 import time
 
 import numpy as np
-import torch.nn as nn
 from stable_baselines3 import DQN
 from stable_baselines3.common.vec_env import DummyVecEnv
+from torch import nn
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
 # Same-directory module import (script lives in scripts/)
-from curriculum_training import STAGES, CurriculumEnv, CurriculumCallback  # noqa: E402
-from deep_rl.dqn_agent import detect_best_device  # noqa: E402
+from curriculum_training import STAGES, CurriculumCallback, CurriculumEnv
+
+from deep_rl.dqn_agent import detect_best_device
 
 _MODEL_DIR = os.path.join(PROJECT_ROOT, "data", "models")
 _SUMMARY_PATH = os.path.join(_MODEL_DIR, "pmtec_dqn_p12_training.json")

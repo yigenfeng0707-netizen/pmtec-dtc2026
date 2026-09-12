@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-# -*- coding: utf-8 -*-
 """
 P12-3 Test Suite: WebSocket Realtime Situational Push Upgrades
 
@@ -18,7 +17,6 @@ Run: D:/miniconda3/envs/pmtec-xpu/python.exe test_p12_3_websocket.py
 import asyncio
 import json
 import sys
-import time
 
 sys.stdout.reconfigure(encoding="utf-8")
 
@@ -28,7 +26,7 @@ except ImportError:
     print("websockets package not installed — cannot run P12-3 tests")
     sys.exit(1)
 
-from realtime.websocket_server import RealtimeServer  # noqa: E402
+from realtime.websocket_server import RealtimeServer
 
 PASS, FAIL = 0, 0
 PORT = 8799

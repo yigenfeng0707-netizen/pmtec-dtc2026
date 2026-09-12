@@ -5,7 +5,7 @@ DTB Model: BattleNetwork (track display) + ApplicationStore (visualization app).
 
 import json
 import os
-from typing import Optional
+
 from config import OUTPUT_DIR
 
 

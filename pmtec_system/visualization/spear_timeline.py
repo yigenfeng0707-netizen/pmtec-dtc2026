@@ -16,9 +16,8 @@ actionable analysis dashboard.
 
 import json
 import os
-import time
-from typing import Optional
-from config import OUTPUT_DIR, ASDA_PHASES
+
+from config import ASDA_PHASES, OUTPUT_DIR
 
 
 class SpearTimeline:

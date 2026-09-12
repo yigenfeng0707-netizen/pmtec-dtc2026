@@ -5,7 +5,6 @@ Only sends changed entities to minimize bandwidth.
 
 import json
 import time
-from typing import Optional
 
 
 class SituationSerializer:
@@ -39,7 +38,7 @@ class SituationSerializer:
         self._last_cycle = state.get("asda_cycle", 0)
         return json.dumps(msg, ensure_ascii=False, default=str)
 
-    def serialize_delta(self, state: dict, events: list = None) -> Optional[str]:
+    def serialize_delta(self, state: dict, events: list = None) -> str | None:
         """Serialize only changed entities (incremental push)."""
         entities = state.get("entities", [])
         current_ids = set()

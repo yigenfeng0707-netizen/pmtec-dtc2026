@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P5-4: 3D Rendering Optimization Test
 Verify shared geometry, delta-time animation, pixel ratio cap,
@@ -8,9 +7,7 @@ FPS counter, AI decision panel, MADDPG/JPDA data injection.
 
 import os
 import sys
-import json
 import time
-import re
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 os.environ["PMTEC_HEADLESS"] = "1"

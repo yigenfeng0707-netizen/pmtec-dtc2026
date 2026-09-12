@@ -17,14 +17,13 @@ Weather data affects:
   - Missile trajectory (wind drift)
 """
 
-import time
 import logging
-import random
 import math
 import os
+import random
 import sys
+import time
 from dataclasses import dataclass
-from typing import Optional
 
 logger = logging.getLogger("pmtec.live_data.weather")
 
@@ -34,8 +33,8 @@ if _PROJECT_ROOT not in sys.path:
 
 try:
     from config import LIVE_DATA_OPENMETEO_URL as _API_URL
-    from config import LIVE_DATA_TIMEOUT_S as _TIMEOUT
     from config import LIVE_DATA_RETRY_ATTEMPTS as _RETRIES
+    from config import LIVE_DATA_TIMEOUT_S as _TIMEOUT
 except ImportError:
     _API_URL = "https://api.open-meteo.com/v1/forecast"
     _TIMEOUT = 10
@@ -153,8 +152,8 @@ class WeatherAdapter:
         P7-v2: Uses config-driven timeout and retry attempts.
         Per-location retry: skips failed locations, aggregates successful ones.
         """
-        import urllib.request
         import json
+        import urllib.request
 
         reports = []
         for loc_id, name, lat, lon in self.locations:

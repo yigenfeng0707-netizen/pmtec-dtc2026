@@ -21,12 +21,11 @@ Endpoints:
 """
 
 import json
-import time
-import threading
 import logging
-from typing import Optional
-from http.server import HTTPServer, BaseHTTPRequestHandler
-from urllib.parse import urlparse, parse_qs
+import threading
+import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
+from urllib.parse import parse_qs, urlparse
 
 logger = logging.getLogger("pmtec.rest")
 
@@ -45,8 +44,8 @@ class RestGateway:
         self.plugin_manager = plugin_manager
         self.dt_registry = dt_registry
         self.port = port
-        self._server: Optional[HTTPServer] = None
-        self._thread: Optional[threading.Thread] = None
+        self._server: HTTPServer | None = None
+        self._thread: threading.Thread | None = None
 
     def attach_engine(self, engine):
         self.engine = engine
@@ -82,7 +81,7 @@ class RestGateway:
             def do_GET(self):
                 parsed = urlparse(self.path)
                 path = parsed.path
-                qs = parse_qs(parsed.query)
+                parse_qs(parsed.query)
 
                 if path == "/api/v1/health":
                     self._send_json(

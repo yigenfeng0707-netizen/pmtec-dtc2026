@@ -30,7 +30,7 @@ Pure browser WebGL2, no GPU driver dependency (Intel Arc compatible).
 
 import json
 import os
-from typing import Optional
+
 from config import OUTPUT_DIR
 
 

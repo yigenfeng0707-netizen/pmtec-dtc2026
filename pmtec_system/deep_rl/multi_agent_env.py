@@ -12,13 +12,12 @@ Reward is shared (team reward) - standard IQL approach.
 P4-4: Multi-Agent RL for cooperative ASDA decision-making.
 """
 
-import numpy as np
+
 import gymnasium as gym
+import numpy as np
 from gymnasium import spaces
-from typing import Optional
 
-from deep_rl.pmtec_env import PMTECEnv, OBS_DIM
-
+from deep_rl.pmtec_env import PMTECEnv
 
 # Agent IDs
 INTERCEPT_AGENT = "intercept"
@@ -67,7 +66,7 @@ class MultiAgentPMTECEnv(gym.Env):
         self.intercept_action_space = spaces.Discrete(INTERCEPT_ACTIONS)
         self.dispersal_action_space = spaces.Discrete(DISPERSAL_ACTIONS)
 
-    def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
+    def reset(self, seed: int | None = None, options: dict | None = None):
         """Reset episode. Returns dict of per-agent observations."""
         obs, info = self._inner.reset(seed=seed, options=options)
         # Both agents see the same observation
@@ -165,7 +164,6 @@ class SingleAgentWrapper(gym.Env):
         return obs_dict[self._agent_id], info_dict[self._agent_id]
 
     def step(self, action):
-        obs = None
         # Get teammate action from its policy
         # We need the current observation to feed to teammate
         # But in SB3, we don't have it here. Use last obs stored in inner env.

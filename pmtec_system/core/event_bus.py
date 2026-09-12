@@ -2,8 +2,9 @@
 
 import time
 from collections import defaultdict
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable, Any
+from typing import Any
 
 
 @dataclass

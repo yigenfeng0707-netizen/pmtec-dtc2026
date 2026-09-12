@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P5-2: MADDPG (Multi-Agent DDPG) Test
 Verify Actor-Critic multi-agent integration: models load, predict, and drive ASDA decisions.
@@ -8,6 +7,7 @@ Verify Actor-Critic multi-agent integration: models load, predict, and drive ASD
 import os
 import sys
 import time
+
 import numpy as np
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -15,11 +15,10 @@ os.environ["PMTEC_HEADLESS"] = "1"
 
 from deep_rl.maddpg_agent import MADDPGAgent
 from deep_rl.multi_agent_env import (
-    MultiAgentPMTECEnv,
-    INTERCEPT_AGENT,
+    DISPERSAL_ACTIONS,
     DISPERSAL_AGENT,
     INTERCEPT_ACTIONS,
-    DISPERSAL_ACTIONS,
+    INTERCEPT_AGENT,
 )
 from deep_rl.pmtec_env import OBS_DIM
 

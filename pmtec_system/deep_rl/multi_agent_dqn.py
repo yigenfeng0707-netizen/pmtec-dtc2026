@@ -17,29 +17,26 @@ Training loop:
 Integration: grpc_server.py loads both agent models and queries them for decisions.
 """
 
-import os
 import json
+import os
 import time
+
 import numpy as np
-import torch
-import torch.nn as nn
-from typing import Optional
 from stable_baselines3 import DQN
 from stable_baselines3.common.vec_env import DummyVecEnv
-from stable_baselines3.common.callbacks import BaseCallback
+from torch import nn
 
-from deep_rl.dqn_agent import detect_best_device, TrainingLogger
+from deep_rl.dqn_agent import detect_best_device
 from deep_rl.multi_agent_env import (
-    MultiAgentPMTECEnv,
-    SingleAgentWrapper,
-    INTERCEPT_AGENT,
+    AGENT_IDS,
+    DISPERSAL_ACTIONS,
     DISPERSAL_AGENT,
     INTERCEPT_ACTIONS,
-    DISPERSAL_ACTIONS,
-    AGENT_IDS,
+    INTERCEPT_AGENT,
+    MultiAgentPMTECEnv,
+    SingleAgentWrapper,
 )
 from deep_rl.pmtec_env import OBS_DIM
-
 
 _MODEL_DIR = os.path.join(
     os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
@@ -94,7 +91,7 @@ class MultiAgentDQN:
         }
 
         # Per-agent models (lazy init)
-        self._models: dict[str, Optional[DQN]] = {
+        self._models: dict[str, DQN | None] = {
             INTERCEPT_AGENT: None,
             DISPERSAL_AGENT: None,
         }
@@ -144,8 +141,10 @@ class MultiAgentDQN:
             self.load()
 
         # Initial teammate policies: random
-        intercept_fn = lambda obs: np.random.randint(0, INTERCEPT_ACTIONS)
-        dispersal_fn = lambda obs: np.random.randint(0, DISPERSAL_ACTIONS)
+        def intercept_fn(obs):
+            return np.random.randint(0, INTERCEPT_ACTIONS)
+        def dispersal_fn(obs):
+            return np.random.randint(0, DISPERSAL_ACTIONS)
 
         # Create single-agent wrappers
         intercept_env = SingleAgentWrapper(

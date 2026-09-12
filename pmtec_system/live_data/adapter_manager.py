@@ -20,12 +20,10 @@ Usage:
   stats = manager.stats  # get all adapter stats
 """
 
-import sys
-import os
-import time
-import threading
 import logging
-from typing import Optional
+import os
+import sys
+import threading
 from dataclasses import dataclass, field
 
 logger = logging.getLogger("pmtec.live_data")

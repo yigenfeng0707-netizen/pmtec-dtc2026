@@ -18,7 +18,6 @@ import json
 import threading
 import time
 from collections import deque
-from typing import Optional
 
 try:
     import websockets
@@ -43,15 +42,15 @@ class RealtimeServer:
         self.max_clients = max_clients
         self.serializer = SituationSerializer()
         self._clients: dict = {}  # id(ws) -> {"ws", "paused", "replaying"}
-        self._thread: Optional[threading.Thread] = None
-        self._loop: Optional[asyncio.AbstractEventLoop] = None
+        self._thread: threading.Thread | None = None
+        self._loop: asyncio.AbstractEventLoop | None = None
         self._running = False
         self._state_queue: list = []
         self._events_queue: list = []
         self._lock = threading.Lock()
         self._full_push_needed = True
         self._stop_event = None
-        self._last_state: Optional[dict] = None
+        self._last_state: dict | None = None
         self._last_events: list = []
         # P12-3: ring buffer of per-cycle snapshots for replay / step-back
         self._history: deque = deque(maxlen=history_size)

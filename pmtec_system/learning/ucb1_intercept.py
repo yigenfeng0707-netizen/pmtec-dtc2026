@@ -5,9 +5,6 @@ Pure NumPy, no GPU dependency.
 """
 
 import math
-import json
-import os
-from typing import Optional
 
 
 class UCB1Intercept:
@@ -15,7 +12,7 @@ class UCB1Intercept:
 
     STRATEGIES = ["direct", "predictive", "saturation"]
 
-    def __init__(self, strategy_params: Optional[dict] = None):
+    def __init__(self, strategy_params: dict | None = None):
         self.strategy_params = strategy_params or {}
         self.counts = {s: 0 for s in self.STRATEGIES}
         self.rewards = {s: 0.0 for s in self.STRATEGIES}

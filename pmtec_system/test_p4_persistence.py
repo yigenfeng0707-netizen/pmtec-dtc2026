@@ -8,7 +8,9 @@ Tests:
 4. Checkpoint save/load works
 """
 
-import sys, os, time
+import os
+import sys
+import time
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 if PROJECT_ROOT not in sys.path:

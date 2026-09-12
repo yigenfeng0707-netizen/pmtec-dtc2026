@@ -7,7 +7,6 @@ ASDA: Adapt phase (lessons learned feed back into next Act phase).
 import json
 import time
 from collections import defaultdict
-from typing import Optional
 
 
 class SpearReplay:

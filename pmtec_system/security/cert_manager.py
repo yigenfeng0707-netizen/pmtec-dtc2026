@@ -7,17 +7,15 @@ Certificates are stored on disk and auto-renewed before expiry.
 Uses the `cryptography` library for PKI operations.
 """
 
-import os
-import ssl
-import time
-import grpc
 import datetime
+import os
 import threading
 
+import grpc
 from cryptography import x509
-from cryptography.x509.oid import NameOID
 from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.x509.oid import NameOID
 
 
 class CertificateManager:

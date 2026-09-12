@@ -8,17 +8,17 @@ Uses XPU acceleration, saves models with metadata.
 Run: D:/miniconda3/envs/pmtec-xpu/python.exe scripts/retrain_multiagent_deep.py
 """
 
+import json
 import os
 import sys
 import time
-import json
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, PROJECT_ROOT)
 
 from deep_rl.dqn_agent import detect_best_device
-from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.maddpg_agent import MADDPGAgent
+from deep_rl.multi_agent_dqn import MultiAgentDQN
 from deep_rl.multi_agent_env import MultiAgentPMTECEnv
 from deep_rl.pmtec_env import OBS_DIM
 

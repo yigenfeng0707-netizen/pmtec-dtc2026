@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 P4-3: Enhanced 3D Tactical Display Test
 Verify sensor domes, EW zones, cyber zones, Kalman confidence heatmap,
@@ -15,8 +14,8 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 os.environ["PMTEC_HEADLESS"] = "1"
 
-from visualization.three_d_display import ThreeDDisplay
 from services.grpc_server import PMTECEngine
+from visualization.three_d_display import ThreeDDisplay
 
 
 def test_p4_3_enhanced_3d():
@@ -184,10 +183,10 @@ def test_p4_3_enhanced_3d():
 
     # 7. Verify HTML is valid (no template placeholders left)
     print("\n[7] Checking for unreplaced template placeholders...")
-    has_placeholder = "__" in html_content.replace("__BASES__", "").replace(
+    "__" in html_content.replace("__BASES__", "").replace(
         "__AIRCRAFT__", ""
     )
-    has_placeholder = "__" in html_content and "var " not in html_content.split("__")[0]
+    "__" in html_content and "var " not in html_content.split("__")[0]
     # More precise check
     import re
 

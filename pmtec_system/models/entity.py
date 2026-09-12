@@ -7,19 +7,19 @@ import math
 import random
 import uuid
 from dataclasses import dataclass, field
-from typing import Optional
+
 from config import (
     AIRCRAFT_SPEED_KMH,
-    COMBAT_RADIUS_KM,
     AIRCRAFT_VALUE,
-    THREAT_SPEED_KMH,
-    THREAT_CEP_M,
-    THREAT_WARHEAD_KG,
-    EARTH_RADIUS_KM,
-    EW_JAMMER_POWER_KW,
-    EW_JAM_RANGE_KM,
-    EW_BANDS,
+    COMBAT_RADIUS_KM,
     CYBER_ATTACK_TYPES,
+    EARTH_RADIUS_KM,
+    EW_BANDS,
+    EW_JAM_RANGE_KM,
+    EW_JAMMER_POWER_KW,
+    THREAT_CEP_M,
+    THREAT_SPEED_KMH,
+    THREAT_WARHEAD_KG,
 )
 
 

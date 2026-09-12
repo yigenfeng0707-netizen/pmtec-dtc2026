@@ -11,13 +11,13 @@ Tests:
 Generates: output/PMTEC_Load_Test_Report.html
 """
 
-import os
-import sys
 import json
-import time
-import threading
+import os
 import sqlite3
 import statistics
+import sys
+import threading
+import time
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -214,9 +214,10 @@ def test_grpc_throughput():
     """Start gRPC server in-process and test concurrent GetState calls."""
     try:
         import grpc
-        from services.grpc_server import PMTECServer
+
         from proto.generated import dtb_model_pb2 as pb
         from proto.generated import dtb_model_pb2_grpc as pb_grpc
+        from services.grpc_server import PMTECServer
     except ImportError as e:
         return {"error": f"Import failed: {e}"}
 
@@ -260,7 +261,7 @@ def test_grpc_throughput():
                 for _ in range(reqs_per_thread):
                     t0 = time.time()
                     try:
-                        resp = stub.GetState(pb.StateRequest(at_time=0))
+                        stub.GetState(pb.StateRequest(at_time=0))
                         dt = (time.time() - t0) * 1000
                         local_lat.append(dt)
                     except Exception:
@@ -436,7 +437,7 @@ def generate_html_report(sqlite_results, grpc_results, engine_results, device):
         grpc_chart = '<div class="chart-container">'
         for i, label in enumerate(grpc_labels):
             tps = float(grpc_tps[i])
-            p95 = float(grpc_p95[i])
+            float(grpc_p95[i])
             bar_h = int(tps / max_tps * 200) if max_tps > 0 else 10
             grpc_chart += f"""
                 <div class="bar-group">

@@ -4,16 +4,14 @@ DTB Model: WarEngine (simulation) + BattleNetwork (tracks) + ApplicationStore (c
 ASDA: Full cycle (Act->Sense->Decide->Adapt) executed each simulation cycle.
 """
 
-import sys
-import os
 import json
-import time
-import math
+import os
 import random
+import sys
 import threading
+import time
 import uuid
 from concurrent import futures
-from typing import Optional
 
 # Add generated proto path
 _GEN_DIR = os.path.join(
@@ -22,43 +20,44 @@ _GEN_DIR = os.path.join(
 if _GEN_DIR not in sys.path:
     sys.path.insert(0, _GEN_DIR)
 
-import grpc
 import dtb_model_pb2 as pb
 import dtb_model_pb2_grpc as pb_grpc
+import grpc
 
 # Add project root to path
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
+from typing import TYPE_CHECKING
+
+import config as pmtec_config
+
+if TYPE_CHECKING:  # P13: 类型注解引用条件导入符号 (health 于 start() 内导入)
+    from grpc_health.v1 import health
 from config import (
-    GRPC_HOST,
-    GRPC_PORT,
-    SIM_TICK_SECONDS,
-    SIM_DURATION_SECONDS,
-    SIM_RANDOM_SEED,
     ASDA_CYCLE_SECONDS,
     ASDA_PHASES,
     BASES_GEOJSON,
-    OUTPUT_DIR,
-    DTB_COMPONENTS,
-    AIRCRAFT_SPEED_KMH,
+    GRPC_HOST,
+    GRPC_PORT,
+    SIM_DURATION_SECONDS,
+    SIM_RANDOM_SEED,
+    SIM_TICK_SECONDS,
 )
-import config as pmtec_config
-from core.event_bus import EventBus, Event
-from core.simulation_clock import SimulationClock
+from core.event_bus import Event, EventBus
 from core.lvc_architecture import LVCArchitecture, haversine
-from models.entity import AircraftEntity, MissileEntity, SensorEntity, BattlefieldEntity
-from models.track import TrackManager, Track
+from core.simulation_clock import SimulationClock
 from models.adversary_agent import AdversaryAgent
+from models.c2_chain import CommandChain
+from models.entity import AircraftEntity, BattlefieldEntity, MissileEntity, SensorEntity
 from models.political_access import (
+    EVENT_GREY_ZONE,
     AccessState,
     PoliticalAccessModel,
     PoliticalEvent,
-    EVENT_GREY_ZONE,
-    EVENT_REASSURANCE,
 )
-from models.c2_chain import CommandChain
+from models.track import TrackManager
 from services.spear_replay import SpearReplay
 
 # P0 upgrades: learning manager + realtime push
@@ -78,11 +77,12 @@ except ImportError:
 
 # Deep RL: DQN agent for ASDA decision-making (stable_baselines3 + PyTorch)
 try:
-    from deep_rl.dqn_agent import DQNAgent
-    from deep_rl.multi_agent_dqn import MultiAgentDQN
-    from deep_rl.maddpg_agent import MADDPGAgent
-    from deep_rl.multi_agent_env import INTERCEPT_AGENT, DISPERSAL_AGENT
     import numpy as np
+
+    from deep_rl.dqn_agent import DQNAgent
+    from deep_rl.maddpg_agent import MADDPGAgent
+    from deep_rl.multi_agent_dqn import MultiAgentDQN
+    from deep_rl.multi_agent_env import DISPERSAL_AGENT, INTERCEPT_AGENT
 
     _dqn_available = True
 except ImportError:
@@ -93,7 +93,7 @@ except ImportError:
 
 # P1-2: Platform components
 try:
-    from dt_platform import PluginManager, RestGateway, DTRegistry
+    from dt_platform import DTRegistry, PluginManager, RestGateway
 
     _platform_available = True
 except ImportError:
@@ -118,11 +118,11 @@ except ImportError:
 # P7: Security & Authentication (mTLS + JWT + RBAC + Audit)
 try:
     from security import (
-        AuthManager,
-        RBACManager,
         AuditLogger,
-        CertificateManager,
         AuthInterceptor,
+        AuthManager,
+        CertificateManager,
+        RBACManager,
     )
 
     _security_available = True
@@ -144,7 +144,7 @@ class PMTECEngine:
         self.scenario_name = ""
         self.duration = SIM_DURATION_SECONDS
         self._running = False
-        self._thread: Optional[threading.Thread] = None
+        self._thread: threading.Thread | None = None
         self._stop_flag = threading.Event()
         self._bases: list[dict] = []
         self._entities: list[BattlefieldEntity] = []
@@ -1007,7 +1007,8 @@ class PMTECEngine:
           Per-threat: lat_norm, lon_norm, type_encoded, time_to_impact, track_confidence, sensor_coverage
         """
         import numpy as np
-        from models.entity import EWThreatEntity, CyberThreatEntity
+
+        from models.entity import CyberThreatEntity, EWThreatEntity
 
         NUM_BASES = 22
         BASE_FEATS = 5
@@ -1750,14 +1751,10 @@ class PMTECEngine:
 
     def _update_entities(self, dt: float):
         """Update all entity positions."""
-        from models.entity import EWThreatEntity, CyberThreatEntity
+        from models.entity import CyberThreatEntity, EWThreatEntity
 
         for entity in self._entities:
-            if isinstance(entity, AircraftEntity):
-                entity.update(dt)
-            elif isinstance(entity, MissileEntity):
-                entity.update(dt)
-            elif isinstance(entity, (EWThreatEntity, CyberThreatEntity)):
+            if isinstance(entity, AircraftEntity) or isinstance(entity, MissileEntity) or isinstance(entity, (EWThreatEntity, CyberThreatEntity)):
                 entity.update(dt)
 
         # Clean up destroyed missiles from all lists (but keep stats)
@@ -1999,7 +1996,7 @@ class WarEngineServicer(pb_grpc.WarEngineServicer):
         msg = pb.SpearReport(
             total_duration=int(report["total_duration_s"]),
             total_events=int(report["total_events"]),
-            total_tracks=int(len(self.engine.track_mgr.tracks)),
+            total_tracks=len(self.engine.track_mgr.tracks),
             summary=report["summary"],
         )
         for evt in report.get("timeline", []):
@@ -2076,7 +2073,7 @@ class WarEngineServicer(pb_grpc.WarEngineServicer):
 
     def GetThreatSummary(self, request, context):
         """Get summary of all active threats."""
-        from models.entity import EWThreatEntity, CyberThreatEntity
+        from models.entity import CyberThreatEntity, EWThreatEntity
 
         ew_active = sum(
             1
@@ -2346,7 +2343,6 @@ class ApplicationStoreServicer(pb_grpc.ApplicationStoreServicer):
 
         device = "cpu"
         try:
-            import torch
 
             device = str(model.policy.q_net.device)
         except Exception:
@@ -2374,7 +2370,6 @@ class ApplicationStoreServicer(pb_grpc.ApplicationStoreServicer):
         try:
             model = dqn.model
             if model:
-                import torch
 
                 device = str(model.policy.q_net.device)
                 policy_arch = str(model.policy.net_arch)
@@ -2525,10 +2520,10 @@ class PMTECServer:
         self.host = host
         self.port = port
         self.engine = PMTECEngine()
-        self._server: Optional[grpc.Server] = None
-        self._health_servicer: Optional["health.HealthServicer"] = None
-        self._health_watcher: Optional[threading.Thread] = None
-        self._tracing: Optional["TracingManager"] = None
+        self._server: grpc.Server | None = None
+        self._health_servicer: "health.HealthServicer | None" = None
+        self._health_watcher: threading.Thread | None = None
+        self._tracing: "TracingManager | None" = None
 
         # P7: Security initialization
         sec_cfg = getattr(pmtec_config, "SECURITY_ENABLED", True)

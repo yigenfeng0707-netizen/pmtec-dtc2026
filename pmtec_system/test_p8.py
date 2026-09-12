@@ -13,9 +13,9 @@ Validates:
 Run: D:/miniconda3/envs/pmtec-xpu/python.exe test_p8.py
 """
 
-import sys
-import os
 import json
+import os
+import sys
 import tempfile
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -42,7 +42,7 @@ def test(name, condition, detail=""):
 print("\n[1/6] Testing JWT Authentication...")
 
 try:
-    from security.auth import AuthManager, AuthError
+    from security.auth import AuthError, AuthManager
 
     auth = AuthManager(secret="test_secret_p8", expiration_hours=1)
 
@@ -84,7 +84,7 @@ except ImportError as e:
 print("\n[2/6] Testing RBAC permissions...")
 
 try:
-    from security.rbac import Role, RBACManager, Permission
+    from security.rbac import RBACManager, Role
 
     rbac = RBACManager()
 
@@ -282,7 +282,6 @@ except ImportError as e:
 print("\n[5/6] Testing gRPC HA & multi-agent models...")
 
 # Check config.py has HA settings
-import importlib
 
 sys.path.insert(0, PROJECT_ROOT)
 # Import config directly
@@ -326,13 +325,14 @@ test("MADDPG dispersal model exists", os.path.exists(maddpg_dispersal))
 # Load and verify multi-agent models
 try:
     from deep_rl.dqn_agent import detect_best_device
-    from deep_rl.pmtec_env import OBS_DIM, NUM_ACTIONS
+    from deep_rl.pmtec_env import NUM_ACTIONS, OBS_DIM
 
     device = detect_best_device()
 
     # IQL load test
-    from deep_rl.multi_agent_dqn import MultiAgentDQN, INTERCEPT_AGENT
     import numpy as np
+
+    from deep_rl.multi_agent_dqn import INTERCEPT_AGENT, MultiAgentDQN
 
     iql = MultiAgentDQN(device=device)
     if os.path.exists(iql_intercept):
