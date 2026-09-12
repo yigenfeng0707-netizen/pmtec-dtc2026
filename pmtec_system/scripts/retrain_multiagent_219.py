@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 P12.2/S: Multi-Agent 219-dim Retraining (political observation).
 
@@ -27,10 +28,10 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if PROJECT_ROOT not in sys.path:
     sys.path.insert(0, PROJECT_ROOT)
 
-import deep_rl.maddpg_agent as maddpg_mod
-import deep_rl.multi_agent_dqn as iql_mod
-from deep_rl.dqn_agent import detect_best_device
-from deep_rl.multi_agent_env import MultiAgentPMTECEnv
+from deep_rl.dqn_agent import detect_best_device  # noqa: E402
+from deep_rl.multi_agent_env import MultiAgentPMTECEnv  # noqa: E402
+import deep_rl.multi_agent_dqn as iql_mod  # noqa: E402
+import deep_rl.maddpg_agent as maddpg_mod  # noqa: E402
 
 MODEL_DIR = os.path.join(PROJECT_ROOT, "data", "models")
 REPORT_PATH = os.path.join(MODEL_DIR, "p12_multiagent_retraining_report.json")
@@ -51,8 +52,9 @@ def main():
 
     # ---- 219 维环境（political=True）----
     probe = MultiAgentPMTECEnv(duration=60, seed=42, political=True)
-    probe.reset(seed=42)
-    obs_dim = probe.observation_space.shape[0]  # 共享 Box 观测空间
+    obs0, _ = probe.reset(seed=42)
+    obs_dim = probe.observation_space.shape[0]
+    assert obs0[first_agent_key(probe)].shape[0] == obs_dim
     print(f"[S] Political obs dim = {obs_dim}")
 
     # ---- 模块级维度补丁（构造期解析）----
@@ -140,7 +142,7 @@ def main():
     print(f"  IQL:    {report['iql']['elapsed_seconds']}s, avg_reward={iql_result.get('avg_reward', 'N/A')}")
     print(f"  MADDPG: {report['maddpg']['elapsed_seconds']}s, "
           f"avg_reward_last10={maddpg_result.get('avg_reward_last_10', 'N/A')}")
-    print("  Models (tagged _219, engine 182-dim path untouched):")
+    print(f"  Models (tagged _219, engine 182-dim path untouched):")
     for f in ("pmtec_iql_intercept_219.zip", "pmtec_iql_dispersal_219.zip",
               "pmtec_maddpg_intercept_219.pt", "pmtec_maddpg_dispersal_219.pt"):
         p = os.path.join(MODEL_DIR, f)
@@ -150,6 +152,11 @@ def main():
     with open(REPORT_PATH, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False, default=str)
     print(f"\n  Report: {REPORT_PATH}")
+
+
+def first_agent_key(env):
+    return next(iter(env.observation_space.spaces)) if hasattr(
+        env.observation_space, "spaces") else 0
 
 
 if __name__ == "__main__":
