@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "name": "INDOPACOM 指挥控制组织架构（P11.1）",
+    "version": "1.0",
+    "date": "2026-09-12",
+    "sources": [
+      {
+        "id": "CRS-INDOPACOM-2024",
+        "title": "U.S. Indo-Pacific Command (INDOPACOM), CRS In Focus IF12175, 2024-03-05",
+        "facts": [
+          "5 个军种组成司令部（service component commands）",
+          "3 个下属联合司令部（subordinate unified commands）",
+          "约 375,000 军事与文职人员",
+          "司令部位于夏威夷檀香山（Camp H.M. Smith）"
+        ]
+      },
+      {
+        "id": "CRS-R47589",
+        "title": "U.S. Defense Infrastructure in the Indo-Pacific: Background and Issues for Congress, CRS R47589, 2023-06-06",
+        "facts": [
+          "66 个印太国防站点权威清单（Table A-1）",
+          "驻日 53,246 / 驻夏威夷 44,545 / 驻韩 24,159 / 驻关岛 6,363（2023-09 现役）"
+        ]
+      },
+      {
+        "id": "RAND-RRA967-2",
+        "title": "U.S. Major Combat Operations in the Indo-Pacific: Partner and Ally Views, RAND RRA967-2, 2023",
+        "facts": ["盟友基地准入的政治约束与联盟动态（P10 衔接）"]
+      }
+    ]
+  },
+  "theater": {
+    "node_id": "INDOPACOM",
+    "name": "U.S. Indo-Pacific Command（美国印太司令部）",
+    "name_cn": "美国印太司令部",
+    "node_type": "theater",
+    "branch": "joint",
+    "hq_location": "Camp H.M. Smith, Aiea, Honolulu, Hawaii",
+    "hq_base_id": "HI-PHICKAM",
+    "hq_note": "司令部驻 Camp H.M. Smith；本数据集 67 站点中无 Camp Smith 实体，锚定珍珠港-希卡姆联合基地（最近枢纽）",
+    "c2_center": "Theater Joint Operations Center (TJOC)",
+    "total_personnel": 375000,
+    "personnel_note": "约 375,000 军事与文职人员（CRS IF12175）",
+    "aor_note": "责任区覆盖太平洋与半个印度洋"
+  },
+  "service_components": [
+    {
+      "node_id": "USARPAC",
+      "name": "U.S. Army Pacific（美国陆军太平洋司令部）",
+      "name_cn": "陆军太平洋司令部",
+      "node_type": "service_component",
+      "branch": "army",
+      "hq_location": "Fort Shafter, Hawaii",
+      "hq_base_id": "HI-SHAFTER"
+    },
+    {
+      "node_id": "PACFLT",
+      "name": "U.S. Pacific Fleet（美国太平洋舰队）",
+      "name_cn": "太平洋舰队",
+      "node_type": "service_component",
+      "branch": "navy",
+      "hq_location": "Joint Base Pearl Harbor-Hickam, Hawaii",
+      "hq_base_id": "HI-PHICKAM"
+    },
+    {
+      "node_id": "MARFORPAC",
+      "name": "Marine Corps Forces Pacific（海军陆战队太平洋司令部）",
+      "name_cn": "陆战队太平洋司令部",
+      "node_type": "service_component",
+      "branch": "usmc",
+      "hq_location": "Camp H.M. Smith, Hawaii",
+      "hq_base_id": "HI-MCBH",
+      "hq_note": "司令部驻 Camp H.M. Smith；数据集中锚定陆战队基地夏威夷（MCB Hawaii）"
+    },
+    {
+      "node_id": "PACAF",
+      "name": "Pacific Air Forces（太平洋空军司令部）",
+      "name_cn": "太平洋空军",
+      "node_type": "service_component",
+      "branch": "usaf",
+      "hq_location": "Joint Base Pearl Harbor-Hickam, Hawaii",
+      "hq_base_id": "HI-PHICKAM"
+    },
+    {
+      "node_id": "USSFPAC",
+      "name": "U.S. Space Forces Indo-Pacific（太空军印太司令部）",
+      "name_cn": "太空军印太司令部",
+      "node_type": "service_component",
+      "branch": "ussf",
+      "hq_location": "Joint Base Pearl Harbor-Hickam, Hawaii",
+      "hq_base_id": "HI-PHICKAM",
+      "hq_note": "2022 年组建的战区太空军组成司令部"
+    }
+  ],
+  "subordinate_unified": [
+    {
+      "node_id": "USFJ",
+      "name": "U.S. Forces Japan（驻日美军司令部）",
+      "name_cn": "驻日美军",
+      "node_type": "subordinate_unified",
+      "branch": "joint",
+      "hq_location": "Yokota Air Base, Japan",
+      "hq_base_id": "JP-YOKOTA",
+      "country": "Japan"
+    },
+    {
+      "node_id": "USFK",
+      "name": "U.S. Forces Korea（驻韩美军司令部）",
+      "name_cn": "驻韩美军",
+      "node_type": "subordinate_unified",
+      "branch": "joint",
+      "hq_location": "Camp Humphreys, South Korea",
+      "hq_base_id": "KR-HUMPHREYS",
+      "country": "South Korea"
+    },
+    {
+      "node_id": "SOCPAC",
+      "name": "Special Operations Command Pacific（太平洋特种作战司令部）",
+      "name_cn": "太平洋特种作战司令部",
+      "node_type": "subordinate_unified",
+      "branch": "sof",
+      "hq_location": "Camp H.M. Smith, Hawaii",
+      "hq_base_id": "HI-PHICKAM",
+      "hq_note": "司令部驻 Camp H.M. Smith；数据集中锚定珍珠港-希卡姆联合基地"
+    }
+  ],
+  "personnel_by_region": {
+    "as_of": "2023-09 (CRS IF12175, active duty)",
+    "Japan": 53246,
+    "Hawaii": 44545,
+    "South Korea": 24159,
+    "Guam": 6363,
+    "note": "区域兵力为 CRS 权威数字；基地级 personnel 字段为站点估算，用于仿真粒度"
+  },
+  "base_assignment_rules": [
+    {
+      "rule_id": "R1",
+      "priority": 1,
+      "description": "日本境内全部美军站点 → USFJ（下属联合司令部统一协调，军种组成保留行政指挥权）",
+      "match": {"country": "Japan"}
+    },
+    {
+      "rule_id": "R2",
+      "priority": 2,
+      "description": "韩国境内全部美军站点 → USFK",
+      "match": {"country": "South Korea"}
+    },
+    {
+      "rule_id": "R3",
+      "priority": 3,
+      "description": "其余站点按主导军种 → 对应军种组成司令部（army→USARPAC / navy→PACFLT / usmc→MARFORPAC / usaf→PACAF / ussf→USSFPAC）",
+      "match": {"branch": "*"}
+    }
+  ],
+  "base_assignments": {
+    "HI-PHICKAM": {"command": "PACFLT", "components": ["navy", "usaf"], "note": "PACFLT/PACAF/USSFPAC 司令部驻地，INDOPACOM 锚点"},
+    "HI-SCHOFIELD": {"command": "USARPAC", "components": ["army"], "note": "第25步兵师"},
+    "HI-SHAFTER": {"command": "USARPAC", "components": ["army"], "note": "USARPAC 司令部"},
+    "HI-WHEELER": {"command": "USARPAC", "components": ["army"], "note": ""},
+    "HI-PMRF": {"command": "PACFLT", "components": ["navy"], "note": "太平洋导弹靶场"},
+    "HI-MCBH": {"command": "MARFORPAC", "components": ["usmc"], "note": "MARFORPAC 前进指挥所"},
+    "AK-JBER": {"command": "PACAF", "components": ["usaf", "army"], "note": "第11航空队 + 陆军阿拉斯加（USARAK）联合基地"},
+    "AK-EIELSON": {"command": "PACAF", "components": ["usaf"], "note": "第354战斗机联队"},
+    "AK-WAINWRIGHT": {"command": "USARPAC", "components": ["army"], "note": "第1斯崔克旅"},
+    "AK-GREELEY": {"command": "USARPAC", "components": ["army"], "note": "GMD 中段防御"},
+    "AK-EARECKSON": {"command": "PACAF", "components": ["usaf"], "note": "远程雷达站"},
+    "AK-CLEAR": {"command": "USSFPAC", "components": ["ussf"], "note": "太空预警中队"},
+    "WA-JBLM": {"command": "USARPAC", "components": ["army", "usaf"], "note": "第1军军部（I Corps）+ 第62空运联队"},
+    "WA-KITSAP": {"command": "PACFLT", "components": ["navy"], "note": "SSBN 基地"},
+    "WA-EVERETT": {"command": "PACFLT", "components": ["navy"], "note": ""},
+    "WA-WHIDBEY": {"command": "PACFLT", "components": ["navy"], "note": "电子攻击联队"},
+    "WA-FAIRCHILD": {"command": "PACAF", "components": ["usaf"], "note": "空中加油联队"},
+    "CA-VENTURA": {"command": "PACFLT", "components": ["navy"], "note": "海靶场"},
+    "CA-CORONADO": {"command": "PACFLT", "components": ["navy"], "note": "海军特种作战"},
+    "CA-SANDIEGO": {"command": "PACFLT", "components": ["navy"], "note": "舰队集结港"},
+    "CA-POINTLOMA": {"command": "PACFLT", "components": ["navy"], "note": "潜艇中队"},
+    "CA-MIRAMAR": {"command": "MARFORPAC", "components": ["usmc"], "note": "第3陆战队航空联队"},
+    "CA-PENDLETON": {"command": "MARFORPAC", "components": ["usmc"], "note": "第1陆战队师"},
+    "CA-BEALE": {"command": "PACAF", "components": ["usaf"], "note": "第9侦察联队"},
+    "CA-TRAVIS": {"command": "PACAF", "components": ["usaf"], "note": "空中机动联队"},
+    "CA-VANDENBERG": {"command": "USSFPAC", "components": ["ussf"], "note": "太空发射分队"},
+    "WL-WAKE": {"command": "PACAF", "components": ["usaf"], "note": "第二岛链以远前置机场"},
+    "GU-ANDERSEN": {"command": "PACAF", "components": ["usaf"], "note": "第36联队，关岛兵力主锚点"},
+    "GU-APRA": {"command": "PACFLT", "components": ["navy"], "note": "马里亚纳海军司令部"},
+    "GU-BLAZ": {"command": "MARFORPAC", "components": ["usmc"], "note": "陆战队新基地"},
+    "MH-KWAJALEIN": {"command": "USARPAC", "components": ["army"], "note": "陆军夸贾林环礁（里根靶场）"},
+    "JP-MISAWA": {"command": "USFJ", "components": ["usaf"], "note": "第35战斗机联队"},
+    "JP-YOKOTA": {"command": "USFJ", "components": ["usaf"], "note": "USFJ 司令部"},
+    "JP-KADENA": {"command": "USFJ", "components": ["usaf"], "note": "第18联队"},
+    "JP-FUTENMA": {"command": "USFJ", "components": ["usmc"], "note": "第1陆战队航空联队"},
+    "JP-SASEBO": {"command": "USFJ", "components": ["navy"], "note": "CTF-76 两栖部队"},
+    "JP-YOKOSUKA": {"command": "USFJ", "components": ["navy"], "note": "第7舰队司令部"},
+    "JP-IWAKUNI": {"command": "USFJ", "components": ["usmc"], "note": ""},
+    "JP-ZAMA": {"command": "USFJ", "components": ["army"], "note": "驻日陆军司令部"},
+    "JP-SHARIKI": {"command": "USFJ", "components": ["army"], "note": "通信站"},
+    "JP-KYOGAMISAKI": {"command": "USFJ", "components": ["army"], "note": "X 波段雷达"},
+    "JP-ATSUGI": {"command": "USFJ", "components": ["navy"], "note": ""},
+    "JP-OKINAWA": {"command": "USFJ", "components": ["army"], "note": "托里站"},
+    "JP-BUTLER": {"command": "USFJ", "components": ["usmc"], "note": "第3陆战队远征军"},
+    "KR-HUMPHREYS": {"command": "USFK", "components": ["army"], "note": "USFK/第8集团军司令部"},
+    "KR-OSAN": {"command": "USFK", "components": ["usaf"], "note": "第7航空队/第51战斗机联队"},
+    "KR-KUNSAN": {"command": "USFK", "components": ["usaf"], "note": "第8战斗机联队"},
+    "KR-DAEGU": {"command": "USFK", "components": ["army"], "note": "驻韩陆军后勤"},
+    "KR-YONGSAN": {"command": "USFK", "components": ["army"], "note": "龙山-凯西"},
+    "KR-CHINHAE": {"command": "USFK", "components": ["navy"], "note": "镇海舰队基地"},
+    "KR-MUJUK": {"command": "USFK", "components": ["usmc"], "note": "陆战队设施营地"},
+    "PH-BAUTISTA": {"command": "PACAF", "components": ["usaf"], "ally_host": true, "note": "EDCA 站点（菲空军第560基地联队）"},
+    "PH-BASA": {"command": "PACAF", "components": ["usaf"], "ally_host": true, "note": "EDCA 站点（菲空军第5战斗机联队）"},
+    "PH-MAGSAYSAY": {"command": "USARPAC", "components": ["army"], "ally_host": true, "note": "EDCA 站点（菲陆军第7步兵师）"},
+    "PH-LUMBIA": {"command": "PACAF", "components": ["usaf"], "ally_host": true, "note": "EDCA 站点"},
+    "PH-EBUEN": {"command": "PACAF", "components": ["usaf"], "ally_host": true, "note": "EDCA 站点（麦克坦）"},
+    "PH-MELCHOR": {"command": "USARPAC", "components": ["army"], "ally_host": true, "note": "EDCA 站点（甘米银）"},
+    "PH-CAMILO": {"command": "MARFORPAC", "components": ["navy", "usmc"], "ally_host": true, "note": "EDCA 站点（海军方向）"},
+    "PH-LALLO": {"command": "MARFORPAC", "components": ["usaf", "usmc"], "ally_host": true, "note": "EDCA 站点（拉洛机场）"},
+    "PH-BALABAC": {"command": "MARFORPAC", "components": ["usmc"], "ally_host": true, "note": "EDCA 站点（巴拉巴克岛）"},
+    "CNMI-TINIAN": {"command": "PACAF", "components": ["usaf"], "note": "北马里亚纳重启机场（VS26 特殊保留）"},
+    "AU-DARWIN": {"command": "MARFORPAC", "components": ["usmc"], "ally_host": true, "note": "MRF-D 轮换（P10 联动）"},
+    "AU-TINDAL": {"command": "PACAF", "components": ["usaf"], "ally_host": true, "note": "美空军轮换部署"},
+    "AU-ROBERTSON": {"command": "USARPAC", "components": ["army"], "ally_host": true, "note": "澳陆军第1旅合训"},
+    "AU-HOLT": {"command": "PACFLT", "components": ["navy"], "ally_host": true, "note": "海军通信站（西北角）"},
+    "SG-NRCS": {"command": "PACFLT", "components": ["navy"], "ally_host": true, "note": "西太平洋后勤司令部（CTF-73 方向）"},
+    "IO-DIEGOGARCIA": {"command": "PACFLT", "components": ["navy"], "note": "印度洋前沿支撑点（BIOT）"}
+  },
+  "grpc_service_mapping": {
+    "WarEngine": {
+      "command_function": "战区联合指挥（TJOC/J-3 作战）",
+      "mapped_command": "INDOPACOM",
+      "rationale": "仿真核心驱动 LVC 时空协同，对应战区联合作战中心的作战指挥职能"
+    },
+    "BattleNetwork": {
+      "command_function": "网络域感知与共同作战图（J-6/J-39）",
+      "mapped_command": "INDOPACOM + 各组成司令部",
+      "rationale": "航迹分发与实体状态广播，对应战区网络/信息域的态势共享职能"
+    },
+    "ApplicationStore": {
+      "command_function": "能力交付与兵力发展（J-8）",
+      "mapped_command": "INDOPACOM + 军种组成司令部",
+      "rationale": "能力模块（F-35 打击/IAMD 防御/ISR/DQN 推理）部署，对应联队能力交付职能"
+    },
+    "PlugAndPlay": {
+      "command_function": "联接集成与互操作（J-6 C4 系统）",
+      "mapped_command": "INDOPACOM",
+      "rationale": "动态组件注册与服务发现，对应 C4 系统集成与互操作职能"
+    }
+  },
+  "c2_latency": {
+    "report_hop_seconds": 0.4,
+    "decision_seconds": 1.0,
+    "order_hop_seconds": 0.3,
+    "note": "仿真链路时延参数（可配置），非军事事实"
+  }
+}

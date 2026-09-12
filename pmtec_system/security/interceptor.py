@@ -54,6 +54,8 @@ class AuthInterceptor(grpc.ServerInterceptor):
             payload = self._auth.verify_token(token)
             user_id = payload.get("user_id", "unknown")
             role_str = payload.get("role", "observer")
+            # P11.3: service-branch scope (e.g. "usaf" -> PACAF-Operator)
+            branch = payload.get("branch", "")
             from security.rbac import Role
 
             role = Role.from_string(role_str)
@@ -72,7 +74,7 @@ class AuthInterceptor(grpc.ServerInterceptor):
                 f"Authentication failed: {exc}",
             )
 
-        # Step 2: Check RBAC permission
+        # Step 2: Check RBAC permission (method-level, unchanged by P11.3)
         if not self._rbac.check_grpc_method(role, method):
             self._audit.log(
                 user_id=user_id,
@@ -81,14 +83,14 @@ class AuthInterceptor(grpc.ServerInterceptor):
                 method=method_name,
                 decision="DENIED",
                 peer=peer,
-                detail="RBAC permission denied",
+                detail=f"RBAC permission denied (branch={branch or 'joint'})",
             )
             return self._deny_handler(
                 grpc.StatusCode.PERMISSION_DENIED,
                 f"Role '{role.value}' cannot access {service}.{method_name}",
             )
 
-        # Step 3: Log allowed access
+        # Step 3: Log allowed access (P11.3: branch included for audit)
         self._audit.log(
             user_id=user_id,
             role=role.value,
@@ -96,6 +98,7 @@ class AuthInterceptor(grpc.ServerInterceptor):
             method=method_name,
             decision="ALLOWED",
             peer=peer,
+            detail=f"branch={branch or 'joint'}",
         )
 
         # Continue to the actual service handler

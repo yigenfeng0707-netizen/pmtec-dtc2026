@@ -51,6 +51,14 @@ from core.lvc_architecture import LVCArchitecture, haversine
 from models.entity import AircraftEntity, MissileEntity, SensorEntity, BattlefieldEntity
 from models.track import TrackManager, Track
 from models.adversary_agent import AdversaryAgent
+from models.political_access import (
+    AccessState,
+    PoliticalAccessModel,
+    PoliticalEvent,
+    EVENT_GREY_ZONE,
+    EVENT_REASSURANCE,
+)
+from models.c2_chain import CommandChain
 from services.spear_replay import SpearReplay
 
 # P0 upgrades: learning manager + realtime push
@@ -236,6 +244,13 @@ class PMTECEngine:
             "[Engine] AdversaryAgent initialized (rule-driven hostile decision-making)"
         )
 
+        # P10: 盟友政治准入模型（load_bases 后从数据构建）
+        self.political: PoliticalAccessModel | None = None
+        self.c2: CommandChain | None = None
+        # P11: 指挥链消息去重/溯源（track_id -> 上报基地）
+        self._c2_reported_tracks: set = set()
+        self._c2_track_source: dict = {}
+
         # P2-3: LVC Live real-world data adapters
         # P7-v2: use_real_api now config-driven (LIVE_DATA_USE_REAL_API)
         self.live_data = None
@@ -383,10 +398,39 @@ class PMTECEngine:
                 "region": props.get("region", ""),
                 "military_branch": props.get("branch", ""),
                 "is_ace_hub": props.get("ace_hub", False),
+                # P10: 政治准入模型所需字段（v2 数据；旧数据缺失时为 None → 不受约束）
+                "country": props.get("country", ""),
+                "access_uncertainty": props.get("access_uncertainty"),
+                "tier": props.get("tier", 0),
                 "aircraft_types": aircraft_types,
                 "sensor_types": ["AN/TPS-80"],
             }
             self._bases.append(base)
+
+        # P10: 从基地数据构建盟友政治准入模型（无盟友站点时为空模型，行为不变）
+        self.political = PoliticalAccessModel.from_bases(
+            self._bases, seed=SIM_RANDOM_SEED
+        )
+        if self.political.sites:
+            print(
+                f"[Engine] P10 political access model initialized "
+                f"({len(self.political.sites)} ally sites, "
+                f"{len(self.political.ally_countries)} host nations)"
+            )
+
+        # P11: INDOPACOM 指挥控制组织架构（5 军种组成 + 3 下属联合 → 67 基地）
+        try:
+            self.c2 = CommandChain()
+            c2_assigned = self.c2.assign_bases(self._bases)
+            print(
+                f"[Engine] P11 command chain initialized: "
+                f"{len(self.c2.nodes) - 1} commands "
+                f"(5 service components + 3 subordinate unified), "
+                f"{c2_assigned} bases assigned"
+            )
+        except Exception as exc:
+            self.c2 = None
+            print(f"[Engine] P11 command chain unavailable: {exc}")
         return len(self._bases)
 
     def setup_scenario(self, scenario_name: str = "PMTEC-Pacific"):
@@ -656,6 +700,36 @@ class PMTECEngine:
                     },
                 )
 
+        # P10: 对手政治战——灰色地带行动（RAND：对手主动制造政治分化以触发准入降级）
+        if self.political and self.political.sites:
+            pw = self.adversary.decide_political_warfare(
+                political=self.political,
+                asda_cycle=self.asda_cycle_count,
+            )
+            if pw["execute"]:
+                self.political.inject_event(
+                    PoliticalEvent(
+                        event_type=EVENT_GREY_ZONE,
+                        target_country=pw["target_country"],
+                        intensity=pw["intensity"],
+                        source="adversary",
+                        cycle=self.asda_cycle_count,
+                    )
+                )
+                self._emit_event(
+                    "political_grey_zone",
+                    "hostile",
+                    f"Grey-zone provocation against {pw['target_country']} "
+                    f"({pw['reasoning']})",
+                    {
+                        "target_country": pw["target_country"],
+                        "intensity": round(pw["intensity"], 2),
+                        "lvc_layer": "Constructive",
+                        "asda_phase": "Act",
+                        "reasoning": pw["reasoning"],
+                    },
+                )
+
         # ACE dispersal: move some aircraft to alternate bases
         # P0-3: Use Q-learning to select dispersal target
         if random.random() < 0.2 and len(self._bases) > 1:
@@ -668,7 +742,10 @@ class PMTECEngine:
             ]
             if aircraft:
                 ac = random.choice(aircraft)
-                alt_bases = [b for b in self._bases if b["id"] != ac.base_id]
+                # P10: 分散目的地必须政治可用（DENIED 站点排除）
+                alt_bases = self._politically_available(
+                    [b for b in self._bases if b["id"] != ac.base_id]
+                )
                 # P0-3: Q-learning selects dispersal target
                 if self.learning and alt_bases:
                     threat_dir = "west"  # simplified
@@ -779,6 +856,145 @@ class PMTECEngine:
                     "lvc_layer": "Constructive",
                 },
             )
+
+        # P11.2: 新确认敌方导弹航迹沿指挥链上报 INDOPACOM
+        self._c2_report_threats()
+
+    def _c2_report_threats(self):
+        """P11.2: Sense 环节——敌方导弹航迹由探测传感器所在基地
+        沿指挥链（基地 → 军种组成/下属联合 → INDOPACOM）逐级上报。"""
+        if not self.c2:
+            return
+        sensor_by_id = {s.id: s for s in self._sensors}
+        for track in self.track_mgr.active_tracks:
+            if (
+                track.classification != "missile"
+                or track.confidence <= 0.5
+                or track.track_id in self._c2_reported_tracks
+            ):
+                continue
+            self._c2_reported_tracks.add(track.track_id)
+            # 上报源：航迹来源传感器中最近的活跃传感器所属基地
+            src_sensor, src_base_id = None, ""
+            for sid in track.sources or []:
+                s = sensor_by_id.get(sid)
+                if s and s.status == "active":
+                    if src_sensor is None or s.distance_to(
+                        track.lat, track.lon
+                    ) < src_sensor.distance_to(track.lat, track.lon):
+                        src_sensor, src_base_id = s, s.base_id
+            if not src_base_id:
+                continue
+            self._c2_track_source[track.track_id] = src_base_id
+            msg = self.c2.report_event(
+                src_base_id,
+                "threat_detected",
+                payload={
+                    "track_id": track.track_id,
+                    "classification": track.classification,
+                    "confidence": round(track.confidence, 2),
+                    "lat": round(track.lat, 3),
+                    "lon": round(track.lon, 3),
+                },
+                sim_time=self.clock.current.sim_seconds,
+            )
+            self._emit_event(
+                "c2_report",
+                "P11-C2Chain",
+                f"C2 report: {src_base_id} -> {self.c2.command_of(src_base_id)}"
+                f" -> INDOPACOM (track {track.track_id}, "
+                f"{len(msg.hops)} hops, {msg.total_latency_s:.1f}s)",
+                {
+                    "c2_message_id": msg.message_id,
+                    "source_base": src_base_id,
+                    "command": self.c2.command_of(src_base_id),
+                    "track_id": track.track_id,
+                    "hops": len(msg.hops),
+                    "latency_s": round(msg.total_latency_s, 2),
+                    "lvc_layer": "Constructive",
+                },
+            )
+
+    def _c2_task_intercept(self, track, strategy: str):
+        """P11.2: Decide 环节——拦截任务沿指挥链下发。
+
+        选择距威胁最近的政治可用拦截基地（有飞机驻扎）：
+          - 探测基地与拦截基地同司令部：命令由该司令部直接下发
+          - 跨军种/跨司令部：经 INDOPACOM 决策中转
+            （上报 → 战区决策 → 命令下发完整链路）
+        """
+        if not self.c2 or not self._bases:
+            return
+        # 最近的政治可用 + 有飞机的基地
+        interceptor, best_km = None, 1e9
+        for b in self._politically_available(self._bases):
+            if not b.get("aircraft_types"):
+                continue
+            d = haversine(track.lat, track.lon, b["lat"], b["lon"])
+            if d < best_km:
+                best_km, interceptor = d, b
+        if not interceptor:
+            return
+        sim_t = self.clock.current.sim_seconds
+        payload = {
+            "track_id": track.track_id,
+            "intercept_strategy": strategy,
+            "distance_km": round(best_km, 1),
+        }
+        src_base = self._c2_track_source.get(track.track_id, "")
+        src_cmd = self.c2.command_of(src_base) if src_base else ""
+        tgt_cmd = self.c2.command_of(interceptor["id"])
+        if src_base and src_cmd and src_cmd != tgt_cmd:
+            # 跨军种协同：上报 → INDOPACOM 决策 → 命令下发（全链路）
+            msgs = self.c2.cross_service_coordination(
+                src_base,
+                interceptor["id"],
+                "air_defense_tasking",
+                payload=payload,
+                sim_time=sim_t,
+            )
+            order = msgs[-1]
+            desc = (
+                f"C2 cross-service: {src_base}({src_cmd}) report -> INDOPACOM decide"
+                f" -> {interceptor['id']}({tgt_cmd}) execute"
+            )
+        else:
+            # 同司令部或来源未知：战区直接下发（含决策跳）
+            order = self.c2.issue_order(
+                self.c2.theater_id,
+                interceptor["id"],
+                "air_defense_tasking",
+                payload=payload,
+                sim_time=sim_t,
+            )
+            order.hops.insert(
+                0,
+                {
+                    "node": self.c2.theater_id,
+                    "time": 0.0,
+                    "action": "decide",
+                },
+            )
+            desc = (
+                f"C2 order: INDOPACOM -> {tgt_cmd} -> {interceptor['id']}"
+                f" (track {track.track_id}, {len(order.hops)} hops)"
+            )
+        self._emit_event(
+            "c2_order",
+            "P11-C2Chain",
+            desc,
+            {
+                "c2_message_id": order.message_id,
+                "interceptor_base": interceptor["id"],
+                "interceptor_command": tgt_cmd,
+                "source_base": src_base,
+                "cross_service": bool(src_base and src_cmd and src_cmd != tgt_cmd),
+                "track_id": track.track_id,
+                "hops": len(order.hops),
+                "latency_s": round(order.total_latency_s, 2),
+                "lvc_layer": "Constructive",
+            },
+        )
 
     def _build_dqn_observation(self) -> "np.ndarray":
         """Build 182-dim observation vector for DQN from current engine state.
@@ -1073,6 +1289,8 @@ class PMTECEngine:
                         "intercept_strategy": intercept_strategy,
                     },
                 )
+                # P11.2: 拦截命令沿指挥链下发（跨军种时经 INDOPACOM 决策中转）
+                self._c2_task_intercept(track, intercept_strategy)
                 # Record intercept attempt for learning
                 self._intercept_results.append(
                     {
@@ -1203,10 +1421,21 @@ class PMTECEngine:
                     },
                 )
 
+    def _politically_available(self, bases: list) -> list:
+        """P10: 过滤政治可用基地（DENIED 排除）。无政治模型时原样返回。"""
+        if not self.political or not self.political.sites:
+            return bases
+        return [
+            b for b in bases
+            if self.political.access_state(b["id"]) != AccessState.DENIED
+        ]
+
     def _do_dqn_dispersal(self, heavy: bool = False):
         """Execute DQN-directed dispersal: move patrol aircraft to safest alternate base.
 
         P4-4: Supports variable dispersal fraction (15% light / 30% heavy).
+        P10: Dispersal destinations filtered by political access (DENIED excluded);
+        RESTRICTED bases carry political cost in safety scoring.
         """
         fraction = 0.30 if heavy else 0.15
         patrol_ac = [
@@ -1229,9 +1458,14 @@ class PMTECEngine:
         patrol_ac.sort(key=lambda a: base_threats(a.base_id), reverse=True)
         for ac in patrol_ac[:n_transfer]:
             src = ac.base_id
-            candidates = [b for b in self._bases if b["id"] != src]
+            # P10: 分散目的地必须政治可用
+            candidates = self._politically_available(
+                [b for b in self._bases if b["id"] != src]
+            )
+            if not candidates:
+                continue
 
-            # Safest = fewest threats targeting it + most aircraft already there
+            # Safest = fewest threats + most aircraft + low political cost (P10)
             def safety(b):
                 threats = sum(1 for m in self._missiles if m.status == "active")
                 ac_count = sum(
@@ -1241,7 +1475,9 @@ class PMTECEngine:
                     and e.base_id == b["id"]
                     and e.status == "active"
                 )
-                return threats - ac_count
+                # P10: RESTRICTED 基地有准入风险（容量折半 + 政治成本 0.5）
+                pol_cost = self.political.political_cost(b["id"]) if self.political else 0.0
+                return threats - ac_count + pol_cost * 3.0
 
             safest = min(candidates, key=safety)
             ac.assign_mission("transfer", safest["lat"], safest["lon"])
@@ -1442,6 +1678,35 @@ class PMTECEngine:
                         },
                     )
 
+        # P10: 政治准入演化（Adapt 环节——准入状态变化反馈进对手模型与再部署）
+        # 冲突升级度由本周期对手导弹活动驱动；状态转移记录进 SPEAR 回放
+        if self.political and self.political.sites:
+            active_missile_frac = min(
+                1.0,
+                sum(1 for m in self._missiles if m.status == "active") / 8.0,
+            )
+            transitions = self.political.update_cycle(
+                cycle=self.asda_cycle_count,
+                missile_activity=active_missile_frac,
+            )
+            for t in transitions:
+                self._emit_event(
+                    "political_access_change",
+                    "Political-Access-Model",
+                    f"{t['base_id']} ({t['country']}): {t['from']} -> {t['to']} "
+                    f"(p={t['prob']})",
+                    {
+                        "base_id": t["base_id"],
+                        "country": t["country"],
+                        "from_state": t["from"],
+                        "to_state": t["to"],
+                        "prob": t["prob"],
+                        "cycle": t["cycle"],
+                        "asda_phase": "Adapt",
+                        "lvc_layer": "Constructive",
+                    },
+                )
+
         # P0-1: Push real-time update after Adapt phase
         if self.realtime:
             state = self.get_state_dict()
@@ -1573,6 +1838,12 @@ class PMTECEngine:
             "live_data_stats": self._live_injection_stats if self.live_data else {},
             "lvc_live_entities": self.lvc.live.entity_count if self.lvc else 0,
             "adversary_stats": self.adversary.get_stats(),
+            # P10: 政治准入态势（盟友站点三态 + 冲突升级度 + MRF-D 轮换）
+            "political_access": self.political.snapshot()
+            if self.political and self.political.sites
+            else None,
+            # P11: INDOPACOM 指挥链态势（组织架构 + 消息流）
+            "c2_chain": self.c2.snapshot() if self.c2 else None,
             "ma_dqn_stats": self.ma_dqn.get_statistics() if self.ma_dqn else {},
             "persistence": self.store.get_summary() if self.store else {},
             # P6-fix: threat/intercept statistics (persistent counters)
@@ -1657,8 +1928,10 @@ class PMTECEngine:
 class WarEngineServicer(pb_grpc.WarEngineServicer):
     """DTB WarEngine service - simulation control."""
 
-    def __init__(self, engine: PMTECEngine):
+    def __init__(self, engine: PMTECEngine, auth_manager=None):
         self.engine = engine
+        # P11.3: 军种限定角色的资产级校验需要校验调用者 token
+        self._auth = auth_manager
 
     def StartSimulation(self, request, context):
         success, msg = self.engine.start_simulation(
@@ -1674,10 +1947,52 @@ class WarEngineServicer(pb_grpc.WarEngineServicer):
         return self.engine.get_state_proto(request.at_time)
 
     def InjectEvent(self, request, context):
+        # P11.3: 军种限定角色（如 PACAF-Operator）仅可向本军种基地/资产注入事件
+        denial = self._check_branch_asset_access(context, dict(request.params))
+        if denial:
+            context.abort(grpc.StatusCode.PERMISSION_DENIED, denial)
         self.engine._emit_event(
             request.event_type, request.actor, request.description, dict(request.params)
         )
         return pb.Ack(success=True, message=f"Event {request.event_id} injected")
+
+    def _check_branch_asset_access(self, context, params: dict) -> str:
+        """P11.3: 资产级军种校验（返回空串 = 放行，否则返回拒绝原因）。
+
+        仅当调用者为军种限定 operator 且事件参数含 base_id 时校验；
+        commander / 联合 operator / observer 不受影响（向后兼容）。
+        """
+        if not (_security_available and self._auth):
+            return ""
+        base_id = params.get("base_id", "")
+        if not base_id:
+            return ""
+        try:
+            metadata = dict(context.invocation_metadata() or [])
+            token = metadata.get("authorization", "")
+            payload = self._auth.verify_token(token)
+            role_str = payload.get("role", "observer")
+            branch = payload.get("branch", "")
+            from security.rbac import Role
+
+            role = Role.from_string(role_str)
+            if role != Role.OPERATOR or not branch or branch == "joint":
+                return ""
+            asset_branches = (
+                self.engine.c2.components_of(base_id)
+                if self.engine.c2
+                else []
+            )
+            rbac = RBACManager()
+            if not rbac.check_asset_access(role, branch, asset_branches):
+                return (
+                    f"Branch-scoped operator ({branch}) cannot operate "
+                    f"{base_id} (asset branches: {asset_branches})"
+                )
+        except Exception:
+            # 令牌缺失/无效由拦截器负责；此处不重复拒绝
+            return ""
+        return ""
 
     def GetSpearReport(self, request, context):
         report = self.engine.spear.generate_report(request.start_time, request.end_time)
@@ -2309,7 +2624,7 @@ class PMTECServer:
             ],
         )
         pb_grpc.add_WarEngineServicer_to_server(
-            WarEngineServicer(self.engine), self._server
+            WarEngineServicer(self.engine, self._auth), self._server
         )
         pb_grpc.add_BattleNetworkServicer_to_server(
             BattleNetworkServicer(self.engine), self._server

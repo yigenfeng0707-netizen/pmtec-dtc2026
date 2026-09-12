@@ -46,8 +46,13 @@ class AuthManager:
     def secret(self) -> str:
         return self._secret
 
-    def issue_token(self, user_id: str, role: str) -> TokenInfo:
-        """Issue a JWT token for the given user and role."""
+    def issue_token(self, user_id: str, role: str, branch: str = None) -> TokenInfo:
+        """Issue a JWT token for the given user and role.
+
+        P11.3: optional branch claim scopes the role to a service branch
+        (e.g. "usaf" -> PACAF-Operator can only operate Air Force assets).
+        Empty/absent branch = joint (unrestricted, backward compatible).
+        """
         now = int(time.time())
         payload = {
             "user_id": user_id,
@@ -56,6 +61,8 @@ class AuthManager:
             "exp": now + self._expiration_seconds,
             "iss": "PMTEC-Auth",
         }
+        if branch:
+            payload["branch"] = branch
         token = jwt.encode(payload, self._secret, algorithm=self._algorithm)
         return TokenInfo(
             token=token,
@@ -110,19 +117,29 @@ class AuthManager:
 
         return self.issue_token(payload["user_id"], payload["role"])
 
-    def authenticate(self, user_id: str, password: str, role: str) -> TokenInfo:
+    def authenticate(
+        self, user_id: str, password: str, role: str, branch: str = None
+    ) -> TokenInfo:
         """Authenticate a user and return a token.
 
-        In production, password verification would go against an identity
+        In production, password verification would be against an identity
         provider (LDAP/Active Directory/OAuth). For competition deployment,
         a simple credential store is used.
+
+        P11.3: optional branch validates the service-branch scope
+        (army/navy/usmc/usaf/ussf/joint per INDOPACOM components).
         """
         valid = self._check_credentials(user_id, password)
         if not valid:
             raise AuthError("Invalid credentials")
         if role not in ("commander", "operator", "observer"):
             raise AuthError(f"Unknown role: {role}")
-        return self.issue_token(user_id, role)
+        if branch:
+            from security.rbac import VALID_BRANCHES
+
+            if branch.strip().lower() not in VALID_BRANCHES:
+                raise AuthError(f"Unknown branch: {branch}")
+        return self.issue_token(user_id, role, branch)
 
     @staticmethod
     def _check_credentials(user_id: str, password: str) -> bool:
