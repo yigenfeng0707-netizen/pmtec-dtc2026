@@ -153,6 +153,139 @@ class RestGateway:
                             self._send_json(200, {})
                     else:
                         self._send_json(200, {})
+                # ---------------- P12-6: Maven 接口补全四大服务 ----------------
+                # dtb-war-engine (com.dtc2026.dtb.war : 50051)
+                elif path == "/api/v1/war/ew-threats":
+                    if gateway.engine:
+                        ew = [
+                            e.to_dict()
+                            for e in gateway.engine._entities
+                            if "ew" in getattr(e, "entity_type", "").lower()
+                        ]
+                        self._send_json(200, {"count": len(ew), "threats": ew})
+                    else:
+                        self._send_json(503, {"error": "Engine not attached"})
+                elif path == "/api/v1/war/cyber-threats":
+                    if gateway.engine:
+                        cyb = [
+                            e.to_dict()
+                            for e in gateway.engine._entities
+                            if "cyber" in getattr(e, "entity_type", "").lower()
+                        ]
+                        self._send_json(200, {"count": len(cyb), "threats": cyb})
+                    else:
+                        self._send_json(503, {"error": "Engine not attached"})
+                # dtb-battle-network (com.dtc2026.dtb.battle : 50052)
+                elif path == "/api/v1/network/lvc-status":
+                    if gateway.engine:
+                        lvc = getattr(gateway.engine, "lvc", None)
+                        layers = {}
+                        if lvc:
+                            for name in ("live", "virtual", "constructive"):
+                                layer = getattr(lvc, name, None)
+                                if layer is not None and hasattr(layer, "to_dict"):
+                                    layers[name] = layer.to_dict()
+                        self._send_json(200, {"lvc": layers})
+                    else:
+                        self._send_json(503, {"error": "Engine not attached"})
+                elif path == "/api/v1/political/access":
+                    # P10: 政治准入态势（盟友站点三态 + 升级度 + MRF-D）
+                    if gateway.engine and getattr(gateway.engine, "political", None):
+                        self._send_json(200, gateway.engine.political.snapshot())
+                    else:
+                        self._send_json(200, {"political_access": None})
+                elif path == "/api/v1/c2/chain":
+                    # P11: INDOPACOM 指挥链态势（组织架构 + 消息流）
+                    if gateway.engine and getattr(gateway.engine, "c2", None):
+                        c2 = gateway.engine.c2
+                        self._send_json(
+                            200,
+                            {
+                                "nodes": sorted(c2.nodes.keys()),
+                                "messages": len(getattr(c2, "messages", [])),
+                            },
+                        )
+                    else:
+                        self._send_json(200, {"c2": None})
+                # dtb-application-store (com.dtc2026.dtb.app : 50053)
+                elif path == "/api/v1/app/dqn/status":
+                    if gateway.engine and getattr(gateway.engine, "dqn", None):
+                        self._send_json(200, gateway.engine.dqn.get_statistics())
+                    else:
+                        self._send_json(200, {"active": False})
+                # dtb-plug-and-play (com.dtc2026.dtb.pnp : 50054)
+                elif path == "/api/v1/pnp/health":
+                    self._send_json(
+                        200,
+                        {
+                            "service": "PlugAndPlay",
+                            "healthy": True,
+                            "plugins": (
+                                len(gateway.plugin_manager.list_plugins())
+                                if gateway.plugin_manager
+                                else 0
+                            ),
+                        },
+                    )
+                elif path == "/api/v1/maven/services":
+                    # 四大服务 Maven 契约总览（映射 deploy_config.maven_modules）
+                    self._send_json(
+                        200,
+                        {
+                            "contract": "com.dtc2026.dtb",
+                            "services": [
+                                {
+                                    "module": "dtb-war-engine",
+                                    "package": "com.dtc2026.dtb.war",
+                                    "grpc_port": 50051,
+                                    "rest": [
+                                        "/api/v1/state",
+                                        "/api/v1/war/ew-threats",
+                                        "/api/v1/war/cyber-threats",
+                                        "/api/v1/spear/report",
+                                    ],
+                                },
+                                {
+                                    "module": "dtb-battle-network",
+                                    "package": "com.dtc2026.dtb.battle",
+                                    "grpc_port": 50052,
+                                    "rest": [
+                                        "/api/v1/entities",
+                                        "/api/v1/tracks",
+                                        "/api/v1/network/lvc-status",
+                                    ],
+                                },
+                                {
+                                    "module": "dtb-application-store",
+                                    "package": "com.dtc2026.dtb.app",
+                                    "grpc_port": 50053,
+                                    "rest": [
+                                        "/api/v1/app/dqn/status",
+                                        "/api/v1/threat-summary",
+                                    ],
+                                },
+                                {
+                                    "module": "dtb-plug-and-play",
+                                    "package": "com.dtc2026.dtb.pnp",
+                                    "grpc_port": 50054,
+                                    "rest": [
+                                        "/api/v1/plugins",
+                                        "/api/v1/pnp/health",
+                                        "/api/v1/dt/instances",
+                                    ],
+                                },
+                                {
+                                    "module": "dtb-political-c2 (P10/P11)",
+                                    "package": "com.dtc2026.dtb.c2",
+                                    "grpc_port": None,
+                                    "rest": [
+                                        "/api/v1/political/access",
+                                        "/api/v1/c2/chain",
+                                    ],
+                                },
+                            ],
+                        },
+                    )
                 elif path == "/" or path == "/api":
                     self._send_json(
                         200,
@@ -172,6 +305,14 @@ class RestGateway:
                                 "GET /api/v1/dt/instances",
                                 "POST /api/v1/dt/register",
                                 "GET /api/v1/threat-summary",
+                                "GET /api/v1/war/ew-threats",
+                                "GET /api/v1/war/cyber-threats",
+                                "GET /api/v1/network/lvc-status",
+                                "GET /api/v1/app/dqn/status",
+                                "GET /api/v1/pnp/health",
+                                "GET /api/v1/political/access",
+                                "GET /api/v1/c2/chain",
+                                "GET /api/v1/maven/services",
                             ],
                         },
                     )

@@ -149,6 +149,10 @@ _TIMELINE_TEMPLATE = r"""<!DOCTYPE html>
   .evt-cyber_detected { border-color: #4ef5a0; }
   .evt-dqn_decision { border-color: #4ef5d4; }
   .evt-intercept_decision { border-color: #4e9af5; }
+  /* P12-4: 政治准入事件 */
+  .evt-political_grey_zone { border-color: #f5c44e; background: #1a1408; }
+  .evt-political_access_change { border-color: #b04ef5; background: #140a1a; }
+  .evt-mrfd_freeze { border-color: #f58a4e; }
 
   #event-detail { background: #080c14; padding: 10px; margin-top: 8px;
                    border: 1px solid #1b263b; border-radius: 4px; font-size: 11px; display: none; }
@@ -212,6 +216,10 @@ _TIMELINE_TEMPLATE = r"""<!DOCTYPE html>
         <h4>Network Vulnerability Over Time</h4>
         <canvas class="chart-canvas" id="chart-vuln"></canvas>
       </div>
+      <div class="chart-box">
+        <h4>P12-4: Political Escalation &amp; Ally Access Mix</h4>
+        <canvas class="chart-canvas" id="chart-political"></canvas>
+      </div>
     </div>
     <div id="state-panel">
       <h3>System State at Current Time</h3>
@@ -222,6 +230,8 @@ _TIMELINE_TEMPLATE = r"""<!DOCTYPE html>
         <div class="state-item"><div class="state-label">Total Entities</div><div class="state-value" id="st-entities">--</div></div>
         <div class="state-item"><div class="state-label">Active Tracks</div><div class="state-value" id="st-tracks">--</div></div>
         <div class="state-item"><div class="state-label">Net Vulnerability</div><div class="state-value" id="st-vuln">--</div></div>
+        <div class="state-item"><div class="state-label">P10 政治升级度</div><div class="state-value" id="st-esc">--</div></div>
+        <div class="state-item"><div class="state-label">盟友站点 Full/Restricted/Denied</div><div class="state-value" id="st-access">--</div></div>
       </div>
     </div>
   </div>
@@ -255,8 +265,53 @@ var evtColors = {
   'recover': '#4ef5d4', 'ew_jam_start': '#f5a04e', 'cyber_attack': '#a04ef5',
   'cyber_detected': '#4ef5a0', 'dqn_decision': '#4ef5d4', 'intercept_decision': '#4e9af5',
   'evade_decision': '#f5e4a0', 'dqn_dispersal': '#4ef5d4', 'sim_start': '#4e9af5',
-  'sim_stop': '#6a7a8a'
+  'sim_stop': '#6a7a8a',
+  // P12-4: 政治准入事件泳道配色
+  'political_grey_zone': '#f5c44e', 'political_access_change': '#b04ef5',
+  'mrfd_freeze': '#f58a4e'
 };
+
+// P12-4: 事件泳道定义（威胁 / 拦截决策 / 战果 / 政治）
+var LANES = [
+  { label: 'THREATS',   types: ['missile_launch', 'ew_jam_start', 'cyber_attack'], color: '#f54e4e' },
+  { label: 'INTERCEPT', types: ['detect', 'intercept_decision', 'dqn_decision', 'evade_decision'], color: '#4e9af5' },
+  { label: 'DAMAGE',    types: ['damage', 'recover', 'transfer', 'deploy', 'dqn_dispersal'], color: '#f5e44e' },
+  { label: 'POLITICAL', types: ['political_grey_zone', 'political_access_change', 'mrfd_freeze'], color: '#b04ef5' }
+];
+
+// P12-4: 事件 → 时间轴 X 坐标（优先 data.asda_cycle 映射，退化到索引比例）
+function eventLaneX(ev, cw) {
+  var d = ev.data || {};
+  if (d.asda_cycle != null && snapshots.length > 1) {
+    var maxCycle = snapshots[snapshots.length - 1].asda_cycle || 1;
+    return (d.asda_cycle / Math.max(maxCycle, 1)) * cw;
+  }
+  if (snapshots.length > 1) {
+    var idx = Math.min(snapshots.length - 1, Math.floor((events.indexOf(ev) / Math.max(events.length,1)) * snapshots.length));
+    return (idx / (snapshots.length - 1)) * cw;
+  }
+  return cw / 2;
+}
+
+// P12-4: 从快照提取政治态势序列 [{esc, full, restricted, denied}]
+function politicalSeries() {
+  var series = [];
+  for (var i = 0; i < snapshots.length; i++) {
+    var pa = snapshots[i].political_access;
+    if (!pa) { series.push(null); continue; }
+    var counts = { full: 0, restricted: 0, denied: 0 };
+    for (var c in (pa.by_country || {})) {
+      var sites = pa.by_country[c];
+      for (var j = 0; j < sites.length; j++) {
+        var st = sites[j].state;
+        if (counts[st] !== undefined) counts[st]++;
+      }
+    }
+    series.push({ esc: pa.escalation_level || 0, full: counts.full,
+                  restricted: counts.restricted, denied: counts.denied });
+  }
+  return series;
+}
 
 function fmtTime(sec) {
   var h = Math.floor(sec / 3600);
@@ -346,20 +401,80 @@ function drawTimeline() {
     }
   }
 
-  // Event markers
+  // P12-4: 政治准入构成带（每快照 Full/Restricted/Denied 堆叠）+ 升级度曲线
+  var pol = politicalSeries();
+  var hasPol = pol.some(function (p) { return p !== null; });
+  var bandTop = ch * 0.72, bandH = ch * 0.2;
+  if (hasPol) {
+    var bw = Math.max(cw / snapshots.length, 1);
+    for (var pi = 0; pi < snapshots.length; pi++) {
+      var p = pol[pi];
+      if (!p) continue;
+      var total = p.full + p.restricted + p.denied;
+      if (total === 0) continue;
+      var bx = (pi / Math.max(snapshots.length - 1, 1)) * cw - bw / 2;
+      var y0 = bandTop;
+      var segs = [
+        { n: p.full, c: 'rgba(78,245,158,0.55)' },
+        { n: p.restricted, c: 'rgba(245,196,78,0.55)' },
+        { n: p.denied, c: 'rgba(245,78,78,0.55)' }
+      ];
+      for (var si2 = 0; si2 < segs.length; si2++) {
+        var hh = (segs[si2].n / total) * bandH;
+        if (hh <= 0) continue;
+        ctx.fillStyle = segs[si2].c;
+        ctx.fillRect(bx, y0, bw + 1, hh);
+        y0 += hh;
+      }
+    }
+    // 升级度曲线叠加在准入带上
+    ctx.strokeStyle = '#f59e4e';
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    var started = false;
+    for (var pi2 = 0; pi2 < pol.length; pi2++) {
+      if (!pol[pi2]) continue;
+      var px = (pi2 / Math.max(pol.length - 1, 1)) * cw;
+      var py = bandTop + bandH - (pol[pi2].esc * bandH);
+      if (!started) { ctx.moveTo(px, py); started = true; }
+      else ctx.lineTo(px, py);
+    }
+    ctx.stroke();
+    ctx.fillStyle = '#6a7a8a';
+    ctx.font = '9px Courier New';
+    ctx.fillText('ALLY ACCESS MIX (FULL/REST/DENIED) + ESCALATION', 4, bandTop - 2);
+  }
+
+  // P12-4: 泳道式事件标记（威胁/拦截/战果/政治）
+  var laneTop = ch * 0.08, laneH = (hasPol ? ch * 0.56 : ch * 0.8) / LANES.length;
+  for (var li = 0; li < LANES.length; li++) {
+    var lane = LANES[li];
+    var ly = laneTop + li * laneH;
+    // 泳道分隔线与标签
+    ctx.strokeStyle = '#1b263b';
+    ctx.lineWidth = 0.5;
+    ctx.beginPath();
+    ctx.moveTo(0, ly);
+    ctx.lineTo(cw, ly);
+    ctx.stroke();
+    ctx.fillStyle = '#4a5a6a';
+    ctx.font = '9px Courier New';
+    ctx.fillText(lane.label, 4, ly + 10);
+  }
   for (var ei = 0; ei < events.length; ei++) {
     var ev = events[ei];
-    var evTime = ev.timestamp || 0;
-    // Map event timestamp to snapshot index range
-    var evX;
-    if (snapshots.length > 1) {
-      var snapIdx = Math.min(snapshots.length - 1, Math.floor((ei / events.length) * snapshots.length));
-      evX = (snapIdx / (snapshots.length - 1)) * cw;
-    } else {
-      evX = cw / 2;
+    var evX = eventLaneX(ev, cw);
+    // 定位所属泳道
+    var laneIdx = -1;
+    for (var lj = 0; lj < LANES.length; lj++) {
+      if (LANES[lj].types.indexOf(ev.event_type) !== -1) { laneIdx = lj; break; }
     }
+    if (laneIdx === -1) laneIdx = 2; // 未分类事件归入战果/机动泳道
+    var laneY = laneTop + laneIdx * laneH;
+    // 确定性散布（避免 Math.random 每次重绘跳动）
+    var jitter = ((ei * 37) % 100) / 100 * laneH * 0.6;
+    var y = laneY + laneH * 0.2 + jitter;
     var color = evtColors[ev.event_type] || '#6a7a8a';
-    var y = ch * 0.3 + Math.random() * ch * 0.4;
     ctx.fillStyle = color;
     ctx.beginPath();
     ctx.arc(evX, y, 2, 0, Math.PI * 2);
@@ -399,6 +514,84 @@ function drawMetrics() {
   drawChart('chart-entities', metrics['active_entities'] || [], '#4e9af5');
   drawChart('chart-tracks', metrics['active_tracks'] || [], '#4ef59e');
   drawChart('chart-vuln', metrics['network_vuln'] || [], '#f54e4e');
+  drawPoliticalChart();
+}
+
+// P12-4: 政治升级度曲线 + 盟友准入堆叠柱
+function drawPoliticalChart() {
+  var canvas = document.getElementById('chart-political');
+  if (!canvas) return;
+  var dpr = window.devicePixelRatio || 1;
+  var w = canvas.offsetWidth * dpr;
+  var h = canvas.offsetHeight * dpr;
+  canvas.width = w; canvas.height = h;
+  var ctx = canvas.getContext('2d');
+  ctx.scale(dpr, dpr);
+  var cw = canvas.offsetWidth;
+  var ch = canvas.offsetHeight;
+  ctx.clearRect(0, 0, cw, ch);
+
+  var pol = politicalSeries().filter(function (p) { return p !== null; });
+  if (pol.length === 0) {
+    ctx.fillStyle = '#4a5a6a';
+    ctx.font = '11px Courier New';
+    ctx.fillText('no political_access data in snapshots (P9- 基地集或空模型)', 8, ch / 2);
+    return;
+  }
+
+  // 准入堆叠柱
+  var bw = Math.max(cw / pol.length, 1);
+  for (var i = 0; i < pol.length; i++) {
+    var p = pol[i];
+    var total = p.full + p.restricted + p.denied;
+    if (total === 0) continue;
+    var bx = (i / Math.max(pol.length - 1, 1)) * cw - bw / 2;
+    var y0 = ch;
+    var segs = [
+      { n: p.denied, c: 'rgba(245,78,78,0.7)' },
+      { n: p.restricted, c: 'rgba(245,196,78,0.7)' },
+      { n: p.full, c: 'rgba(78,245,158,0.7)' }
+    ];
+    for (var s = 0; s < segs.length; s++) {
+      var hh = (segs[s].n / total) * ch * 0.8;
+      if (hh <= 0) continue;
+      ctx.fillStyle = segs[s].c;
+      ctx.fillRect(bx, y0 - hh, bw + 1, hh);
+      y0 -= hh;
+    }
+  }
+
+  // 升级度曲线（0-1 缩放）
+  var maxEsc = 0;
+  for (var j = 0; j < pol.length; j++) maxEsc = Math.max(maxEsc, pol[j].esc);
+  if (maxEsc === 0) maxEsc = 1;
+  ctx.strokeStyle = '#f59e4e';
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  for (var k = 0; k < pol.length; k++) {
+    var px = (k / Math.max(pol.length - 1, 1)) * cw;
+    var py = ch - (pol[k].esc / maxEsc) * ch * 0.8 - 4;
+    if (k === 0) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+  }
+  ctx.stroke();
+
+  // 当前位置线
+  if (currentIdx < pol.length) {
+    var cx = (currentIdx / Math.max(pol.length - 1, 1)) * cw;
+    ctx.strokeStyle = '#f59e4e';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(cx, 0);
+    ctx.lineTo(cx, ch);
+    ctx.stroke();
+  }
+
+  // 图例
+  ctx.font = '9px Courier New';
+  ctx.fillStyle = '#3fb95f'; ctx.fillText('FULL', cw - 150, 10);
+  ctx.fillStyle = '#f5c44e'; ctx.fillText('RESTRICTED', cw - 118, 10);
+  ctx.fillStyle = '#f54e4e'; ctx.fillText('DENIED', cw - 48, 10);
+  ctx.fillStyle = '#f59e4e'; ctx.fillText('— ESCALATION', cw - 150, 22);
 }
 
 function drawChart(canvasId, data, color) {
@@ -480,6 +673,25 @@ function updateState(idx) {
   document.getElementById('st-tracks').textContent = snap.active_tracks || 0;
   var vuln = snap.network_vulnerability || 0;
   document.getElementById('st-vuln').textContent = (vuln * 100).toFixed(1) + '%';
+
+  // P12-4: 政治准入态势（P10）
+  var pa = snap.political_access;
+  if (pa) {
+    document.getElementById('st-esc').textContent = ((pa.escalation_level || 0) * 100).toFixed(1) + '%';
+    var counts = { full: 0, restricted: 0, denied: 0 };
+    for (var c in (pa.by_country || {})) {
+      var sites = pa.by_country[c];
+      for (var j = 0; j < sites.length; j++) {
+        var st = sites[j].state;
+        if (counts[st] !== undefined) counts[st]++;
+      }
+    }
+    document.getElementById('st-access').textContent =
+      counts.full + ' / ' + counts.restricted + ' / ' + counts.denied;
+  } else {
+    document.getElementById('st-esc').textContent = 'n/a';
+    document.getElementById('st-access').textContent = 'n/a';
+  }
 
   document.getElementById('scrubber').value = idx;
 

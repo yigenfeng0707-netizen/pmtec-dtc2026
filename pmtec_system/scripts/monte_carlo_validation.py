@@ -73,6 +73,9 @@ class AdversaryStrategy:
     distance_cap: float = 120.0
     # Speed multiplier for threat types
     speed_multiplier: float = 1.0
+    # P12-5: multi-axis saturation — spread missiles across N distinct bases
+    # per wave (0 = random cluster targeting, legacy behaviour)
+    distinct_targets: int = 0
 
 
 STRATEGIES = [
@@ -124,6 +127,40 @@ STRATEGIES = [
         weather_index=1,  # light weather
         tti_min=50.0,
         tti_max=120.0,  # longer TTI but high volume
+    ),
+    # ================================================================
+    # P12-5: RAND-style extended strategies
+    # ================================================================
+    AdversaryStrategy(
+        name="multi_axis_saturation",
+        description="P12-5: 10+ bases struck simultaneously per wave — "
+                    "multi-axis coordinated saturation covering the new "
+                    "second-island-chain depth bases (RAND: simultaneous "
+                    "aggression across theaters)",
+        n_threats_min=8,
+        n_threats_max=14,
+        threat_pool=("ballistic", "hypersonic", "cruise", "ballistic"),
+        ew_prob=0.25,
+        cyber_prob=0.20,
+        weather_index=0,
+        tti_min=35.0,
+        tti_max=90.0,
+        distinct_targets=10,
+    ),
+    AdversaryStrategy(
+        name="political_divergence",
+        description="P12-5: sustained mixed strikes + heavy EW/cyber to raise "
+                    "conflict escalation and trigger ally access degradation "
+                    "(RAND: adversaries manufacture political divergence; "
+                    "escalation emboldens further waves)",
+        n_threats_min=4,
+        n_threats_max=7,
+        threat_pool=("ballistic", "cruise", "hypersonic"),
+        ew_prob=0.50,
+        cyber_prob=0.55,
+        weather_index=2,  # moderate weather compounds the effect
+        tti_min=30.0,
+        tti_max=100.0,
     ),
 ]
 
@@ -182,8 +219,23 @@ class StrategyEnv(PMTECEnv):
         n_threats = self._rng.randint(
             self._strategy.n_threats_min, self._strategy.n_threats_max
         )
+        # P12-5: multi-axis saturation — pick N DISTINCT bases per wave so
+        # missiles spread across the theater instead of clustering randomly
+        if self._strategy.distinct_targets > 0:
+            pool = list(self._bases)
+            self._rng.shuffle(pool)
+            target_cycle = [
+                pool[i % len(pool)]
+                for i in range(min(self._strategy.distinct_targets, len(pool)))
+            ]
+        else:
+            target_cycle = None
         for i in range(n_threats):
-            target = self._rng.choice(self._bases)
+            target = (
+                target_cycle[i % len(target_cycle)]
+                if target_cycle
+                else self._rng.choice(self._bases)
+            )
             threat_type = self._rng.choice(self._strategy.threat_pool)
             base_speed = {"ballistic": 3000, "cruise": 800, "hypersonic": 5000}[
                 threat_type
@@ -458,6 +510,9 @@ def run_validation(
         "stealth_breakthrough": 20000,
         "electronic_warfare": 30000,
         "decoy_swarm": 40000,
+        # P12-5: extended RAND-style strategies
+        "multi_axis_saturation": 50000,
+        "political_divergence": 60000,
     }
     tasks = []
     for strategy in STRATEGIES:
