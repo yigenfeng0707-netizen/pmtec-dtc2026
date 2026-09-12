@@ -38,7 +38,7 @@ from models.political_access import (  # noqa: E402
 
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 OUTPUT_PATH = os.path.join(PROJECT_ROOT, "output", "PMTEC_Political_Resilience_Analysis.html")
-N_SAMPLES = 10000  # P13/S 级: 敏感性采样扩展至万次（200 -> 10000）
+N_SAMPLES = 100000  # S 级: 敏感性采样扩展至十万次（200 -> 10000 -> 100000，对齐计划"10 万+ episode"口径）
 SIGMA = 0.15
 ASSET_PER_BASE = 100.0
 

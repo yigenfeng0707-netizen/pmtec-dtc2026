@@ -2588,7 +2588,7 @@
     ],
     "transfers": [
       {
-        "ac_uid": "fa4cb20d",
+        "ac_uid": "4304fd37",
         "ac_type": "F-35A",
         "callsign": "F-3-01",
         "from_base": "JP-KADENA",
@@ -2599,7 +2599,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "18d05b67",
+        "ac_uid": "f1993ed2",
         "ac_type": "F-35A",
         "callsign": "F-3-02",
         "from_base": "JP-KADENA",
@@ -2610,7 +2610,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "1da6832d",
+        "ac_uid": "9575deaf",
         "ac_type": "F-35A",
         "callsign": "F-3-03",
         "from_base": "JP-KADENA",
@@ -2621,7 +2621,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "5dd52f6d",
+        "ac_uid": "cda79046",
         "ac_type": "F-35A",
         "callsign": "F-3-04",
         "from_base": "JP-KADENA",
@@ -2632,7 +2632,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "8c1ef4f0",
+        "ac_uid": "c379d68a",
         "ac_type": "F-35A",
         "callsign": "F-3-05",
         "from_base": "JP-KADENA",
@@ -2643,7 +2643,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "3d4e1cf6",
+        "ac_uid": "92e97078",
         "ac_type": "F-35A",
         "callsign": "F-3-06",
         "from_base": "JP-KADENA",
@@ -2654,7 +2654,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "187f4359",
+        "ac_uid": "b1bcb90d",
         "ac_type": "F-35A",
         "callsign": "F-3-07",
         "from_base": "JP-KADENA",
@@ -2665,7 +2665,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "5309f7a1",
+        "ac_uid": "2b4a1ce3",
         "ac_type": "F-35A",
         "callsign": "F-3-08",
         "from_base": "JP-KADENA",
@@ -2676,7 +2676,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "2a0e96a2",
+        "ac_uid": "52cc9247",
         "ac_type": "F-35A",
         "callsign": "F-3-09",
         "from_base": "JP-KADENA",
@@ -2687,7 +2687,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b327f30a",
+        "ac_uid": "fbd00f31",
         "ac_type": "F-35A",
         "callsign": "F-3-10",
         "from_base": "JP-KADENA",
@@ -2698,7 +2698,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "0f149de2",
+        "ac_uid": "4f83fcaa",
         "ac_type": "F-35A",
         "callsign": "F-3-11",
         "from_base": "JP-KADENA",
@@ -2709,7 +2709,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "5280a261",
+        "ac_uid": "76a4062a",
         "ac_type": "F-35A",
         "callsign": "F-3-12",
         "from_base": "JP-KADENA",
@@ -2720,7 +2720,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "62e3fc8c",
+        "ac_uid": "88567e12",
         "ac_type": "F-35A",
         "callsign": "F-3-13",
         "from_base": "JP-KADENA",
@@ -2731,7 +2731,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "4a65487b",
+        "ac_uid": "2d0f2a09",
         "ac_type": "F-35A",
         "callsign": "F-3-14",
         "from_base": "JP-KADENA",
@@ -2742,7 +2742,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "c32bec64",
+        "ac_uid": "01683ad0",
         "ac_type": "F-35A",
         "callsign": "F-3-01",
         "from_base": "GU-ANDERSEN",
@@ -2753,7 +2753,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "f9702b03",
+        "ac_uid": "6e439bfa",
         "ac_type": "F-35A",
         "callsign": "F-3-02",
         "from_base": "GU-ANDERSEN",
@@ -2764,7 +2764,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "3fe6930a",
+        "ac_uid": "c2629d8b",
         "ac_type": "F-35A",
         "callsign": "F-3-03",
         "from_base": "GU-ANDERSEN",
@@ -2775,7 +2775,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "1f66b3e9",
+        "ac_uid": "aeb98957",
         "ac_type": "F-35A",
         "callsign": "F-3-04",
         "from_base": "GU-ANDERSEN",
@@ -2786,7 +2786,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "289a6758",
+        "ac_uid": "5f8ae391",
         "ac_type": "F-35A",
         "callsign": "F-3-05",
         "from_base": "GU-ANDERSEN",
@@ -2797,7 +2797,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "5c5ae17b",
+        "ac_uid": "94f33566",
         "ac_type": "F-35A",
         "callsign": "F-3-06",
         "from_base": "GU-ANDERSEN",
@@ -2808,7 +2808,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "928dd840",
+        "ac_uid": "7a38d8b6",
         "ac_type": "F-35A",
         "callsign": "F-3-07",
         "from_base": "GU-ANDERSEN",
@@ -2819,7 +2819,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "13c4dee4",
+        "ac_uid": "22e3a3ec",
         "ac_type": "F-35A",
         "callsign": "F-3-08",
         "from_base": "GU-ANDERSEN",
@@ -2830,7 +2830,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b142a35b",
+        "ac_uid": "d949d7f5",
         "ac_type": "F-35A",
         "callsign": "F-3-09",
         "from_base": "GU-ANDERSEN",
@@ -2841,7 +2841,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "9053a0bb",
+        "ac_uid": "d494204c",
         "ac_type": "F-35A",
         "callsign": "F-3-10",
         "from_base": "GU-ANDERSEN",
@@ -2852,7 +2852,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "0551d9b0",
+        "ac_uid": "b46ecb98",
         "ac_type": "F-35A",
         "callsign": "F-3-11",
         "from_base": "GU-ANDERSEN",
@@ -2863,7 +2863,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "09586ab5",
+        "ac_uid": "4b1a3fa6",
         "ac_type": "F-35A",
         "callsign": "F-3-12",
         "from_base": "GU-ANDERSEN",
@@ -2874,7 +2874,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "2a1e5429",
+        "ac_uid": "d8378955",
         "ac_type": "F-35A",
         "callsign": "F-3-13",
         "from_base": "GU-ANDERSEN",
@@ -2885,7 +2885,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "9da981c0",
+        "ac_uid": "05fbd0d4",
         "ac_type": "F-35A",
         "callsign": "F-3-14",
         "from_base": "GU-ANDERSEN",
@@ -2896,7 +2896,7 @@
         "rationale": "Value=100, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "1ea14777",
+        "ac_uid": "b1a67022",
         "ac_type": "E-3",
         "callsign": "E-3-01",
         "from_base": "HI-PHICKAM",
@@ -2907,7 +2907,7 @@
         "rationale": "Value=95, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "971666b7",
+        "ac_uid": "2c0531d0",
         "ac_type": "E-3",
         "callsign": "E-3-02",
         "from_base": "HI-PHICKAM",
@@ -2918,7 +2918,7 @@
         "rationale": "Value=95, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "a34acb2c",
+        "ac_uid": "9b1456ed",
         "ac_type": "E-3",
         "callsign": "E-3-03",
         "from_base": "HI-PHICKAM",
@@ -2929,7 +2929,7 @@
         "rationale": "Value=95, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "7f4ceb18",
+        "ac_uid": "85e3ad4f",
         "ac_type": "E-3",
         "callsign": "E-3-04",
         "from_base": "HI-PHICKAM",
@@ -2940,7 +2940,7 @@
         "rationale": "Value=95, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "9eb82c1f",
+        "ac_uid": "d7f1d767",
         "ac_type": "KC-135",
         "callsign": "KC--01",
         "from_base": "HI-PHICKAM",
@@ -2951,7 +2951,7 @@
         "rationale": "Value=80, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b104b35c",
+        "ac_uid": "7888dc87",
         "ac_type": "KC-135",
         "callsign": "KC--02",
         "from_base": "HI-PHICKAM",
@@ -2962,7 +2962,7 @@
         "rationale": "Value=80, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "57cefbb1",
+        "ac_uid": "16d87cda",
         "ac_type": "KC-135",
         "callsign": "KC--03",
         "from_base": "HI-PHICKAM",
@@ -2973,7 +2973,7 @@
         "rationale": "Value=80, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "7fdb3d20",
+        "ac_uid": "34dbbbdf",
         "ac_type": "KC-135",
         "callsign": "KC--04",
         "from_base": "HI-PHICKAM",
@@ -2984,7 +2984,7 @@
         "rationale": "Value=80, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "d19904bf",
+        "ac_uid": "2c1fb84b",
         "ac_type": "KC-135",
         "callsign": "KC--05",
         "from_base": "HI-PHICKAM",
@@ -2995,7 +2995,7 @@
         "rationale": "Value=80, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "bfee199f",
+        "ac_uid": "9a04511d",
         "ac_type": "F-15C",
         "callsign": "F-1-01",
         "from_base": "JP-YOKOTA",
@@ -3006,7 +3006,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b8a61e0e",
+        "ac_uid": "650cfdf5",
         "ac_type": "F-15C",
         "callsign": "F-1-02",
         "from_base": "JP-YOKOTA",
@@ -3017,7 +3017,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "1d4ad773",
+        "ac_uid": "d5e533e6",
         "ac_type": "F-15C",
         "callsign": "F-1-03",
         "from_base": "JP-YOKOTA",
@@ -3028,7 +3028,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "906f0c5d",
+        "ac_uid": "c8490920",
         "ac_type": "F-15C",
         "callsign": "F-1-04",
         "from_base": "JP-YOKOTA",
@@ -3039,7 +3039,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b902ef96",
+        "ac_uid": "8b3f0f69",
         "ac_type": "F-15C",
         "callsign": "F-1-05",
         "from_base": "JP-YOKOTA",
@@ -3050,7 +3050,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "930cbaf3",
+        "ac_uid": "3b374a85",
         "ac_type": "F-15C",
         "callsign": "F-1-06",
         "from_base": "JP-YOKOTA",
@@ -3061,7 +3061,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "119cdda9",
+        "ac_uid": "181ddb1e",
         "ac_type": "F-15C",
         "callsign": "F-1-07",
         "from_base": "JP-YOKOTA",
@@ -3072,7 +3072,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "f79efbff",
+        "ac_uid": "c4094c7c",
         "ac_type": "F-15C",
         "callsign": "F-1-08",
         "from_base": "JP-YOKOTA",
@@ -3083,7 +3083,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "9d4a1b48",
+        "ac_uid": "0e990817",
         "ac_type": "F-15C",
         "callsign": "F-1-09",
         "from_base": "JP-YOKOTA",
@@ -3094,7 +3094,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "75af783b",
+        "ac_uid": "086299b0",
         "ac_type": "F-15C",
         "callsign": "F-1-10",
         "from_base": "JP-YOKOTA",
@@ -3105,7 +3105,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "260736d9",
+        "ac_uid": "ba9ed276",
         "ac_type": "F-15C",
         "callsign": "F-1-01",
         "from_base": "KR-OSAN",
@@ -3116,7 +3116,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "326ede2e",
+        "ac_uid": "cfb66364",
         "ac_type": "F-15C",
         "callsign": "F-1-02",
         "from_base": "KR-OSAN",
@@ -3127,7 +3127,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "58481761",
+        "ac_uid": "9ed9f6f7",
         "ac_type": "F-15C",
         "callsign": "F-1-03",
         "from_base": "KR-OSAN",
@@ -3138,7 +3138,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "6082051e",
+        "ac_uid": "58805827",
         "ac_type": "F-15C",
         "callsign": "F-1-04",
         "from_base": "KR-OSAN",
@@ -3149,7 +3149,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "6ec304e7",
+        "ac_uid": "9b56ebaa",
         "ac_type": "F-15C",
         "callsign": "F-1-05",
         "from_base": "KR-OSAN",
@@ -3160,7 +3160,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "36c77058",
+        "ac_uid": "3d451eeb",
         "ac_type": "F-15C",
         "callsign": "F-1-06",
         "from_base": "KR-OSAN",
@@ -3171,7 +3171,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "890c0c87",
+        "ac_uid": "1e9881e7",
         "ac_type": "F-15C",
         "callsign": "F-1-07",
         "from_base": "KR-OSAN",
@@ -3182,7 +3182,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "a10e51e3",
+        "ac_uid": "a379b37c",
         "ac_type": "F-15C",
         "callsign": "F-1-08",
         "from_base": "KR-OSAN",
@@ -3193,7 +3193,7 @@
         "rationale": "Value=60, dest_score=1/3 defense"
       },
       {
-        "ac_uid": "b41a26af",
+        "ac_uid": "acb1043c",
         "ac_type": "F-15C",
         "callsign": "F-1-09",
         "from_base": "KR-OSAN",
@@ -3204,7 +3204,7 @@
         "rationale": "Value=60, dest_score=3/3 defense"
       },
       {
-        "ac_uid": "91dac130",
+        "ac_uid": "018deaae",
         "ac_type": "F-15C",
         "callsign": "F-1-10",
         "from_base": "KR-OSAN",
@@ -3235,7 +3235,7 @@
       ],
       "transfers": [
         {
-          "ac_uid": "a27d3e45",
+          "ac_uid": "0b617389",
           "ac_type": "KC-135",
           "callsign": "KC--06",
           "from_base": "HI-PHICKAM",
@@ -3246,7 +3246,7 @@
           "rationale": "Value=80, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "5941ae71",
+          "ac_uid": "3ba25b96",
           "ac_type": "KC-135",
           "callsign": "KC--07",
           "from_base": "HI-PHICKAM",
@@ -3257,7 +3257,7 @@
           "rationale": "Value=80, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "b4a121ba",
+          "ac_uid": "4b4336f2",
           "ac_type": "KC-135",
           "callsign": "KC--08",
           "from_base": "HI-PHICKAM",
@@ -3268,7 +3268,7 @@
           "rationale": "Value=80, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "e718df8e",
+          "ac_uid": "b8b40cc1",
           "ac_type": "KC-135",
           "callsign": "KC--09",
           "from_base": "HI-PHICKAM",
@@ -3279,7 +3279,7 @@
           "rationale": "Value=80, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "b902ef96",
+          "ac_uid": "8b3f0f69",
           "ac_type": "F-15C",
           "callsign": "F-1-05",
           "from_base": "KR-HUMPHREYS",
@@ -3290,7 +3290,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "119cdda9",
+          "ac_uid": "181ddb1e",
           "ac_type": "F-15C",
           "callsign": "F-1-07",
           "from_base": "KR-HUMPHREYS",
@@ -3301,7 +3301,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "75af783b",
+          "ac_uid": "086299b0",
           "ac_type": "F-15C",
           "callsign": "F-1-10",
           "from_base": "KR-HUMPHREYS",
@@ -3312,7 +3312,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "260736d9",
+          "ac_uid": "ba9ed276",
           "ac_type": "F-15C",
           "callsign": "F-1-01",
           "from_base": "KR-HUMPHREYS",
@@ -3323,7 +3323,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "326ede2e",
+          "ac_uid": "cfb66364",
           "ac_type": "F-15C",
           "callsign": "F-1-02",
           "from_base": "KR-HUMPHREYS",
@@ -3334,7 +3334,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "58481761",
+          "ac_uid": "9ed9f6f7",
           "ac_type": "F-15C",
           "callsign": "F-1-03",
           "from_base": "KR-HUMPHREYS",
@@ -3345,7 +3345,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "6082051e",
+          "ac_uid": "58805827",
           "ac_type": "F-15C",
           "callsign": "F-1-04",
           "from_base": "KR-HUMPHREYS",
@@ -3356,7 +3356,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "6ec304e7",
+          "ac_uid": "9b56ebaa",
           "ac_type": "F-15C",
           "callsign": "F-1-05",
           "from_base": "KR-HUMPHREYS",
@@ -3367,7 +3367,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "36c77058",
+          "ac_uid": "3d451eeb",
           "ac_type": "F-15C",
           "callsign": "F-1-06",
           "from_base": "KR-HUMPHREYS",
@@ -3378,7 +3378,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "890c0c87",
+          "ac_uid": "1e9881e7",
           "ac_type": "F-15C",
           "callsign": "F-1-07",
           "from_base": "KR-HUMPHREYS",
@@ -3389,7 +3389,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "b41a26af",
+          "ac_uid": "acb1043c",
           "ac_type": "F-15C",
           "callsign": "F-1-09",
           "from_base": "KR-HUMPHREYS",
@@ -3400,7 +3400,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "aa684c9e",
+          "ac_uid": "37489846",
           "ac_type": "F-15C",
           "callsign": "F-1-11",
           "from_base": "KR-OSAN",
@@ -3411,7 +3411,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "a6e6b81f",
+          "ac_uid": "57a8d2f7",
           "ac_type": "F-15C",
           "callsign": "F-1-12",
           "from_base": "KR-OSAN",
@@ -3422,7 +3422,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "747e6caa",
+          "ac_uid": "2c9869c9",
           "ac_type": "F-15C",
           "callsign": "F-1-13",
           "from_base": "KR-OSAN",
@@ -3433,7 +3433,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "75714445",
+          "ac_uid": "03123ab0",
           "ac_type": "F-15C",
           "callsign": "F-1-14",
           "from_base": "KR-OSAN",
@@ -3444,7 +3444,7 @@
           "rationale": "Value=60, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "0ade790d",
+          "ac_uid": "c065fa5b",
           "ac_type": "F-16C",
           "callsign": "F-1-01",
           "from_base": "KR-HUMPHREYS",
@@ -3455,7 +3455,7 @@
           "rationale": "Value=40, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "a23378a4",
+          "ac_uid": "97897914",
           "ac_type": "F-16C",
           "callsign": "F-1-02",
           "from_base": "KR-HUMPHREYS",
@@ -3466,7 +3466,7 @@
           "rationale": "Value=40, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "1a4d2a86",
+          "ac_uid": "8df28f56",
           "ac_type": "F-16C",
           "callsign": "F-1-03",
           "from_base": "KR-HUMPHREYS",
@@ -3477,7 +3477,7 @@
           "rationale": "Value=40, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "b8556cab",
+          "ac_uid": "480d0495",
           "ac_type": "F-16C",
           "callsign": "F-1-04",
           "from_base": "KR-HUMPHREYS",
@@ -3488,7 +3488,7 @@
           "rationale": "Value=40, dest_score=3/3 defense"
         },
         {
-          "ac_uid": "13a74aa6",
+          "ac_uid": "5be2a9d9",
           "ac_type": "F-16C",
           "callsign": "F-1-05",
           "from_base": "KR-HUMPHREYS",
@@ -3499,7 +3499,7 @@
           "rationale": "Value=40, dest_score=1/3 defense"
         },
         {
-          "ac_uid": "1a517478",
+          "ac_uid": "4b152f2e",
           "ac_type": "F-16C",
           "callsign": "F-1-06",
           "from_base": "KR-HUMPHREYS",
@@ -3526,7 +3526,7 @@
       "value_lost": 0,
       "orders": [
         {
-          "ac_uid": "47a5b05b",
+          "ac_uid": "981911cf",
           "ac_type": "F-35A",
           "callsign": "F-3-15",
           "from_base": "GU-ANDERSEN",
@@ -3541,7 +3541,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "0b1d9a76",
+          "ac_uid": "dc41197d",
           "ac_type": "F-35A",
           "callsign": "F-3-16",
           "from_base": "GU-ANDERSEN",
@@ -3556,7 +3556,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "ab20e57e",
+          "ac_uid": "6be9d505",
           "ac_type": "F-35A",
           "callsign": "F-3-17",
           "from_base": "GU-ANDERSEN",
@@ -3571,7 +3571,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "cde30ffc",
+          "ac_uid": "de942f90",
           "ac_type": "F-35A",
           "callsign": "F-3-18",
           "from_base": "GU-ANDERSEN",
@@ -3586,7 +3586,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "b7408839",
+          "ac_uid": "163254cc",
           "ac_type": "F-35A",
           "callsign": "F-3-19",
           "from_base": "GU-ANDERSEN",
@@ -3601,7 +3601,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "5d6c645e",
+          "ac_uid": "a7292ecb",
           "ac_type": "F-35A",
           "callsign": "F-3-20",
           "from_base": "GU-ANDERSEN",
@@ -3616,7 +3616,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "62d0100f",
+          "ac_uid": "8c9d33d2",
           "ac_type": "F-35A",
           "callsign": "F-3-21",
           "from_base": "GU-ANDERSEN",
@@ -3631,7 +3631,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e2c19f63",
+          "ac_uid": "b5954906",
           "ac_type": "F-35A",
           "callsign": "F-3-22",
           "from_base": "GU-ANDERSEN",
@@ -3646,7 +3646,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "9d2a7b62",
+          "ac_uid": "6271e9a5",
           "ac_type": "F-35A",
           "callsign": "F-3-23",
           "from_base": "GU-ANDERSEN",
@@ -3661,7 +3661,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "6aea230c",
+          "ac_uid": "3aa936ba",
           "ac_type": "F-35A",
           "callsign": "F-3-24",
           "from_base": "GU-ANDERSEN",
@@ -3690,7 +3690,7 @@
       "value_lost": 0,
       "orders": [
         {
-          "ac_uid": "185e8f45",
+          "ac_uid": "d6226b20",
           "ac_type": "F-35A",
           "callsign": "F-3-15",
           "from_base": "JP-KADENA",
@@ -3705,7 +3705,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "441df78e",
+          "ac_uid": "9804f96d",
           "ac_type": "F-35A",
           "callsign": "F-3-16",
           "from_base": "JP-KADENA",
@@ -3720,7 +3720,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "c68f1ece",
+          "ac_uid": "501fb1af",
           "ac_type": "F-35A",
           "callsign": "F-3-17",
           "from_base": "JP-KADENA",
@@ -3735,7 +3735,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e726306c",
+          "ac_uid": "2604cdbb",
           "ac_type": "F-35A",
           "callsign": "F-3-18",
           "from_base": "JP-KADENA",
@@ -3750,7 +3750,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "a5ffd0cf",
+          "ac_uid": "a6bec1c7",
           "ac_type": "F-35A",
           "callsign": "F-3-19",
           "from_base": "JP-KADENA",
@@ -3765,7 +3765,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "9a4df9d2",
+          "ac_uid": "a92f0f9e",
           "ac_type": "F-35A",
           "callsign": "F-3-20",
           "from_base": "JP-KADENA",
@@ -3780,7 +3780,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "c9173221",
+          "ac_uid": "d706ffae",
           "ac_type": "F-35A",
           "callsign": "F-3-21",
           "from_base": "JP-KADENA",
@@ -3795,7 +3795,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "4fe12874",
+          "ac_uid": "157138fb",
           "ac_type": "F-35A",
           "callsign": "F-3-22",
           "from_base": "JP-KADENA",
@@ -3810,7 +3810,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "548c5d0e",
+          "ac_uid": "b186c8fc",
           "ac_type": "F-35A",
           "callsign": "F-3-23",
           "from_base": "JP-KADENA",
@@ -3825,7 +3825,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e323bc95",
+          "ac_uid": "fb753258",
           "ac_type": "F-35A",
           "callsign": "F-3-24",
           "from_base": "JP-KADENA",
@@ -3854,7 +3854,7 @@
       "value_lost": 0,
       "orders": [
         {
-          "ac_uid": "980e88a0",
+          "ac_uid": "e04e8486",
           "ac_type": "F-15C",
           "callsign": "F-1-11",
           "from_base": "JP-YOKOTA",
@@ -3869,7 +3869,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "7c5b3aba",
+          "ac_uid": "9f57796b",
           "ac_type": "F-15C",
           "callsign": "F-1-12",
           "from_base": "JP-YOKOTA",
@@ -3884,7 +3884,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "fb91a5b1",
+          "ac_uid": "948ec62c",
           "ac_type": "F-15C",
           "callsign": "F-1-13",
           "from_base": "JP-YOKOTA",
@@ -3899,7 +3899,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "5d6bfd2e",
+          "ac_uid": "652b259d",
           "ac_type": "F-15C",
           "callsign": "F-1-14",
           "from_base": "JP-YOKOTA",
@@ -3914,7 +3914,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "58edca23",
+          "ac_uid": "6c73feea",
           "ac_type": "F-15C",
           "callsign": "F-1-15",
           "from_base": "JP-YOKOTA",
@@ -3929,7 +3929,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "3718fc4c",
+          "ac_uid": "077ef54a",
           "ac_type": "F-15C",
           "callsign": "F-1-16",
           "from_base": "JP-YOKOTA",
@@ -3944,7 +3944,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e12319ec",
+          "ac_uid": "77d17a75",
           "ac_type": "F-15C",
           "callsign": "F-1-17",
           "from_base": "JP-YOKOTA",
@@ -3959,7 +3959,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "04d9c9dc",
+          "ac_uid": "1947b043",
           "ac_type": "F-15C",
           "callsign": "F-1-18",
           "from_base": "JP-YOKOTA",
@@ -3988,7 +3988,7 @@
       "value_lost": 0,
       "orders": [
         {
-          "ac_uid": "b902ef96",
+          "ac_uid": "8b3f0f69",
           "ac_type": "F-15C",
           "callsign": "F-1-05",
           "from_base": "KR-KUNSAN",
@@ -4003,7 +4003,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "119cdda9",
+          "ac_uid": "181ddb1e",
           "ac_type": "F-15C",
           "callsign": "F-1-07",
           "from_base": "KR-KUNSAN",
@@ -4018,7 +4018,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "75af783b",
+          "ac_uid": "086299b0",
           "ac_type": "F-15C",
           "callsign": "F-1-10",
           "from_base": "KR-KUNSAN",
@@ -4033,7 +4033,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "260736d9",
+          "ac_uid": "ba9ed276",
           "ac_type": "F-15C",
           "callsign": "F-1-01",
           "from_base": "KR-KUNSAN",
@@ -4048,7 +4048,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "326ede2e",
+          "ac_uid": "cfb66364",
           "ac_type": "F-15C",
           "callsign": "F-1-02",
           "from_base": "KR-KUNSAN",
@@ -4063,7 +4063,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "58481761",
+          "ac_uid": "9ed9f6f7",
           "ac_type": "F-15C",
           "callsign": "F-1-03",
           "from_base": "KR-KUNSAN",
@@ -4078,7 +4078,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "6082051e",
+          "ac_uid": "58805827",
           "ac_type": "F-15C",
           "callsign": "F-1-04",
           "from_base": "KR-KUNSAN",
@@ -4093,7 +4093,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "6ec304e7",
+          "ac_uid": "9b56ebaa",
           "ac_type": "F-15C",
           "callsign": "F-1-05",
           "from_base": "KR-KUNSAN",
@@ -4108,7 +4108,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "36c77058",
+          "ac_uid": "3d451eeb",
           "ac_type": "F-15C",
           "callsign": "F-1-06",
           "from_base": "KR-KUNSAN",
@@ -4123,7 +4123,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "890c0c87",
+          "ac_uid": "1e9881e7",
           "ac_type": "F-15C",
           "callsign": "F-1-07",
           "from_base": "KR-KUNSAN",
@@ -4138,7 +4138,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "b41a26af",
+          "ac_uid": "acb1043c",
           "ac_type": "F-15C",
           "callsign": "F-1-09",
           "from_base": "KR-KUNSAN",
@@ -4153,7 +4153,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "0ade790d",
+          "ac_uid": "c065fa5b",
           "ac_type": "F-16C",
           "callsign": "F-1-01",
           "from_base": "KR-KUNSAN",
@@ -4168,7 +4168,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "a23378a4",
+          "ac_uid": "97897914",
           "ac_type": "F-16C",
           "callsign": "F-1-02",
           "from_base": "KR-KUNSAN",
@@ -4183,7 +4183,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "1a4d2a86",
+          "ac_uid": "8df28f56",
           "ac_type": "F-16C",
           "callsign": "F-1-03",
           "from_base": "KR-KUNSAN",
@@ -4198,7 +4198,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "b8556cab",
+          "ac_uid": "480d0495",
           "ac_type": "F-16C",
           "callsign": "F-1-04",
           "from_base": "KR-KUNSAN",
@@ -4213,7 +4213,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "13a74aa6",
+          "ac_uid": "5be2a9d9",
           "ac_type": "F-16C",
           "callsign": "F-1-05",
           "from_base": "KR-KUNSAN",
@@ -4228,7 +4228,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "1a517478",
+          "ac_uid": "4b152f2e",
           "ac_type": "F-16C",
           "callsign": "F-1-06",
           "from_base": "KR-KUNSAN",
@@ -4243,7 +4243,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "43cdbb22",
+          "ac_uid": "f0cad1a3",
           "ac_type": "F-16C",
           "callsign": "F-1-07",
           "from_base": "KR-KUNSAN",
@@ -4258,7 +4258,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e87bda24",
+          "ac_uid": "14c24bdd",
           "ac_type": "F-16C",
           "callsign": "F-1-08",
           "from_base": "KR-KUNSAN",
@@ -4273,7 +4273,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "aac71430",
+          "ac_uid": "3461cb4f",
           "ac_type": "F-16C",
           "callsign": "F-1-09",
           "from_base": "KR-KUNSAN",
@@ -4288,7 +4288,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "19c59ce0",
+          "ac_uid": "f6fe7d3b",
           "ac_type": "F-16C",
           "callsign": "F-1-10",
           "from_base": "KR-KUNSAN",
@@ -4303,7 +4303,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "17f4de8d",
+          "ac_uid": "897d103e",
           "ac_type": "F-16C",
           "callsign": "F-1-11",
           "from_base": "KR-KUNSAN",
@@ -4318,7 +4318,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "57105973",
+          "ac_uid": "a9c66a25",
           "ac_type": "F-16C",
           "callsign": "F-1-12",
           "from_base": "KR-KUNSAN",
@@ -4333,7 +4333,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "2fca38b8",
+          "ac_uid": "27a54bea",
           "ac_type": "F-16C",
           "callsign": "F-1-13",
           "from_base": "KR-KUNSAN",
@@ -4348,7 +4348,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "5d1768aa",
+          "ac_uid": "164d3fb7",
           "ac_type": "F-16C",
           "callsign": "F-1-14",
           "from_base": "KR-KUNSAN",
@@ -4363,7 +4363,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "24ea4fe8",
+          "ac_uid": "92fd609b",
           "ac_type": "F-16C",
           "callsign": "F-1-15",
           "from_base": "KR-KUNSAN",
@@ -4378,7 +4378,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "e3c85d46",
+          "ac_uid": "e87287c6",
           "ac_type": "F-16C",
           "callsign": "F-1-16",
           "from_base": "KR-KUNSAN",
@@ -4393,7 +4393,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "4aca7233",
+          "ac_uid": "d404af30",
           "ac_type": "F-16C",
           "callsign": "F-1-17",
           "from_base": "KR-KUNSAN",
@@ -4408,7 +4408,7 @@
           "feasible": true
         },
         {
-          "ac_uid": "7c253676",
+          "ac_uid": "1b363422",
           "ac_type": "F-16C",
           "callsign": "F-1-18",
           "from_base": "KR-KUNSAN",
@@ -4434,60 +4434,60 @@
         "base_id": "GU-ANDERSEN",
         "base_name": "Andersen AFB",
         "runway_destroyed": true,
-        "runway_repair_hours": 8.6,
+        "runway_repair_hours": 8.3,
         "parking_destroyed": 24,
         "aircraft_destroyed": 0,
         "aircraft_damaged": 0,
         "aircraft_sheltered_survived": 0,
         "infrastructure_destroyed_pct": 60.0,
-        "crater_count": 2,
-        "sim_iterations": 30
+        "crater_count": 1,
+        "sim_iterations": 100
       },
       {
         "base_id": "JP-KADENA",
         "base_name": "Kadena Air Base",
         "runway_destroyed": true,
-        "runway_repair_hours": 7.2,
+        "runway_repair_hours": 6.9,
         "parking_destroyed": 16,
         "aircraft_destroyed": 0,
         "aircraft_damaged": 0,
         "aircraft_sheltered_survived": 0,
         "infrastructure_destroyed_pct": 40.0,
         "crater_count": 1,
-        "sim_iterations": 30
+        "sim_iterations": 100
       },
       {
         "base_id": "JP-YOKOTA",
         "base_name": "Yokota Air Base",
         "runway_destroyed": true,
-        "runway_repair_hours": 10.0,
+        "runway_repair_hours": 10.1,
         "parking_destroyed": 9,
         "aircraft_destroyed": 0,
         "aircraft_damaged": 0,
         "aircraft_sheltered_survived": 0,
         "infrastructure_destroyed_pct": 22.5,
         "crater_count": 2,
-        "sim_iterations": 30
+        "sim_iterations": 100
       },
       {
         "base_id": "KR-KUNSAN",
         "base_name": "Kunsan Air Base",
         "runway_destroyed": true,
-        "runway_repair_hours": 16.4,
+        "runway_repair_hours": 16.3,
         "parking_destroyed": 24,
         "aircraft_destroyed": 0,
         "aircraft_damaged": 0,
         "aircraft_sheltered_survived": 0,
         "infrastructure_destroyed_pct": 60.0,
         "crater_count": 7,
-        "sim_iterations": 30
+        "sim_iterations": 100
       }
     ],
     "total_aircraft_lost": 0,
     "total_value_lost": 0,
     "runways_disabled": 4,
-    "estimated_recovery_hours": 16.4,
-    "monte_carlo_runs": 30
+    "estimated_recovery_hours": 16.3,
+    "monte_carlo_runs": 100
   },
   "optimization_results": [
     {
@@ -4591,105 +4591,105 @@
     {
       "cycle": 1,
       "phase": "decide",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Initial ACE deployment optimization started",
       "data": {}
     },
     {
       "cycle": 2,
       "phase": "decide",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Deployment complete: 57 transfers, vulnerability --9.6%, strike retention 100.0%",
       "data": {}
     },
     {
       "cycle": 3,
       "phase": "sense",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Threat detected: PLA Missile Salvo, 21 warheads targeting 4 bases",
       "data": {}
     },
     {
       "cycle": 4,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Evacuation GU-ANDERSEN: 10 evacuated, 0 stranded, rate 100%",
       "data": {}
     },
     {
       "cycle": 5,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Evacuation JP-KADENA: 10 evacuated, 0 stranded, rate 100%",
       "data": {}
     },
     {
       "cycle": 6,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Evacuation JP-YOKOTA: 8 evacuated, 0 stranded, rate 100%",
       "data": {}
     },
     {
       "cycle": 7,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Evacuation KR-KUNSAN: 29 evacuated, 0 stranded, rate 100%",
       "data": {}
     },
     {
       "cycle": 8,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Transfer execution: 10 completed, 0 failed",
       "data": {}
     },
     {
       "cycle": 9,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Transfer execution: 10 completed, 0 failed",
       "data": {}
     },
     {
       "cycle": 10,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Transfer execution: 8 completed, 0 failed",
       "data": {}
     },
     {
       "cycle": 11,
       "phase": "act",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Transfer execution: 29 completed, 0 failed",
       "data": {}
     },
     {
       "cycle": 12,
       "phase": "sense",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Damage assessment: 0 aircraft lost, 4 runways disabled, recovery 16h",
       "data": {}
     },
     {
       "cycle": 13,
       "phase": "adapt",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Post-strike re-optimization started",
       "data": {}
     },
     {
       "cycle": 14,
       "phase": "adapt",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "Recovery deployment: 25 transfers, vulnerability 107.8, score 0.368",
       "data": {}
     },
     {
       "cycle": 15,
       "phase": "adapt",
-      "timestamp": "00:17:34",
+      "timestamp": "11:43:36",
       "summary": "ASDA simulation complete",
       "data": {}
     }
