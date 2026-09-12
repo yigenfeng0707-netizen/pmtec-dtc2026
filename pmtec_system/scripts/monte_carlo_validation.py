@@ -142,8 +142,10 @@ class StrategyEnv(PMTECEnv):
         duration: int = 120,
         seed: int = 42,
         political: bool = False,
+        bases: list = None,
     ):
-        super().__init__(duration=duration, seed=seed, political=political)
+        super().__init__(bases=bases, duration=duration, seed=seed,
+                         political=political)
         self._strategy = strategy
 
     def _roll_weather(self) -> dict:
@@ -269,28 +271,95 @@ def wilson_ci(successes: int, total: int, z: float = 1.96) -> tuple:
 # ============================================================
 
 
+def load_v2_top22() -> list:
+    """P12.7: tier-ranked top-22 base subset from the 67-entity v2 database.
+
+    Tier-1 strategic core -> Tier-2 major operating -> Tier-3 -> Tier-4,
+    mirroring the P9 forward-compatibility selection in test_p9.py.
+    """
+    import json
+
+    path = os.path.join(PROJECT_ROOT, "data", "bases_v2.geojson")
+    with open(path, encoding="utf-8") as f:
+        gj = json.load(f)
+    feats = gj["features"]
+    tier = {
+        p["id"]: p.get("tier", 2)
+        for p in (ft["properties"] for ft in feats)
+    }
+    order = {1: 0, 2: 1, 3: 2, 4: 3}
+    bases = [
+        {
+            "id": p.get("id", p.get("name", "")),
+            "name": p.get("name", ""),
+            "lat": ft["geometry"]["coordinates"][1],
+            "lon": ft["geometry"]["coordinates"][0],
+            "is_hub": bool(p.get("ace_hub", False)),
+        }
+        for ft, p in ((ft, ft["properties"]) for ft in feats)
+    ]
+    bases.sort(key=lambda b: (order.get(tier.get(b["id"], 2), 2), b["id"]))
+    return bases[:NUM_BASES]
+
+
 def run_episode(args):
     """Run a single episode and return results.
 
     Designed for multiprocessing: picklable, no shared state.
+    Args: (strategy_name, seed, duration, model_path, bases_key, political)
     """
-    strategy_name, seed, duration, model_path = args
+    strategy_name, seed, duration, model_path, bases_key, political = args
 
     # Find strategy config
     strategy = next(s for s in STRATEGIES if s.name == strategy_name)
 
-    # Create environment with strategy
-    env = StrategyEnv(strategy=strategy, duration=duration, seed=seed)
-    obs, info = env.reset(seed=seed)
+    # P12.7: base set selection ("legacy" = original 22, "v2" = tier-ranked top-22)
+    bases = load_v2_top22() if bases_key == "v2" else None
 
-    # Load DQN agent
-    agent = DQNAgent(device="cpu")  # CPU for inference stability in parallel
-    loaded = agent.load()
-    if not loaded:
-        # Fallback: random policy if model not found
-        action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
+    # Create environment with strategy
+    env = StrategyEnv(
+        strategy=strategy, duration=duration, seed=seed,
+        political=political, bases=bases,
+    )
+    obs, info = env.reset(seed=seed)
+    env_obs_dim = env.observation_space.shape[0]
+
+    # Policy loading: explicit model path (dim-checked, supports 219-dim P12)
+    # or legacy DQNAgent auto-load (internally guarded to 182-dim).
+    loaded = False
+    if model_path and os.path.exists(model_path):
+        try:
+            from stable_baselines3 import DQN as _SB3DQN
+
+            sb3_model = _SB3DQN.load(model_path, device="cpu")
+            model_dim = sb3_model.observation_space.shape[0]
+            if model_dim == env_obs_dim:
+                def _action_fn(o, _m=sb3_model):
+                    a, _ = _m.predict(
+                        np.asarray(o, dtype=np.float32).reshape(1, -1),
+                        deterministic=True,
+                    )
+                    return int(np.asarray(a).reshape(-1)[0])
+
+                action_fn = _action_fn
+                loaded = True
+            else:
+                print(
+                    f"[MC] dim mismatch: model {model_dim} != env {env_obs_dim} "
+                    f"-> random policy"
+                )
+                action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
+        except Exception as e:
+            print(f"[MC] model load failed: {e} -> random policy")
+            action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
     else:
-        action_fn = lambda o: agent.predict(o, deterministic=True)
+        agent = DQNAgent(device="cpu")  # CPU for inference stability in parallel
+        loaded = agent.load()
+        if loaded:
+            action_fn = lambda o: agent.predict(o, deterministic=True)
+        else:
+            # Fallback: random policy if model not found
+            action_fn = lambda o: np.random.randint(0, NUM_ACTIONS)
 
     # Run episode
     episode_reward = 0.0
@@ -334,7 +403,9 @@ def run_episode(args):
         "survived_aircraft": survived_ac,
         "aircraft_survival_rate": survived_ac / max(total_ac, 1),
         "model_loaded": loaded,
-        "obs_dim": OBS_DIM,
+        "obs_dim": env_obs_dim,
+        "bases": bases_key,
+        "political": political,
     }
 
     return result
@@ -350,6 +421,8 @@ def run_validation(
     n_workers: int = 4,
     duration: int = 120,
     model_path: str = None,
+    bases_key: str = "legacy",
+    political: bool = False,
 ):
     """Run Monte Carlo validation across all adversary strategies.
 
@@ -357,22 +430,22 @@ def run_validation(
         episodes_per_strategy: Number of episodes per strategy (total = x4)
         n_workers: Number of parallel workers
         duration: Episode duration in seconds
-        model_path: Override model path (default: auto-detect pmtec_dqn_p6.zip)
+        model_path: Override model path (default: legacy DQNAgent auto-load)
+        bases_key: "legacy" (original 22 bases) or "v2" (tier-ranked top-22
+                   from the 67-entity P9 database)
+        political: enable P12-2 political access observation (219-dim;
+                   requires a matching --model)
 
     Returns:
         Dict with full validation results
     """
-    # Default model path
-    if model_path is None:
-        model_path = os.path.join(PROJECT_ROOT, "data", "models", "pmtec_dqn_p6.zip")
-
     print("=" * 72)
     print("PMTEC Monte Carlo Intercept Rate Validation")
     print("=" * 72)
-    print(f"Model: {model_path}")
-    model_exists = os.path.exists(model_path)
+    print(f"Model: {model_path or '(DQNAgent auto-load)'}")
+    model_exists = bool(model_path) and os.path.exists(model_path)
     print(f"Model exists: {model_exists}")
-    print(f"Observation dim: {OBS_DIM}")
+    print(f"Base set: {bases_key} | Political obs: {political}")
     print(f"Episodes per strategy: {episodes_per_strategy}")
     print(f"Total episodes: {episodes_per_strategy * len(STRATEGIES)}")
     print(f"Parallel workers: {n_workers}")
@@ -391,7 +464,8 @@ def run_validation(
         offset = strategy_seed_offset[strategy.name]
         for i in range(episodes_per_strategy):
             seed = offset + i
-            tasks.append((strategy.name, seed, duration, model_path))
+            tasks.append((strategy.name, seed, duration, model_path,
+                          bases_key, political))
 
     # Run episodes
     t0 = time.time()
@@ -479,7 +553,9 @@ def run_validation(
         "timestamp": time.strftime("%Y-%m-%d %H:%M:%S"),
         "model_path": model_path,
         "model_exists": model_exists,
-        "obs_dim": OBS_DIM,
+        "obs_dim": 219 if political else OBS_DIM,
+        "bases_key": bases_key,
+        "political": political,
         "episodes_per_strategy": episodes_per_strategy,
         "total_episodes": len(results),
         "n_workers": n_workers,
@@ -613,10 +689,24 @@ def main():
         help="Override model path (default: auto-detect pmtec_dqn_p6.zip)",
     )
     parser.add_argument(
+        "--bases",
+        type=str,
+        default="legacy",
+        choices=["legacy", "v2"],
+        help="Base set: legacy (original 22) or v2 (tier-ranked top-22 of the "
+             "67-entity P9 database). Default: legacy",
+    )
+    parser.add_argument(
+        "--political",
+        action="store_true",
+        help="Enable P12-2 political access observation (219-dim; requires "
+             "matching --model, e.g. pmtec_dqn_p12.zip)",
+    )
+    parser.add_argument(
         "--output",
         type=str,
         default=None,
-        help="Output JSON file path (default: data/monte_carlo_results.json)",
+        help="Output JSON file path (default: data/monte_carlo_results[_<bases>].json)",
     )
     args = parser.parse_args()
 
@@ -626,14 +716,17 @@ def main():
         n_workers=args.workers,
         duration=args.duration,
         model_path=args.model,
+        bases_key=args.bases,
+        political=args.political,
     )
 
     # Print report
     print_report(report)
 
     # Save JSON
+    suffix = "" if args.bases == "legacy" and not args.political else f"_{args.bases}" + ("_political" if args.political else "")
     output_path = args.output or os.path.join(
-        PROJECT_ROOT, "data", "monte_carlo_results.json"
+        PROJECT_ROOT, "data", f"monte_carlo_results{suffix}.json"
     )
     os.makedirs(os.path.dirname(output_path), exist_ok=True)
     with open(output_path, "w", encoding="utf-8") as f:
