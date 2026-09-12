@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 P13+: 电影级演示视频渲染 (神经语音旁白 + 同步字幕 + 程序化配乐)
 
@@ -17,6 +18,7 @@ Run: D:/miniconda3/envs/pmtec-xpu/python.exe visualization/render_demo_video_cin
 """
 
 import asyncio
+import json
 import math
 import os
 import subprocess
@@ -24,7 +26,7 @@ import sys
 import wave
 
 import numpy as np
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import render_demo_video as base  # 复用画面绘制 (draw_frame/results/base map)
@@ -381,7 +383,7 @@ def qa_check():
         capture_output=True, text=True,
     )
     info = r.stderr
-    dur_v = None
+    dur_v = dur_a = None
     for line in info.splitlines():
         if "Video:" in line and "Duration" not in line:
             pass
