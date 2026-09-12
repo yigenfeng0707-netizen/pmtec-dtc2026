@@ -1,0 +1,41 @@
+{
+  "timestamp": "2026-09-12 09:28:20",
+  "tag": "p12",
+  "obs_dim": 219,
+  "political": true,
+  "device": "xpu:0",
+  "total_elapsed_seconds": 2770.9,
+  "stages": [
+    {
+      "stage": "stage1_foundation",
+      "steps": 60000,
+      "obs_dim": 219,
+      "elapsed_seconds": 787.8,
+      "episodes": 5000,
+      "avg_intercept_rate_last20": 0.9402,
+      "avg_reward_last20": 93.07,
+      "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p12_s1.zip"
+    },
+    {
+      "stage": "stage2_compounded",
+      "steps": 60000,
+      "obs_dim": 219,
+      "elapsed_seconds": 787.4,
+      "episodes": 5000,
+      "avg_intercept_rate_last20": 0.6538,
+      "avg_reward_last20": 116.52,
+      "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p12_s2.zip"
+    },
+    {
+      "stage": "stage3_extreme",
+      "steps": 80000,
+      "obs_dim": 219,
+      "elapsed_seconds": 1187.5,
+      "episodes": 6666,
+      "avg_intercept_rate_last20": 0.8217,
+      "avg_reward_last20": 126.67,
+      "model_path": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p12.zip"
+    }
+  ],
+  "final_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_dqn_p12.zip"
+}

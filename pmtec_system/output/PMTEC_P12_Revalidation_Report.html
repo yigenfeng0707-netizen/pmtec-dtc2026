@@ -126,6 +126,54 @@
         </tr></tbody>
         </table>
       </details>
+    </div>
+    <div class="card">
+      <h3>场景 C：v2 Tier-22 + 政治准入观测 219 维 P12 模型</h3>
+      <div class="big">79.5% <span class="delta pos">+3.3pp</span></div>
+      <div class="ci">95% CI [77.6%, 81.2%]</div>
+      <div class="meta">60 episodes · 1926 导弹 · 2026-09-12 09:31:57</div>
+      <details><summary>分策略明细</summary>
+        <table>
+          <thead><tr><th>策略</th><th>导弹</th><th>拦截</th><th>拦截率</th><th>95% CI</th><th>存活率</th><th>奖励</th></tr></thead>
+          <tbody>
+        <tr>
+          <td>饱和攻击</td>
+          <td>757</td>
+          <td>607</td>
+          <td class="num">80.2%</td>
+          <td class="num">[77.2%, 82.9%]</td>
+          <td class="num">100.0%</td>
+          <td class="num">1859</td>
+        </tr>
+        <tr>
+          <td>隐身突防</td>
+          <td>224</td>
+          <td>177</td>
+          <td class="num">79.0%</td>
+          <td class="num">[73.2%, 83.8%]</td>
+          <td class="num">100.0%</td>
+          <td class="num">795</td>
+        </tr>
+        <tr>
+          <td>电子战</td>
+          <td>345</td>
+          <td>266</td>
+          <td class="num">77.1%</td>
+          <td class="num">[72.4%, 81.2%]</td>
+          <td class="num">99.6%</td>
+          <td class="num">1011</td>
+        </tr>
+        <tr>
+          <td>诱饵群</td>
+          <td>600</td>
+          <td>481</td>
+          <td class="num">80.2%</td>
+          <td class="num">[76.8%, 83.2%]</td>
+          <td class="num">100.0%</td>
+          <td class="num">1551</td>
+        </tr></tbody>
+        </table>
+      </details>
     </div></div>
 
 <div class="note"><b>解读要点：</b>
@@ -158,8 +206,14 @@ Tier 分层纵深（第二岛链以远节点 + ACE Hub 结构）提升了分布�
         <td>60</td>
         <td>DQNAgent auto-load (P6)</td>
       </tr>
-      <tr class="pending">
-        <td>场景 C：v2 Tier-22 + 政治准入观测 219 维 P12 模型</td><td colspan="7">待生成 —— P12.2 重训练模型 + 政治准入演化（灰色地带事件/升级驱动/基线扰动）；完成后重跑本脚本自动纳入</td>
+      <tr>
+        <td>场景 C：v2 Tier-22 + 政治准入观测 219 维 P12 模型</td>
+        <td class="num">79.5%</td>
+        <td class="num">[77.6%, 81.2%]</td>
+        <td class="num">79.1%</td>
+        <td class="num">4.7%</td>
+        <td>60</td>
+        <td>data/models/pmtec_dqn_p12.zip</td>
       </tr></tbody>
 </table>
 
