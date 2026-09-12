@@ -38,7 +38,7 @@ from models.political_access import (  # noqa: E402
 
 DATA_DIR = os.path.join(PROJECT_ROOT, "data")
 OUTPUT_PATH = os.path.join(PROJECT_ROOT, "output", "PMTEC_Political_Resilience_Analysis.html")
-N_SAMPLES = 200
+N_SAMPLES = 10000  # P13/S 级: 敏感性采样扩展至万次（200 -> 10000）
 SIGMA = 0.15
 ASSET_PER_BASE = 100.0
 
@@ -138,7 +138,7 @@ def main():
     base_rows = load_base_rows()
     all_ids = [r["id"] for r in base_rows]
 
-    print("[实验 1] 准入基线扰动敏感性...")
+    print(f"[实验 1] 准入基线扰动敏感性（N={N_SAMPLES}）...")
     sens, _ = experiment1_sensitivity(base_rows, all_ids)
     print(f"    N={sens['n']} sigma={sens['sigma']} | Denied 均值 {sens['denied_mean']:.2f} "
           f"(P95={sens['denied_p95']}) | 敞口均值 {sens['exposure_mean']:.0f} "
