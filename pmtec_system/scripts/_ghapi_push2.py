@@ -25,22 +25,13 @@ def gh(endpoint, payload=None, method=None):
         cmd += ["--input", TMP]
     if method:
         cmd += ["-X", method]
-    r = subprocess.run(cmd, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace")
+    r = subprocess.run(cmd, capture_output=True)
     if os.path.exists(TMP):
         os.remove(TMP)
     if r.returncode != 0:
-        raise RuntimeError(r.stderr[:2000])
-    return json.loads(r.stdout) if r.stdout.strip() else None
-
-
-def remote_exists(path):
-    """路径是否存在于远端 main (避免对不存在路径发 DELETE -> 422 BadObjectState)"""
-    from urllib.parse import quote
-    cmd = ["gh", "api", f"repos/{REPO}/contents/{quote(path)}?ref=main"]
-    r = subprocess.run(cmd, capture_output=True, text=True,
-                       encoding="utf-8", errors="replace")
-    return r.returncode == 0
+        raise RuntimeError(r.stderr.decode("utf-8", errors="replace")[:500])
+    out = r.stdout.decode("utf-8", errors="replace")
+    return json.loads(out) if out.strip() else None
 
 
 # 0) 远端当前 head
@@ -49,55 +40,27 @@ log(f"remote head: {remote[:10]}")
 
 # 1) 差异 (API 提交对象不在本地库, 用等价本地树 8ebb2e3 作 diff 基准:
 #    492f1b6 的 tree 与本地 8ebb2e3 完全一致 —— 上一轮 API 推送即该差异)
-LOCAL_BASE = "4ad51e2"
+LOCAL_BASE = "8ebb2e3"
 raw = subprocess.run(["git", "-C", ROOT, "diff", "--name-only", "-z",
-                      f"{LOCAL_BASE}..HEAD"], capture_output=True,
-                     text=True, encoding="utf-8", errors="replace").stdout
-paths = [p for p in raw.split("\0") if p]
+                      f"{LOCAL_BASE}..HEAD"], capture_output=True).stdout
+paths = [p for p in raw.decode("utf-8", errors="replace").split("\0") if p]
 if not paths:
     log("无差异, 无需推送")
     sys.exit(0)
 changes = [("A", p) for p in paths]
 log(f"待推送: {len(changes)} 个文件 ({', '.join(p[:50] for p in paths)})")
 
-# 2) blobs (优先 git 对象库读取 — 不依赖磁盘状态, 天然处理 Unicode 路径;
-#    HEAD 中不存在的路径 = 删除条目, 以 sha:null 传播删除)
+# 2) blobs
 entries = []
 for k, (st, path) in enumerate(changes):
-    cat = subprocess.run(["git", "-C", ROOT, "cat-file", "blob", f"HEAD:{path}"],
-                         capture_output=True)
-    if cat.returncode != 0:
-        if remote_exists(path):
-            entries.append({"path": path, "mode": "100644",
-                            "type": "blob", "sha": None})
-            log(f"  [{k + 1}/{len(changes)}] {path} -> DELETE")
-        else:
-            log(f"  [{k + 1}/{len(changes)}] {path} -> skip DELETE (远端不存在)")
-        continue
-    raw_bytes = cat.stdout
-    b64 = base64.b64encode(raw_bytes).decode()
+    fp = os.path.join(ROOT, path.replace("/", os.sep))
+    with open(fp, "rb") as f:
+        b64 = base64.b64encode(f.read()).decode()
     blob = gh("git/blobs", {"content": b64, "encoding": "base64"})
     entries.append({"path": path, "mode": "100644",
                     "type": "blob", "sha": blob["sha"]})
-    log(f"  [{k + 1}/{len(changes)}] {path} ({len(raw_bytes) / 1e3:.0f} KB)"
+    log(f"  [{k + 1}/{len(changes)}] {path} ({os.path.getsize(fp) / 1e3:.0f} KB)"
         f" -> {blob['sha'][:10]}")
-
-# 2b) 远端残留垃圾显式清理 (本地先加后删 -> diff 不含, 但远端存在)
-REMOTE_JUNK = [
-    "参考视频.mp4",
-    "工业互联网研究院的视频.mp4",
-    "_ref_readme.md",
-    "pmtec_system/output/_ref_frames/ref_0.jpg",
-    "pmtec_system/output/_ref_frames/ref_1.jpg",
-    "pmtec_system/output/_ref_frames/ref_2.jpg",
-]
-for p in REMOTE_JUNK:
-    if remote_exists(p):
-        entries.append({"path": p, "mode": "100644", "type": "blob",
-                        "sha": None})
-        log(f"  [junk] {p} -> DELETE")
-    else:
-        log(f"  [junk] {p} -> 远端不存在, 跳过")
 
 # 3) tree
 tree_sha = gh(f"commits/{remote}")["commit"]["tree"]["sha"]
