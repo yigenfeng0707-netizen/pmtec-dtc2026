@@ -1,0 +1,71 @@
+{
+  "runner": "Docker Desktop / d:\\APPs\\数字孪生挑战赛",
+  "started_at": "2026-09-12T09:09:27.788277+00:00",
+  "stages": {
+    "lint": {
+      "status": "completed",
+      "started_at": "2026-09-12T09:09:27.794778+00:00",
+      "conclusion": "failure",
+      "duration_s": 1.7,
+      "completed_at": "2026-09-12T09:09:29.523530+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\lint.log",
+      "returncode": 1
+    },
+    "test": {
+      "status": "completed",
+      "started_at": "2026-09-12T09:09:29.579904+00:00",
+      "conclusion": "success",
+      "duration_s": 1.4,
+      "completed_at": "2026-09-12T09:09:30.931402+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\test.log",
+      "returncode": 0
+    },
+    "test_smoke": {
+      "status": "completed",
+      "started_at": "2026-09-12T09:09:30.947420+00:00",
+      "conclusion": "success",
+      "duration_s": 33.7,
+      "completed_at": "2026-09-12T09:10:04.609747+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\test_smoke.log",
+      "returncode": 0
+    },
+    "build": {
+      "status": "completed",
+      "started_at": "2026-09-12T09:10:04.681697+00:00",
+      "conclusion": "failure",
+      "duration_s": 4228.8,
+      "completed_at": "2026-09-12T10:20:33.517112+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\build.log",
+      "returncode": 1
+    },
+    "security": {
+      "status": "completed",
+      "started_at": "2026-09-12T10:20:33.540538+00:00",
+      "conclusion": "failure",
+      "duration_s": 0.2,
+      "completed_at": "2026-09-12T10:20:33.760035+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\security.log",
+      "returncode": 1
+    },
+    "push": {
+      "status": "completed",
+      "started_at": "2026-09-12T10:20:33.776506+00:00",
+      "conclusion": "failure",
+      "duration_s": 0.2,
+      "completed_at": "2026-09-12T10:20:33.976340+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\push.log",
+      "returncode": 1
+    },
+    "deploy": {
+      "status": "completed",
+      "started_at": "2026-09-12T10:20:33.992327+00:00",
+      "conclusion": "success",
+      "duration_s": 0.6,
+      "completed_at": "2026-09-12T10:20:34.589569+00:00",
+      "log": "d:\\APPs\\数字孪生挑战赛\\pmtec_system\\output\\pipeline_logs\\deploy.log",
+      "returncode": 0
+    }
+  },
+  "finished_at": "2026-09-12T10:20:34.603348+00:00",
+  "conclusion": "failure"
+}

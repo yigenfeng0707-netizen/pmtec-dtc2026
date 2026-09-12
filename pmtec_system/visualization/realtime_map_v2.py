@@ -45,37 +45,68 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <html lang="zh">
 <head>
 <meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>PMTEC v2 实时态势图 — 67 实体分层 (P12-3)</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
   html, body {{ margin: 0; height: 100%; font-family: 'Segoe UI','Microsoft YaHei',sans-serif; background: #0d1117; color: #c9d1d9; }}
-  #map {{ height: calc(100% - 46px); }}
-  #bar {{ height: 46px; display: flex; align-items: center; gap: 10px; padding: 0 12px; background: #161b22; border-bottom: 1px solid #30363d; font-size: 13px; flex-wrap: nowrap; overflow-x: auto; }}
-  .btn {{ background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px; padding: 4px 10px; cursor: pointer; }}
+  body {{ display: flex; flex-direction: column; overflow: hidden; }}
+  #map {{ flex: 1; min-height: 0; }}
+  #head {{ flex: none; background: #161b22; border-bottom: 1px solid #30363d; }}
+  .hrow {{ display: flex; align-items: center; gap: 10px; padding: 5px 12px; flex-wrap: wrap; }}
+  .hrow + .hrow {{ border-top: 1px solid #21262d; }}
+  #brand {{ font-size: 13.5px; font-weight: 700; color: #58a6ff; letter-spacing: .5px; }}
+  #ws {{ font-size: 12px; color: #f85149; }}
+  #ws.ok {{ color: #3fb950; }}
+  .kpi {{ background: #0d1117; border: 1px solid #30363d; border-radius: 7px;
+    padding: 3px 10px; font-size: 11px; color: #8b949e; display: flex;
+    align-items: baseline; gap: 5px; }}
+  .kpi b {{ font-size: 15px; color: #3fb950; font-family: Consolas,monospace; }}
+  .kpi.warn {{ border-color: #f0883e; }}
+  .kpi.warn b {{ color: #f0883e; }}
+  .btn {{ background: #21262d; color: #c9d1d9; border: 1px solid #30363d; border-radius: 6px;
+    padding: 3px 9px; cursor: pointer; font-size: 12px; }}
   .btn:hover {{ border-color: #58a6ff; }}
   .btn.active {{ background: #1f6feb; color: #fff; }}
-  .stat {{ color: #8b949e; }}
-  .stat b {{ color: #3fb950; }}
-  #ws {{ color: #f85149; }}
-  #ws.ok {{ color: #3fb950; }}
+  .grp {{ display: flex; align-items: center; gap: 4px; }}
+  .grplabel {{ font-size: 10.5px; color: #6e7681; margin-right: 2px; }}
+  .spacer {{ flex: 1; }}
+  #clock {{ font-family: Consolas,monospace; color: #79c0ff; font-size: 13px; }}
   .legend {{ background: #161b22e6; padding: 8px 12px; border-radius: 8px; font-size: 12px; line-height: 1.8; box-shadow: 0 1px 6px #0008; }}
   .dot {{ display: inline-block; width: 10px; height: 10px; border-radius: 50%; margin-right: 6px; }}
   .layer-chip {{ margin-right: 4px; }}
+  @media (max-width: 760px) {{
+    .hrow {{ gap: 6px; padding: 4px 8px; }}
+    .kpi {{ padding: 2px 7px; }}
+  }}
 </style>
 </head>
 <body>
-<div id="bar">
-  <span id="ws">● 未连接</span>
-  <span class="stat">周期 <b id="cyc">-</b></span>
-  <span class="stat">T <b id="t">-</b></span>
-  <span class="stat">实体 <b id="ent">-</b></span>
-  <span class="stat">航迹 <b id="trk">-</b></span>
-  <span class="stat">网络脆弱度 <b id="vuln">-</b></span>
-  <button class="btn" id="b-pause">⏸ 暂停</button>
-  <button class="btn" id="b-resume">▶ 恢复</button>
-  <button class="btn" id="b-back">⏪ 回溯-5</button>
-  <button class="btn" id="b-live">⏭ 实时</button>
-  <span class="stat" id="tierToggles"></span>
+<div id="head">
+  <div class="hrow">
+    <span id="brand">PMTEC 实时态势 · 67 实体</span>
+    <span id="ws">● 未连接</span>
+    <span class="spacer"></span>
+    <span id="clock">T+00:00:00</span>
+  </div>
+  <div class="hrow">
+    <span class="kpi">实体 <b id="ent">-</b></span>
+    <span class="kpi">航迹 <b id="trk">-</b></span>
+    <span class="kpi">周期 <b id="cyc">-</b></span>
+    <span class="kpi" id="vulnbox">脆弱度 <b id="vuln">-</b></span>
+    <span class="spacer"></span>
+    <span class="grp">
+      <span class="grplabel">回放</span>
+      <button class="btn" id="b-pause" title="暂停推送">⏸</button>
+      <button class="btn" id="b-resume" title="恢复推送">▶</button>
+      <button class="btn" id="b-back" title="回溯 5 周期">⏪5</button>
+      <button class="btn" id="b-live" title="回到实时">⏭ 实时</button>
+    </span>
+    <span class="grp">
+      <span class="grplabel">图层</span>
+      <span id="tierToggles" class="grp"></span>
+    </span>
+  </div>
 </div>
 <div id="map"></div>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
@@ -85,8 +116,10 @@ const TIERS = {tiers_json};
 const BRANCH_COLORS = {branches_json};
 
 const map = L.map('map', {{preferCanvas: true}}).setView([18, 145], 3);
-L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png',
-  {{attribution: '© OpenStreetMap © CARTO'}}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{{z}}/{{y}}/{{x}}',
+  {{attribution: 'Esri, HERE, Garmin, (c) OpenStreetMap contributors', maxZoom: 16}}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{{z}}/{{y}}/{{x}}',
+  {{attribution: '', maxZoom: 16}}).addTo(map);
 
 // ---- 分层渲染：Tier 图层组 + 军种着色 ----
 const tierGroups = {{}}, branchGroups = {{}};
@@ -165,9 +198,11 @@ function sendCmd(obj) {{ if (ws && ws.readyState === 1) ws.send(JSON.stringify(o
 
 function render(msg) {{
   document.getElementById('cyc').textContent = msg.asda_cycle ?? '-';
-  document.getElementById('t').textContent = msg.sim_time ?? '-';
-  document.getElementById('vuln').textContent =
-    msg.network_vulnerability != null ? (msg.network_vulnerability * 100).toFixed(1) + '%' : '-';
+  document.getElementById('clock').textContent = msg.sim_time ?? '-';
+  const vpct = msg.network_vulnerability != null ? (msg.network_vulnerability * 100).toFixed(1) + '%' : '-';
+  document.getElementById('vuln').textContent = vpct;
+  document.getElementById('vulnbox').className =
+    'kpi' + (msg.network_vulnerability > .15 ? ' warn' : '');
   const ents = msg.entities;
   if (ents) {{
     const list = typeof ents === 'object' && !Array.isArray(ents) ? Object.values(ents) : ents;

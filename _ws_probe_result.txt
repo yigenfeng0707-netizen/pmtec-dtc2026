@@ -1,0 +1,4 @@
+msg0: type=full cycle=8 phase=Adapt events=20
+  keys: ['event_id', 'event_type', 'timestamp', 'source', 'target', 'data', 'description']
+  sample: {"event_id": "EVT-204813", "event_type": "asda_cycle", "timestamp": 1789216204.8137677, "source": "ASDA-Engine", "target": "", "data": {"cycle": 7, "phase": "Decide", "lvc_layer": "Constructive"}, "description": "ASDA cycle 7: Decide phase"}
+PROBE ERROR: 

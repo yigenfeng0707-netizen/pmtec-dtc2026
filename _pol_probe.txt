@@ -1,0 +1,14 @@
+{
+ "ally_sites": 0,
+ "ally_countries": [],
+ "escalation_level": 0.0,
+ "by_country": {},
+ "mrfd": {
+  "rotation_day": 163,
+  "cycle_progress": 0.906,
+  "readiness": 1.0,
+  "frozen": false
+ },
+ "recent_transitions": [],
+ "events_count": 0
+}

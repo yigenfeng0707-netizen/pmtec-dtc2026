@@ -671,8 +671,8 @@ const bases = {js_data};
 
 const map = L.map('map', {{center:[20,135],zoom:4,worldCopyJump:true,minZoom:2,maxZoom:12}});
 
-L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:19
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{{z}}/{{y}}/{{x}}', {{
+attribution:'Esri, HERE, Garmin, &copy; OpenStreetMap contributors',maxZoom:16
 }}).addTo(map);
 
 const markers = [];
