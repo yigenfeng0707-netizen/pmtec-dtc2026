@@ -325,9 +325,11 @@ class MultiAgentDQN:
         """Load both agent models.
 
         P6-2: Gracefully handle dimension mismatch when observation space changes.
+        P12/S: use the module-level OBS_DIM (no shadowing local re-import) so
+        dimension-patched training processes verify their own checkpoints
+        (e.g. 219-dim political models) while the default 182-dim engine
+        path keeps its original guard behaviour.
         """
-        from deep_rl.pmtec_env import OBS_DIM
-
         loaded = {}
         if os.path.exists(self.intercept_model_path):
             try:

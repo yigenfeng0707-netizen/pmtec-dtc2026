@@ -1,0 +1,19 @@
+[
+  {
+    "algorithm": "IQL",
+    "timesteps": 6000,
+    "elapsed_seconds": 127.3,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "net_arch": [
+      128,
+      64
+    ],
+    "timestamp": 1789192325.8016205
+  }
+]

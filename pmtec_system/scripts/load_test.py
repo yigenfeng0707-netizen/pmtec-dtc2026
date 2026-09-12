@@ -197,6 +197,19 @@ def test_sqlite_writes():
 # ============================================================
 # Test 2: gRPC Throughput & Latency
 # ============================================================
+def _load_v2_bases(engine) -> int:
+    """P12/S: 加载 67 实体权威基地集（与交付物 v2 数据一致）。"""
+    path = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "data", "bases_v2.geojson",
+    )
+    try:
+        return engine.load_bases(path)
+    except Exception as e:
+        print(f"[LoadTest] v2 base load skipped: {e}")
+        return 0
+
+
 def test_grpc_throughput():
     """Start gRPC server in-process and test concurrent GetState calls."""
     try:
@@ -214,6 +227,8 @@ def test_grpc_throughput():
         security_enabled=False,
         mtls_enabled=False,
     )
+    n_bases = _load_v2_bases(server.engine)
+    print(f"[LoadTest] gRPC server engine loaded {n_bases} v2 bases")
     try:
         server.start()
     except Exception as e:
@@ -309,6 +324,8 @@ def test_engine_concurrency():
     from services.grpc_server import PMTECEngine
 
     engine = PMTECEngine()
+    n_bases = _load_v2_bases(engine)
+    print(f"[LoadTest] engine concurrency test with {n_bases} v2 bases")
     engine.start_simulation("multi_threat", 600, seed=42)
     time.sleep(3.0)
 

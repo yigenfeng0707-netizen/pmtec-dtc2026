@@ -1,0 +1,47 @@
+{
+  "timestamp": "2026-09-12 13:49:54",
+  "device": "xpu:0",
+  "obs_dim": 219,
+  "political": true,
+  "steps_per_agent": 6000,
+  "iql": {
+    "algorithm": "IQL",
+    "timesteps": 6000,
+    "elapsed_seconds": 131.0,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "net_arch": [
+      128,
+      64
+    ],
+    "timestamp": 1789192325.8016205,
+    "load_verification": false
+  },
+  "maddpg": {
+    "algorithm": "MADDPG",
+    "timesteps": 6000,
+    "elapsed_seconds": 153.5,
+    "agents": [
+      "intercept",
+      "dispersal"
+    ],
+    "intercept_actions": 3,
+    "dispersal_actions": 3,
+    "device": "xpu:0",
+    "hidden_actor": 128,
+    "hidden_critic": 256,
+    "gamma": 0.95,
+    "tau": 0.005,
+    "batch_size": 128,
+    "buffer_used": 6000,
+    "avg_reward_last_10": 1138.2199999999998,
+    "total_episodes": 500,
+    "timestamp": 1789192479.4058332,
+    "load_verification": true
+  }
+}

@@ -155,6 +155,15 @@ class TracingManager:
     def create_grpc_server_interceptor(self):
         """Create a gRPC server interceptor that traces incoming requests.
 
+        P12/S fix: previously returned GrpcInstrumentorServer() — an
+        OpenTelemetry *instrumentor* (global patcher), not a grpc.
+        ServerInterceptor — which made EVERY RPC fail with
+        "Error in service handler!" when tracing was enabled.
+
+        Now returns a real grpc.ServerInterceptor that creates one span per
+        unary-unary RPC. Defensive by design: tracing failures never break
+        RPCs.
+
         Usage in grpc_server.py:
             tm = TracingManager()
             tm.setup()
@@ -167,12 +176,7 @@ class TracingManager:
         if not self.enabled:
             return None
 
-        from opentelemetry.instrumentation.grpc import (
-            GrpcInstrumentorServer,
-            GrpcAioInstrumentorServer,
-        )
-
-        return GrpcInstrumentorServer()
+        return _TracingServerInterceptor(self.tracer)
 
     def create_grpc_client_interceptor(self):
         """Create a gRPC client interceptor for outgoing calls."""
@@ -209,6 +213,55 @@ class TracingManager:
         span.set_attribute("threat.type", threat_type)
         span.set_attribute("intercept.success", success)
         return span
+
+
+class _TracingServerInterceptor:
+    """P12/S: real gRPC server interceptor creating a span per unary RPC.
+
+    Defensive by design: tracing failures must never break RPCs. If span
+    creation itself raises, the handler runs uninstrumented.
+    """
+
+    def __init__(self, tracer):
+        import grpc
+
+        self._grpc = grpc
+        self._tracer = tracer
+
+    def intercept_service(self, continuation, handler_call_details):
+        handler = continuation(handler_call_details)
+        if handler is None:
+            return handler
+        # Only unary-unary handlers are wrapped; streaming RPCs pass through
+        if handler.request_streaming or handler.response_streaming:
+            return handler
+
+        inner = handler.unary_unary
+        method = handler_call_details.method or "unknown"
+        name = "grpc." + method.rsplit("/", 1)[-1]
+        grpc_mod = self._grpc
+
+        def wrapped(request, context):
+            cm = None
+            try:
+                cm = self._tracer.start_as_current_span(name)
+                cm.__enter__()
+            except Exception:
+                cm = None  # tracing unavailable -> run uninstrumented
+            try:
+                return inner(request, context)
+            finally:
+                if cm is not None:
+                    try:
+                        cm.__exit__(None, None, None)
+                    except Exception:
+                        pass
+
+        return grpc_mod.unary_unary_rpc_method_handler(
+            wrapped,
+            request_deserializer=handler.request_deserializer,
+            response_serializer=handler.response_serializer,
+        )
 
 
 class _NoopSpan:

@@ -547,6 +547,25 @@ AUDIT_DB_PATH       = data/persistence/audit_log.db</code></pre>
 
 <hr class="section-divider">
 
+<h2>14. P9-P12 权威数据升级与体系化对抗（2026-09）</h2>
+<div class="card">
+<p>基于比赛方下发权威资料（CRS R47589 / DoD FY2024 基地结构报告 / RAND RRA967-2 / CRS IF12175）的四个升级阶段：</p>
+<table>
+<tr><th>阶段</th><th>内容</th><th>关键产物</th></tr>
+<tr><td><b>P9 数据升级</b></td><td>基地数据库 22 → 67 实体（CRS Table A-1 全量 + Tinian），33 属性字段（crs_no / FY2024 PRV 四分位 / access_uncertainty / tier 四级分层），QGIS 与 Leaflet 地图重生成</td><td>indopacom_bases_v2.geojson（贯通三级）</td></tr>
+<tr><td><b>P10 政治建模</b></td><td>盟友准入三态状态机（Full/Restricted/Denied）+ 四类政治事件 + MRF-D 轮换；ACE 优化器排除 Denied 站点，Pareto 新增政治风险敞口目标</td><td>models/political_access.py + config/political_access.json</td></tr>
+<tr><td><b>P11 指挥链</b></td><td>INDOPACOM 5 军种组成 + 3 下属联合司令部指挥关系树，逐跳上报/下发 + 跨军种协同路由；RBAC 军种扩展 + JWT branch claim</td><td>models/c2_chain.py + config/indopacom_c2.json</td></tr>
+<tr><td><b>P12 系统升级</b></td><td>DQN 观测空间 182 → 219 维（36 盟友准入容量 + 升级度），XPU 200K 步三阶段课程重训练；WebSocket 并发/回溯升级；SPEAR 四泳道政治时间轴；对手策略库 6 项；Maven 契约补全；Monte Carlo 重验证</td><td>pmtec_dqn_p12.zip + 三场景对照报告</td></tr>
+</table>
+<p><b>重验证结论（P12.7）</b>：三场景对照（A 原 22 站点 76.2% → B v2 权威数据 79.0% → C 政治准入 79.5%）
+证明权威数据升级带来 +2.8pp 净效应、政治准入不确定性下拦截率不降反稳——体系韧性获得量化验证；
+六策略全量 150 episodes 总体 79.1%（95% CI 78.0-80.2）；十万次准入敏感性采样最差可用率 95.5%。</p>
+<p><b>ASDA 闭环映射</b>：政治事件注入 = Sense 的政治维度扩展；准入容量因子进入 219 维观测 = Decide 的信息增广；
+Adapt 环节排除 Denied 站点再部署 + 敞口反馈对手模型 = 适应的政治维度实现。</p>
+</div>
+
+<hr class="section-divider">
+
 <h2>技术栈总览</h2>
 <div class="card">
 <table>
@@ -566,8 +585,8 @@ AUDIT_DB_PATH       = data/persistence/audit_log.db</code></pre>
 
 <div class="footer">
 <p>PMTEC Digital Battlefield System &mdash; DTC 2026 Level 3<br>
-21,070 lines of Python / 112 files / DQN 200K-step XPU training / Monte Carlo 100-episode validation<br>
-Generated: 2026-09-04</p>
+24,794 lines of Python (pmtec_system + ace_deployment) / 103 files / DQN 219-dim political model (XPU 200K-step) / Monte Carlo 79.1% (6 strategies, 150 episodes)<br>
+Generated: 2026-09-12 (P13)</p>
 </div>
 
 </body>
