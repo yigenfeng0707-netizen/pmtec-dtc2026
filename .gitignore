@@ -54,3 +54,6 @@ _tmp_*.md
 
 # DuMate internal working directory
 .dumate/
+
+# CodeBuddy internal
+.codebuddy/
