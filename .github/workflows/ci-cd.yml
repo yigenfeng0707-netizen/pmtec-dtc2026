@@ -175,10 +175,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Run Trivy vulnerability scanner
+      - name: Run Trivy vulnerability scanner (filesystem)
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: pmtec-distributed:ci
+          scan-type: fs
+          scan-ref: pmtec_system
           format: sarif
           output: trivy-results.sarif
           severity: 'CRITICAL,HIGH'
