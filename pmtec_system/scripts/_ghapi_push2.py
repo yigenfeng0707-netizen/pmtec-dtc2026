@@ -25,13 +25,13 @@ def gh(endpoint, payload=None, method=None):
         cmd += ["--input", TMP]
     if method:
         cmd += ["-X", method]
-    r = subprocess.run(cmd, capture_output=True)
+    r = subprocess.run(cmd, capture_output=True, text=True,
+                       encoding="utf-8", errors="replace")
     if os.path.exists(TMP):
         os.remove(TMP)
     if r.returncode != 0:
-        raise RuntimeError(r.stderr.decode("utf-8", errors="replace")[:500])
-    out = r.stdout.decode("utf-8", errors="replace")
-    return json.loads(out) if out.strip() else None
+        raise RuntimeError(r.stderr[:500])
+    return json.loads(r.stdout) if r.stdout.strip() else None
 
 
 # 0) 远端当前 head
@@ -42,8 +42,9 @@ log(f"remote head: {remote[:10]}")
 #    492f1b6 的 tree 与本地 8ebb2e3 完全一致 —— 上一轮 API 推送即该差异)
 LOCAL_BASE = "8ebb2e3"
 raw = subprocess.run(["git", "-C", ROOT, "diff", "--name-only", "-z",
-                      f"{LOCAL_BASE}..HEAD"], capture_output=True).stdout
-paths = [p for p in raw.decode("utf-8", errors="replace").split("\0") if p]
+                      f"{LOCAL_BASE}..HEAD"], capture_output=True,
+                     text=True, encoding="utf-8", errors="replace").stdout
+paths = [p for p in raw.split("\0") if p]
 if not paths:
     log("无差异, 无需推送")
     sys.exit(0)

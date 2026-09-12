@@ -1,6 +1,7 @@
 # PMTEC ruff configuration — pragmatic rule set for CI lint stage
 line-length = 100
 target-version = "py311"
+exclude = ["proto/generated"]  # protoc 生成物, 不作风格检查
 
 [lint]
 select = ["E4", "E7", "E9", "F", "I"]
