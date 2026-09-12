@@ -47,7 +47,8 @@ from scripts.monte_carlo_validation import (
     StrategyEnv,
 )
 
-test("4 adversary strategies defined", len(STRATEGIES) == 4, f"got {len(STRATEGIES)}")
+# P12-5: 策略库扩展至 6 项（新增 multi_axis_saturation / political_divergence）
+test("6 adversary strategies defined (P12-5)", len(STRATEGIES) == 6, f"got {len(STRATEGIES)}")
 
 strategy_names = [s.name for s in STRATEGIES]
 test("saturation_attack strategy exists", "saturation_attack" in strategy_names)

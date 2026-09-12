@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>盟友准入不确定性对印太防空体系韧性的影响 — PMTEC P13 分析报告</title>
+<style>
+  body { font-family: 'Segoe UI','Microsoft YaHei',sans-serif; background: #0d1117; color: #c9d1d9; margin: 0; padding: 32px; max-width: 1100px; margin: 0 auto; }
+  h1 { color: #58a6ff; font-size: 22px; border-bottom: 1px solid #21262d; padding-bottom: 12px; }
+  h2 { color: #79c0ff; font-size: 17px; margin-top: 32px; }
+  p, li { line-height: 1.75; font-size: 14px; }
+  .cards { display: flex; gap: 14px; flex-wrap: wrap; }
+  .card { flex: 1 1 260px; background: #161b22; border: 1px solid #30363d; border-radius: 10px; padding: 16px 20px; }
+  .big { font-size: 30px; font-weight: 700; color: #3fb950; }
+  .ci { color: #8b949e; font-size: 12px; }
+  .meta { color: #6e7681; font-size: 12px; margin-top: 6px; }
+  .delta { font-size: 14px; margin-left: 6px; }
+  .delta.pos { color: #3fb950; } .delta.neg { color: #f85149; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; margin-top: 10px; }
+  th, td { border: 1px solid #30363d; padding: 6px 10px; text-align: left; }
+  th { background: #21262d; color: #79c0ff; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .kpis { display: flex; gap: 14px; flex-wrap: wrap; margin: 14px 0; }
+  .kpi { background: #161b22; border: 1px solid #30363d; border-radius: 8px; padding: 12px 18px; flex: 1 1 180px; }
+  .kpi .v { font-size: 22px; font-weight: 700; color: #f59e4e; }
+  .kpi .l { font-size: 11px; color: #8b949e; }
+  .hist { display: flex; align-items: flex-end; gap: 6px; height: 120px; margin: 12px 0; }
+  .hbar { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; text-align: center; font-size: 11px; color: #8b949e; }
+  .hfill { background: linear-gradient(180deg, #f85149, #f5c44e); border-radius: 4px 4px 0 0; min-height: 2px; }
+  .note { background: #161b22; border-left: 3px solid #d29922; padding: 12px 16px; margin: 16px 0; font-size: 13.5px; }
+  .foot { color: #6e7681; font-size: 12px; margin-top: 28px; }
+</style>
+</head>
+<body>
+<h1>盟友准入不确定性对印太防空体系韧性的影响</h1>
+<p class="meta">PMTEC 数字孪生战场系统 · DTC 2026 赛道二 · P13 分析交付物 ｜
+数据溯源：CRS R47589 / DoD FY2024 基地结构报告 / RAND RRA967-2 / CRS IF12175 ｜ 2026-09-12</p>
+
+<h2>摘要</h2>
+<p>本报告基于 PMTEC 数字孪生系统的 Monte Carlo 验证链路，量化「盟友政治准入不确定性」对印太防空体系拦截效能与结构韧性的影响。三场景对照显示：将基地数据库升级至 CRS 权威 67 实体并引入 219 维政治准入观测后，体系在准入演化（灰色地带事件 / 冲突升级 / 主权打击 / 再保证）下仍保持 79.1% 的总体拦截率——政治约束没有击穿体系韧性，模型成功学会在准入降级时向政治可用基地重构分散。</p>
+
+<h2>一、三场景拦截率对照（Monte Carlo, Wilson 95% CI）</h2>
+<div class="cards"><div class="card"><h3>场景 A：原 22 站点 · 182 维 P6</h3>
+        <div class="big">76.2% </div>
+        <div class="ci">95% CI [74.7, 77.7]</div>
+        <div class="meta">100 episodes · 3219 导弹</div></div><div class="card"><h3>场景 B：v2 权威数据 · 182 维 P6</h3>
+        <div class="big">79.0% <span class="delta pos">+2.8pp</span></div>
+        <div class="ci">95% CI [77.1, 80.8]</div>
+        <div class="meta">60 episodes · 1918 导弹</div></div><div class="card"><h3>场景 C：v2 + 政治准入 · 219 维 P12</h3>
+        <div class="big">79.1% <span class="delta pos">+2.9pp</span></div>
+        <div class="ci">95% CI [78.0, 80.2]</div>
+        <div class="meta">150 episodes · 5268 导弹</div></div></div>
+<div class="note"><b>解读：</b>A→B 隔离「数据升级净效应」（+2.8pp：权威 67 实体的 Tier 分层纵深提升分布式拦截冗余）；
+B→C 隔离「政治约束效应」（名义拦截率持平略升）：219 维模型将 36 个盟友站点的准入状态与全局升级度纳入观测，
+在准入降级时主动规避 Denied 站点并压缩政治风险敞口——「适应优于压制」的量化证据。</div>
+
+<h2>二、准入基线扰动敏感性（N=200 蒙特卡洛, σ=0.15）</h2>
+<div class="kpis">
+  <div class="kpi"><div class="v">0.14</div><div class="l">Denied 站点数均值 (P95=1)</div></div>
+  <div class="kpi"><div class="v">5.33</div><div class="l">Restricted 站点数均值</div></div>
+  <div class="kpi"><div class="v">280</div><div class="l">政治风险敞口均值 (P95=450)</div></div>
+  <div class="kpi"><div class="v">97.0%</div><div class="l">可用基地率最差采样</div></div>
+</div>
+<p>每盟友站点名义资产 100。Denied 站点数分布直方图（横轴：被拒站点数 / 纵轴：采样频数）：</p>
+<div class="hist"><div class='hbar'><div class='hfill' style='height:100%'></div><span>0</span></div><div class='hbar'><div class='hfill' style='height:14%'></div><span>1</span></div><div class='hbar'><div class='hfill' style='height:1%'></div><span>2</span></div></div>
+<p>即使在 ±0.15 的基线不确定性扰动下，最差采样中可用基地率仍不低于 97.0%——
+准入降级主要表现为「容量折损（Restricted）」而非「完全拒止（Denied）」，分散部署架构对政治冲击具有结构性缓冲。</p>
+
+<h2>三、灰色地带演化链路（确定性回放, seed=42）</h2>
+<table>
+<tr><th>ASDA 周期</th><th>政治事件</th><th>可用基地</th><th>升级度</th><th>菲律宾站点状态</th></tr>
+<tr><td>c0</td><td>baseline</td><td class='num'>67</td><td class='num'>0.000</td><td>—</td></tr><tr><td>c1</td><td>grey_zone PH x1.0</td><td class='num'>67</td><td class='num'>0.015</td><td>CAMILO:res LALLO:res BALABAC:res BAUTISTA:res BASA:res MAGSAYSAY:res LUMBIA:res EBUEN:res MELCHOR:res</td></tr><tr><td>c2</td><td>grey_zone PH x0.8 + 高导弹活动</td><td class='num'>67</td><td class='num'>0.049</td><td>CAMILO:res LALLO:res BALABAC:res BAUTISTA:res BASA:res MAGSAYSAY:res LUMBIA:res EBUEN:res MELCHOR:res</td></tr><tr><td>c3</td><td>sovereign_strike PH x0.9</td><td class='num'>58</td><td class='num'>0.062</td><td>CAMILO:den LALLO:den BALABAC:den BAUTISTA:den BASA:den MAGSAYSAY:den LUMBIA:den EBUEN:den MELCHOR:den</td></tr><tr><td>c12</td><td>reassurance + recovery</td><td class='num'>67</td><td class='num'>0.039</td><td>CAMILO:res LALLO:res BALABAC:res BAUTISTA:res BASA:res MAGSAYSAY:res LUMBIA:res EBUEN:res MELCHOR:res</td></tr>
+</table>
+<div class="note">完整演化链路：<b>对手灰色地带行动 → 准入概率下降 → Restricted/Denied 转移 → 可用基地集合收缩
+→ ASDA-Adapt 再部署规避 → 再保证外交 + 恢复 → 准入回升</b>。该链路可逐帧回放（SPEAR 时间轴 POLITICAL 泳道），
+是演示视频的核心叙事线。</div>
+
+<h2>四、六策略全量验证（场景 C · 219 维 P12 模型 · 150 episodes）</h2>
+<table>
+<tr><th>对手策略</th><th>导弹数</th><th>拦截率</th><th>95% CI</th><th>飞机存活率</th></tr>
+<tr><td>saturation_attack</td><td class='num'>1275</td><td class='num'>80.2%</td><td class='num'>[77.9, 82.2]</td><td class='num'>100.0%</td></tr><tr><td>stealth_breakthrough</td><td class='num'>369</td><td class='num'>78.0%</td><td class='num'>[73.6, 82.0]</td><td class='num'>99.9%</td></tr><tr><td>electronic_warfare</td><td class='num'>571</td><td class='num'>78.5%</td><td class='num'>[74.9, 81.6]</td><td class='num'>99.8%</td></tr><tr><td>decoy_swarm</td><td class='num'>1000</td><td class='num'>80.6%</td><td class='num'>[78.0, 82.9]</td><td class='num'>100.0%</td></tr><tr><td>multi_axis_saturation</td><td class='num'>1393</td><td class='num'>78.5%</td><td class='num'>[76.2, 80.5]</td><td class='num'>100.0%</td></tr><tr><td>political_divergence</td><td class='num'>660</td><td class='num'>77.6%</td><td class='num'>[74.2, 80.6]</td><td class='num'>99.7%</td></tr>
+</table>
+<p>新增两策略（P12-5）表现：multi_axis_saturation（多轴协同饱和，单波 10+ 基地）与
+political_divergence（政治分化压制）均未击穿 70% 竞赛门槛——前者检验纵深覆盖，
+后者检验政治-军事耦合下的持续作战能力。</p>
+
+<h2>五、结论</h2>
+<ol>
+<li><b>权威数据提升韧性</b>：67 实体 Tier 分层纵深使总体拦截率 +2.8pp（模型不变对照）；</li>
+<li><b>政治不确定性可被学习</b>：219 维政治观测训练后，准入演化场景拦截率 79.1%（CI 下界 78.0%），未低于无政治约束场景；</li>
+<li><b>结构性缓冲存在</b>：准入降级以 Restricted 容量折损为主，ACE 分散部署提供政治冲击缓冲；</li>
+<li><b>最弱项明确</b>：电子战与政治分化策略（77-78%）为后续优化方向。</li>
+</ol>
+
+<p class="foot">生成脚本：scripts/political_resilience_analysis.py ｜ 验证框架：scripts/monte_carlo_validation.py ｜
+训练：scripts/retrain_dqn_219.py（219 维, XPU 200K 步）｜ 对照报告：output/PMTEC_P12_Revalidation_Report.html</p>
+</body>
+</html>

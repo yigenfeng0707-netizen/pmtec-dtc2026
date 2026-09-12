@@ -6,7 +6,7 @@
 
 PMTEC（Pacific Multi-domain Training and Experimentation Capability）数字孪生战场仿真系统，实现 DTB Model 全链路作战逻辑，核心采用 **ASDA（Act-Sense-Decide-Adapt）闭环循环** 驱动仿真时序。
 
-系统经 P1-P11 共 11 轮迭代演进，从基础仿真原型发展为具备多层 AI 决策、安全认证、分布式高可用、可观测性与 CI/CD 全链路的成熟数字孪生平台。Monte Carlo 评估总体拦截率 **76.2%**（95% CI 74.7-77.7%），隐身突防场景 **79.1%**。P9 起基于比赛方下发的权威资料（CRS R47589 / DoD FY2024 基地结构报告 / RAND RRA967-2 / CRS IF12175）完成权威数据升级与体系化对抗深化。
+系统经 P1-P12 共 12 轮迭代演进，从基础仿真原型发展为具备多层 AI 决策、安全认证、分布式高可用、可观测性与 CI/CD 全链路的成熟数字孪生平台。Monte Carlo 评估总体拦截率 **76.2%**（95% CI 74.7-77.7%，P6 基线）；P12 权威数据升级后 **79.1%**（95% CI 78.0-80.2%，六策略 150 episodes，219 维政治观测模型），政治准入演化场景下不降反稳——体系韧性获得量化验证。P9 起基于比赛方下发的权威资料（CRS R47589 / DoD FY2024 基地结构报告 / RAND RRA967-2 / CRS IF12175）完成权威数据升级与体系化对抗深化。
 
 ---
 
@@ -93,7 +93,7 @@ pmtec_system/
 
 ---
 
-## P1-P11 技术演进
+## P1-P12 技术演进
 
 ### P1: 基础仿真原型
 - ASDA 四阶段闭环 + 4 gRPC 服务（WarEngine/BattleNetwork/ApplicationStore/PlugAndPlay）
@@ -170,6 +170,16 @@ pmtec_system/
 - 逐跳事件上报/命令下发 + 跨军种协同（最近共同祖先路由）+ hop-by-hop 延迟审计
 - RBAC 军种扩展（如 PACAF-Operator 仅可操作空军资产）+ JWT branch claim 联动
 - 验收：`test_p11.py` 31 项（指挥链抽查 + 跨军种协同 + RBAC/Auth 后向兼容）
+
+### P12: 系统全链路升级与重验证
+- P12.2 DQN 观测空间扩维 182→219（36 盟友站点准入容量 + 全局升级度），XPU 200K 步三阶段课程重训练
+- P12.3 WebSocket 升级：10 并发上限、暂停/恢复/回溯（逐周期环形缓冲）、67 实体分层实时态势图
+- P12.4 SPEAR 时间轴：四泳道事件渲染 + 盟友准入构成带 + 冲突升级度曲线
+- P12.5 对手策略库 4→6：multi_axis_saturation（多轴协同饱和）+ political_divergence（政治分化压制）
+- P12.6 REST 网关 Maven 契约补全：四大 DTB 服务 + P10 political + P11 c2
+- P12.7 Monte Carlo 重验证：A 76.2%（原基线）/ B 79.0%（v2 数据）/ C 79.5%（政治准入）三场景对照；
+  六策略全量 79.1%（CI 78.0-80.2%）
+- 验收：`test_p12_1_obs.py` 16 项 + `test_p12_3_websocket.py` 16 项 + `test_p12_final.py` 23 项
 
 ---
 
@@ -327,7 +337,7 @@ GitHub Actions 6 阶段：Lint → Unit Tests → Proto Compile → Docker Build
 |------|------|
 | Python 代码 | 103 文件 / 24,794 行（pmtec_system + ace_deployment） |
 | AI 模型 | 6 核心 + 15 检查点 |
-| 测试文件 | 18 个 (P3-P11) |
+| 测试文件 | 21 个 (P3-P12) |
 | HTML 交付物 | 12 个 |
 | Proto 定义 | 433 行 / 4 服务 |
 | 安全模块 | 6 个 / 898 行 |
