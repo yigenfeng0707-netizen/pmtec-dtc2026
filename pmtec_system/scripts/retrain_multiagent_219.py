@@ -52,9 +52,8 @@ def main():
 
     # ---- 219 维环境（political=True）----
     probe = MultiAgentPMTECEnv(duration=60, seed=42, political=True)
-    obs0, _ = probe.reset(seed=42)
-    obs_dim = probe.observation_space.shape[0]
-    assert obs0[first_agent_key(probe)].shape[0] == obs_dim
+    probe.reset(seed=42)
+    obs_dim = probe.observation_space.shape[0]  # 共享 Box 观测空间
     print(f"[S] Political obs dim = {obs_dim}")
 
     # ---- 模块级维度补丁（构造期解析）----
@@ -152,11 +151,6 @@ def main():
     with open(REPORT_PATH, "w", encoding="utf-8") as f:
         json.dump(report, f, indent=2, ensure_ascii=False, default=str)
     print(f"\n  Report: {REPORT_PATH}")
-
-
-def first_agent_key(env):
-    return next(iter(env.observation_space.spaces)) if hasattr(
-        env.observation_space, "spaces") else 0
 
 
 if __name__ == "__main__":

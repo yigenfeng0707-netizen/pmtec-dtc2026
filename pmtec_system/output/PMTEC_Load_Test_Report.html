@@ -178,7 +178,7 @@ td.error { color: var(--red); }
 
 <h1>PMTEC 负载测试报告</h1>
 <p class="subtitle">
-    PMTEC 数字孪生战场系统 | 2026-09-12 12:41:02 | 设备: xpu:0
+    PMTEC 数字孪生战场系统 | 2026-09-12 14:17:45 | 设备: xpu:0
 </p>
 
 <div class="summary-banner">
@@ -203,30 +203,30 @@ td.error { color: var(--red); }
             <tr>
                 <td>单线程逐条提交</td>
                 <td>500</td>
-                <td>2574.6</td>
+                <td>2558.5</td>
                 <td>0.39</td>
-                <td>0.194s</td>
+                <td>0.195s</td>
             </tr>
             <tr>
                 <td>单线程批量提交</td>
                 <td>2000</td>
-                <td>26242.7</td>
-                <td>0.038</td>
-                <td>0.076s</td>
+                <td>30079.2</td>
+                <td>0.033</td>
+                <td>0.066s</td>
             </tr>
             <tr>
                 <td>4线程并发写入</td>
                 <td>500</td>
-                <td>1787.4</td>
-                <td>0.56</td>
-                <td>0.28s</td>
+                <td>2300.8</td>
+                <td>0.43</td>
+                <td>0.217s</td>
             </tr>
             <tr>
                 <td>原生SQLite WAL模式</td>
                 <td>2000</td>
-                <td>69883.5</td>
-                <td>0.014</td>
-                <td>0.029s</td>
+                <td>58227.5</td>
+                <td>0.017</td>
+                <td>0.034s</td>
             </tr>
 </tbody>
 </table>
@@ -253,52 +253,52 @@ td.error { color: var(--red); }
             <tr>
                 <td>1</td>
                 <td>100</td>
-                <td>100</td>
-                <td class="ok">404.4</td>
                 <td>0</td>
-                <td>0</td>
-                <td class="ok">0</td>
-                <td>0</td>
+                <td class="ok">124.1</td>
+                <td>8.0</td>
+                <td>7.78</td>
+                <td class="ok">9.69</td>
+                <td>20.51</td>
             </tr>
             <tr>
                 <td>10</td>
                 <td>100</td>
-                <td>100</td>
-                <td class="ok">917.8</td>
                 <td>0</td>
-                <td>0</td>
-                <td class="ok">0</td>
-                <td>0</td>
+                <td class="ok">188.6</td>
+                <td>49.56</td>
+                <td>48.95</td>
+                <td class="ok">71.62</td>
+                <td>93.81</td>
             </tr>
             <tr>
                 <td>20</td>
                 <td>100</td>
-                <td>100</td>
-                <td class="ok">610.3</td>
                 <td>0</td>
-                <td>0</td>
-                <td class="ok">0</td>
-                <td>0</td>
+                <td class="ok">178.5</td>
+                <td>91.35</td>
+                <td>89.97</td>
+                <td class="warn">141.03</td>
+                <td>151.17</td>
             </tr>
             <tr>
                 <td>5</td>
                 <td>100</td>
-                <td>100</td>
-                <td class="ok">1001.7</td>
                 <td>0</td>
-                <td>0</td>
-                <td class="ok">0</td>
-                <td>0</td>
+                <td class="ok">188.3</td>
+                <td>25.36</td>
+                <td>23.92</td>
+                <td class="ok">40.83</td>
+                <td>53.76</td>
             </tr>
             <tr>
                 <td>50</td>
                 <td>100</td>
-                <td>100</td>
-                <td class="ok">605.5</td>
                 <td>0</td>
-                <td>0</td>
-                <td class="ok">0</td>
-                <td>0</td>
+                <td class="ok">162.4</td>
+                <td>168.51</td>
+                <td>183.3</td>
+                <td class="warn">241.17</td>
+                <td>250.18</td>
             </tr>
 </tbody>
 </table>
@@ -306,58 +306,58 @@ td.error { color: var(--red); }
 <h3>吞吐量 vs 并发数</h3>
 <div class="chart-container">
                 <div class="bar-group">
-                    <div class="bar" style="height:80px">
-                        <span class="bar-val">404.4</span>
+                    <div class="bar" style="height:131px">
+                        <span class="bar-val">124.1</span>
                     </div>
                     <span class="bar-label">C=1</span>
-                    <span class="bar-sub">P95:0ms</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar" style="height:183px">
-                        <span class="bar-val">917.8</span>
-                    </div>
-                    <span class="bar-label">C=10</span>
-                    <span class="bar-sub">P95:0ms</span>
-                </div>
-                <div class="bar-group">
-                    <div class="bar" style="height:121px">
-                        <span class="bar-val">610.3</span>
-                    </div>
-                    <span class="bar-label">C=20</span>
-                    <span class="bar-sub">P95:0ms</span>
+                    <span class="bar-sub">P95:9.69ms</span>
                 </div>
                 <div class="bar-group">
                     <div class="bar" style="height:200px">
-                        <span class="bar-val">1001.7</span>
+                        <span class="bar-val">188.6</span>
                     </div>
-                    <span class="bar-label">C=5</span>
-                    <span class="bar-sub">P95:0ms</span>
+                    <span class="bar-label">C=10</span>
+                    <span class="bar-sub">P95:71.62ms</span>
                 </div>
                 <div class="bar-group">
-                    <div class="bar" style="height:120px">
-                        <span class="bar-val">605.5</span>
+                    <div class="bar" style="height:189px">
+                        <span class="bar-val">178.5</span>
+                    </div>
+                    <span class="bar-label">C=20</span>
+                    <span class="bar-sub">P95:141.03ms</span>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height:199px">
+                        <span class="bar-val">188.3</span>
+                    </div>
+                    <span class="bar-label">C=5</span>
+                    <span class="bar-sub">P95:40.83ms</span>
+                </div>
+                <div class="bar-group">
+                    <div class="bar" style="height:172px">
+                        <span class="bar-val">162.4</span>
                     </div>
                     <span class="bar-label">C=50</span>
-                    <span class="bar-sub">P95:0ms</span>
+                    <span class="bar-sub">P95:241.17ms</span>
                 </div></div>
 
 <h2>3. 引擎并发状态查询</h2>
 
         <div class="metric-grid">
             <div class="metric-card">
-                <div class="metric-val">335.5</div>
+                <div class="metric-val">386.6</div>
                 <div class="metric-label">查询/秒</div>
             </div>
             <div class="metric-card">
-                <div class="metric-val">26.53ms</div>
+                <div class="metric-val">22.01ms</div>
                 <div class="metric-label">平均延迟</div>
             </div>
             <div class="metric-card">
-                <div class="metric-val">25.04ms</div>
+                <div class="metric-val">19.82ms</div>
                 <div class="metric-label">P50 延迟</div>
             </div>
             <div class="metric-card">
-                <div class="metric-val">43.47ms</div>
+                <div class="metric-val">44.99ms</div>
                 <div class="metric-label">P95 延迟</div>
             </div>
             <div class="metric-card">
@@ -374,12 +374,12 @@ td.error { color: var(--red); }
         <div class="analysis-box">
             <h3>性能分析</h3>
             <ul>
-                <li><strong>SQLite 写入:</strong> 峰值吞吐量 69883.5 写入/秒。
-                    批量模式比逐条提交快 10.2 倍。
-                    4 线程并发写入达到 1787.4 wps。</li>
-                <li><strong>gRPC 吞吐量:</strong> 峰值 1001.7 RPS（并发数 C=5）。
-                    P95 延迟所有级别均低于 100ms。</li>
-                <li><strong>引擎并发:</strong> 335.5 QPS，0 个错误（C=10）。
+                <li><strong>SQLite 写入:</strong> 峰值吞吐量 58227.5 写入/秒。
+                    批量模式比逐条提交快 11.8 倍。
+                    4 线程并发写入达到 2300.8 wps。</li>
+                <li><strong>gRPC 吞吐量:</strong> 峰值 188.6 RPS（并发数 C=10）。
+                    P95 延迟高并发时超过 100ms。</li>
+                <li><strong>引擎并发:</strong> 386.6 QPS，0 个错误（C=10）。
                     状态字典查询线程安全。</li>
                 <li><strong>瓶颈评估:</strong>
                     未发现关键瓶颈。
