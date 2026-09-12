@@ -6,7 +6,7 @@
 
 PMTEC（Pacific Multi-domain Training and Experimentation Capability）数字孪生战场仿真系统，实现 DTB Model 全链路作战逻辑，核心采用 **ASDA（Act-Sense-Decide-Adapt）闭环循环** 驱动仿真时序。
 
-系统经 P1-P8 共 8 轮迭代演进，从基础仿真原型发展为具备多层 AI 决策、安全认证、分布式高可用、可观测性与 CI/CD 全链路的成熟数字孪生平台。Monte Carlo 评估总体拦截率 **76.2%**（95% CI 74.7-77.7%），隐身突防场景 **79.1%**。
+系统经 P1-P11 共 11 轮迭代演进，从基础仿真原型发展为具备多层 AI 决策、安全认证、分布式高可用、可观测性与 CI/CD 全链路的成熟数字孪生平台。Monte Carlo 评估总体拦截率 **76.2%**（95% CI 74.7-77.7%），隐身突防场景 **79.1%**。P9 起基于比赛方下发的权威资料（CRS R47589 / DoD FY2024 基地结构报告 / RAND RRA967-2 / CRS IF12175）完成权威数据升级与体系化对抗深化。
 
 ---
 
@@ -24,7 +24,9 @@ pmtec_system/
 |   `-- lvc_architecture.py       # LVC (Live/Virtual/Constructive) 三层架构
 |-- models/
 |   |-- entity.py                 # 飞机/导弹/传感器实体模型
-|   `-- track.py                  # 传感器融合与航迹管理
+|   |-- track.py                  # 传感器融合与航迹管理
+|   |-- political_access.py       # P10 政治准入三态状态机 (Full/Restricted/Denied)
+|   `-- c2_chain.py               # P11 INDOPACOM 指挥链 (5 军种组成 + 3 下属联合)
 |-- deep_rl/                      # 深度强化学习模块 (2,229 行)
 |   |-- pmtec_env.py              # Gymnasium 环境 (182 维观测, 800 行)
 |   |-- dqn_agent.py              # DQN 智能体 (SB3 + XPU 加速)
@@ -91,7 +93,7 @@ pmtec_system/
 
 ---
 
-## P1-P8 技术演进
+## P1-P11 技术演进
 
 ### P1: 基础仿真原型
 - ASDA 四阶段闭环 + 4 gRPC 服务（WarEngine/BattleNetwork/ApplicationStore/PlugAndPlay）
@@ -146,6 +148,28 @@ pmtec_system/
 - 负载测试套件（SQLite 写入峰值 58K wps / gRPC 峰值 158 RPS / 引擎并发 378 QPS 线程安全）
 - 灾备恢复 Runbook（L1-L4 四级备份 / 5 故障恢复场景 / 巡检清单 / 灾备演练计划）
 - 系统架构文档（13 章节，P1-P7 演进故事线）
+
+### P9: 权威基地数据库升级（22 → 67 实体）
+- `indopacom_bases_v2.geojson`：CRS R47589 Table A-1 全量 66 站点 + Tinian North Field = 67 实体
+- FY2024 基地结构报告字段融合：`fy24_prv_quartile`（PRV 四分位）/ `fy24_prv_musd` / `fy24_total_acres` 等
+- 新增 `crs_no` / `dod_operated` / `us_territory` / `access_uncertainty` / `tier` 属性，四级 Tier 分层
+- QGIS 工程与 Leaflet 地图重生成；数据贯通 pmtec_system 与 ace_deployment
+- 验收：`test_p9.py` 13 项（数据完整性 + 引擎 67 实体冒烟 + RL 环境前向兼容 + 全量建图）
+
+### P10: 盟友协同与政治约束建模（RAND 深化）
+- `models/political_access.py`：政治准入三态状态机（Full/Restricted/Denied）
+- 4 类政治事件（灰色地带/冲突升级/主权打击/再保证）驱动事件化状态转移
+- MRF-D 六个月轮换建模（换防窗战备 0.6 / 战时冻结政治成本 0.35）
+- 盟友谈判延迟、政治风险敞口、基线扰动敏感性（蒙特卡洛支持）
+- ACE 算法约束版：部署优化器排除 Denied 站点，Pareto 新增政治风险敞口目标
+- 验收：`test_p10.py` 28 项（状态机 A1-A7 + 三场景 Monte Carlo + 灰色地带链路回放 C）
+
+### P11: INDOPACOM 指挥控制组织架构建模
+- `models/c2_chain.py`：指挥关系树（战区级 → 军种组成/下属联合 → 基地）
+- 5 军种组成司令部（USARPAC/PACFLT/MARFORPAC/PACAF/USSFPAC）+ 3 下属联合司令部（USFJ/USFK/SOCPAC）
+- 逐跳事件上报/命令下发 + 跨军种协同（最近共同祖先路由）+ hop-by-hop 延迟审计
+- RBAC 军种扩展（如 PACAF-Operator 仅可操作空军资产）+ JWT branch claim 联动
+- 验收：`test_p11.py` 31 项（指挥链抽查 + 跨军种协同 + RBAC/Auth 后向兼容）
 
 ---
 
@@ -301,10 +325,11 @@ GitHub Actions 6 阶段：Lint → Unit Tests → Proto Compile → Docker Build
 
 | 指标 | 数值 |
 |------|------|
-| Python 代码 | 78 文件 / 20,697 行 |
+| Python 代码 | 103 文件 / 24,794 行（pmtec_system + ace_deployment） |
 | AI 模型 | 6 核心 + 15 检查点 |
-| 测试文件 | 15 个 (P3-P8) |
+| 测试文件 | 18 个 (P3-P11) |
 | HTML 交付物 | 12 个 |
 | Proto 定义 | 433 行 / 4 服务 |
 | 安全模块 | 6 个 / 898 行 |
-| 迭代轮次 | 8 轮 (P1-P8) |
+| 基地数据库 | 67 实体（CRS 66 + Tinian，33 属性字段） |
+| 迭代轮次 | 11 轮 (P1-P11) |
