@@ -44,6 +44,13 @@ pmtec_system/data/models/*_s2.zip
 # Output temp
 tmp/
 .tmp/
+_tmp_*.py
+_tmp_*.ps1
+_tmp_*.md
+
+# SQLite runtime files
+*.db-shm
+*.db-wal
 
 # DuMate internal working directory
 .dumate/
