@@ -17,14 +17,17 @@ Endpoints:
   GET  /api/v1/plugins        - List registered plugins
   GET  /api/v1/dt/instances   - List digital twin instances
   POST /api/v1/dt/register    - Register a new DT instance
+  GET  /api/v1/analysis       - Last cached AI situational analysis (P13)
+  POST /api/v1/analysis       - Trigger fresh AI situational analysis (P13)
   GET  /api/v1/health         - Platform health check
 """
 
 import json
 import logging
+import os
 import threading
 import time
-from http.server import BaseHTTPRequestHandler, HTTPServer
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 logger = logging.getLogger("pmtec.rest")
@@ -44,7 +47,7 @@ class RestGateway:
         self.plugin_manager = plugin_manager
         self.dt_registry = dt_registry
         self.port = port
-        self._server: HTTPServer | None = None
+        self._server: ThreadingHTTPServer | None = None
         self._thread: threading.Thread | None = None
 
     def attach_engine(self, engine):
@@ -137,11 +140,69 @@ class RestGateway:
                         self._send_json(200, gateway.plugin_manager.list_plugins())
                     else:
                         self._send_json(200, [])
+                # ---------------- P13: LLM AI situational analysis ----------------
+                elif path == "/api/v1/analysis/download":
+                    cached = (
+                        getattr(gateway.engine, "_ai_analysis", None)
+                        if gateway.engine
+                        else None
+                    )
+                    docx_path = (cached or {}).get("docx_path")
+                    if docx_path and os.path.exists(docx_path):
+                        with open(docx_path, "rb") as f:
+                            body = f.read()
+                        self.send_response(200)
+                        self.send_header(
+                            "Content-Type",
+                            "application/vnd.openxmlformats-officedocument"
+                            ".wordprocessingml.document",
+                        )
+                        self.send_header(
+                            "Content-Disposition",
+                            'attachment; filename="PMTEC_AI_situation_analysis.docx"',
+                        )
+                        self.send_header("Access-Control-Allow-Origin", "*")
+                        self.send_header("Content-Length", str(len(body)))
+                        self.end_headers()
+                        self.wfile.write(body)
+                    else:
+                        self._send_json(404, {"error": "docx not generated yet"})
+                elif path == "/api/v1/analysis":
+                    if gateway.engine:
+                        cached = getattr(gateway.engine, "_ai_analysis", None)
+                        if cached:
+                            self._send_json(200, cached)
+                        else:
+                            self._send_json(
+                                200,
+                                {
+                                    "status": "not_generated",
+                                    "hint": "POST /api/v1/analysis to generate now",
+                                },
+                            )
+                    else:
+                        self._send_json(503, {"error": "Engine not attached"})
                 elif path == "/api/v1/dt/instances":
                     if gateway.dt_registry:
                         self._send_json(200, gateway.dt_registry.list_instances())
                     else:
                         self._send_json(200, [])
+                elif path == "/api/v1/dt/sync":
+                    # P13: digital twin sync layer status
+                    if gateway.engine and getattr(
+                        gateway.engine, "twin_sync", None
+                    ):
+                        self._send_json(
+                            200,
+                            {
+                                "summary": gateway.engine.twin_sync.summary(),
+                                "top_twins": gateway.engine.twin_sync.top_twins(
+                                    limit=8
+                                ),
+                            },
+                        )
+                    else:
+                        self._send_json(200, {"summary": None, "top_twins": []})
                 elif path == "/api/v1/threat-summary":
                     if gateway.plugin_manager:
                         mt = gateway.plugin_manager.get_plugin("builtin-multi-threat")
@@ -354,13 +415,55 @@ class RestGateway:
                         self._send_json(201, instance)
                     else:
                         self._send_json(503, {"error": "Registry not attached"})
+                # ---------------- P13: LLM AI situational analysis ----------------
+                elif path == "/api/v1/analysis":
+                    if gateway.engine:
+                        try:
+                            from services.llm_analyst import LLMAnalyst
+
+                            analyst = LLMAnalyst()
+                            if not analyst.enabled:
+                                self._send_json(
+                                    503, {"error": "LLM analyst disabled (no API key)"}
+                                )
+                                return
+                            result = analyst.generate_report_files(
+                                gateway.engine.get_state_dict(),
+                                gateway.engine.spear.generate_report(),
+                                gateway.engine.spear.events[-500:],
+                            )
+                            if result:
+                                cached = {
+                                    "status": "generated",
+                                    "model": analyst.model,
+                                    "generated_at": time.strftime(
+                                        "%Y-%m-%d %H:%M:%S"
+                                    ),
+                                    "md_path": result["md_path"],
+                                    "html_path": result["html_path"],
+                                    "docx_path": result.get("docx_path"),
+                                    "markdown": result["markdown"],
+                                    "usage": analyst.last_usage,
+                                }
+                                gateway.engine._ai_analysis = cached
+                                self._send_json(200, cached)
+                            else:
+                                self._send_json(
+                                    502, {"error": "LLM API call failed"}
+                                )
+                        except Exception as exc:
+                            self._send_json(500, {"error": str(exc)})
+                    else:
+                        self._send_json(503, {"error": "Engine not attached"})
                 else:
                     self._send_json(404, {"error": "Not found", "path": path})
 
             def log_message(self, format, *args):
                 logger.debug(f"REST {self.address_string()} - {format % args}")
 
-        self._server = HTTPServer(("0.0.0.0", self.port), RequestHandler)
+        # P13-fix: ThreadingHTTPServer so long LLM calls (POST /analysis)
+        # don't block other concurrent requests.
+        self._server = ThreadingHTTPServer(("0.0.0.0", self.port), RequestHandler)
         self._thread = threading.Thread(target=self._server.serve_forever, daemon=True)
         self._thread.start()
         logger.info(f"REST API server started on port {self.port}")

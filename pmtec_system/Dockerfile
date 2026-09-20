@@ -13,11 +13,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /build
 
-# P13: CPU-only torch first (satisfies torch>=2.0.0, avoids ~3GB CUDA wheels)
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+# P13-3: split sources — torch must come from pytorch.org CPU index
+# (PyPI/mirrors ship the CUDA variant = ~3GB nvidia deps); other deps
+# go through tsinghua mirror for CN network speed.
+ARG PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+ENV PIP_INDEX_URL=${PIP_INDEX_URL}
+
+# CPU-only torch first (satisfies torch>=2.0.0, avoids ~3GB CUDA wheels)
+RUN pip install --no-cache-dir --timeout 300 --retries 5 \
+    torch --index-url https://download.pytorch.org/whl/cpu
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --timeout 120 -r requirements.txt
+RUN pip install --no-cache-dir --timeout 300 --retries 5 -r requirements.txt
 
 # Copy proto files and generate gRPC stubs
 COPY proto/ ./proto/
@@ -44,11 +51,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /pmtec
 
+ARG PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
+ENV PIP_INDEX_URL=${PIP_INDEX_URL}
+
 # Install Python dependencies (CPU torch first, see builder stage)
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+RUN pip install --no-cache-dir --timeout 300 --retries 5 \
+    torch --index-url https://download.pytorch.org/whl/cpu
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir --timeout 120 -r requirements.txt
+RUN pip install --no-cache-dir --timeout 300 --retries 5 -r requirements.txt
 
 # Copy generated proto stubs from builder
 COPY --from=builder /build/proto/generated/ ./proto/generated/
@@ -70,6 +81,8 @@ COPY visualization/ ./visualization/
 COPY scripts/ ./scripts/
 COPY output/ ./output/
 COPY config/ ./config/
+# P13: base data (geojson) + pretrained RL models for one-command demo
+COPY data/ ./data/
 
 # Create data directories
 RUN mkdir -p data/models data/persistence data/logs output

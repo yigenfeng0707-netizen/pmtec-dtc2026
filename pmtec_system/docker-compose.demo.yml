@@ -1,0 +1,58 @@
+# PMTEC 数字孪生战场 - 演示栈 (P13)
+# 一键启动完整演示：仿真引擎(饱和攻击) + REST + WebSocket + 展示中心
+#
+#   docker compose -f docker-compose.demo.yml up -d
+#     → 演示中心:  http://localhost:8888/
+#     → REST API:  http://localhost:8080/api/v1/health
+#     → WebSocket: ws://localhost:8765
+#
+# 完整生产栈（4 gRPC 服务 + Prometheus + Grafana + Jaeger）见 docker-compose.yml
+
+services:
+  pmtec-engine:
+    build: .
+    image: pmtec-digital-twin:latest
+    container_name: pmtec-demo-engine
+    entrypoint: ["python", "-X", "utf8", "main.py"]
+    command: ["--duration", "9999999", "--saturation"]
+    ports:
+      - "8080:8080"   # REST API (AI 参谋官 / 孪生同步 / 状态)
+      - "8765:8765"   # WebSocket 实时推送
+      - "50051:50051" # gRPC WarEngine
+    environment:
+      - PYTHONUNBUFFERED=1
+      - PMTEC_ADVERSARY_AGGRESSION=0.8
+      - PMTEC_ADVERSARY_MAX_CONCURRENT=12
+      - PMTEC_ADVERSARY_SALVO_MAX=4
+    volumes:
+      - pmtec-demo-output:/pmtec/output
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://localhost:8080/api/v1/health', timeout=5)",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+  # 展示中心: 静态托管 output/ (index / 实时大屏 / 仪表盘 / AI 报告)
+  pmtec-display:
+    image: nginx:alpine
+    container_name: pmtec-demo-display
+    ports:
+      - "8888:80"
+    volumes:
+      - pmtec-demo-output:/usr/share/nginx/html:ro
+    depends_on:
+      pmtec-engine:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  pmtec-demo-output:
+    name: pmtec-demo-output

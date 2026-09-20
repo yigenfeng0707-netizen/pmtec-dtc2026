@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""生成 output/dt_dashboard.html —— 数字孪生专属仪表盘。
+
+实时轮询 REST /api/v1/dt/sync + /api/v1/dt/instances，展示：
+  - 注册表实例状态 | 孪生体统计（保真度/偏差） | 策略反哺模型
+  - Top 孪生体卡片（物理域 vs 虚拟域双栏对照）
+自动 2s 刷新；REST 不可达时显示降级提示。
+"""
+import os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, "output", "dt_dashboard.html")
+
+HTML = r"""<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<title>PMTEC 数字孪生仪表盘 - DT Dashboard</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Segoe UI","Microsoft YaHei",sans-serif; background:#0a0e17;
+         color:#c9d1d9; padding:24px 32px; }
+  h1 { font-size:22px; color:#fff; }
+  h1 span { color:#2ec4b6; }
+  .sub { color:#8b949e; font-size:13px; margin:6px 0 18px; }
+  #conn { position:fixed; top:20px; right:28px; padding:6px 14px; border-radius:14px;
+          font-size:12px; background:#1a2a1a; color:#4ef59e; border:1px solid #2a6a3a; }
+  #conn.down { background:#2a1a1a; color:#f54e4e; border-color:#6a2a2a; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px; }
+  .kpi { background:#111827; border:1px solid #1b263b; border-radius:10px;
+         padding:16px 22px; min-width:150px; }
+  .kpi b { display:block; font-size:26px; color:#2ec4b6; }
+  .kpi span { font-size:12px; color:#8b949e; }
+  h2 { font-size:15px; color:#2ec4b6; margin:22px 0 10px;
+       border-left:4px solid #2ec4b6; padding-left:10px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; background:#111827;
+          border-radius:8px; overflow:hidden; }
+  th, td { padding:8px 14px; text-align:left; border-bottom:1px solid #1b263b; }
+  th { color:#8b949e; font-weight:normal; }
+  .bar { background:#0a0e17; border-radius:4px; height:8px; width:130px;
+         display:inline-block; vertical-align:middle; }
+  .bar i { display:block; height:100%; border-radius:4px; background:#2ec4b6; }
+  .twincard { background:#111827; border:1px solid #1b263b; border-radius:10px;
+              padding:14px 18px; min-width:300px; flex:1; max-width:460px; }
+  .twincard h3 { font-size:14px; color:#4e9af5; margin-bottom:6px; }
+  .twincard .meta { font-size:11px; color:#8b949e; margin-bottom:8px; }
+  .twincard .pv { display:flex; gap:12px; font-size:12px; }
+  .twincard .pv > div { flex:1; background:#0a0e17; border-radius:6px; padding:8px 10px; }
+  .twincard .pv b { font-size:11px; display:block; margin-bottom:4px; }
+  .phys b { color:#f5b84e; } .virt b { color:#9e4ef5; }
+  .twincard .pv div { line-height:1.7; }
+  .warn { color:#f5b84e; }
+  .grid { display:flex; gap:16px; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<div id="conn">连接中...</div>
+<h1>PMTEC <span>数字孪生仪表盘</span></h1>
+<div class="sub">Digital Twin Dashboard · 虚实同步层实时视图 · 每 2 秒自动刷新 ·
+数据源 REST /api/v1/dt/sync</div>
+
+<div class="row" id="kpis"></div>
+
+<h2>策略反哺模型（孪生 → ASDA Decide）</h2>
+<div id="strategy"></div>
+
+<h2>Top 孪生体（物理域 ↔ 虚拟域）</h2>
+<div class="grid" id="twins"></div>
+
+<h2>注册表实例 (DTRegistry)</h2>
+<div id="instances"></div>
+
+<script>
+var REST = 'http://localhost:8080/api/v1';
+
+function setConn(ok) {
+  var c = document.getElementById('conn');
+  if (ok) { c.className = ''; c.textContent = '● REST 已连接'; }
+  else { c.className = 'down'; c.textContent = '● REST 不可达 — 请运行 python main.py --saturation'; }
+}
+
+function kpi(v, label, color) {
+  return '<div class="kpi"><b style="' + (color ? 'color:' + color : '') + '">' +
+         v + '</b><span>' + label + '</span></div>';
+}
+
+function renderSummary(s) {
+  if (!s) { document.getElementById('kpis').innerHTML = '<div class="kpi"><b>--</b><span>引擎未运行</span></div>'; return; }
+  var bk = s.by_kind || {};
+  document.getElementById('kpis').innerHTML =
+    kpi(s.total_twins || 0, '孪生体总数') +
+    kpi(((s.avg_fidelity || 0) * 100).toFixed(1) + '%', '平均保真度',
+        s.avg_fidelity > 0.9 ? '#2ec4b6' : '#f5b84e') +
+    kpi(s.engine_syncs || 0, '引擎同步次数') +
+    kpi((bk.base || 0) + ' / ' + (bk.threat || 0), '基地孪生 / 威胁孪生') +
+    kpi(s.strategy_overrides || 0, '孪生策略反哺次数',
+        s.strategy_overrides > 0 ? '#9e4ef5' : '#8b949e');
+  var st = s.strategy_model || {};
+  var keys = Object.keys(st);
+  document.getElementById('strategy').innerHTML = keys.length
+    ? '<table><tr><th>弹型 | 策略</th><th>成功率</th><th>样本</th><th></th></tr>' +
+      keys.map(function(k) {
+        var v = st[k];
+        var pct = (v.success_rate * 100).toFixed(0);
+        return '<tr><td>' + k.replace('|', ' × ') + '</td><td>' + pct +
+               '%</td><td>' + v.n + '</td><td><span class="bar"><i style="width:' +
+               pct + '%"></i></span></td></tr>';
+      }).join('') + '</table>'
+    : '<div class="sub">暂无交战样本 — 齐射开始后自动累积</div>';
+}
+
+function renderTwins(twins) {
+  document.getElementById('twins').innerHTML = (twins || []).map(function(t) {
+    var ph = t.physical || {}, vi = t.virtual || {};
+    var phStr = Object.keys(ph).map(function(k){ return k + ': ' + ph[k]; }).join('<br>') || '—';
+    var viStr = Object.keys(vi).map(function(k){ return k + ': ' + vi[k]; }).join('<br>') || '—';
+    var fid = ((t.fidelity || 0) * 100).toFixed(0);
+    var fidColor = t.fidelity > 0.9 ? '#2ec4b6' : (t.fidelity > 0.75 ? '#f5b84e' : '#f54e4e');
+    return '<div class="twincard"><h3>' + t.name + '</h3>' +
+      '<div class="meta">' + t.twin_id + ' · 同步 ' + t.sync_count + ' 次</div>' +
+      '<div style="margin-bottom:8px;">保真度 <span class="bar"><i style="width:' +
+      fid + '%;background:' + fidColor + '"></i></span> <b style="color:' + fidColor +
+      '">' + fid + '%</b> <span class="warn">' +
+      (t.mean_deviation > 0.05 ? '⚠ 偏差 ' + t.mean_deviation : '') + '</span></div>' +
+      '<div class="pv"><div class="phys"><b>物理域 (实际观测)</b>' + phStr +
+      '</div><div class="virt"><b>虚拟域 (模型预测)</b>' + viStr + '</div></div></div>';
+  }).join('') || '<div class="sub">暂无孪生体</div>';
+}
+
+function renderInstances(list) {
+  document.getElementById('instances').innerHTML = (list && list.length)
+    ? '<table><tr><th>实例 ID</th><th>名称</th><th>场景</th><th>状态</th><th>标签</th></tr>' +
+      list.map(function(i) {
+        return '<tr><td>' + i.instance_id + '</td><td>' + i.name + '</td><td>' +
+               i.scenario + '</td><td style="color:#4ef59e;">' + i.status +
+               '</td><td>' + (i.tags || []).join(', ') + '</td></tr>';
+      }).join('') + '</table>'
+    : '<div class="sub">注册表为空</div>';
+}
+
+function poll() {
+  Promise.all([
+    fetch(REST + '/dt/sync').then(function(r){ return r.json(); }),
+    fetch(REST + '/dt/instances').then(function(r){ return r.json(); }),
+  ]).then(function(rs) {
+    setConn(true);
+    renderSummary(rs[0].summary);
+    renderTwins(rs[0].top_twins);
+    renderInstances(rs[1]);
+  }).catch(function() { setConn(false); });
+}
+poll();
+setInterval(poll, 2000);
+</script>
+</body>
+</html>"""
+
+with open(OUT, "w", encoding="utf-8") as f:
+    f.write(HTML)
+print(f"[OK] dt_dashboard -> {OUT}")
