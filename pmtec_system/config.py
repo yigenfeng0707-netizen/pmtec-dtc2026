@@ -9,6 +9,18 @@ GENERATED_DIR = os.path.join(PROTO_DIR, "generated")
 BASES_GEOJSON = os.path.join(DATA_DIR, "bases.geojson")
 OUTPUT_DIR = os.path.join(PROJECT_ROOT, "output")
 
+# P13: LLM AI Analyst (StepFun Token Plan, OpenAI-compatible)
+# env override: PMTEC_LLM_API_KEY / PMTEC_LLM_MODEL / PMTEC_LLM_ENABLED ...
+LLM_CONFIG = {
+    "enabled": True,
+    "api_key": "3vZfQUCfxYfjN7RP8wcTTHPL64ffq9R1ami1eXut0NxmcNQnGTmEyJhefG6V4XTfA",
+    "base_url": "https://api.stepfun.com/step_plan/v1",
+    "model": "step-3.7-flash",
+    "max_tokens": 8192,
+    "temperature": 0.4,
+    "timeout_s": 180,
+}
+
 # gRPC server
 GRPC_HOST = "localhost"
 GRPC_PORT = 50051

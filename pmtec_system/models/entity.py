@@ -200,6 +200,14 @@ class MissileEntity(BattlefieldEntity):
         self.impact_time: float = 0.0
         self.set_heading_toward(target_lat, target_lon)
 
+    def to_dict(self) -> dict:
+        d = super().to_dict()
+        # P13: target coordinates for 3D threat-trajectory rendering
+        d["target_lat"] = round(self.target_lat, 4)
+        d["target_lon"] = round(self.target_lon, 4)
+        d["cep_m"] = self.cep
+        return d
+
     def update(self, dt_seconds: float):
         """Update missile trajectory."""
         if self.status != "active":

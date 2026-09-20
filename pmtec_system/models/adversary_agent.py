@@ -38,10 +38,12 @@ class AdversaryAgent:
         aggression_level: float = 0.5,
         seed: int = 42,
         max_concurrent_threats: int = 8,
+        max_missiles_per_salvo: int = 1,
     ):
         self.baseline_aggression = aggression_level
         self._rng = random.Random(seed)
         self._max_concurrent = max_concurrent_threats
+        self._max_salvo = max(1, max_missiles_per_salvo)
         self._attack_history: list[dict] = []
         self._attack_count = 0  # Total attacks decided (even if outcome unknown)
         self._cycles_since_last_attack = 0
@@ -209,12 +211,19 @@ class AdversaryAgent:
         # Cyber: attack C2 if hub (disrupt coordination before kinetic strike)
         coordinated_cyber = target_assessment["is_hub"] and self._rng.random() < 0.35
 
+        # --- 9. P13: Salvo size (saturation attack support) ---
+        remaining_capacity = self._max_concurrent - active_missiles
+        salvo_size = min(
+            self._rng.randint(1, self._max_salvo),
+            max(remaining_capacity, 1),
+        )
+
         reasoning = (
             f"Target {target['id']} ({target['name']}): "
             f"value={target_assessment['value']}, "
             f"vuln={target_assessment['vulnerability']}, "
             f"priority={target_assessment['priority']}. "
-            f"Missile={missile_type}. "
+            f"Missile={missile_type} salvo={salvo_size}. "
             f"EW_support={coordinated_ew}, Cyber_support={coordinated_cyber}"
         )
 
@@ -226,6 +235,7 @@ class AdversaryAgent:
             "missile_type": missile_type,
             "launch_lat": launch_lat,
             "launch_lon": launch_lon,
+            "salvo_size": salvo_size,
             "coordinated_ew": coordinated_ew,
             "coordinated_cyber": coordinated_cyber,
             "reasoning": reasoning,

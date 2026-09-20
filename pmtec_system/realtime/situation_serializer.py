@@ -14,6 +14,7 @@ class SituationSerializer:
         self._last_snapshot: dict[str, dict] = {}
         self._last_sim_time: float = 0.0
         self._last_cycle: int = 0
+        self._last_twin_syncs = None
 
     def serialize_full(self, state: dict, events: list = None) -> str:
         """Serialize full state snapshot (initial push)."""
@@ -28,6 +29,8 @@ class SituationSerializer:
             "network_vulnerability": state.get("network_vulnerability", 0),
             "total_entities": state.get("total_entities", 0),
             "total_tracks": len(tracks),
+            "twin_summary": state.get("twin_summary"),
+            "twin_top": state.get("twin_top", []),
             "entities": {e["id"]: e for e in entities},
             "tracks": tracks,
             "events": events[-20:] if events else [],
@@ -61,10 +64,16 @@ class SituationSerializer:
 
         removed_ids = set(self._last_snapshot.keys()) - current_ids
 
+        # P13: twin sync updates must also trigger a delta push
+        twin = state.get("twin_summary") or {}
+        twin_changed = twin.get("engine_syncs") != self._last_twin_syncs
+        self._last_twin_syncs = twin.get("engine_syncs")
+
         if (
             not changed
             and not added
             and not removed_ids
+            and not twin_changed
             and state.get("asda_cycle", 0) == self._last_cycle
         ):
             return None
@@ -78,6 +87,8 @@ class SituationSerializer:
             "network_vulnerability": state.get("network_vulnerability", 0),
             "total_entities": state.get("total_entities", 0),
             "total_tracks": len(state.get("tracks", [])),
+            "twin_summary": state.get("twin_summary"),
+            "twin_top": state.get("twin_top", []),
             "changed": changed,
             "added": added,
             "removed_ids": list(removed_ids),

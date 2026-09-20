@@ -285,11 +285,23 @@ class PoliticalAccessModel:
     @classmethod
     def from_bases(cls, bases: list[dict], config_path: str = None,
                    seed: int = 42) -> "PoliticalAccessModel":
-        """从引擎基地列表构建（含 access_uncertainty 字段的 v2 数据）。"""
+        """从引擎基地列表构建。
+
+        v2 数据用 access_uncertainty == "host_nation" 精确标记东道国站点；
+        v1 数据缺失该字段时，回退为"国家在 political_access.json 配置中出现
+        即视为东道国站点"的推断（不含 US 本土/属地）。
+        """
         model = cls(config_path=config_path, seed=seed)
         th = model.config.get("thresholds", {})
+        known_countries = set(model.config.get("countries", {}).keys())
         for b in bases:
-            if b.get("access_uncertainty") != "host_nation":
+            unc = b.get("access_uncertainty")
+            if unc is None:
+                # P13-fix: v1 兜底——配置里有的国家即东道国（排除 USA）
+                country = b.get("country", "")
+                if not country or country not in known_countries:
+                    continue
+            elif unc != "host_nation":
                 continue
             p = model._country_params(b.get("country", ""))
             site = AllySiteAccess(

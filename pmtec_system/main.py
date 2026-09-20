@@ -63,8 +63,18 @@ def run_simulation(
     generate_display: bool = True,
     export_report: bool = True,
     start_grpc: bool = True,
+    saturation: bool = False,
 ):
     """Run the PMTEC simulation."""
+    # P13: saturation scenario - heavier, more concurrent adversary pressure
+    if saturation:
+        os.environ["PMTEC_ADVERSARY_AGGRESSION"] = "0.8"
+        os.environ["PMTEC_ADVERSARY_MAX_CONCURRENT"] = "12"
+        os.environ["PMTEC_ADVERSARY_SALVO_MAX"] = "4"
+        scenario_name = f"{scenario_name}-Saturation"
+        print(
+            "[SATURATION] aggression=0.8, max_concurrent=12, salvo_max=4"
+        )
     print("=" * 70)
     print("PMTEC Digital Battlefield Simulation System")
     print("DTC 2026 Level 3 - Digital Twin Battlefield")
@@ -193,6 +203,35 @@ def run_simulation(
         json.dump(final_state, f, indent=2, ensure_ascii=False, default=str)
     print(f"       Final state: {state_path}")
 
+    # P13: LLM AI situational analysis
+    ai_analysis = None
+    try:
+        from services.llm_analyst import LLMAnalyst
+
+        ai_analyst = LLMAnalyst()
+        spear_report = engine.spear.generate_report()
+        ai_analysis = ai_analyst.generate_report_files(
+            final_state, spear_report, engine.spear.events[-500:]
+        )
+        if ai_analysis:
+            # P13: cache on engine for REST /api/v1/analysis
+            engine._ai_analysis = {
+                "status": "generated",
+                "model": ai_analyst.model,
+                "generated_at": time.strftime("%Y-%m-%d %H:%M:%S"),
+                "md_path": ai_analysis["md_path"],
+                "html_path": ai_analysis["html_path"],
+                "docx_path": ai_analysis.get("docx_path"),
+                "markdown": ai_analysis["markdown"],
+                "usage": ai_analyst.last_usage,
+            }
+            print(f"       AI situational analysis (md):  {ai_analysis['md_path']}")
+            print(f"       AI situational analysis (html): {ai_analysis['html_path']}")
+        else:
+            print("       AI situational analysis: unavailable (skipped)")
+    except Exception as e:  # graceful degradation: never break the sim pipeline
+        print(f"       AI situational analysis: failed ({e})")
+
     # P0-3: Save learning parameters
     learning_path = None
     if engine.learning:
@@ -307,6 +346,13 @@ def run_simulation(
     if engine.dt_registry:
         dt_stats = engine.dt_registry.aggregate_stats()
         print(f"  Digital Twin Registry: {dt_stats['total_instances']} instance(s)")
+        if engine.twin_sync:
+            ts = engine.twin_sync.summary()
+            print(
+                f"  Digital Twin Sync: {ts['total_twins']} twins, "
+                f"avg fidelity {ts['avg_fidelity']:.1%}, "
+                f"{ts['engine_syncs']} engine syncs"
+            )
         print()
     if display_path:
         print(f"  2D tactical display: file:///{display_path.replace(os.sep, '/')}")
@@ -319,6 +365,10 @@ def run_simulation(
     if spear_timeline_path:
         print(
             f"  SPEAR timeline:      file:///{spear_timeline_path.replace(os.sep, '/')}"
+        )
+    if ai_analysis:
+        print(
+            f"  AI analysis (html):  file:///{ai_analysis['html_path'].replace(os.sep, '/')}"
         )
     if report_path:
         print(f"  SPEAR report:        {report_path}")
@@ -335,6 +385,7 @@ def run_simulation(
         "realtime_display_path": realtime_display_path,
         "spear_timeline_path": spear_timeline_path,
         "learning_path": learning_path,
+        "ai_analysis": ai_analysis,
     }
 
 
@@ -370,6 +421,11 @@ def main():
     parser.add_argument(
         "--no-report", action="store_true", help="Skip SPEAR report export"
     )
+    parser.add_argument(
+        "--saturation",
+        action="store_true",
+        help="Saturation attack scenario (aggression=0.8, max 12 concurrent threats)",
+    )
     args = parser.parse_args()
 
     run_simulation(
@@ -379,6 +435,7 @@ def main():
         generate_display=not args.no_display,
         export_report=not args.no_report,
         start_grpc=not args.no_grpc,
+        saturation=args.saturation,
     )
 
 
