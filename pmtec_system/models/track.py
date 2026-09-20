@@ -167,7 +167,8 @@ class TrackManager:
 
     @property
     def active_tracks(self) -> list[Track]:
-        return [t for t in self.tracks.values() if not t.is_stale]
+        # P13.3-fix: 原子快照，防止与仿真主线程 update() 增删 tracks 的竞态
+        return [t for t in list(self.tracks.values()) if not t.is_stale]
 
     def status(self) -> dict:
         return {

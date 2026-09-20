@@ -99,6 +99,15 @@ try:
 except ImportError:
     _platform_available = False
 
+# P13: Digital twin sync layer (virtual-physical synchronization)
+try:
+    from dt_platform.twin_sync import TwinSyncManager
+
+    _twin_sync_available = True
+except ImportError:
+    TwinSyncManager = None
+    _twin_sync_available = False
+
 # P2-3: LVC Live real-world data adapters (ADS-B / AIS / Weather)
 try:
     from live_data import LiveAdapterManager
@@ -151,6 +160,9 @@ class PMTECEngine:
         self._sensors: list[SensorEntity] = []
         self._missiles: list[MissileEntity] = []
         self._missile_stats = {"intercepted": 0, "impacted": 0, "total_launched": 0}
+        self._adversary_outcomes_recorded: set[str] = set()
+        # P13: C2 反馈上报去重（拦截结果沿指挥链回流）
+        self._c2_feedback_sent: set[str] = set()
         self._app_store: dict[str, dict] = {}
         self._components: dict[str, dict] = {}
         self._start_time: float = 0
@@ -230,15 +242,33 @@ class PMTECEngine:
                 "[Engine] Platform initialized: PluginManager + RestGateway + DTRegistry"
             )
 
+        # P13: digital twin sync layer (base/threat/scenario twins)
+        self.twin_sync = None
+        if _twin_sync_available:
+            self.twin_sync = TwinSyncManager(registry=self.dt_registry)
+            print(
+                "[Engine] Digital Twin Sync Layer initialized "
+                "(base twins + threat twins + scenario twin)"
+            )
+
         # Track intercept outcomes for learning
         self._intercept_results: list[dict] = []
         self._dispersal_actions: list[dict] = []
 
         # P3-4: Rule-driven adversary agent (replaces random missile launch)
+        # P13: adversary intensity env-overridable for saturation scenarios
+        # (PMTEC_ADVERSARY_AGGRESSION / _MAX_CONCURRENT / _SALVO_MAX)
         self.adversary = AdversaryAgent(
-            aggression_level=0.3,
+            aggression_level=float(
+                os.environ.get("PMTEC_ADVERSARY_AGGRESSION", "0.3")
+            ),
             seed=SIM_RANDOM_SEED,
-            max_concurrent_threats=8,
+            max_concurrent_threats=int(
+                os.environ.get("PMTEC_ADVERSARY_MAX_CONCURRENT", "8")
+            ),
+            max_missiles_per_salvo=int(
+                os.environ.get("PMTEC_ADVERSARY_SALVO_MAX", "1")
+            ),
         )
         print(
             "[Engine] AdversaryAgent initialized (rule-driven hostile decision-making)"
@@ -597,6 +627,14 @@ class PMTECEngine:
             if self.plugin_manager:
                 self.plugin_manager.call_hook("post_asda_adapt", self)
 
+        # P13: digital twin sync every ASDA cycle (virtual <- physical),
+        # raising twin-sync/cycle matching from ~25% to 100%
+        if self.twin_sync:
+            try:
+                self.twin_sync.sync(self)
+            except Exception as exc:
+                print(f"[Engine] WARNING: twin sync failed: {exc}")
+
         self._emit_event(
             "asda_cycle",
             "ASDA-Engine",
@@ -624,25 +662,33 @@ class PMTECEngine:
             missile_type = decision["missile_type"]
             launch_lat = decision["launch_lat"]
             launch_lon = decision["launch_lon"]
+            salvo = int(decision.get("salvo_size", 1))
 
-            missile = MissileEntity(
-                missile_type,
-                launch_lat,
-                launch_lon,
-                target_base["lat"],
-                target_base["lon"],
-            )
-            self.lvc.virtual.add_entity(missile)
-            self._missiles.append(missile)
-            self._entities.append(missile)
-            self._missile_stats["total_launched"] += 1
+            # P13: salvo launch - staggered positions for saturation realism
+            missiles_in_salvo: list = []
+            for i in range(salvo):
+                jitter = 0.02 * i  # ~2.2 km dispersion between salvo members
+                missile = MissileEntity(
+                    missile_type,
+                    launch_lat + jitter,
+                    launch_lon + jitter * 0.6,
+                    target_base["lat"],
+                    target_base["lon"],
+                )
+                self.lvc.virtual.add_entity(missile)
+                self._missiles.append(missile)
+                self._entities.append(missile)
+                self._missile_stats["total_launched"] += 1
+                missiles_in_salvo.append(missile)
+            primary = missiles_in_salvo[0]
             self._emit_event(
                 "missile_launch",
                 "hostile",
-                f"{missile_type} launched toward {target_base['name']} "
-                f"({decision['reasoning']})",
+                f"{missile_type} x{salvo} salvo launched toward "
+                f"{target_base['name']} ({decision['reasoning']})",
                 {
                     "missile_type": missile_type,
+                    "salvo_size": salvo,
                     "target": target_base["id"],
                     "target_name": target_base["name"],
                     "lvc_layer": "Virtual",
@@ -673,7 +719,7 @@ class PMTECEngine:
                         "ew_type": ew_type,
                         "target": target_base["id"],
                         "lvc_layer": "Virtual",
-                        "coordinated_with": missile.id,
+                        "coordinated_with": primary.id,
                     },
                 )
 
@@ -696,7 +742,7 @@ class PMTECEngine:
                         "attack_type": cyber_type,
                         "target": target_base["id"],
                         "lvc_layer": "Constructive",
-                        "coordinated_with": missile.id,
+                        "coordinated_with": primary.id,
                     },
                 )
 
@@ -1311,8 +1357,34 @@ class PMTECEngine:
                 )
                 if missile:
                     threat_type = _SUBTYPE_TO_THREAT.get(missile.subtype, "ballistic")
-                    p = _BASE_PROBS.get(intercept_strategy, {}).get(threat_type, 0.5)
-                    p *= _TYPE_MATCH.get(intercept_strategy, {}).get(threat_type, 0.8)
+                    # P13-2: twin-guided strategy override (predictive feedback)
+                    used_strategy = intercept_strategy
+                    if self.twin_sync:
+                        rec, rec_p = self.twin_sync.recommend_strategy(
+                            missile.subtype,
+                            ["direct", "predictive", "saturation"],
+                        )
+                        if rec and rec != used_strategy:
+                            used_strategy = rec
+                            self.twin_sync.strategy_overrides += 1
+                            self._emit_event(
+                                "twin_guided_decision",
+                                "TwinSync",
+                                f"Twin-guided override: {missile.subtype} "
+                                f"{intercept_strategy} -> {rec} "
+                                f"(virtual model p={rec_p:.0%}, n-model calibrated)",
+                                {
+                                    "missile_type": missile.subtype,
+                                    "rl_strategy": intercept_strategy,
+                                    "twin_strategy": rec,
+                                    "predicted_prob": rec_p,
+                                    "asda_phase": "Decide",
+                                    "lvc_layer": "Constructive",
+                                },
+                            )
+                    missile.last_strategy = used_strategy
+                    p = _BASE_PROBS.get(used_strategy, {}).get(threat_type, 0.5)
+                    p *= _TYPE_MATCH.get(used_strategy, {}).get(threat_type, 0.8)
                     p *= 0.7 + 0.3 * track.confidence
                     # Time window bonus: more time remaining = higher intercept probability
                     time_remaining = (
@@ -1329,12 +1401,13 @@ class PMTECEngine:
                         self._emit_event(
                             "intercept_success",
                             "ASDA-Engine",
-                            f"Intercept SUCCESS: {missile.subtype} {missile.id} destroyed ({intercept_strategy})",
+                            f"Intercept SUCCESS: {missile.subtype} {missile.id} destroyed ({used_strategy})",
                             {
                                 "missile_id": missile.id,
                                 "missile_type": missile.subtype,
                                 "threat_type": threat_type,
-                                "intercept_strategy": intercept_strategy,
+                                "intercept_strategy": used_strategy,
+                                "twin_guided": used_strategy != intercept_strategy,
                                 "probability": round(p, 3),
                                 "asda_phase": "Decide",
                                 "lvc_layer": "Constructive",
@@ -1344,11 +1417,11 @@ class PMTECEngine:
                         self._emit_event(
                             "intercept_fail",
                             "ASDA-Engine",
-                            f"Intercept MISS: {missile.subtype} {missile.id} ({intercept_strategy}, p={p:.1%})",
+                            f"Intercept MISS: {missile.subtype} {missile.id} ({used_strategy}, p={p:.1%})",
                             {
                                 "missile_id": missile.id,
                                 "missile_type": missile.subtype,
-                                "intercept_strategy": intercept_strategy,
+                                "intercept_strategy": used_strategy,
                                 "probability": round(p, 3),
                             },
                         )
@@ -1371,8 +1444,32 @@ class PMTECEngine:
             if missile.status != "active" or missile.id in track_intercepted_ids:
                 continue
             threat_type = _SUBTYPE_TO_THREAT.get(missile.subtype, "ballistic")
-            p = _BASE_PROBS.get(intercept_strategy, {}).get(threat_type, 0.5)
-            p *= _TYPE_MATCH.get(intercept_strategy, {}).get(threat_type, 0.8)
+            # P13-2: twin-guided strategy override (predictive feedback)
+            used_strategy = intercept_strategy
+            if self.twin_sync:
+                rec, rec_p = self.twin_sync.recommend_strategy(
+                    missile.subtype, ["direct", "predictive", "saturation"]
+                )
+                if rec and rec != used_strategy:
+                    used_strategy = rec
+                    self.twin_sync.strategy_overrides += 1
+                    self._emit_event(
+                        "twin_guided_decision",
+                        "TwinSync",
+                        f"Twin-guided override: {missile.subtype} "
+                        f"{intercept_strategy} -> {rec} (virtual model p={rec_p:.0%})",
+                        {
+                            "missile_type": missile.subtype,
+                            "rl_strategy": intercept_strategy,
+                            "twin_strategy": rec,
+                            "predicted_prob": rec_p,
+                            "asda_phase": "Decide",
+                            "lvc_layer": "Constructive",
+                        },
+                    )
+            missile.last_strategy = used_strategy
+            p = _BASE_PROBS.get(used_strategy, {}).get(threat_type, 0.5)
+            p *= _TYPE_MATCH.get(used_strategy, {}).get(threat_type, 0.8)
             # Sensor confidence: use distance-based proxy
             nearest_sensor_dist = min(
                 (
@@ -1398,12 +1495,13 @@ class PMTECEngine:
                 self._emit_event(
                     "intercept_success",
                     "ASDA-Engine",
-                    f"Intercept SUCCESS: {missile.subtype} {missile.id} destroyed ({intercept_strategy})",
+                    f"Intercept SUCCESS: {missile.subtype} {missile.id} destroyed ({used_strategy})",
                     {
                         "missile_id": missile.id,
                         "missile_type": missile.subtype,
                         "threat_type": threat_type,
-                        "intercept_strategy": intercept_strategy,
+                        "intercept_strategy": used_strategy,
+                        "twin_guided": used_strategy != intercept_strategy,
                         "probability": round(p, 3),
                         "asda_phase": "Decide",
                         "lvc_layer": "Constructive",
@@ -1413,11 +1511,11 @@ class PMTECEngine:
                 self._emit_event(
                     "intercept_fail",
                     "ASDA-Engine",
-                    f"Intercept MISS: {missile.subtype} {missile.id} ({intercept_strategy}, p={p:.1%})",
+                    f"Intercept MISS: {missile.subtype} {missile.id} ({used_strategy}, p={p:.1%})",
                     {
                         "missile_id": missile.id,
                         "missile_type": missile.subtype,
-                        "intercept_strategy": intercept_strategy,
+                        "intercept_strategy": used_strategy,
                         "probability": round(p, 3),
                     },
                 )
@@ -1505,49 +1603,12 @@ class PMTECEngine:
     def _asda_adapt(self):
         """Adapt phase: apply decisions, update deployments, learn.
         P0-3: Records intercept/dispersal outcomes to learning manager,
-        updates strategy parameters for next cycle."""
-        # Check missile impacts and record intercept outcomes
+        updates strategy parameters for next cycle.
+        P13-fix: impact/damage/adversary-outcome/C2-feedback moved to
+        _update_entities (destruction moment) — they were dead code here
+        because destroyed missiles were already cleaned from _missiles."""
         intercept_success_count = 0
         intercept_attempt_count = len(self._intercept_results)
-
-        for missile in self._missiles:
-            if missile.status == "destroyed" and missile.impact_time > 0:
-                # Assess damage at impact site
-                impact_base = min(
-                    self._bases,
-                    key=lambda b: haversine(
-                        b["lat"], b["lon"], missile.lat, missile.lon
-                    ),
-                )
-                dist = haversine(
-                    impact_base["lat"], impact_base["lon"], missile.lat, missile.lon
-                )
-                if dist < 5.0:  # hit the base
-                    # Monte Carlo damage assessment (simplified)
-                    hit_prob = min(0.8, 1.0 - (missile.cep / 1000) / max(dist, 0.1))
-                    if random.random() < hit_prob:
-                        # Damage nearby aircraft
-                        nearby_ac = [
-                            e
-                            for e in self._entities
-                            if isinstance(e, AircraftEntity)
-                            and e.distance_to(missile.lat, missile.lon) < 5
-                            and e.status == "active"
-                        ]
-                        for ac in nearby_ac[:2]:  # max 2 damaged
-                            ac.status = "destroyed"
-                            self._emit_event(
-                                "damage",
-                                missile.id,
-                                f"{ac.subtype} {ac.id} destroyed at {impact_base['name']}",
-                                {
-                                    "base": impact_base["id"],
-                                    "ac_type": ac.subtype,
-                                    "missile_type": missile.subtype,
-                                    "lvc_layer": "Virtual",
-                                },
-                            )
-                missile.impact_time = 0  # mark as processed
 
         # P0-3: Record intercept outcomes for UCB1 learning
         # An intercept is "successful" if the missile was destroyed before impact
@@ -1577,16 +1638,6 @@ class PMTECEngine:
                 intercept_success_count += 1
 
         self._intercept_results.clear()
-
-        # P3-4: Record attack outcomes for adversary adaptive learning
-        for missile in self._missiles:
-            if missile.status == "destroyed":
-                # Determine if missile was intercepted (defense) or hit (attack success)
-                hit = missile.impact_time > 0
-                intercepted = missile.impact_time == 0
-                self.adversary.record_outcome(
-                    attack_id=missile.id, hit=hit, intercepted=intercepted
-                )
 
         # P0-3: Record dispersal outcomes for Q-learning
         for action in self._dispersal_actions:
@@ -1708,6 +1759,32 @@ class PMTECEngine:
                     },
                 )
 
+        # P13: Adapt 环节周期摘要事件（学习/政治/传感自适应落地证据）
+        lstats = self.learning.get_statistics() if self.learning else {}
+        pol_escal = (
+            round(self.political.escalation_level, 3)
+            if self.political and self.political.sites
+            else None
+        )
+        self._emit_event(
+            "adapt_summary",
+            "ASDA-Adapt",
+            f"Adapt cycle {self.asda_cycle_count}: "
+            f"intercept {intercept_success_count}/{intercept_attempt_count}, "
+            f"QLearn rounds={lstats.get('qlearning_actions', 0)}, "
+            f"escalation={pol_escal}",
+            {
+                "cycle": self.asda_cycle_count,
+                "intercept_attempts": intercept_attempt_count,
+                "intercept_successes": intercept_success_count,
+                "qlearning_actions": lstats.get("qlearning_actions", 0),
+                "escalation_level": pol_escal,
+                "active_missiles": sum(
+                    1 for m in self._missiles if m.status == "active"
+                ),
+            },
+        )
+
         # P0-1: Push real-time update after Adapt phase
         if self.realtime:
             state = self.get_state_dict()
@@ -1736,7 +1813,10 @@ class PMTECEngine:
             if hasattr(self.lvc, "fuse_tracks"):
                 kalman_tracks = self.lvc.fuse_tracks()
             if kalman_tracks:
-                self.store.save_kalman_tracks(self.asda_cycle_count, kalman_tracks)
+                try:
+                    self.store.save_kalman_tracks(self.asda_cycle_count, kalman_tracks)
+                except Exception as exc:
+                    print(f"[Engine] WARNING: kalman persist failed: {exc}")
             # Persist new SPEAR events from this cycle
             cycle_events = [
                 e
@@ -1747,7 +1827,14 @@ class PMTECEngine:
             if not cycle_events:
                 # Fallback: persist last 5 events if cycle tagging didn't work
                 cycle_events = self.spear.events[-5:]
-            self.store.save_events(self.asda_cycle_count, cycle_events)
+            try:
+                self.store.save_events(self.asda_cycle_count, cycle_events)
+            except Exception as exc:
+                # P13-fix: persistence failure must never kill the sim thread
+                print(
+                    f"[Engine] WARNING: persistence save failed "
+                    f"(cycle {self.asda_cycle_count}): {exc}"
+                )
 
     def _update_entities(self, dt: float):
         """Update all entity positions."""
@@ -1761,9 +1848,103 @@ class PMTECEngine:
         active_missiles = [m for m in self._missiles if m.status == "active"]
         destroyed = [m for m in self._missiles if m.status != "active"]
         for m in destroyed:
-            # Track impacted missiles (not intercepted: impact_time > 0)
+            # P13-fix: handle missile destruction HERE (missile still in hand),
+            # instead of in _asda_adapt where cleanup had already removed it.
             if m.impact_time > 0:
+                # --- impact: damage assessment at nearest base ---
                 self._missile_stats["impacted"] += 1
+                if self._bases:
+                    impact_base = min(
+                        self._bases,
+                        key=lambda b: haversine(
+                            b["lat"], b["lon"], m.lat, m.lon
+                        ),
+                    )
+                    dist = haversine(
+                        impact_base["lat"], impact_base["lon"], m.lat, m.lon
+                    )
+                    if dist < 5.0:  # hit the base
+                        hit_prob = min(
+                            0.8, 1.0 - (m.cep / 1000) / max(dist, 0.1)
+                        )
+                        if random.random() < hit_prob:
+                            nearby_ac = [
+                                e
+                                for e in self._entities
+                                if isinstance(e, AircraftEntity)
+                                and e.distance_to(m.lat, m.lon) < 5
+                                and e.status == "active"
+                            ]
+                            for ac in nearby_ac[:2]:  # max 2 damaged
+                                ac.status = "destroyed"
+                                self._emit_event(
+                                    "damage",
+                                    m.id,
+                                    f"{ac.subtype} {ac.id} destroyed at "
+                                    f"{impact_base['name']}",
+                                    {
+                                        "base": impact_base["id"],
+                                        "ac_type": ac.subtype,
+                                        "missile_type": m.subtype,
+                                        "lvc_layer": "Virtual",
+                                    },
+                                )
+            # --- adversary adaptive-learning outcome (deduped) ---
+            if m.id not in self._adversary_outcomes_recorded:
+                self._adversary_outcomes_recorded.add(m.id)
+                self.adversary.record_outcome(
+                    attack_id=m.id,
+                    hit=m.impact_time > 0,
+                    intercepted=m.impact_time == 0,
+                )
+            # --- P13: threat twin outcome (virtual model calibration) ---
+            if self.twin_sync:
+                self.twin_sync.record_threat_outcome(
+                    m.id,
+                    intercepted=m.impact_time == 0,
+                    missile_type=m.subtype,
+                    strategy=getattr(m, "last_strategy", None),
+                )
+            # --- C2 feedback: intercept/impact result flows back up the chain ---
+            if self.c2:
+                fid = f"fb-{m.id}"
+                if fid not in self._c2_feedback_sent:
+                    self._c2_feedback_sent.add(fid)
+                    src_base = self._c2_track_source.get(m.id, "")
+                    if not src_base and self._bases:
+                        src_base = min(
+                            self._bases,
+                            key=lambda b: haversine(
+                                b["lat"], b["lon"], m.lat, m.lon
+                            ),
+                        )["id"]
+                    if src_base:
+                        hit = m.impact_time > 0
+                        msg = self.c2.report_event(
+                            src_base,
+                            "intercept_feedback",
+                            payload={
+                                "attack_id": m.id,
+                                "outcome": "impact" if hit else "intercepted",
+                                "missile_type": m.subtype,
+                            },
+                            sim_time=self.clock.current.sim_seconds,
+                        )
+                        self._emit_event(
+                            "c2_feedback",
+                            "P11-C2Chain",
+                            f"C2 feedback: {src_base} -> INDOPACOM "
+                            f"({m.subtype} {'IMPACT' if hit else 'intercepted'}, "
+                            f"{msg.total_latency_s:.1f}s)",
+                            {
+                                "c2_message_id": msg.message_id,
+                                "source_base": src_base,
+                                "attack_id": m.id,
+                                "outcome": "impact" if hit else "intercepted",
+                                "latency_s": round(msg.total_latency_s, 2),
+                                "lvc_layer": "Constructive",
+                            },
+                        )
             self.lvc.virtual.remove_entity(m.id)
         self._missiles = active_missiles
         # Also clean up destroyed/neutralized entities from entities list
@@ -1793,11 +1974,23 @@ class PMTECEngine:
         self, event_type: str, source: str, description: str, data: dict = None
     ):
         """Emit and record a simulation event."""
+        data = dict(data or {})
+        # P13-fix: auto-tag ASDA phase/cycle so SPEAR reports and the AI
+        # analyst see a complete Act/Sense/Decide/Adapt distribution.
+        # (Previously most events were untagged -> Sense/Adapt showed 0.)
+        if "asda_phase" not in data:
+            data["asda_phase"] = (
+                ASDA_PHASES[(self.asda_phase_idx - 1) % 4]
+                if self.asda_cycle_count > 0
+                else "idle"
+            )
+        if "asda_cycle" not in data:
+            data["asda_cycle"] = self.asda_cycle_count
         evt = Event(
             event_type=event_type,
             timestamp=time.time(),
             source=source,
-            data=data or {},
+            data=data,
         )
         self.event_bus.publish(evt)
         evt_dict = evt.to_dict()
@@ -1807,11 +2000,15 @@ class PMTECEngine:
     def get_state_dict(self) -> dict:
         """Get current system state as dictionary."""
         # P4-3: Include Kalman tracks for 3D confidence heatmap
+        # P13.3-fix: REST/WebSocket/Prometheus 线程与仿真主线程（Sense 阶段
+        # fuse_tracks 增删）并发读写 _kalman_tracks，Python 层迭代 dict 中途
+        # 变更会抛 RuntimeError: dictionary changed size during iteration
+        # （live_demo6 T+36777s 复现）。list() 快照在 CPython 中原子完成。
         kalman_tracks = []
         if self.lvc and hasattr(self.lvc, "_kalman_tracks"):
             kalman_tracks = [
                 t.to_dict()
-                for t in self.lvc._kalman_tracks.values()
+                for t in list(self.lvc._kalman_tracks.values())
                 if t.status in ("tentative", "confirmed")
             ]
         # P4-3: Include weather impact for overlay
@@ -1828,7 +2025,9 @@ class PMTECEngine:
             if self.asda_cycle_count > 0
             else "idle",
             "network_vulnerability": round(self._calc_network_vulnerability(), 3),
-            "entities": [e.to_dict() for e in self._entities if e.status == "active"],
+            "entities": [
+                e.to_dict() for e in list(self._entities) if e.status == "active"
+            ],
             "tracks": [t.to_dict() for t in self.track_mgr.active_tracks],
             "kalman_tracks": kalman_tracks,
             "weather": weather,
@@ -1843,6 +2042,11 @@ class PMTECEngine:
             "c2_chain": self.c2.snapshot() if self.c2 else None,
             "ma_dqn_stats": self.ma_dqn.get_statistics() if self.ma_dqn else {},
             "persistence": self.store.get_summary() if self.store else {},
+            # P13: digital twin layer (visible to display / REST / AI analyst)
+            "twin_summary": self.twin_sync.summary() if self.twin_sync else None,
+            "twin_top": (
+                self.twin_sync.top_twins(limit=8) if self.twin_sync else []
+            ),
             # P6-fix: threat/intercept statistics (persistent counters)
             "threat_stats": {
                 "total_missiles": self._missile_stats["total_launched"],

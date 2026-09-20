@@ -53,6 +53,7 @@ _tmp_*.md
 # SQLite runtime files
 *.db-shm
 *.db-wal
+pmtec_system/data/persistence/corrupt_backup/
 
 # DuMate internal working directory
 .dumate/
