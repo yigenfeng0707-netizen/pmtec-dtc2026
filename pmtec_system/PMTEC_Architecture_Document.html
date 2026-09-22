@@ -566,6 +566,26 @@ Adapt 环节排除 Denied 站点再部署 + 敞口反馈对手模型 = 适应的
 
 <hr class="section-divider">
 
+<h2>15. P13-P14 政治韧性闭环与目标特性本体层（2026-09-12 ～ 09-22）</h2>
+<div class="card">
+<p><strong>P13 政治韧性全链路</strong>：政治准入状态机（Open/Restricted/Denied 三态 + 升级度累积）贯穿仿真、优化与决策全链路。主权打击场景下 9 个盟友站点被拒止，可用基地 67&rarr;58，部署优化器自动排除被拒站点，政治风险敞口作为 Pareto 第 6 目标显式压制。三场景隔离对照：拦截率 76.2% &rarr; 79.0% &rarr; 79.5%（数据净效应 +2.8pp，政治约束不降反稳）。十万次蒙特卡洛敏感性（N=100000）：Denied 均值 0.14 / Restricted 均值 5.19 / 最差情形体系可用率 95.5%。</p>
+<p><strong>P14 目标特性本体层</strong>（<code>ontology/</code>，对标赛题B学术评分逻辑）：将数据底座形式化为可推理、可校验、可溯源的 OWL 2 DL 本体。</p>
+<table>
+<tr><th>能力</th><th>实现</th><th>证据</th></tr>
+<tr><td>TO 五元组建模</td><td>E=67 基地四子类互斥 + 16 跑道 + 3 接入状态共 86 实体；F=AirBase&equiv;&exist;hasPart.Runway</td><td><code>tc_ontology.py</code> &rarr; <code>target_characteristics.owl</code></td></tr>
+<tr><td>描述逻辑推理</td><td>HermiT 一致性证明，LaunchCapable=67；翻转测试：横田Denied即踢出可launch集（67&rarr;66）</td><td><code>validation_report.json</code></td></tr>
+<tr><td>SHACL 双向验证</td><td>正样本 67/67 全绿，负样本三注入（删军种码/纬度999/缺状态）全部报警</td><td><code>shapes.ttl</code> + pySHACL</td></tr>
+<tr><td>D-S 置信度</td><td>数据精度 A/A-/B 分级（45/21/1）双路 mass 函数 Dempster 合成：Bel(Open)&isin;[0.67,0.92]，冲突 K&lt;0.08 零拒绝</td><td><code>confidence.py</code> &rarr; <code>confidence_report.json</code></td></tr>
+<tr><td>PROV-O 溯源</td><td>逐断言回指 CRS R47589 / FY2024 基地结构报告 / v1 库，共 643 三元组</td><td><code>provenance.ttl</code></td></tr>
+<tr><td>SPARQL 杀伤网</td><td>PAE 攻击优先级 Top10（Hickam/Kadena/Andersen）、主权基地效应器匹配（JBER F-22 / Eielson F-35A）、COA 单跑道脆弱 13 站全有同国替代</td><td><code>sparql_killnet_report.json</code></td></tr>
+<tr><td>概率校准实算</td><td>饱和攻击 35 判定样本 Brier=0.1128（DF-17 p=0.946/n=27、DF-26 p=0.833/n=8），入孪生终态 calibration 字段</td><td><code>twin_sync.py</code></td></tr>
+<tr><td>失效边界</td><td>三问答案卡：非可推理属性、翻转条件扫描（m(Denied) 0.35&rarr;0.40 时 Bel 0.568&rarr;0.400）、Tinian B 级无知区间防御</td><td><code>failure_boundary_card.md</code></td></tr>
+</table>
+<p>验收：<code>test_p14_ontology.py</code> 21/21 断言全过；GitHub Actions 六阶段全绿。</p>
+</div>
+
+<hr class="section-divider">
+
 <h2>技术栈总览</h2>
 <div class="card">
 <table>
@@ -580,13 +600,14 @@ Adapt 环节排除 Denied 站点再部署 + 敞口反馈对手模型 = 适应的
 <tr><td>部署</td><td>Docker (多阶段构建), docker-compose (7 服务), GitHub Actions (6 阶段)</td></tr>
 <tr><td>GPU 加速</td><td>Intel Arc Graphics 8.58GB, XPU 后端</td></tr>
 <tr><td>实时数据</td><td>OpenSky Network API, Open-Meteo API</td></tr>
+<tr><td>知识表示（P14）</td><td>OWL 2 DL (owlready2), HermiT 推理, pySHACL, D-S 证据理论, PROV-O, rdflib/SPARQL</td></tr>
 </table>
 </div>
 
 <div class="footer">
 <p>PMTEC Digital Battlefield System &mdash; DTC 2026 Level 3<br>
-24,794 lines of Python (pmtec_system + ace_deployment) / 103 files / DQN 219-dim political model (XPU 200K-step) / Monte Carlo 79.1% (6 strategies, 150 episodes)<br>
-Generated: 2026-09-12 (P13)</p>
+37,460 lines of Python (pmtec_system + ace_deployment, 132 files) / DQN 219-dim political model (XPU 200K-step) / Monte Carlo 79.1% (6 strategies, 150 episodes) / OWL 2 DL ontology (86 individuals, HermiT + SHACL + D-S + PROV-O, Brier 0.1128)<br>
+Generated: 2026-09-23 (P14)</p>
 </div>
 
 </body>
