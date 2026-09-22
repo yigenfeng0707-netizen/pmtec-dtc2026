@@ -324,6 +324,14 @@ class TwinSyncManager:
                     }
                 )
         worst.sort(key=lambda x: -x["deviation"])
+        # P14: 拦截概率预测的 Brier 校准（每个已判定威胁孪生一个 (p, o) 对）
+        pairs = []
+        for t in self.twins.values():
+            if t.kind == "threat" and "outcome" in (t.physical or {}):
+                p = (t.virtual or {}).get("predicted_intercept_prob", 0.5)
+                o = 1.0 if t.physical["outcome"] == "intercepted" else 0.0
+                pairs.append((p, o))
+        brier = (sum((p - o) ** 2 for p, o in pairs) / len(pairs)) if pairs else None
         return {
             "total_twins": len(self.twins),
             "by_kind": by_kind,
@@ -331,6 +339,10 @@ class TwinSyncManager:
             "engine_syncs": self.sync_count,
             "last_sync_wall": self.last_sync_wall,
             "deviating_twins": worst[:5],
+            "calibration": {
+                "samples": len(pairs),
+                "brier_score": round(brier, 4) if brier is not None else None,
+            },
             "intercept_model": {
                 k: {"p": round(v["p"], 3), "n": v["n"]}
                 for k, v in self._intercept_model.items()

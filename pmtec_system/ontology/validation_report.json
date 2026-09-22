@@ -1,0 +1,12 @@
+{
+  "hermit": {
+    "consistent": true,
+    "access_denied_count": 0,
+    "launch_capable_count": 67
+  },
+  "shacl": {
+    "conforms": true,
+    "violation_count": 0,
+    "violations": []
+  }
+}

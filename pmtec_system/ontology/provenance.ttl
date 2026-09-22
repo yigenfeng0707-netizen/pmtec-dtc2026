@@ -1,0 +1,721 @@
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tc: <http://pmtec.example.org/tc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+tc:assertion_AK_CLEAR a prov:Entity ;
+    rdfs:label "Clear Space Force Station 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AK_EARECKSON a prov:Entity ;
+    rdfs:label "Eareckson Air Station 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AK_EIELSON a prov:Entity ;
+    rdfs:label "Eielson AFB 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.8e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AK_GREELEY a prov:Entity ;
+    rdfs:label "Fort Greely 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AK_JBER a prov:Entity ;
+    rdfs:label "Joint Base Elmendorf-Richardson 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.8e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AK_WAINWRIGHT a prov:Entity ;
+    rdfs:label "Fort Wainwright 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AU_DARWIN a prov:Entity ;
+    rdfs:label "RAAF Base Darwin 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AU_HOLT a prov:Entity ;
+    rdfs:label "Naval Communication Station Harold E. Holt 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AU_ROBERTSON a prov:Entity ;
+    rdfs:label "Robertson Barracks 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_AU_TINDAL a prov:Entity ;
+    rdfs:label "RAAF Base Tindal 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_BEALE a prov:Entity ;
+    rdfs:label "Beale Air Force Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_CORONADO a prov:Entity ;
+    rdfs:label "Naval Base Coronado 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_MIRAMAR a prov:Entity ;
+    rdfs:label "Marine Corps Air Station Miramar 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_PENDLETON a prov:Entity ;
+    rdfs:label "Marine Corps Base Camp Pendleton 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_POINTLOMA a prov:Entity ;
+    rdfs:label "Naval Base Point Loma 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_SANDIEGO a prov:Entity ;
+    rdfs:label "Naval Base San Diego 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_TRAVIS a prov:Entity ;
+    rdfs:label "Travis Air Force Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_VANDENBERG a prov:Entity ;
+    rdfs:label "Vandenberg Space Force Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CA_VENTURA a prov:Entity ;
+    rdfs:label "Naval Base Ventura County 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_CNMI_TINIAN a prov:Entity ;
+    rdfs:label "Tinian North Field 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.8e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "B" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_GU_ANDERSEN a prov:Entity ;
+    rdfs:label "Andersen AFB 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.6e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_GU_APRA a prov:Entity ;
+    rdfs:label "Naval Base Guam 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.6e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_GU_BLAZ a prov:Entity ;
+    rdfs:label "Marine Corps Base Camp Blaz 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.4e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_MCBH a prov:Entity ;
+    rdfs:label "Marine Corps Base Hawaii 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_PHICKAM a prov:Entity ;
+    rdfs:label "Joint Base Pearl Harbor-Hickam 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.8e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_PMRF a prov:Entity ;
+    rdfs:label "Pacific Missile Range Facility Barking Sands 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_SCHOFIELD a prov:Entity ;
+    rdfs:label "Schofield Barracks 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.8e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_SHAFTER a prov:Entity ;
+    rdfs:label "Fort Shafter 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_HI_WHEELER a prov:Entity ;
+    rdfs:label "Wheeler Army Airfield 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_IO_DIEGOGARCIA a prov:Entity ;
+    rdfs:label "Naval Support Facility Diego Garcia 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_ATSUGI a prov:Entity ;
+    rdfs:label "Naval Air Facility Atsugi 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_BUTLER a prov:Entity ;
+    rdfs:label "Marine Corps Base Camp Butler 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_FUTENMA a prov:Entity ;
+    rdfs:label "MCAS Futenma 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_IWAKUNI a prov:Entity ;
+    rdfs:label "MCAS Iwakuni 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_KADENA a prov:Entity ;
+    rdfs:label "Kadena Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_KYOGAMISAKI a prov:Entity ;
+    rdfs:label "Kyogamisaki Communications Site 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_MISAWA a prov:Entity ;
+    rdfs:label "Misawa Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_OKINAWA a prov:Entity ;
+    rdfs:label "Army Garrison Okinawa (Torii Station) 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_SASEBO a prov:Entity ;
+    rdfs:label "Sasebo Naval Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_SHARIKI a prov:Entity ;
+    rdfs:label "Shariki Communications Site 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_YOKOSUKA a prov:Entity ;
+    rdfs:label "Yokosuka Naval Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_YOKOTA a prov:Entity ;
+    rdfs:label "Yokota Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_JP_ZAMA a prov:Entity ;
+    rdfs:label "Camp Zama 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_CHINHAE a prov:Entity ;
+    rdfs:label "Fleet Activities Chinhae 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_DAEGU a prov:Entity ;
+    rdfs:label "Army Garrison Daegu 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_HUMPHREYS a prov:Entity ;
+    rdfs:label "Camp Humphreys 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_KUNSAN a prov:Entity ;
+    rdfs:label "Kunsan Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_MUJUK a prov:Entity ;
+    rdfs:label "Marine Corps Installations Camp Mujuk 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_OSAN a prov:Entity ;
+    rdfs:label "Osan Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_KR_YONGSAN a prov:Entity ;
+    rdfs:label "Army Garrison Yongsan-Casey 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_MH_KWAJALEIN a prov:Entity ;
+    rdfs:label "Army Garrison-Kwajalein Atoll 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_BALABAC a prov:Entity ;
+    rdfs:label "Balabac Island 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_BASA a prov:Entity ;
+    rdfs:label "Basa Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_BAUTISTA a prov:Entity ;
+    rdfs:label "Antonio Bautista Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_CAMILO a prov:Entity ;
+    rdfs:label "NB Camilo Osias 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_EBUEN a prov:Entity ;
+    rdfs:label "Benito Ebuen Air Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_LALLO a prov:Entity ;
+    rdfs:label "Lal-lo Airport 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 6.702e-01 ;
+    tc:plausibilityOpen 9.574e-01 ;
+    tc:precisionGrade "A-" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_LUMBIA a prov:Entity ;
+    rdfs:label "Lumbia Airport 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_MAGSAYSAY a prov:Entity ;
+    rdfs:label "Fort Magsaysay 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_PH_MELCHOR a prov:Entity ;
+    rdfs:label "Camp Melchor Dela Cruz 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_SG_NRCS a prov:Entity ;
+    rdfs:label "Navy Region Center Singapore 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 7.784e-01 ;
+    tc:plausibilityOpen 9.73e-01 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WA_EVERETT a prov:Entity ;
+    rdfs:label "Naval Station Everett 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WA_FAIRCHILD a prov:Entity ;
+    rdfs:label "Fairchild Air Force Base 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WA_JBLM a prov:Entity ;
+    rdfs:label "Joint Base Lewis-McChord 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WA_KITSAP a prov:Entity ;
+    rdfs:label "Naval Base Kitsap 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WA_WHIDBEY a prov:Entity ;
+    rdfs:label "Naval Air Station Whidbey Island 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 9.2e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+tc:assertion_WL_WAKE a prov:Entity ;
+    rdfs:label "Wake Island Airfield 接入状态断言（基线 c0=Open）" ;
+    tc:beliefOpen 8.4e-01 ;
+    tc:plausibilityOpen 1e+00 ;
+    tc:precisionGrade "A" ;
+    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
+
+<urn:pmtec:agent:tc-ontology-pipeline> a prov:SoftwareAgent .
+
+<urn:pmtec:source:v1:pmtec-22base-database> a prov:Entity ;
+    rdfs:label "P1-P8 时代 v1 基地库（22 站）" .
+
+<urn:pmtec:source:crs:R47589-TableA-1> a prov:Entity ;
+    rdfs:label "CRS Report R47589 Table A-1（美日菲澳基地清单）" .
+
+<urn:pmtec:source:dod:FY2024-Base-Structure-Report> a prov:Entity ;
+    rdfs:label "DoD FY2024 Base Structure Report" .
+
+<urn:pmtec:source:web:coordinate-verification> a prov:Entity ;
+    rdfs:label "多源坐标核验（公开地理数据交叉）" .
+
+<urn:pmtec:activity:geojson-to-abox-extraction> a prov:Activity ;
+    rdfs:label "indopacom_bases_v2.geojson → 目标特性本体 ABox 提取" ;
+    prov:atLocation "indopacom_bases_v2.geojson" ;
+    prov:used <urn:pmtec:source:crs:R47589-TableA-1>,
+        <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
+        <urn:pmtec:source:v1:pmtec-22base-database>,
+        <urn:pmtec:source:web:coordinate-verification> ;
+    prov:wasAssociatedWith <urn:pmtec:agent:tc-ontology-pipeline> .
+

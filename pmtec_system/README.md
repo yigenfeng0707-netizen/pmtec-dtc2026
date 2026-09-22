@@ -235,7 +235,62 @@ docker compose -f docker-compose.demo.yml up -d
 ```
 生产级分布式栈（4 gRPC + Prometheus + Grafana + Jaeger）保留在 `docker-compose.yml`。
 
+### P14: 目标特性本体（TO 五元组）+ 描述逻辑推理 + 置信度溯源层
+
+对标赛道二学术支撑材料《西太平洋战区目标特性本体构建》（胡权），把 P1-P13 的
+数据与决策资产形式化为可推理、可校验、可溯源的目标特性本体：
+
+**本体建模（`ontology/tc_ontology.py`）**——TO 五元组 ⟨E,A,R,F,Ax⟩ 落盘 OWL 2 DL：
+- E-实体：MilitaryInstallation（AirBase/NavalBase/LandBase/SupportSite 四子类 AllDisjoint）
+  + FacilityPart（Runway/Hangar/FuelDepot/RadarSite/DefensePosition）+ AccessState 三态 + Aircraft
+- A-属性 / F-函数：可观测特性（runwayLengthM/personnelCount/坐标/tier/军种/国别/驻防机型）
+  挂 observableProperty；BFO 对齐声明（独立实体/依附实体）
+- R-关系：hasPart（传递）/ partOf（逆）/ hasAccessState；AirBase ≡ ∃hasPart.Runway 定义类
+- Ax-公理：HermiT 一致性检查通过；LaunchCapable ≡ ∃hasAccessState.(Open⊔Restricted) 推理类，
+  AccessDeniedSite ≡ hasAccessState = {state_denied} ⊑ ¬LaunchCapable
+- 67 基地 + 16 跑道 + 3 状态共 86 实体自一级 GeoJSON 自动装配，实体 IRI 统一 `tc#` 命名空间
+
+**机器校验（`ontology/reason_check.py` + `shapes.ttl`）**——"本体是否正确"由算法裁决：
+- HermiT（推理机）：公理矛盾建模期拦截；基线 c0 推理 LaunchCapable=67 / AccessDenied=0
+- 翻转测试：任一基地状态改 Denied → 自动退出 LaunchCapable 且归入 AccessDeniedSite（已验证）
+- pySHACL：67 基地 0 违规全绿；负样本（删军种码/纬度 999/缺状态断言）全部报警命中
+
+**置信度与溯源（`ontology/confidence.py`）**——D-S 证据理论 + PROV-O：
+- 两路独立证据（坐标精度分级 A45/A-21/B1 × 政治准入类型 sovereign/host_nation/territory）
+  各建 mass 函数，Dempster 合成（冲突系数 K<0.08，零拒绝），输出 67 基地 Bel/Pl 区间：
+  Bel(Open) 0.67-0.92（均值 0.81）；Tinian B 级降级正确产生全帧最宽无知区间 Pl(Open)=1.0
+- PROV-O 溯源图 643 三元组：每条状态断言 wereDerivedFrom 证据源（CRS R47589 / DoD FY2024 BSR / v1 库）
+
+**杀伤网语义查询（`ontology/sparql_service.py`）**——目标特性 → 作战应用：
+- PAE 并列目标清单：Tier×跑道长度序攻首十点（Hickam/Kadena/Andersen 居前）
+- 效应器-目标匹配：主权基地战斗机联队检索（JBER F-22 / Eielson F-35A）零政治敞口响应轴
+- COA 行动方案：13 个单跑道依赖脆弱节点全部给出同国 ≥2000m 跑道疏散替代方案
+
+**Brier 概率校准（`dt_platform/twin_sync.py`）**：威胁孪生终结 (预测 p, 实际 o) 对回算
+Brier 分数入终态 `twin_summary.calibration`。饱和攻击实测（P14 重跑）：35 个判定样本，
+**BS=0.1128**（0 为完美；拦截率 90%，DF-17 模型收敛 p=0.946/n=27、DF-26 p=0.833/n=8）
+——拦截概率预测模型具备可量化的校准证据。
+
+**赛题B术语 ↔ PMTEC 资产对表**：
+
+| 支撑材料术语 | 本体论定义要点 | 本系统对应产物 |
+|--------------|----------------|----------------|
+| 目标特性本体 TO=⟨E,A,R,F,Ax⟩ | 五元组形式化 | `tc_ontology.py` → target_characteristics.owl |
+| 四大特性分类 | 可观测/功能/状态/脆弱性 | observableProperty / LaunchCapable / AccessState 三态 / singleRunwayDependency |
+| 最小完备性原则 | 只建决策必需概念 | 86 实体全部源自 GeoJSON 实测字段，零虚构概念 |
+| BFO 上层对齐 | 独立/依附实体 | BFO_ALIGNMENT 声明 + Runway ⊑ ∃partOf.基地 |
+| 描述逻辑推理 | 定义类自动归类 | HermiT：67 站推入 LaunchCapable；翻转测试通过 |
+| 数据质量约束 | 形状校验机器判定 | pySHACL 6 形状：正样本 0 违规 / 负样本 3/3 报警 |
+| 不确定性量化 | 置信区间而非点值 | D-S Bel/Pl（confidence_report.json，67 基地） |
+| 数据溯源 | 断言可回指证据源 | PROV-O provenance.ttl（643 三元组） |
+| 杀伤网 / PAE / COA | 特性→效应器→方案 | sparql_service.py 三类查询 |
+| 失效边界 | 结论在何种条件下翻转 | 三问答案卡（本体 validation 附录） |
+| 预测校准 | 概率预测 vs 结局 | Brier 分数（twin_sync calibration） |
+
+- 验收：`test_p14_ontology.py` 21 项全过（结构/推理/翻转/SHACL 正负/D-S 公理/溯源/杀伤网）
+
 ---
+
 
 ## AI 决策层级
 

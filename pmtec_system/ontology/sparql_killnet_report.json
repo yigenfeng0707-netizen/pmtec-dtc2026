@@ -1,0 +1,336 @@
+{
+  "pae_priority_targets": [
+    {
+      "base": "base_HI_PHICKAM",
+      "name": "Joint Base Pearl Harbor-Hickam",
+      "tier": 1,
+      "personnel": 44545,
+      "runway_m": 3769.0
+    },
+    {
+      "base": "base_JP_KADENA",
+      "name": "Kadena Air Base",
+      "tier": 1,
+      "personnel": 15000,
+      "runway_m": 3700.0
+    },
+    {
+      "base": "base_GU_ANDERSEN",
+      "name": "Andersen AFB",
+      "tier": 1,
+      "personnel": 6363,
+      "runway_m": 3414.0
+    },
+    {
+      "base": "base_JP_YOKOTA",
+      "name": "Yokota Air Base",
+      "tier": 1,
+      "personnel": 4200,
+      "runway_m": 3050.0
+    },
+    {
+      "base": "base_AK_JBER",
+      "name": "Joint Base Elmendorf-Richardson",
+      "tier": 1,
+      "personnel": 32000,
+      "runway_m": 3048.0
+    },
+    {
+      "base": "base_KR_HUMPHREYS",
+      "name": "Camp Humphreys",
+      "tier": 1,
+      "personnel": 28500,
+      "runway_m": 2438.0
+    },
+    {
+      "base": "base_AK_EIELSON",
+      "name": "Eielson AFB",
+      "tier": 2,
+      "personnel": 3000,
+      "runway_m": 4420.0
+    },
+    {
+      "base": "base_JP_MISAWA",
+      "name": "Misawa Air Base",
+      "tier": 2,
+      "personnel": 3600,
+      "runway_m": 3050.0
+    },
+    {
+      "base": "base_KR_OSAN",
+      "name": "Osan Air Base",
+      "tier": 2,
+      "personnel": 6752,
+      "runway_m": 2743.0
+    },
+    {
+      "base": "base_KR_KUNSAN",
+      "name": "Kunsan Air Base",
+      "tier": 2,
+      "personnel": 2650,
+      "runway_m": 2743.0
+    }
+  ],
+  "match_effector_sovereign_fighters": [
+    {
+      "base": "base_AK_EIELSON",
+      "name": "Eielson AFB",
+      "branch": "USAF",
+      "aircraft": "F-35A, F-16 (aggressor)"
+    },
+    {
+      "base": "base_AK_JBER",
+      "name": "Joint Base Elmendorf-Richardson",
+      "branch": "USAF/US Army",
+      "aircraft": "F-22, C-17, E-3"
+    }
+  ],
+  "coa_single_runway_alternatives": [
+    {
+      "fragile_node": "base_AK_EIELSON",
+      "name": "Eielson AFB",
+      "country": "USA",
+      "alternatives": [
+        {
+          "base": "base_HI_PHICKAM",
+          "name": "Joint Base Pearl Harbor-Hickam",
+          "runway_m": 3769.0
+        },
+        {
+          "base": "base_AK_JBER",
+          "name": "Joint Base Elmendorf-Richardson",
+          "runway_m": 3048.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_AK_JBER",
+      "name": "Joint Base Elmendorf-Richardson",
+      "country": "USA",
+      "alternatives": [
+        {
+          "base": "base_AK_EIELSON",
+          "name": "Eielson AFB",
+          "runway_m": 4420.0
+        },
+        {
+          "base": "base_HI_PHICKAM",
+          "name": "Joint Base Pearl Harbor-Hickam",
+          "runway_m": 3769.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_AU_DARWIN",
+      "name": "RAAF Base Darwin",
+      "country": "Australia",
+      "alternatives": [
+        {
+          "base": "base_AU_TINDAL",
+          "name": "RAAF Base Tindal",
+          "runway_m": 2744.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_AU_TINDAL",
+      "name": "RAAF Base Tindal",
+      "country": "Australia",
+      "alternatives": [
+        {
+          "base": "base_AU_DARWIN",
+          "name": "RAAF Base Darwin",
+          "runway_m": 2744.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_HI_PHICKAM",
+      "name": "Joint Base Pearl Harbor-Hickam",
+      "country": "USA",
+      "alternatives": [
+        {
+          "base": "base_AK_EIELSON",
+          "name": "Eielson AFB",
+          "runway_m": 4420.0
+        },
+        {
+          "base": "base_AK_JBER",
+          "name": "Joint Base Elmendorf-Richardson",
+          "runway_m": 3048.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_JP_FUTENMA",
+      "name": "MCAS Futenma",
+      "country": "Japan",
+      "alternatives": [
+        {
+          "base": "base_JP_KADENA",
+          "name": "Kadena Air Base",
+          "runway_m": 3700.0
+        },
+        {
+          "base": "base_JP_MISAWA",
+          "name": "Misawa Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_YOKOTA",
+          "name": "Yokota Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_IWAKUNI",
+          "name": "MCAS Iwakuni",
+          "runway_m": 2440.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_JP_IWAKUNI",
+      "name": "MCAS Iwakuni",
+      "country": "Japan",
+      "alternatives": [
+        {
+          "base": "base_JP_KADENA",
+          "name": "Kadena Air Base",
+          "runway_m": 3700.0
+        },
+        {
+          "base": "base_JP_MISAWA",
+          "name": "Misawa Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_YOKOTA",
+          "name": "Yokota Air Base",
+          "runway_m": 3050.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_JP_KADENA",
+      "name": "Kadena Air Base",
+      "country": "Japan",
+      "alternatives": [
+        {
+          "base": "base_JP_MISAWA",
+          "name": "Misawa Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_YOKOTA",
+          "name": "Yokota Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_IWAKUNI",
+          "name": "MCAS Iwakuni",
+          "runway_m": 2440.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_JP_MISAWA",
+      "name": "Misawa Air Base",
+      "country": "Japan",
+      "alternatives": [
+        {
+          "base": "base_JP_KADENA",
+          "name": "Kadena Air Base",
+          "runway_m": 3700.0
+        },
+        {
+          "base": "base_JP_YOKOTA",
+          "name": "Yokota Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_IWAKUNI",
+          "name": "MCAS Iwakuni",
+          "runway_m": 2440.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_JP_YOKOTA",
+      "name": "Yokota Air Base",
+      "country": "Japan",
+      "alternatives": [
+        {
+          "base": "base_JP_KADENA",
+          "name": "Kadena Air Base",
+          "runway_m": 3700.0
+        },
+        {
+          "base": "base_JP_MISAWA",
+          "name": "Misawa Air Base",
+          "runway_m": 3050.0
+        },
+        {
+          "base": "base_JP_IWAKUNI",
+          "name": "MCAS Iwakuni",
+          "runway_m": 2440.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_KR_HUMPHREYS",
+      "name": "Camp Humphreys",
+      "country": "South Korea",
+      "alternatives": [
+        {
+          "base": "base_KR_OSAN",
+          "name": "Osan Air Base",
+          "runway_m": 2743.0
+        },
+        {
+          "base": "base_KR_KUNSAN",
+          "name": "Kunsan Air Base",
+          "runway_m": 2743.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_KR_KUNSAN",
+      "name": "Kunsan Air Base",
+      "country": "South Korea",
+      "alternatives": [
+        {
+          "base": "base_KR_OSAN",
+          "name": "Osan Air Base",
+          "runway_m": 2743.0
+        },
+        {
+          "base": "base_KR_HUMPHREYS",
+          "name": "Camp Humphreys",
+          "runway_m": 2438.0
+        }
+      ]
+    },
+    {
+      "fragile_node": "base_KR_OSAN",
+      "name": "Osan Air Base",
+      "country": "South Korea",
+      "alternatives": [
+        {
+          "base": "base_KR_KUNSAN",
+          "name": "Kunsan Air Base",
+          "runway_m": 2743.0
+        },
+        {
+          "base": "base_KR_HUMPHREYS",
+          "name": "Camp Humphreys",
+          "runway_m": 2438.0
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "pae": 10,
+    "effector": 2,
+    "coa": 13
+  }
+}

@@ -1,719 +1,719 @@
 {
-  "sim_time": "T+00:02:00",
-  "sim_seconds": 120.0,
-  "total_entities": 45,
-  "active_tracks": 8,
-  "asda_cycle": 12,
+  "sim_time": "T+00:20:00",
+  "sim_seconds": 1200.0,
+  "total_entities": 51,
+  "active_tracks": 28,
+  "asda_cycle": 120,
   "asda_phase": "Adapt",
   "network_vulnerability": 0.0,
   "entities": [
     {
-      "id": "JP-YCV-01",
-      "uid": "07fde581",
-      "type": "aircraft",
-      "subtype": "CV-22",
-      "lat": 35.6551,
-      "lon": 139.3481,
-      "alt_m": 10000,
-      "heading": 165.8,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "JP-YOKOTA",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "JP-YCV-02",
-      "uid": "020cdc75",
-      "type": "aircraft",
-      "subtype": "CV-22",
-      "lat": 35.6186,
-      "lon": 139.3678,
-      "alt_m": 10000,
-      "heading": 165.8,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "JP-YOKOTA",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "JP-YC-101",
-      "uid": "cc146337",
-      "type": "aircraft",
-      "subtype": "C-130J",
-      "lat": 35.6647,
-      "lon": 139.4128,
-      "alt_m": 10000,
-      "heading": 165.9,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "JP-YOKOTA",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "JP-YC-102",
-      "uid": "cf2bc27f",
-      "type": "aircraft",
-      "subtype": "C-130J",
-      "lat": 35.6317,
-      "lon": 139.4261,
-      "alt_m": 10000,
-      "heading": 149.9,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "JP-YOKOTA",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
       "id": "JP-YU-201",
-      "uid": "235f6671",
+      "uid": "e2e8d4f3",
       "type": "aircraft",
       "subtype": "U-2",
-      "lat": 35.6334,
-      "lon": 139.3486,
+      "lat": 33.8244,
+      "lon": 139.9126,
       "alt_m": 10000,
       "heading": 165.8,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "JP-YOKOTA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-YU-202",
-      "uid": "68fe1ac6",
+      "uid": "27a151e8",
       "type": "aircraft",
       "subtype": "U-2",
-      "lat": 35.613,
-      "lon": 139.3958,
+      "lat": 33.7877,
+      "lon": 139.931,
+      "alt_m": 10000,
+      "heading": 165.8,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "JP-YOKOTA",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "JP-YC-101",
+      "uid": "0fc111fa",
+      "type": "aircraft",
+      "subtype": "C-130J",
+      "lat": 33.8326,
+      "lon": 139.9708,
       "alt_m": 10000,
       "heading": 165.9,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "JP-YOKOTA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "JP-YC-102",
+      "uid": "870d2011",
+      "type": "aircraft",
+      "subtype": "C-130J",
+      "lat": 35.3291,
+      "lon": 139.6414,
+      "alt_m": 10000,
+      "heading": 330.2,
+      "speed_kmh": 0,
+      "affiliation": "friendly",
+      "base_id": "JP-YOKOTA",
+      "status": "active",
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-YKC-01",
-      "uid": "0afaa10b",
+      "uid": "5faa9ab4",
       "type": "aircraft",
       "subtype": "KC-135",
-      "lat": 35.6073,
-      "lon": 139.3592,
+      "lat": 34.0542,
+      "lon": 139.8346,
       "alt_m": 10000,
       "heading": 165.8,
       "speed_kmh": 609.0,
       "affiliation": "friendly",
       "base_id": "JP-YOKOTA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-YKC-02",
-      "uid": "8a0be642",
+      "uid": "f23ecdbb",
       "type": "aircraft",
       "subtype": "KC-135",
-      "lat": 35.6695,
-      "lon": 139.3935,
+      "lat": 34.0331,
+      "lon": 139.8782,
       "alt_m": 10000,
       "heading": 165.9,
       "speed_kmh": 609.0,
       "affiliation": "friendly",
       "base_id": "JP-YOKOTA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "JP-KHH-01",
-      "uid": "46f7d654",
+      "id": "JP-YCV-01",
+      "uid": "634c72d9",
       "type": "aircraft",
-      "subtype": "HH-60",
-      "lat": 26.2815,
-      "lon": 127.9226,
+      "subtype": "CV-22",
+      "lat": 33.763,
+      "lon": 139.9292,
       "alt_m": 10000,
-      "heading": 125.2,
+      "heading": 165.8,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "JP-KADENA",
+      "base_id": "JP-YOKOTA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "JP-KHH-02",
-      "uid": "dfe47a74",
+      "id": "JP-YCV-02",
+      "uid": "16a592f6",
       "type": "aircraft",
-      "subtype": "HH-60",
-      "lat": 26.3403,
-      "lon": 127.8643,
+      "subtype": "CV-22",
+      "lat": 33.8243,
+      "lon": 139.9592,
+      "alt_m": 10000,
+      "heading": 165.9,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "JP-YOKOTA",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "JP-KE-301",
+      "uid": "c1e25a68",
+      "type": "aircraft",
+      "subtype": "E-3",
+      "lat": 25.3601,
+      "lon": 129.3619,
       "alt_m": 10000,
       "heading": 125.2,
-      "speed_kmh": 700.0,
+      "speed_kmh": 596.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "JP-KE-302",
+      "uid": "0fb33a50",
+      "type": "aircraft",
+      "subtype": "E-3",
+      "lat": 25.4184,
+      "lon": 129.3039,
+      "alt_m": 10000,
+      "heading": 125.2,
+      "speed_kmh": 596.0,
+      "affiliation": "friendly",
+      "base_id": "JP-KADENA",
+      "status": "active",
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-KKC-01",
-      "uid": "1f730d3e",
+      "uid": "9c24de66",
       "type": "aircraft",
       "subtype": "KC-135",
-      "lat": 26.3451,
-      "lon": 127.9145,
+      "lat": 25.3945,
+      "lon": 129.4039,
       "alt_m": 10000,
       "heading": 125.3,
       "speed_kmh": 609.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-KKC-02",
-      "uid": "b356758c",
+      "uid": "67a5d1b1",
       "type": "aircraft",
       "subtype": "KC-135",
-      "lat": 26.2989,
-      "lon": 127.8605,
+      "lat": 25.353,
+      "lon": 129.353,
       "alt_m": 10000,
       "heading": 125.1,
       "speed_kmh": 609.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "JP-KE-301",
-      "uid": "5d5495b3",
+      "id": "JP-KHH-01",
+      "uid": "855dc9c4",
       "type": "aircraft",
-      "subtype": "E-3",
-      "lat": 26.3611,
-      "lon": 127.8758,
+      "subtype": "HH-60",
+      "lat": 25.2627,
+      "lon": 129.6087,
       "alt_m": 10000,
       "heading": 125.3,
-      "speed_kmh": 596.0,
+      "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "JP-KE-302",
-      "uid": "20aee89e",
+      "id": "JP-KHH-02",
+      "uid": "8b1ef4b8",
       "type": "aircraft",
-      "subtype": "E-3",
-      "lat": 26.3688,
-      "lon": 127.7976,
+      "subtype": "HH-60",
+      "lat": 25.2889,
+      "lon": 129.5231,
       "alt_m": 10000,
-      "heading": 125.2,
-      "speed_kmh": 596.0,
+      "heading": 125.3,
+      "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "JP-KF-101",
-      "uid": "e3981018",
+      "uid": "74a45c69",
       "type": "aircraft",
       "subtype": "F-15C",
-      "lat": 26.5666,
-      "lon": 127.9934,
+      "lat": 23.6237,
+      "lon": 132.477,
       "alt_m": 10000,
       "heading": 125.9,
       "speed_kmh": 1858.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "JP-KF-102",
-      "uid": "78a81fae",
+      "uid": "d71ae380",
       "type": "aircraft",
       "subtype": "F-15C",
-      "lat": 26.5625,
-      "lon": 128.006,
+      "lat": 23.6186,
+      "lon": 132.4886,
       "alt_m": 10000,
       "heading": 126.0,
       "speed_kmh": 1858.0,
       "affiliation": "friendly",
       "base_id": "JP-KADENA",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "GU-AF-301",
-      "uid": "22a2f842",
+      "uid": "9fde7cb8",
       "type": "aircraft",
       "subtype": "F-35A",
-      "lat": 13.9347,
-      "lon": 144.9322,
+      "lat": 17.0201,
+      "lon": 144.2536,
       "alt_m": 10000,
       "heading": 348.0,
       "speed_kmh": 1169.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "GU-AF-302",
-      "uid": "dc9f0a08",
+      "uid": "611904a0",
       "type": "aircraft",
       "subtype": "F-35A",
-      "lat": 13.919,
-      "lon": 144.8903,
+      "lat": 17.0055,
+      "lon": 144.2171,
       "alt_m": 10000,
       "heading": 348.1,
       "speed_kmh": 1169.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "GU-AF-303",
-      "uid": "f952b86e",
+      "uid": "62964209",
       "type": "aircraft",
       "subtype": "F-35A",
-      "lat": 13.9641,
-      "lon": 144.8969,
+      "lat": 17.0501,
+      "lon": 144.2215,
       "alt_m": 10000,
       "heading": 348.1,
       "speed_kmh": 1169.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "GU-AF-304",
-      "uid": "3c680510",
+      "uid": "f24b9be0",
       "type": "aircraft",
       "subtype": "F-35A",
-      "lat": 13.9673,
-      "lon": 144.8928,
+      "lat": 17.0534,
+      "lon": 144.2177,
       "alt_m": 10000,
       "heading": 348.1,
       "speed_kmh": 1169.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
-      "id": "GU-AB-201",
-      "uid": "37f4b94f",
+      "id": "GU-AB-501",
+      "uid": "eab2d2ed",
       "type": "aircraft",
-      "subtype": "B-2",
-      "lat": 13.8123,
-      "lon": 144.8526,
+      "subtype": "B-52",
+      "lat": 15.6614,
+      "lon": 144.4551,
       "alt_m": 10000,
       "heading": 348.3,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "GU-AB-202",
-      "uid": "516782d4",
-      "type": "aircraft",
-      "subtype": "B-2",
-      "lat": 13.7647,
-      "lon": 144.8769,
-      "alt_m": 10000,
-      "heading": 348.2,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "GU-ANDERSEN",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "GU-AB-501",
-      "uid": "22df25ad",
-      "type": "aircraft",
-      "subtype": "B-52",
-      "lat": 13.7513,
-      "lon": 144.8859,
-      "alt_m": 10000,
-      "heading": 348.2,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "GU-ANDERSEN",
-      "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "GU-AB-502",
-      "uid": "dc42a979",
+      "uid": "4f131e9f",
       "type": "aircraft",
       "subtype": "B-52",
-      "lat": 13.7534,
-      "lon": 144.8904,
+      "lat": 15.6135,
+      "lon": 144.4786,
       "alt_m": 10000,
       "heading": 348.2,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "GU-AB-201",
+      "uid": "4b3a4dc5",
+      "type": "aircraft",
+      "subtype": "B-2",
+      "lat": 15.6001,
+      "lon": 144.4872,
+      "alt_m": 10000,
+      "heading": 348.2,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "GU-ANDERSEN",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "GU-AB-202",
+      "uid": "9e24cf6a",
+      "type": "aircraft",
+      "subtype": "B-2",
+      "lat": 15.6021,
+      "lon": 144.4913,
+      "alt_m": 10000,
+      "heading": 348.2,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "GU-ANDERSEN",
+      "status": "active",
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "GU-AB-101",
-      "uid": "2f38627b",
+      "uid": "3fd20461",
       "type": "aircraft",
       "subtype": "B-1B",
-      "lat": 13.8069,
-      "lon": 144.8991,
+      "lat": 15.6553,
+      "lon": 144.4984,
       "alt_m": 10000,
       "heading": 348.2,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "GU-AB-102",
-      "uid": "e232f149",
+      "uid": "adb88563",
       "type": "aircraft",
       "subtype": "B-1B",
-      "lat": 13.7804,
-      "lon": 144.8836,
+      "lat": 15.6291,
+      "lon": 144.4845,
       "alt_m": 10000,
       "heading": 348.2,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "GU-ANDERSEN",
       "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "KR-HUH-01",
-      "uid": "57f0efec",
-      "type": "aircraft",
-      "subtype": "UH-60",
-      "lat": 37.117,
-      "lon": 127.0924,
-      "alt_m": 10000,
-      "heading": 141.3,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "KR-HUMPHREYS",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "KR-HUH-02",
-      "uid": "7fc6799e",
-      "type": "aircraft",
-      "subtype": "UH-60",
-      "lat": 37.1551,
-      "lon": 127.0596,
-      "alt_m": 10000,
-      "heading": 141.3,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "KR-HUMPHREYS",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "KR-HCH-01",
-      "uid": "50ca1d98",
-      "type": "aircraft",
-      "subtype": "CH-47",
-      "lat": 37.1417,
-      "lon": 127.0565,
-      "alt_m": 10000,
-      "heading": 0.0,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "KR-HUMPHREYS",
-      "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 0
-    },
-    {
-      "id": "KR-HCH-02",
-      "uid": "4ee05a0a",
-      "type": "aircraft",
-      "subtype": "CH-47",
-      "lat": 37.1409,
-      "lon": 127.0215,
-      "alt_m": 10000,
-      "heading": 0.0,
-      "speed_kmh": 700.0,
-      "affiliation": "friendly",
-      "base_id": "KR-HUMPHREYS",
-      "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "KR-HAH-01",
-      "uid": "236dff8f",
+      "uid": "4f2df2e6",
       "type": "aircraft",
       "subtype": "AH-64",
-      "lat": 37.2235,
-      "lon": 127.0476,
+      "lat": 35.6437,
+      "lon": 128.56,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.3,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "KR-HAH-02",
-      "uid": "e725d3bb",
+      "uid": "b1e09a79",
       "type": "aircraft",
       "subtype": "AH-64",
-      "lat": 37.1802,
-      "lon": 127.0521,
+      "lat": 35.6821,
+      "lon": 128.5284,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.3,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
       "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "KR-OU-201",
-      "uid": "8a56ac59",
+      "id": "KR-HCH-01",
+      "uid": "a0704dc0",
       "type": "aircraft",
-      "subtype": "U-2",
-      "lat": 37.3347,
-      "lon": 127.0612,
+      "subtype": "CH-47",
+      "lat": 35.7579,
+      "lon": 128.4855,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.3,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "KR-OSAN",
+      "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "KR-OU-202",
-      "uid": "02d9ba68",
+      "id": "KR-HCH-02",
+      "uid": "ff8bc2ed",
       "type": "aircraft",
-      "subtype": "U-2",
-      "lat": 37.2733,
-      "lon": 126.9868,
+      "subtype": "CH-47",
+      "lat": 35.7584,
+      "lon": 128.4524,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.2,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "KR-OSAN",
+      "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "KR-OA-101",
-      "uid": "936c9a87",
+      "id": "KR-HUH-01",
+      "uid": "3eaab7f1",
       "type": "aircraft",
-      "subtype": "A-10",
-      "lat": 37.282,
-      "lon": 127.0104,
+      "subtype": "UH-60",
+      "lat": 35.8382,
+      "lon": 128.4756,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.4,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "KR-OSAN",
+      "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "KR-OA-102",
-      "uid": "8be56c9c",
+      "id": "KR-HUH-02",
+      "uid": "ac4d7c49",
       "type": "aircraft",
-      "subtype": "A-10",
-      "lat": 37.2715,
-      "lon": 127.0779,
+      "subtype": "UH-60",
+      "lat": 35.7958,
+      "lon": 128.4806,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.3,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "KR-OSAN",
+      "base_id": "KR-HUMPHREYS",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "KR-OF-101",
-      "uid": "79a5873f",
+      "uid": "d0624fb3",
       "type": "aircraft",
       "subtype": "F-16C",
-      "lat": 37.5731,
-      "lon": 127.0151,
+      "lat": 34.8709,
+      "lon": 129.9249,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 142.0,
       "speed_kmh": 1484.0,
       "affiliation": "friendly",
       "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
       "id": "KR-OF-102",
-      "uid": "0f1313b2",
+      "uid": "0247c674",
       "type": "aircraft",
       "subtype": "F-16C",
-      "lat": 37.551,
-      "lon": 127.0232,
+      "lat": 34.8175,
+      "lon": 129.861,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.8,
       "speed_kmh": 1484.0,
       "affiliation": "friendly",
       "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 6
     },
     {
-      "id": "AK-JC-101",
-      "uid": "fc7170c1",
+      "id": "KR-OA-101",
+      "uid": "c2f25b80",
       "type": "aircraft",
-      "subtype": "C-17",
-      "lat": 61.516,
-      "lon": -149.7316,
+      "subtype": "A-10",
+      "lat": 36.0197,
+      "lon": 128.3843,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.5,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "AK-JBER",
+      "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "AK-JC-102",
-      "uid": "0928ff2a",
+      "id": "KR-OA-102",
+      "uid": "bc1d1dd2",
       "type": "aircraft",
-      "subtype": "C-17",
-      "lat": 61.451,
-      "lon": -149.7528,
+      "subtype": "A-10",
+      "lat": 36.1305,
+      "lon": 128.3936,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 141.7,
       "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "AK-JBER",
+      "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
-      "id": "AK-JF-201",
-      "uid": "4c506f77",
+      "id": "KR-OU-201",
+      "uid": "b1965b23",
       "type": "aircraft",
-      "subtype": "F-22A",
-      "lat": 61.7774,
-      "lon": -149.7512,
+      "subtype": "U-2",
+      "lat": 36.1977,
+      "lon": 128.3329,
       "alt_m": 10000,
-      "heading": 0.0,
-      "speed_kmh": 1690.0,
+      "heading": 141.6,
+      "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "AK-JBER",
+      "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 6
+      "fuel_pct": 0,
+      "ammo": 0
     },
     {
-      "id": "AK-JF-202",
-      "uid": "7886c144",
+      "id": "KR-OU-202",
+      "uid": "92afa556",
       "type": "aircraft",
-      "subtype": "F-22A",
-      "lat": 61.7797,
-      "lon": -149.6877,
+      "subtype": "U-2",
+      "lat": 36.2992,
+      "lon": 128.286,
       "alt_m": 10000,
-      "heading": 0.0,
-      "speed_kmh": 1690.0,
+      "heading": 141.7,
+      "speed_kmh": 700.0,
       "affiliation": "friendly",
-      "base_id": "AK-JBER",
+      "base_id": "KR-OSAN",
       "status": "active",
-      "fuel_pct": 0.88,
-      "ammo": 6
+      "fuel_pct": 0,
+      "ammo": 0
     },
     {
       "id": "AK-JE-301",
-      "uid": "e4a92b64",
+      "uid": "39614d5e",
       "type": "aircraft",
       "subtype": "E-3",
-      "lat": 61.4334,
-      "lon": -149.7556,
+      "lat": 61.3353,
+      "lon": -152.5343,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 254.5,
       "speed_kmh": 596.0,
       "affiliation": "friendly",
       "base_id": "AK-JBER",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "AK-JE-302",
-      "uid": "299c7ad7",
+      "uid": "0cede21b",
       "type": "aircraft",
       "subtype": "E-3",
-      "lat": 61.4932,
-      "lon": -149.7265,
+      "lat": 61.3455,
+      "lon": -152.435,
       "alt_m": 10000,
-      "heading": 0.0,
+      "heading": 254.4,
       "speed_kmh": 596.0,
       "affiliation": "friendly",
       "base_id": "AK-JBER",
       "status": "active",
-      "fuel_pct": 0.88,
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "AK-JF-201",
+      "uid": "2145a47b",
+      "type": "aircraft",
+      "subtype": "F-22A",
+      "lat": 63.0015,
+      "lon": -158.0748,
+      "alt_m": 10000,
+      "heading": 277.6,
+      "speed_kmh": 1690.0,
+      "affiliation": "friendly",
+      "base_id": "AK-JBER",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 6
+    },
+    {
+      "id": "AK-JF-202",
+      "uid": "b4b824dd",
+      "type": "aircraft",
+      "subtype": "F-22A",
+      "lat": 61.7603,
+      "lon": -157.1082,
+      "alt_m": 10000,
+      "heading": 254.1,
+      "speed_kmh": 1690.0,
+      "affiliation": "friendly",
+      "base_id": "AK-JBER",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 6
+    },
+    {
+      "id": "AK-JC-101",
+      "uid": "e2963e97",
+      "type": "aircraft",
+      "subtype": "C-17",
+      "lat": 61.5521,
+      "lon": -152.6401,
+      "alt_m": 10000,
+      "heading": 254.3,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "AK-JBER",
+      "status": "active",
+      "fuel_pct": 0,
+      "ammo": 0
+    },
+    {
+      "id": "AK-JC-102",
+      "uid": "df738ec6",
+      "type": "aircraft",
+      "subtype": "C-17",
+      "lat": 61.7002,
+      "lon": -152.4808,
+      "alt_m": 10000,
+      "heading": 254.3,
+      "speed_kmh": 700.0,
+      "affiliation": "friendly",
+      "base_id": "AK-JBER",
+      "status": "active",
+      "fuel_pct": 0,
       "ammo": 0
     },
     {
       "id": "CMD-INDOPACOM",
-      "uid": "b01959af",
+      "uid": "4b0ab2a6",
       "type": "command",
       "subtype": "JOC",
       "lat": 21.35,
@@ -726,425 +726,586 @@
       "status": "active",
       "fuel_pct": 1.0,
       "ammo": 0
+    },
+    {
+      "id": "EW-2161e1",
+      "uid": "2c1a7775",
+      "type": "ew_threat",
+      "subtype": "KGJ-500",
+      "lat": 59.5405,
+      "lon": -151.8084,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "power_kw": 150,
+      "jam_range_km": 250,
+      "effectiveness": 0.09,
+      "active_duration": 791.0
+    },
+    {
+      "id": "EW-31cfba",
+      "uid": "ea8c14ca",
+      "type": "ew_threat",
+      "subtype": "KGJ-500",
+      "lat": 12.3042,
+      "lon": 143.3651,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "power_kw": 150,
+      "jam_range_km": 250,
+      "effectiveness": 0.1,
+      "active_duration": 711.0
+    },
+    {
+      "id": "EW-867419",
+      "uid": "afd42e86",
+      "type": "ew_threat",
+      "subtype": "KGJ-500",
+      "lat": 59.5886,
+      "lon": -151.7562,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "power_kw": 150,
+      "jam_range_km": 250,
+      "effectiveness": 0.11,
+      "active_duration": 551.0
+    },
+    {
+      "id": "EW-1fb6c9",
+      "uid": "531f29f0",
+      "type": "ew_threat",
+      "subtype": "KGJ-500",
+      "lat": -15.2669,
+      "lon": 128.8004,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "power_kw": 150,
+      "jam_range_km": 250,
+      "effectiveness": 0.0,
+      "active_duration": 511.0
+    },
+    {
+      "id": "EW-b151be",
+      "uid": "a0a5cad8",
+      "type": "ew_threat",
+      "subtype": "KGJ-500",
+      "lat": 31.2788,
+      "lon": 130.4226,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "power_kw": 150,
+      "jam_range_km": 250,
+      "effectiveness": 0.0,
+      "active_duration": 71.0
+    },
+    {
+      "id": "CYB-20bcfd",
+      "uid": "182ec06e",
+      "type": "cyber_threat",
+      "subtype": "gps_spoof",
+      "lat": 0.0,
+      "lon": 0.0,
+      "alt_m": 0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "affiliation": "hostile",
+      "base_id": "",
+      "status": "active",
+      "fuel_pct": 1.0,
+      "ammo": 0,
+      "target_system": "unknown",
+      "phase": "impact",
+      "detected": true,
+      "effectiveness": 0.61,
+      "impact_score": 0.1
     }
   ],
   "tracks": [
     {
-      "track_id": "TRK-73eb3b",
-      "lat": 41.4889,
-      "lon": 138.062,
+      "track_id": "TRK-d731f2",
+      "lat": 41.4828,
+      "lon": 138.0606,
       "alt_m": 3000.0,
       "heading": 121.7,
       "speed_kmh": 512.0,
       "confidence": 0.51,
       "classification": "ADS-B",
       "sources": [
-        "SEN-040dd8"
+        "SEN-eb5045"
       ],
-      "age_s": 0.6,
-      "updates": 2
+      "age_s": 3.3,
+      "updates": 24
     },
     {
-      "track_id": "TRK-5e5e4f",
-      "lat": 42.945,
-      "lon": 142.7907,
+      "track_id": "TRK-6d13b2",
+      "lat": 42.9513,
+      "lon": 142.783,
       "alt_m": 0.0,
       "heading": 0,
       "speed_kmh": 0,
       "confidence": 0.52,
       "classification": "AIS",
       "sources": [
-        "SEN-040dd8"
+        "SEN-eb5045"
       ],
       "age_s": 0.6,
-      "updates": 2
+      "updates": 29
     },
     {
-      "track_id": "TRK-f7f3a9",
-      "lat": 36.6629,
-      "lon": 140.3053,
+      "track_id": "TRK-e7da9f",
+      "lat": 36.6627,
+      "lon": 140.3084,
       "alt_m": 0.0,
       "heading": 313.4,
       "speed_kmh": 0,
       "confidence": 0.67,
       "classification": "ADS-B",
       "sources": [
-        "SEN-5e3c70",
-        "SEN-426542"
+        "SEN-039d61",
+        "SEN-c0a668"
       ],
-      "age_s": 0.6,
-      "updates": 5
+      "age_s": 3.3,
+      "updates": 49
     },
     {
-      "track_id": "TRK-14447e",
-      "lat": 27.7088,
-      "lon": 125.2811,
+      "track_id": "TRK-da96ca",
+      "lat": 27.6984,
+      "lon": 125.3035,
       "alt_m": 0.0,
       "heading": 0,
       "speed_kmh": 0,
       "confidence": 0.51,
       "classification": "AIS",
       "sources": [
-        "SEN-ff2a18",
-        "SEN-b3d423"
+        "SEN-d61eda",
+        "SEN-3fbe48"
       ],
       "age_s": 0.6,
-      "updates": 5
+      "updates": 59
     },
     {
-      "track_id": "TRK-25b9bd",
-      "lat": 33.4233,
-      "lon": 128.5652,
+      "track_id": "TRK-e5a233",
+      "lat": 33.4159,
+      "lon": 128.5714,
       "alt_m": 3000.0,
       "heading": 317.7,
       "speed_kmh": 762.0,
       "confidence": 0.69,
       "classification": "ADS-B",
       "sources": [
-        "SEN-080ef1",
-        "SEN-6e9faf",
-        "SEN-3cc841"
+        "SEN-d366b6",
+        "SEN-629c6e",
+        "SEN-69c3c5"
       ],
-      "age_s": 0.6,
-      "updates": 8
+      "age_s": 3.3,
+      "updates": 74
     },
     {
-      "track_id": "TRK-887ad7",
-      "lat": 13.2985,
-      "lon": 146.3637,
+      "track_id": "TRK-7a5b90",
+      "lat": 13.3008,
+      "lon": 146.352,
       "alt_m": 6000.0,
       "heading": 168.1,
       "speed_kmh": 612.0,
       "confidence": 0.64,
       "classification": "ADS-B",
       "sources": [
-        "SEN-5e3b12",
-        "SEN-560e0a",
-        "SEN-2ef660"
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
       ],
-      "age_s": 0.6,
-      "updates": 8
+      "age_s": 3.3,
+      "updates": 74
     },
     {
-      "track_id": "TRK-542ce1",
-      "lat": 17.1229,
-      "lon": 145.3719,
+      "track_id": "TRK-99dde1",
+      "lat": 17.1206,
+      "lon": 145.3731,
       "alt_m": 0.0,
       "heading": 0,
       "speed_kmh": 0,
       "confidence": 0.57,
       "classification": "AIS",
       "sources": [
-        "SEN-5e3b12",
-        "SEN-2ef660"
+        "SEN-420048",
+        "SEN-3f7988"
       ],
       "age_s": 0.6,
-      "updates": 5
+      "updates": 59
     },
     {
-      "track_id": "TRK-4fcf58",
-      "lat": 14.2729,
-      "lon": 144.3386,
+      "track_id": "TRK-2f1b3b",
+      "lat": 14.3036,
+      "lon": 144.3703,
       "alt_m": 49000.0,
-      "heading": 141.2,
+      "heading": 144.5,
       "speed_kmh": 8000,
       "confidence": 0.7,
       "classification": "missile",
       "sources": [
-        "SEN-5e3b12",
-        "SEN-560e0a",
-        "SEN-2ef660"
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
       ],
-      "age_s": 1.4,
+      "age_s": 16.8,
+      "updates": 11
+    },
+    {
+      "track_id": "TRK-7a03b8",
+      "lat": 21.2179,
+      "lon": -158.8809,
+      "alt_m": 49000.0,
+      "heading": 80.4,
+      "speed_kmh": 7000,
+      "confidence": 0.71,
+      "classification": "missile",
+      "sources": [
+        "SEN-fa99f7",
+        "SEN-977031"
+      ],
+      "age_s": 16.2,
+      "updates": 7
+    },
+    {
+      "track_id": "TRK-cda9c1",
+      "lat": 13.8994,
+      "lon": 144.061,
+      "alt_m": 49000.0,
+      "heading": 110.5,
+      "speed_kmh": 8000,
+      "confidence": 0.72,
+      "classification": "missile",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 13.9,
       "updates": 2
+    },
+    {
+      "track_id": "TRK-ed7099",
+      "lat": 20.7214,
+      "lon": -158.6102,
+      "alt_m": 49000.0,
+      "heading": 42.9,
+      "speed_kmh": 7000,
+      "confidence": 0.7,
+      "classification": "missile",
+      "sources": [
+        "SEN-fa99f7",
+        "SEN-977031"
+      ],
+      "age_s": 13.3,
+      "updates": 3
+    },
+    {
+      "track_id": "TRK-c05682",
+      "lat": 36.076,
+      "lon": 140.202,
+      "alt_m": 49000.0,
+      "heading": 208.8,
+      "speed_kmh": 7000,
+      "confidence": 0.71,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 12.7,
+      "updates": 1
+    },
+    {
+      "track_id": "TRK-4bcfd1",
+      "lat": 59.5745,
+      "lon": -151.7775,
+      "alt_m": 0.0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "confidence": 0.58,
+      "classification": "ew_threat",
+      "sources": [
+        "SEN-926fbc"
+      ],
+      "age_s": 0.6,
+      "updates": 33
+    },
+    {
+      "track_id": "TRK-c82984",
+      "lat": 12.3023,
+      "lon": 143.3605,
+      "alt_m": 0.0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "confidence": 0.61,
+      "classification": "ew_threat",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 0.6,
+      "updates": 53
+    },
+    {
+      "track_id": "TRK-18d707",
+      "lat": 13.7585,
+      "lon": 145.8132,
+      "alt_m": 49000.0,
+      "heading": 259.2,
+      "speed_kmh": 8000,
+      "confidence": 0.7,
+      "classification": "missile",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 9.1,
+      "updates": 2
+    },
+    {
+      "track_id": "TRK-238c23",
+      "lat": 36.1763,
+      "lon": 139.2946,
+      "alt_m": 49000.0,
+      "heading": 161.1,
+      "speed_kmh": 7000,
+      "confidence": 0.76,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 8.6,
+      "updates": 5
+    },
+    {
+      "track_id": "TRK-5d1c8b",
+      "lat": 34.4641,
+      "lon": 139.4168,
+      "alt_m": 49000.0,
+      "heading": 13.2,
+      "speed_kmh": 7000,
+      "confidence": 0.71,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 7.5,
+      "updates": 7
+    },
+    {
+      "track_id": "TRK-84fa06",
+      "lat": 35.1355,
+      "lon": 139.624,
+      "alt_m": 45000.0,
+      "heading": 13.5,
+      "speed_kmh": 7000,
+      "confidence": 0.78,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 7.0,
+      "updates": 1
+    },
+    {
+      "track_id": "TRK-1f257c",
+      "lat": 20.4687,
+      "lon": -158.025,
+      "alt_m": 49000.0,
+      "heading": 3.4,
+      "speed_kmh": 7000,
+      "confidence": 0.7,
+      "classification": "missile",
+      "sources": [
+        "SEN-fa99f7",
+        "SEN-977031"
+      ],
+      "age_s": 7.0,
+      "updates": 1
+    },
+    {
+      "track_id": "TRK-7d2ca5",
+      "lat": -15.2661,
+      "lon": 128.7912,
+      "alt_m": 0.0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "confidence": 0.41,
+      "classification": "ew_threat",
+      "sources": [
+        "SEN-b5cbe6",
+        "SEN-987d24"
+      ],
+      "age_s": 0.6,
+      "updates": 25
+    },
+    {
+      "track_id": "TRK-abae6f",
+      "lat": 34.5875,
+      "lon": 139.0643,
+      "alt_m": 49000.0,
+      "heading": 35.2,
+      "speed_kmh": 7000,
+      "confidence": 0.71,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 6.5,
+      "updates": 7
+    },
+    {
+      "track_id": "TRK-0e19c1",
+      "lat": 13.3241,
+      "lon": 145.8008,
+      "alt_m": 49000.0,
+      "heading": 286.4,
+      "speed_kmh": 8000,
+      "confidence": 0.7,
+      "classification": "missile",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 3.3,
+      "updates": 5
+    },
+    {
+      "track_id": "TRK-d1e84c",
+      "lat": 15.9719,
+      "lon": 145.1665,
+      "alt_m": 10000.0,
+      "heading": 136.9,
+      "speed_kmh": 787.0,
+      "confidence": 0.69,
+      "classification": "ADS-B",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 0.6,
+      "updates": 14
+    },
+    {
+      "track_id": "TRK-30c828",
+      "lat": 13.559,
+      "lon": 144.9952,
+      "alt_m": 45000.0,
+      "heading": 287.6,
+      "speed_kmh": 8000,
+      "confidence": 0.79,
+      "classification": "missile",
+      "sources": [
+        "SEN-420048",
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "age_s": 2.7,
+      "updates": 2
+    },
+    {
+      "track_id": "TRK-6fb52c",
+      "lat": 36.2221,
+      "lon": 139.8156,
+      "alt_m": 49000.0,
+      "heading": 187.8,
+      "speed_kmh": 7000,
+      "confidence": 0.74,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 2.2,
+      "updates": 5
+    },
+    {
+      "track_id": "TRK-5d7678",
+      "lat": 35.6704,
+      "lon": 138.6582,
+      "alt_m": 49000.0,
+      "heading": 114.7,
+      "speed_kmh": 7000,
+      "confidence": 0.74,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 1.7,
+      "updates": 3
+    },
+    {
+      "track_id": "TRK-4e5ee9",
+      "lat": 31.2789,
+      "lon": 130.4236,
+      "alt_m": 0.0,
+      "heading": 0.0,
+      "speed_kmh": 0,
+      "confidence": 0.58,
+      "classification": "ew_threat",
+      "sources": [
+        "SEN-d366b6",
+        "SEN-629c6e"
+      ],
+      "age_s": 0.6,
+      "updates": 3
+    },
+    {
+      "track_id": "TRK-6a36fa",
+      "lat": 35.2045,
+      "lon": 138.586,
+      "alt_m": 49000.0,
+      "heading": 84.4,
+      "speed_kmh": 7000,
+      "confidence": 0.71,
+      "classification": "missile",
+      "sources": [
+        "SEN-039d61",
+        "SEN-c0a668"
+      ],
+      "age_s": 0.6,
+      "updates": 5
     }
   ],
   "kalman_tracks": [
-    {
-      "track_id": "KT-0001",
-      "lat": 33.8168,
-      "lon": 143.8564,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 358.6,
-      "speed": 591.0,
-      "alt_m": 8000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0002",
-      "lat": 40.9676,
-      "lon": 150.0351,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 105.7,
-      "speed": 570.0,
-      "alt_m": 11000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0003",
-      "lat": 36.6638,
-      "lon": 140.3066,
-      "v_lat": -0.00131,
-      "v_lon": -0.00064,
-      "heading": 313.4,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.935,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0004",
-      "lat": 16.9619,
-      "lon": 134.9566,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 280.3,
-      "speed": 670.0,
-      "alt_m": 3000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0005",
-      "lat": 13.9154,
-      "lon": 134.5192,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 86.7,
-      "speed": 520.0,
-      "alt_m": 6000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0006",
-      "lat": 12.4224,
-      "lon": 150.4241,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 171.1,
-      "speed": 464.0,
-      "alt_m": 3000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0007",
-      "lat": 43.7527,
-      "lon": 157.1565,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 256.7,
-      "speed": 745.0,
-      "alt_m": 11000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0008",
-      "lat": 41.4879,
-      "lon": 138.0619,
-      "v_lat": 0.00074,
-      "v_lon": 0.00093,
-      "heading": 121.7,
-      "speed": 512.0,
-      "alt_m": 3000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0009",
-      "lat": 34.7744,
-      "lon": 122.355,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 326.0,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.935,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0010",
-      "lat": 33.4239,
-      "lon": 128.5676,
-      "v_lat": 0.00281,
-      "v_lon": -0.00056,
-      "heading": 317.7,
-      "speed": 762.0,
-      "alt_m": 3000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0011",
-      "lat": 13.2954,
-      "lon": 146.3621,
-      "v_lat": -0.00124,
-      "v_lon": 0.00031,
-      "heading": 168.1,
-      "speed": 612.0,
-      "alt_m": 6000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0012",
-      "lat": 24.0917,
-      "lon": 133.5721,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 89.5,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.935,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0013",
-      "lat": 16.4221,
-      "lon": 138.5051,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 159.5,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.935,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0014",
-      "lat": 10.5165,
-      "lon": 123.7305,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 174.8,
-      "speed": 483.0,
-      "alt_m": 3000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0015",
-      "lat": 23.2641,
-      "lon": 159.4124,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 282.6,
-      "speed": 863.0,
-      "alt_m": 6000,
-      "confidence": 1.0,
-      "source_count": 1,
-      "sources": [
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
     {
       "track_id": "KT-0016",
       "lat": 15.4179,
@@ -1154,12 +1315,12 @@
       "heading": 195.2,
       "speed": 12.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1173,12 +1334,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1192,31 +1353,31 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
       "track_id": "KT-0019",
-      "lat": 42.9499,
-      "lon": 142.7902,
-      "v_lat": -0.00069,
-      "v_lon": 0.00049,
+      "lat": 42.9508,
+      "lon": 142.783,
+      "v_lat": -0.00167,
+      "v_lon": -0.00055,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1230,12 +1391,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1249,12 +1410,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1268,31 +1429,31 @@
       "heading": 359.4,
       "speed": 21.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
       "track_id": "KT-0023",
-      "lat": 27.7098,
-      "lon": 125.2853,
-      "v_lat": 0.00052,
-      "v_lon": -0.00281,
+      "lat": 27.7006,
+      "lon": 125.3025,
+      "v_lat": -0.00031,
+      "v_lon": 0.00039,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1306,12 +1467,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1325,12 +1486,12 @@
       "heading": 199.7,
       "speed": 23.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1344,31 +1505,31 @@
       "heading": 56.0,
       "speed": 32.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
       "track_id": "KT-0027",
-      "lat": 17.1276,
-      "lon": 145.3687,
-      "v_lat": -0.00126,
-      "v_lon": -3e-05,
+      "lat": 17.1201,
+      "lon": 145.369,
+      "v_lat": -0.00061,
+      "v_lon": 0.00071,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1382,12 +1543,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1401,12 +1562,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1420,12 +1581,12 @@
       "heading": 248.8,
       "speed": 25.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1439,12 +1600,12 @@
       "heading": 131.3,
       "speed": 25.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1458,12 +1619,12 @@
       "heading": 201.6,
       "speed": 29.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1477,12 +1638,12 @@
       "heading": 351.4,
       "speed": 28.0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1496,12 +1657,12 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
@@ -1515,350 +1676,804 @@
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.985,
+      "confidence": 1.0,
       "source_count": 1,
       "sources": [
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
-    },
-    {
-      "track_id": "KT-0036",
-      "lat": 41.4842,
-      "lon": 138.0609,
-      "v_lat": -0.00156,
-      "v_lon": 0.00028,
-      "heading": 121.7,
-      "speed": 512.0,
-      "alt_m": 3000,
-      "confidence": 0.819,
-      "source_count": 2,
-      "sources": [
-        "adsb",
-        "SEN-040dd8"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
     },
     {
       "track_id": "KT-0037",
-      "lat": 42.9563,
-      "lon": 142.791,
-      "v_lat": 0.00332,
-      "v_lon": 0.00099,
+      "lat": 42.9508,
+      "lon": 142.783,
+      "v_lat": -0.00167,
+      "v_lon": -0.00055,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.801,
+      "confidence": 1.0,
       "source_count": 2,
       "sources": [
-        "SEN-040dd8",
+        "SEN-eb5045",
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
-      "track_id": "KT-0038",
-      "lat": 36.6671,
-      "lon": 140.3145,
-      "v_lat": 0.00072,
-      "v_lon": 0.0042,
-      "heading": 313.4,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.845,
-      "source_count": 2,
-      "sources": [
-        "SEN-5e3c70",
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
       "track_id": "KT-0039",
-      "lat": 27.71,
-      "lon": 125.2876,
-      "v_lat": 0.00064,
-      "v_lon": -0.00134,
+      "lat": 27.7006,
+      "lon": 125.3025,
+      "v_lat": -0.00031,
+      "v_lon": 0.00039,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.795,
+      "confidence": 1.0,
       "source_count": 2,
       "sources": [
-        "ais",
-        "SEN-ff2a18"
+        "SEN-d61eda",
+        "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
       "track_id": "KT-0040",
-      "lat": 27.7178,
-      "lon": 125.2816,
-      "v_lat": 0.00542,
-      "v_lon": -0.00507,
+      "lat": 27.7006,
+      "lon": 125.3025,
+      "v_lat": -0.00031,
+      "v_lon": 0.00039,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.793,
+      "confidence": 1.0,
       "source_count": 2,
       "sources": [
-        "SEN-b3d423",
+        "SEN-3fbe48",
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
-    },
-    {
-      "track_id": "KT-0041",
-      "lat": 33.4194,
-      "lon": 128.57,
-      "v_lat": 0.0001,
-      "v_lon": 0.00091,
-      "heading": 317.7,
-      "speed": 762.0,
-      "alt_m": 3000,
-      "confidence": 0.907,
-      "source_count": 2,
-      "sources": [
-        "adsb",
-        "SEN-080ef1"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0042",
-      "lat": 36.6648,
-      "lon": 140.3082,
-      "v_lat": -0.00072,
-      "v_lon": 0.00033,
-      "heading": 313.4,
-      "speed": 0,
-      "alt_m": 0,
-      "confidence": 0.83,
-      "source_count": 2,
-      "sources": [
-        "adsb",
-        "SEN-426542"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0043",
-      "lat": 33.4204,
-      "lon": 128.5701,
-      "v_lat": 0.00068,
-      "v_lon": 0.00098,
-      "heading": 317.7,
-      "speed": 762.0,
-      "alt_m": 3000,
-      "confidence": 0.791,
-      "source_count": 2,
-      "sources": [
-        "SEN-6e9faf",
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0044",
-      "lat": 13.297,
-      "lon": 146.3649,
-      "v_lat": -0.00026,
-      "v_lon": 0.00201,
-      "heading": 168.1,
-      "speed": 612.0,
-      "alt_m": 6000,
-      "confidence": 0.884,
-      "source_count": 2,
-      "sources": [
-        "adsb",
-        "SEN-5e3b12"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
     },
     {
       "track_id": "KT-0045",
-      "lat": 17.1291,
-      "lon": 145.3731,
-      "v_lat": -0.00035,
-      "v_lon": 0.00263,
+      "lat": 17.1201,
+      "lon": 145.369,
+      "v_lat": -0.00061,
+      "v_lon": 0.00071,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.742,
+      "confidence": 1.0,
       "source_count": 2,
       "sources": [
-        "ais",
-        "SEN-5e3b12"
+        "SEN-420048",
+        "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
-    },
-    {
-      "track_id": "KT-0046",
-      "lat": 13.2935,
-      "lon": 146.357,
-      "v_lat": -0.0024,
-      "v_lon": -0.00274,
-      "heading": 168.1,
-      "speed": 612.0,
-      "alt_m": 6000,
-      "confidence": 0.871,
-      "source_count": 2,
-      "sources": [
-        "SEN-560e0a",
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0047",
-      "lat": 33.4282,
-      "lon": 128.5635,
-      "v_lat": 0.00546,
-      "v_lon": -0.00308,
-      "heading": 317.7,
-      "speed": 762.0,
-      "alt_m": 3000,
-      "confidence": 0.8,
-      "source_count": 2,
-      "sources": [
-        "adsb",
-        "SEN-3cc841"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
-    },
-    {
-      "track_id": "KT-0048",
-      "lat": 13.2932,
-      "lon": 146.3579,
-      "v_lat": -0.00255,
-      "v_lon": -0.00224,
-      "heading": 168.1,
-      "speed": 612.0,
-      "alt_m": 6000,
-      "confidence": 0.857,
-      "source_count": 2,
-      "sources": [
-        "SEN-2ef660",
-        "adsb"
-      ],
-      "hits": 3,
-      "misses": 1,
-      "status": "confirmed",
-      "classification": "aircraft"
     },
     {
       "track_id": "KT-0049",
-      "lat": 17.1333,
-      "lon": 145.3649,
-      "v_lat": 0.00223,
-      "v_lon": -0.00237,
+      "lat": 17.1201,
+      "lon": 145.369,
+      "v_lat": -0.00061,
+      "v_lon": 0.00071,
       "heading": 0,
       "speed": 0,
       "alt_m": 0.0,
-      "confidence": 0.824,
+      "confidence": 1.0,
       "source_count": 2,
       "sources": [
-        "SEN-2ef660",
+        "SEN-3f7988",
         "ais"
       ],
-      "hits": 3,
+      "hits": 30,
       "misses": 1,
       "status": "confirmed",
       "classification": "vessel"
     },
     {
-      "track_id": "KT-0050",
-      "lat": 14.2575,
-      "lon": 144.3379,
-      "v_lat": 0.0,
-      "v_lon": 0.0,
-      "heading": 141.2,
-      "speed": 8000,
-      "alt_m": 49000.0,
-      "confidence": 0.702,
+      "track_id": "KT-0079",
+      "lat": 59.5657,
+      "lon": -151.7836,
+      "v_lat": 0.00176,
+      "v_lon": -0.00098,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.43,
       "source_count": 1,
       "sources": [
-        "SEN-5e3b12"
+        "SEN-926fbc"
+      ],
+      "hits": 20,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0080",
+      "lat": 12.3045,
+      "lon": 143.3621,
+      "v_lat": -0.00025,
+      "v_lon": -2e-05,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.777,
+      "source_count": 2,
+      "sources": [
+        "SEN-663c65",
+        "SEN-420048"
+      ],
+      "hits": 18,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0081",
+      "lat": 12.3045,
+      "lon": 143.3621,
+      "v_lat": -0.00025,
+      "v_lon": -2e-05,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.777,
+      "source_count": 1,
+      "sources": [
+        "SEN-663c65"
+      ],
+      "hits": 18,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0082",
+      "lat": 12.3045,
+      "lon": 143.3621,
+      "v_lat": -0.00025,
+      "v_lon": -2e-05,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.777,
+      "source_count": 2,
+      "sources": [
+        "SEN-663c65",
+        "SEN-3f7988"
+      ],
+      "hits": 18,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0104",
+      "lat": -15.2618,
+      "lon": 128.7893,
+      "v_lat": 0.00219,
+      "v_lon": -0.00119,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.576,
+      "source_count": 1,
+      "sources": [
+        "SEN-b5cbe6"
+      ],
+      "hits": 13,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0105",
+      "lat": -15.2617,
+      "lon": 128.7893,
+      "v_lat": 0.0022,
+      "v_lon": -0.00119,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.576,
+      "source_count": 2,
+      "sources": [
+        "SEN-987d24",
+        "SEN-b5cbe6"
+      ],
+      "hits": 13,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0120",
+      "lat": 10.9327,
+      "lon": 138.9836,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 279.4,
+      "speed": 791.0,
+      "alt_m": 11000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0121",
+      "lat": 15.9755,
+      "lon": 145.1667,
+      "v_lat": 0.00219,
+      "v_lon": 0.00018,
+      "heading": 136.9,
+      "speed": 787.0,
+      "alt_m": 10000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0122",
+      "lat": 10.6628,
+      "lon": 132.5477,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 73.4,
+      "speed": 606.0,
+      "alt_m": 3000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0123",
+      "lat": 14.8329,
+      "lon": 128.2937,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 172.2,
+      "speed": 899.0,
+      "alt_m": 6000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0124",
+      "lat": 28.6594,
+      "lon": 141.8509,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 259.5,
+      "speed": 786.0,
+      "alt_m": 11000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0125",
+      "lat": 19.7652,
+      "lon": 131.94,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 253.8,
+      "speed": 786.0,
+      "alt_m": 6000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0126",
+      "lat": 42.6795,
+      "lon": 151.8162,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 206.5,
+      "speed": 544.0,
+      "alt_m": 6000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0127",
+      "lat": 38.1616,
+      "lon": 131.6181,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 28.5,
+      "speed": 878.0,
+      "alt_m": 6000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0128",
+      "lat": 17.0724,
+      "lon": 141.5431,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 49.4,
+      "speed": 748.0,
+      "alt_m": 10000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0129",
+      "lat": 32.3281,
+      "lon": 122.0996,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 170.1,
+      "speed": 565.0,
+      "alt_m": 8000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0130",
+      "lat": 32.8512,
+      "lon": 155.2259,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 71.8,
+      "speed": 639.0,
+      "alt_m": 8000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0131",
+      "lat": 36.9054,
+      "lon": 146.0919,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 260.3,
+      "speed": 668.0,
+      "alt_m": 3000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0132",
+      "lat": 39.3162,
+      "lon": 157.3569,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 359.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.977,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0133",
+      "lat": 36.2151,
+      "lon": 154.8916,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 3.3,
+      "speed": 838.0,
+      "alt_m": 6000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0134",
+      "lat": 44.6185,
+      "lon": 141.732,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 48.3,
+      "speed": 845.0,
+      "alt_m": 8000,
+      "confidence": 1.0,
+      "source_count": 1,
+      "sources": [
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0135",
+      "lat": 15.9769,
+      "lon": 145.1674,
+      "v_lat": 0.00244,
+      "v_lon": 0.00029,
+      "heading": 136.9,
+      "speed": 787.0,
+      "alt_m": 10000,
+      "confidence": 0.977,
+      "source_count": 2,
+      "sources": [
+        "SEN-420048",
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0137",
+      "lat": 15.9758,
+      "lon": 145.1673,
+      "v_lat": 0.00224,
+      "v_lon": 0.00027,
+      "heading": 136.9,
+      "speed": 787.0,
+      "alt_m": 10000,
+      "confidence": 0.972,
+      "source_count": 2,
+      "sources": [
+        "SEN-663c65",
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0139",
+      "lat": 15.975,
+      "lon": 145.1665,
+      "v_lat": 0.00211,
+      "v_lon": 0.00015,
+      "heading": 136.9,
+      "speed": 787.0,
+      "alt_m": 10000,
+      "confidence": 1.0,
+      "source_count": 2,
+      "sources": [
+        "SEN-3f7988",
+        "adsb"
+      ],
+      "hits": 5,
+      "misses": 1,
+      "status": "confirmed",
+      "classification": "aircraft"
+    },
+    {
+      "track_id": "KT-0147",
+      "lat": 35.6667,
+      "lon": 138.6546,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 113.5,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.736,
+      "source_count": 1,
+      "sources": [
+        "SEN-039d61"
       ],
       "hits": 1,
-      "misses": 3,
+      "misses": 5,
       "status": "tentative",
       "classification": "missile"
     },
     {
-      "track_id": "KT-0051",
-      "lat": 14.2564,
-      "lon": 144.3417,
+      "track_id": "KT-0148",
+      "lat": 35.6754,
+      "lon": 138.6459,
       "v_lat": 0.0,
       "v_lon": 0.0,
-      "heading": 141.2,
-      "speed": 8000,
+      "heading": 114.7,
+      "speed": 7000,
       "alt_m": 49000.0,
-      "confidence": 0.702,
+      "confidence": 0.738,
       "source_count": 1,
       "sources": [
-        "SEN-560e0a"
+        "SEN-039d61"
       ],
       "hits": 1,
-      "misses": 3,
+      "misses": 5,
       "status": "tentative",
       "classification": "missile"
     },
     {
-      "track_id": "KT-0052",
-      "lat": 14.2837,
-      "lon": 144.3375,
+      "track_id": "KT-0149",
+      "lat": 35.6417,
+      "lon": 138.6661,
       "v_lat": 0.0,
       "v_lon": 0.0,
-      "heading": 141.2,
-      "speed": 8000,
+      "heading": 113.5,
+      "speed": 7000,
       "alt_m": 49000.0,
-      "confidence": 0.636,
+      "confidence": 0.7,
       "source_count": 1,
       "sources": [
-        "SEN-2ef660"
+        "SEN-c0a668"
       ],
       "hits": 1,
-      "misses": 3,
+      "misses": 5,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0150",
+      "lat": 35.6814,
+      "lon": 138.6574,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 114.7,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.7,
+      "source_count": 1,
+      "sources": [
+        "SEN-c0a668"
+      ],
+      "hits": 1,
+      "misses": 5,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0151",
+      "lat": 31.2757,
+      "lon": 130.4304,
+      "v_lat": -0.00117,
+      "v_lon": 0.00825,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.631,
+      "source_count": 1,
+      "sources": [
+        "SEN-d366b6"
+      ],
+      "hits": 2,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0152",
+      "lat": 31.2682,
+      "lon": 130.4145,
+      "v_lat": -0.01012,
+      "v_lon": -0.01068,
+      "heading": 0.0,
+      "speed": 0,
+      "alt_m": 0,
+      "confidence": 0.532,
+      "source_count": 2,
+      "sources": [
+        "SEN-d366b6",
+        "SEN-629c6e"
+      ],
+      "hits": 2,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "ew_threat"
+    },
+    {
+      "track_id": "KT-0153",
+      "lat": 35.1808,
+      "lon": 138.5848,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 82.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.705,
+      "source_count": 1,
+      "sources": [
+        "SEN-039d61"
+      ],
+      "hits": 1,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0154",
+      "lat": 35.2016,
+      "lon": 138.5866,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 83.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.707,
+      "source_count": 1,
+      "sources": [
+        "SEN-039d61"
+      ],
+      "hits": 1,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0155",
+      "lat": 35.2213,
+      "lon": 138.5939,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 84.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.709,
+      "source_count": 1,
+      "sources": [
+        "SEN-039d61"
+      ],
+      "hits": 1,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0156",
+      "lat": 35.1686,
+      "lon": 138.5683,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 82.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.699,
+      "source_count": 1,
+      "sources": [
+        "SEN-c0a668"
+      ],
+      "hits": 1,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0157",
+      "lat": 35.1764,
+      "lon": 138.5736,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 83.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.7,
+      "source_count": 1,
+      "sources": [
+        "SEN-c0a668"
+      ],
+      "hits": 1,
+      "misses": 1,
+      "status": "tentative",
+      "classification": "missile"
+    },
+    {
+      "track_id": "KT-0158",
+      "lat": 35.2208,
+      "lon": 138.5933,
+      "v_lat": 0.0,
+      "v_lon": 0.0,
+      "heading": 84.4,
+      "speed": 7000,
+      "alt_m": 49000.0,
+      "confidence": 0.702,
+      "source_count": 1,
+      "sources": [
+        "SEN-c0a668"
+      ],
+      "hits": 1,
+      "misses": 1,
       "status": "tentative",
       "classification": "missile"
     }
@@ -1877,14 +2492,14 @@
   },
   "lvc_live_entities": 65,
   "adversary_stats": {
-    "total_attacks": 1,
-    "outcomes_recorded": 1,
-    "hits": 0,
-    "intercepted": 1,
-    "hit_rate": 0.0,
-    "intercept_rate": 1.0,
-    "cycles_since_last_attack": 1,
-    "current_aggression": 0.3
+    "total_attacks": 14,
+    "outcomes_recorded": 20,
+    "hits": 2,
+    "intercepted": 18,
+    "hit_rate": 0.1,
+    "intercept_rate": 0.9,
+    "cycles_since_last_attack": 0,
+    "current_aggression": 0.8
   },
   "political_access": {
     "ally_sites": 15,
@@ -1894,56 +2509,56 @@
       "Philippines",
       "South Korea"
     ],
-    "escalation_level": 0.0,
+    "escalation_level": 0.008,
     "by_country": {
       "Japan": [
         {
           "base_id": "JP-MISAWA",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-YOKOTA",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-KADENA",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-FUTENMA",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-SASEBO",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-YOKOSUKA",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         },
         {
           "base_id": "JP-IWAKUNI",
           "country": "Japan",
-          "state": "full",
-          "prob": 0.85,
+          "state": "restricted",
+          "prob": 0.4598,
           "baseline": 0.85
         }
       ],
@@ -1990,22 +2605,22 @@
         {
           "base_id": "PH-CAMILO",
           "country": "Philippines",
-          "state": "restricted",
-          "prob": 0.5524,
+          "state": "denied",
+          "prob": 0.0955,
           "baseline": 0.65
         },
         {
           "base_id": "PH-LALLO",
           "country": "Philippines",
-          "state": "restricted",
-          "prob": 0.5524,
+          "state": "denied",
+          "prob": 0.0955,
           "baseline": 0.65
         },
         {
           "base_id": "PH-BALABAC",
           "country": "Philippines",
-          "state": "restricted",
-          "prob": 0.5524,
+          "state": "denied",
+          "prob": 0.0955,
           "baseline": 0.65
         }
       ]
@@ -2018,31 +2633,87 @@
     },
     "recent_transitions": [
       {
-        "base_id": "PH-CAMILO",
-        "country": "Philippines",
-        "from": "full",
-        "to": "restricted",
-        "prob": 0.5911,
-        "cycle": 4
+        "base_id": "JP-SASEBO",
+        "country": "Japan",
+        "from": "restricted",
+        "to": "full",
+        "prob": 0.6084,
+        "cycle": 104
       },
       {
-        "base_id": "PH-LALLO",
-        "country": "Philippines",
-        "from": "full",
-        "to": "restricted",
-        "prob": 0.5911,
-        "cycle": 4
+        "base_id": "JP-YOKOSUKA",
+        "country": "Japan",
+        "from": "restricted",
+        "to": "full",
+        "prob": 0.6084,
+        "cycle": 104
       },
       {
-        "base_id": "PH-BALABAC",
-        "country": "Philippines",
+        "base_id": "JP-IWAKUNI",
+        "country": "Japan",
+        "from": "restricted",
+        "to": "full",
+        "prob": 0.6084,
+        "cycle": 104
+      },
+      {
+        "base_id": "JP-MISAWA",
+        "country": "Japan",
         "from": "full",
         "to": "restricted",
-        "prob": 0.5911,
-        "cycle": 4
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-YOKOTA",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-KADENA",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-FUTENMA",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-SASEBO",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-YOKOSUKA",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
+      },
+      {
+        "base_id": "JP-IWAKUNI",
+        "country": "Japan",
+        "from": "full",
+        "to": "restricted",
+        "prob": 0.5607,
+        "cycle": 108
       }
     ],
-    "events_count": 2
+    "events_count": 22
   },
   "c2_chain": {
     "theater": {
@@ -2293,7 +2964,187 @@
     },
     "recent_messages": [
       {
-        "message_id": "C2-66C3F43E",
+        "message_id": "C2-FADA13D7",
+        "msg_type": "report",
+        "origin": "GU-APRA",
+        "destination": "INDOPACOM",
+        "hops": [
+          {
+            "node": "PACFLT",
+            "time": 0.4,
+            "action": "relay"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.8,
+            "action": "received"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 1.8,
+            "action": "decide"
+          }
+        ],
+        "payload": {
+          "request_type": "air_defense_tasking",
+          "track_id": "TRK-cda9c1",
+          "intercept_strategy": "predictive",
+          "distance_km": 98.9,
+          "event_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8428986,
+        "total_latency_s": 1.8
+      },
+      {
+        "message_id": "C2-DD224F18",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "GU-ANDERSEN",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 2.1,
+            "action": "relay"
+          },
+          {
+            "node": "PACAF",
+            "time": 2.4,
+            "action": "relay"
+          },
+          {
+            "node": "GU-ANDERSEN",
+            "time": 2.7,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-cda9c1",
+          "intercept_strategy": "predictive",
+          "distance_km": 98.9,
+          "source_base": "GU-APRA",
+          "source_command": "PACFLT",
+          "target_command": "PACAF",
+          "cross_service": true,
+          "order_type": "coordination:air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8428986,
+        "total_latency_s": 2.7
+      },
+      {
+        "message_id": "C2-74ABC439",
+        "msg_type": "report",
+        "origin": "HI-PHICKAM",
+        "destination": "INDOPACOM",
+        "hops": [
+          {
+            "node": "PACFLT",
+            "time": 0.4,
+            "action": "relay"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.8,
+            "action": "received"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 1.8,
+            "action": "decide"
+          }
+        ],
+        "payload": {
+          "request_type": "air_defense_tasking",
+          "track_id": "TRK-ed7099",
+          "intercept_strategy": "predictive",
+          "distance_km": 4560.8,
+          "event_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843015,
+        "total_latency_s": 1.8
+      },
+      {
+        "message_id": "C2-CEAAF65D",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "AK-JBER",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 2.1,
+            "action": "relay"
+          },
+          {
+            "node": "PACAF",
+            "time": 2.4,
+            "action": "relay"
+          },
+          {
+            "node": "AK-JBER",
+            "time": 2.7,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-ed7099",
+          "intercept_strategy": "predictive",
+          "distance_km": 4560.8,
+          "source_base": "HI-PHICKAM",
+          "source_command": "PACFLT",
+          "target_command": "PACAF",
+          "cross_service": true,
+          "order_type": "coordination:air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843015,
+        "total_latency_s": 2.7
+      },
+      {
+        "message_id": "C2-4961FF0C",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-c05682",
+          "intercept_strategy": "predictive",
+          "distance_km": 85.3,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843119,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-227F5039",
         "msg_type": "order",
         "origin": "INDOPACOM",
         "destination": "GU-ANDERSEN",
@@ -2320,78 +3171,134 @@
           }
         ],
         "payload": {
-          "track_id": "TRK-4fcf58",
+          "track_id": "TRK-18d707",
           "intercept_strategy": "predictive",
           "distance_km": 98.8,
           "order_type": "air_defense_tasking",
-          "sim_time": 70.0
+          "sim_time": 1190.0
         },
         "status": "delivered",
-        "created_at": 1789911080.998795,
+        "created_at": 1790082371.8431988,
         "total_latency_s": 0.9
       },
       {
-        "message_id": "C2-179AD171",
-        "msg_type": "report",
-        "origin": "GU-ANDERSEN",
-        "destination": "INDOPACOM",
+        "message_id": "C2-6D9CE3E5",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
         "hops": [
           {
-            "node": "PACAF",
-            "time": 0.4,
-            "action": "relay"
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
           },
           {
             "node": "INDOPACOM",
-            "time": 0.8,
-            "action": "received"
-          }
-        ],
-        "payload": {
-          "attack_id": "MSL-efe7a0",
-          "outcome": "intercepted",
-          "missile_type": "DF-26",
-          "event_type": "intercept_feedback",
-          "sim_time": 70.0
-        },
-        "status": "delivered",
-        "created_at": 1789911081.0017936,
-        "total_latency_s": 0.8
-      },
-      {
-        "message_id": "C2-DAFF982E",
-        "msg_type": "report",
-        "origin": "GU-APRA",
-        "destination": "INDOPACOM",
-        "hops": [
-          {
-            "node": "PACFLT",
-            "time": 0.4,
+            "time": 0.3,
             "action": "relay"
           },
           {
-            "node": "INDOPACOM",
-            "time": 0.8,
-            "action": "received"
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
           }
         ],
         "payload": {
-          "track_id": "TRK-4fcf58",
-          "classification": "missile",
-          "confidence": 0.7,
-          "lat": 14.273,
-          "lon": 144.339,
-          "event_type": "threat_detected",
-          "sim_time": 100.0
+          "track_id": "TRK-238c23",
+          "intercept_strategy": "predictive",
+          "distance_km": 48.2,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
         },
         "status": "delivered",
-        "created_at": 1789911081.6622055,
-        "total_latency_s": 0.8
+        "created_at": 1790082371.843275,
+        "total_latency_s": 0.9
       },
       {
-        "message_id": "C2-9EACFF36",
+        "message_id": "C2-F494F464",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-5d1c8b",
+          "intercept_strategy": "predictive",
+          "distance_km": 142.5,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8433514,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-26D876B9",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-84fa06",
+          "intercept_strategy": "predictive",
+          "distance_km": 72.2,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843426,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-62437DFA",
         "msg_type": "report",
-        "origin": "GU-APRA",
+        "origin": "HI-PHICKAM",
         "destination": "INDOPACOM",
         "hops": [
           {
@@ -2412,21 +3319,21 @@
         ],
         "payload": {
           "request_type": "air_defense_tasking",
-          "track_id": "TRK-4fcf58",
+          "track_id": "TRK-1f257c",
           "intercept_strategy": "predictive",
-          "distance_km": 98.8,
+          "distance_km": 4582.1,
           "event_type": "air_defense_tasking",
-          "sim_time": 110.0
+          "sim_time": 1190.0
         },
         "status": "delivered",
-        "created_at": 1789911081.8291514,
+        "created_at": 1790082371.8435037,
         "total_latency_s": 1.8
       },
       {
-        "message_id": "C2-9DD92E4F",
+        "message_id": "C2-E0200FA7",
         "msg_type": "order",
         "origin": "INDOPACOM",
-        "destination": "GU-ANDERSEN",
+        "destination": "AK-JBER",
         "hops": [
           {
             "node": "INDOPACOM",
@@ -2439,28 +3346,340 @@
             "action": "relay"
           },
           {
-            "node": "GU-ANDERSEN",
+            "node": "AK-JBER",
             "time": 2.7,
             "action": "execute"
           }
         ],
         "payload": {
-          "track_id": "TRK-4fcf58",
+          "track_id": "TRK-1f257c",
           "intercept_strategy": "predictive",
-          "distance_km": 98.8,
-          "source_base": "GU-APRA",
+          "distance_km": 4582.1,
+          "source_base": "HI-PHICKAM",
           "source_command": "PACFLT",
           "target_command": "PACAF",
           "cross_service": true,
           "order_type": "coordination:air_defense_tasking",
-          "sim_time": 110.0
+          "sim_time": 1190.0
         },
         "status": "delivered",
-        "created_at": 1789911081.8291514,
+        "created_at": 1790082371.8435037,
         "total_latency_s": 2.7
+      },
+      {
+        "message_id": "C2-48116D50",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-abae6f",
+          "intercept_strategy": "predictive",
+          "distance_km": 131.2,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843612,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-85F7249A",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "GU-ANDERSEN",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "PACAF",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "GU-ANDERSEN",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-0e19c1",
+          "intercept_strategy": "predictive",
+          "distance_km": 99.9,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8436885,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-3C5D1D75",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "GU-ANDERSEN",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "PACAF",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "GU-ANDERSEN",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-30c828",
+          "intercept_strategy": "predictive",
+          "distance_km": 8.9,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8437626,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-2B35AE5C",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-6fb52c",
+          "intercept_strategy": "predictive",
+          "distance_km": 67.8,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.843836,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-A54DA1BD",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-5d7678",
+          "intercept_strategy": "predictive",
+          "distance_km": 62.8,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8439126,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-8D153454",
+        "msg_type": "order",
+        "origin": "INDOPACOM",
+        "destination": "JP-YOKOTA",
+        "hops": [
+          {
+            "node": "INDOPACOM",
+            "time": 0.0,
+            "action": "decide"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.3,
+            "action": "relay"
+          },
+          {
+            "node": "USFJ",
+            "time": 0.6,
+            "action": "relay"
+          },
+          {
+            "node": "JP-YOKOTA",
+            "time": 0.9,
+            "action": "execute"
+          }
+        ],
+        "payload": {
+          "track_id": "TRK-6a36fa",
+          "intercept_strategy": "predictive",
+          "distance_km": 91.5,
+          "order_type": "air_defense_tasking",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8439867,
+        "total_latency_s": 0.9
+      },
+      {
+        "message_id": "C2-92890477",
+        "msg_type": "report",
+        "origin": "JP-YOKOTA",
+        "destination": "INDOPACOM",
+        "hops": [
+          {
+            "node": "USFJ",
+            "time": 0.4,
+            "action": "relay"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.8,
+            "action": "received"
+          }
+        ],
+        "payload": {
+          "attack_id": "MSL-3988a7",
+          "outcome": "intercepted",
+          "missile_type": "DF-17",
+          "event_type": "intercept_feedback",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.845449,
+        "total_latency_s": 0.8
+      },
+      {
+        "message_id": "C2-0160EF6F",
+        "msg_type": "report",
+        "origin": "JP-YOKOTA",
+        "destination": "INDOPACOM",
+        "hops": [
+          {
+            "node": "USFJ",
+            "time": 0.4,
+            "action": "relay"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.8,
+            "action": "received"
+          }
+        ],
+        "payload": {
+          "attack_id": "MSL-cb578c",
+          "outcome": "intercepted",
+          "missile_type": "DF-17",
+          "event_type": "intercept_feedback",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8455577,
+        "total_latency_s": 0.8
+      },
+      {
+        "message_id": "C2-1E9377E8",
+        "msg_type": "report",
+        "origin": "JP-YOKOTA",
+        "destination": "INDOPACOM",
+        "hops": [
+          {
+            "node": "USFJ",
+            "time": 0.4,
+            "action": "relay"
+          },
+          {
+            "node": "INDOPACOM",
+            "time": 0.8,
+            "action": "received"
+          }
+        ],
+        "payload": {
+          "attack_id": "MSL-ce08ff",
+          "outcome": "intercepted",
+          "missile_type": "DF-17",
+          "event_type": "intercept_feedback",
+          "sim_time": 1190.0
+        },
+        "status": "delivered",
+        "created_at": 1790082371.8456464,
+        "total_latency_s": 0.8
       }
     ],
-    "message_count": 5
+    "message_count": 364
   },
   "ma_dqn_stats": {
     "algorithm": "MADDPG (Multi-Agent DDPG)",
@@ -2494,7 +3713,7 @@
       "total_episodes": 250,
       "timestamp": 1788571289.7762222
     },
-    "device": "cpu",
+    "device": "xpu:0",
     "intercept_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_maddpg_intercept.pt",
     "dispersal_model": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\models\\pmtec_maddpg_dispersal.pt",
     "observation_dim": 182,
@@ -2503,61 +3722,73 @@
     "critic_input": "obs(364) + actions(6)"
   },
   "persistence": {
-    "snapshots": 3654,
-    "kalman_tracks": 509089,
-    "events": 4408,
+    "snapshots": 30,
+    "kalman_tracks": 1829,
+    "events": 64,
     "dqn_metrics": 0,
     "checkpoints": 0,
-    "last_cycle": 12,
-    "last_sim_seconds": 120.0
+    "last_cycle": 120,
+    "last_sim_seconds": 1200.0
   },
   "twin_summary": {
-    "total_twins": 24,
+    "total_twins": 58,
     "by_kind": {
       "base": 22,
       "scenario": 1,
-      "threat": 1
+      "threat": 35
     },
-    "avg_fidelity": 0.95,
-    "engine_syncs": 12,
-    "last_sync_wall": 1789911082.135644,
+    "avg_fidelity": 0.843,
+    "engine_syncs": 120,
+    "last_sync_wall": 1790082371.992237,
     "deviating_twins": [
       {
-        "twin_id": "TWIN-THR-MSL-efe7a0",
+        "twin_id": "TWIN-THR-MSL-28f512",
+        "name": "DF-17",
+        "deviation": 0.964
+      },
+      {
+        "twin_id": "TWIN-THR-MSL-f9242f",
         "name": "DF-26",
+        "deviation": 0.938
+      },
+      {
+        "twin_id": "TWIN-THR-MSL-b07ca9",
+        "name": "DF-17",
         "deviation": 0.5
       },
       {
-        "twin_id": "TWIN-BASE-KR-HUMPHREYS",
-        "name": "Camp Humphreys",
-        "deviation": 0.2
+        "twin_id": "TWIN-THR-MSL-4ea7e6",
+        "name": "DF-17",
+        "deviation": 0.5
       },
       {
-        "twin_id": "TWIN-BASE-KR-OSAN",
-        "name": "Osan Air Base",
-        "deviation": 0.2
-      },
-      {
-        "twin_id": "TWIN-BASE-JP-YOKOTA",
-        "name": "Yokota Air Base",
-        "deviation": 0.15
-      },
-      {
-        "twin_id": "TWIN-BASE-JP-KADENA",
-        "name": "Kadena Air Base",
-        "deviation": 0.15
+        "twin_id": "TWIN-THR-MSL-063a27",
+        "name": "DF-17",
+        "deviation": 0.5
       }
     ],
+    "calibration": {
+      "samples": 35,
+      "brier_score": 0.1128
+    },
     "intercept_model": {
       "DF-26": {
-        "p": 0.75,
-        "n": 1
+        "p": 0.833,
+        "n": 8
+      },
+      "DF-17": {
+        "p": 0.946,
+        "n": 27
       }
     },
     "strategy_model": {
       "DF-26|predictive": {
-        "success_rate": 1.0,
-        "n": 1
+        "success_rate": 0.875,
+        "n": 8
+      },
+      "DF-17|predictive": {
+        "success_rate": 0.963,
+        "n": 27
       }
     },
     "strategy_overrides": 0
@@ -2567,8 +3798,8 @@
       "twin_id": "TWIN-BASE-JP-MISAWA",
       "kind": "base",
       "name": "Misawa Air Base",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2576,62 +3807,62 @@
         "aircraft_total": 0,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 0.0
       },
       "virtual": {
         "readiness_model": 0.0,
-        "access_prob": 0.85
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-YOKOTA",
       "kind": "base",
       "name": "Yokota Air Base",
-      "sync_count": 12,
-      "last_sync": 120.0,
-      "fidelity": 0.85,
-      "mean_deviation": 0.15,
+      "sync_count": 120,
+      "last_sync": 1200.0,
+      "fidelity": 0.505,
+      "mean_deviation": 0.495,
       "physical": {
         "aircraft_active": 8,
         "aircraft_total": 8,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 1.0
       },
       "virtual": {
-        "readiness_model": 0.85,
-        "access_prob": 0.85
+        "readiness_model": 0.46,
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-KADENA",
       "kind": "base",
       "name": "Kadena Air Base",
-      "sync_count": 12,
-      "last_sync": 120.0,
-      "fidelity": 0.85,
-      "mean_deviation": 0.15,
+      "sync_count": 120,
+      "last_sync": 1200.0,
+      "fidelity": 0.505,
+      "mean_deviation": 0.495,
       "physical": {
         "aircraft_active": 8,
         "aircraft_total": 8,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 1.0
       },
       "virtual": {
-        "readiness_model": 0.85,
-        "access_prob": 0.85
+        "readiness_model": 0.46,
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-FUTENMA",
       "kind": "base",
       "name": "MCAS Futenma",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2639,20 +3870,20 @@
         "aircraft_total": 0,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 0.0
       },
       "virtual": {
         "readiness_model": 0.0,
-        "access_prob": 0.85
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-SASEBO",
       "kind": "base",
       "name": "Sasebo Naval Base",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2660,20 +3891,20 @@
         "aircraft_total": 0,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 0.0
       },
       "virtual": {
         "readiness_model": 0.0,
-        "access_prob": 0.85
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-YOKOSUKA",
       "kind": "base",
       "name": "Yokosuka Naval Base",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2681,20 +3912,20 @@
         "aircraft_total": 0,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 0.0
       },
       "virtual": {
         "readiness_model": 0.0,
-        "access_prob": 0.85
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-JP-IWAKUNI",
       "kind": "base",
       "name": "MCAS Iwakuni",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2702,20 +3933,20 @@
         "aircraft_total": 0,
         "sensors_active": 1,
         "sensors_total": 1,
-        "political_state": "full",
+        "political_state": "restricted",
         "availability": 0.0
       },
       "virtual": {
         "readiness_model": 0.0,
-        "access_prob": 0.85
+        "access_prob": 0.46
       }
     },
     {
       "twin_id": "TWIN-BASE-GU-ANDERSEN",
       "kind": "base",
       "name": "Andersen AFB",
-      "sync_count": 12,
-      "last_sync": 120.0,
+      "sync_count": 120,
+      "last_sync": 1200.0,
       "fidelity": 1.0,
       "mean_deviation": 0.0,
       "physical": {
@@ -2733,11 +3964,11 @@
     }
   ],
   "threat_stats": {
-    "total_missiles": 1,
-    "intercepted": 1,
-    "impacted": 0,
+    "total_missiles": 35,
+    "intercepted": 33,
+    "impacted": 2,
     "active": 0,
-    "intercept_rate": 1.0
+    "intercept_rate": 0.9428571428571428
   },
   "dqn_agent": {
     "active": true,

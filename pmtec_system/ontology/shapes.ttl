@@ -1,0 +1,51 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix tc: <http://pmtec.example.org/tc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix spl: <http://pmtec.example.org/shapes#> .
+
+spl:InstallationShape a sh:NodeShape ;
+    sh:targetClass tc:MilitaryInstallation ;
+    sh:property [
+        sh:path tc:branchCode ; sh:minCount 1 ; sh:datatype xsd:string ;
+        sh:message "缺失军种代码" ;
+    ] ;
+    sh:property [
+        sh:path tc:latitude ; sh:minCount 1 ; sh:datatype xsd:decimal ;
+        sh:minInclusive -90 ; sh:maxInclusive 90 ;
+        sh:message "纬度缺失或越界" ;
+    ] ;
+    sh:property [
+        sh:path tc:longitude ; sh:minCount 1 ; sh:datatype xsd:decimal ;
+        sh:minInclusive -180 ; sh:maxInclusive 180 ;
+        sh:message "经度缺失或越界" ;
+    ] ;
+    sh:property [
+        sh:path tc:tierLevel ; sh:datatype xsd:integer ;
+        sh:minInclusive 1 ; sh:maxInclusive 4 ;
+        sh:message "Tier 越界" ;
+    ] ;
+    sh:property [
+        sh:path tc:personnelCount ; sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:message "人数为负" ;
+    ] ;
+    sh:property [
+        sh:path tc:hasAccessState ; sh:minCount 1 ;
+        sh:message "状态断言缺失——无状态实体不得进入推理" ;
+    ] .
+
+spl:RunwayShape a sh:NodeShape ;
+    sh:targetClass tc:Runway ;
+    sh:property [
+        sh:path tc:runwayLengthM ; sh:minCount 1 ; sh:datatype xsd:decimal ;
+        sh:minInclusive 500 ; sh:maxInclusive 5000 ;
+        sh:message "跑道长度缺失或超出 500-5000m 合理域" ;
+    ] .
+
+spl:NoOrphanPartShape a sh:NodeShape ;
+    sh:targetClass tc:FacilityPart ;
+    sh:sparql [
+        sh:message "孤立设施部件——未挂接到任何基地" ;
+        sh:select """PREFIX tc: <http://pmtec.example.org/tc#>
+            SELECT $this WHERE { FILTER NOT EXISTS { ?b tc:hasPart $this } }""" ;
+    ] .

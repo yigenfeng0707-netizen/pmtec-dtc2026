@@ -1,0 +1,1422 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:owl="http://www.w3.org/2002/07/owl#"
+         xml:base="http://pmtec.example.org/tc#"
+         xmlns="http://pmtec.example.org/tc#">
+
+<owl:Ontology rdf:about="http://pmtec.example.org/tc.owl"/>
+
+<owl:ObjectProperty rdf:about="http://pmtec.example.org/tc#hasAccessState">
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://pmtec.example.org/tc#AccessState"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="http://pmtec.example.org/tc#hasPart">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#TransitiveProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://pmtec.example.org/tc#FacilityPart"/>
+  <owl:inverseOf rdf:resource="http://pmtec.example.org/tc#partOf"/>
+</owl:ObjectProperty>
+
+<owl:ObjectProperty rdf:about="http://pmtec.example.org/tc#partOf">
+  <owl:inverseOf rdf:resource="http://pmtec.example.org/tc#hasPart"/>
+</owl:ObjectProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#observableProperty"/>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#runwayLengthM">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#personnelCount">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#areaAcres">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#latitude">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#longitude">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#decimal"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#tierLevel">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#branchCode">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#accessUncertainty">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#countryName">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#regionName">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#basedAircraft">
+  <rdfs:subPropertyOf rdf:resource="http://pmtec.example.org/tc#observableProperty"/>
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+</owl:DatatypeProperty>
+
+<owl:DatatypeProperty rdf:about="http://pmtec.example.org/tc#singleRunwayDependency">
+  <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
+  <rdfs:domain rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+</owl:DatatypeProperty>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#MilitaryInstallation">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#AirBase">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://pmtec.example.org/tc#hasPart"/>
+      <owl:someValuesFrom rdf:resource="http://pmtec.example.org/tc#Runway"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#NavalBase">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#LandBase">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#SupportSite">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#FacilityPart">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#Runway">
+  <rdfs:subClassOf>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://pmtec.example.org/tc#partOf"/>
+      <owl:someValuesFrom rdf:resource="http://pmtec.example.org/tc#MilitaryInstallation"/>
+    </owl:Restriction>
+  </rdfs:subClassOf>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#Hangar">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#FacilityPart"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#FuelDepot">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#FacilityPart"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#RadarSite">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#FacilityPart"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#DefensePosition">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#FacilityPart"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#Aircraft">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#AccessState">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#OpenState">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#AccessState"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#RestrictedState">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#AccessState"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#DeniedState">
+  <rdfs:subClassOf rdf:resource="http://pmtec.example.org/tc#AccessState"/>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#LaunchCapable">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://pmtec.example.org/tc#hasAccessState"/>
+      <owl:someValuesFrom>
+        <owl:Class>
+          <owl:unionOf rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://pmtec.example.org/tc#OpenState"/>
+            <rdf:Description rdf:about="http://pmtec.example.org/tc#RestrictedState"/>
+          </owl:unionOf>
+        </owl:Class>
+      </owl:someValuesFrom>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:Class rdf:about="http://pmtec.example.org/tc#AccessDeniedSite">
+  <rdfs:subClassOf rdf:resource="http://www.w3.org/2002/07/owl#Thing"/>
+  <rdfs:subClassOf>
+    <owl:Class>
+      <owl:complementOf rdf:resource="http://pmtec.example.org/tc#LaunchCapable"/>
+    </owl:Class>
+  </rdfs:subClassOf>
+  <owl:equivalentClass>
+    <owl:Restriction>
+      <owl:onProperty rdf:resource="http://pmtec.example.org/tc#hasAccessState"/>
+      <owl:hasValue rdf:resource="http://pmtec.example.org/tc#state_denied"/>
+    </owl:Restriction>
+  </owl:equivalentClass>
+</owl:Class>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#state_open">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#OpenState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#state_restricted">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#RestrictedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#state_denied">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#DeniedState"/>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_MISAWA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_JP_MISAWA_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Misawa Air Base</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3600</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3864.42</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">141.3814</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40.7058</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-North</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-35A (48 planned), P-8A, RC-135</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_MISAWA_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3050.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_YOKOTA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_JP_YOKOTA_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yokota Air Base</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4200</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1749.87</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">139.3475</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.7447</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Central</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">C-130J, KC-135, CV-22, U-2</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_YOKOTA_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3050.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_KADENA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_JP_KADENA_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kadena Air Base</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">15000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.7686</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.3505</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Okinawa</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-15C/D, KC-135, E-3, HH-60</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_KADENA_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3700.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_FUTENMA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_JP_FUTENMA_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MCAS Futenma</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2800</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1176.04</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.7658</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.2783</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Okinawa</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MV-22 (x24), AH-1Z (x12), UH-1Y (x8)</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_FUTENMA_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1800.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_SASEBO">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Sasebo Naval Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4500</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7732.708</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">129.7225</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">33.1611</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-South</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Amphibious assault ships, DDGs</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_YOKOSUKA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Yokosuka Naval Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5500</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2703.7</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">139.6672</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.2906</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Central</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CVN (Ronald Reagan), CGs, DDGs, SSN</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_IWAKUNI">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_JP_IWAKUNI_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">MCAS Iwakuni</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3600</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7110.64</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">132.2347</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">34.1442</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-South</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-35B, MV-22</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_IWAKUNI_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2440.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_GU_ANDERSEN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_GU_ANDERSEN_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Andersen AFB</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6363</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15816.8</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">144.9167</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.5839</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">territory</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">B-1B, B-2, B-52 (rotational), F-35, tanker support</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_GU_ANDERSEN_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3414.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_GU_APRA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base Guam</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">317.6</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">144.6589</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.4469</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">territory</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">SSN, surface combatants</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_HUMPHREYS">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_KR_HUMPHREYS_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camp Humphreys</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">28500</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9785.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.0336</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">36.9647</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">AH-64, UH-60, CH-47</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_HUMPHREYS_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2438.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_OSAN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_KR_OSAN_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Osan Air Base</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6752</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2636.7</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.0336</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">37.0906</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-16, A-10, U-2</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_OSAN_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2743.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_KUNSAN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_KR_KUNSAN_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kunsan Air Base</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2650</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2565.6</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">126.6156</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.9014</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-16</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_KUNSAN_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2743.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_PHICKAM">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_HI_PHICKAM_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Joint Base Pearl Harbor-Hickam</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">44545</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6107.3</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-157.9622</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.3694</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN/USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Multi-domain fleet and air assets</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_PHICKAM_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3769.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_SCHOFIELD">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Schofield Barracks</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">16000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15060.624</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-158.0636</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.495</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_JBER">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_AK_JBER_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Joint Base Elmendorf-Richardson</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">32000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">73164.8</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-149.7275</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">61.2647</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF/US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-22, C-17, E-3</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_JBER_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3048.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_EIELSON">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_AK_EIELSON_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Eielson AFB</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">25019.3</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-147.6106</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">64.6431</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-35A, F-16 (aggressor)</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_EIELSON_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4420.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_DARWIN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_AU_DARWIN_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RAAF Base Darwin</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">130.8769</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-12.4153</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RAAF/USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F-35, F/A-18, KC-30A, MV-22</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_DARWIN_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2744.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_TINDAL">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_AU_TINDAL_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RAAF Base Tindal</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1000</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">132.3789</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-14.5236</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">RAAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">F/A-18, KC-30A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_TINDAL_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2744.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_CAMILO">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">NB Camilo Osias</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">121.1833</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.5667</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN/USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rotational deployment</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_LALLO">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_PH_LALLO_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lal-lo Airport</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">121.4</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">18.2</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF/USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rotational deployment</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_LALLO_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1500.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_BALABAC">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Balabac Island</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">117.05</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.0333</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rotational deployment</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CNMI_TINIAN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#AirBase"/>
+  <hasPart rdf:resource="http://pmtec.example.org/tc#base_CNMI_TINIAN_rwy01"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Tinian North Field</rdfs:label>
+  <singleRunwayDependency rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</singleRunwayDependency>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">68018.639</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">145.6167</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.0833</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">territory</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">CNMI</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Mariana Islands</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Rotational/expeditionary</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CNMI_TINIAN_rwy01">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#Runway"/>
+  <runwayLengthM rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2611.0</runwayLengthM>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_WAINWRIGHT">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fort Wainwright</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">756531.327</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-147.7044</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">64.8372</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_GREELEY">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fort Greely</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7201.77</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-145.69</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">63.8739</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_EARECKSON">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Eareckson Air Station</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3520.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">174.1275</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">52.7117</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AK_CLEAR">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Clear Space Force Station</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">11438.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-149.1156</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">64.2928</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USSF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Alaska</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WA_JBLM">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Joint Base Lewis-McChord</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">87851.29299999999</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-122.4842</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">47.1043</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army/USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washington</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WA_KITSAP">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base Kitsap</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7048.02</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-122.6326</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">47.566</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washington</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WA_EVERETT">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Station Everett</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">217.68</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-122.2186</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">47.9689</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washington</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WA_WHIDBEY">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Air Station Whidbey Island</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">27989.3</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-122.6578</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">48.3522</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washington</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WA_FAIRCHILD">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fairchild Air Force Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6179.9</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.6486</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">47.6233</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Washington</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_VENTURA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base Ventura County</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">4536.5</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-119.1189</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">34.1192</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_CORONADO">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base Coronado</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">24069.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.1667</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.6833</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_SANDIEGO">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base San Diego</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3230.7</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.1214</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.6758</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_POINTLOMA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Base Point Loma</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1816.9</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.1378</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.6839</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_MIRAMAR">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Air Station Miramar</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22876.27</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.1439</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">32.8733</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_PENDLETON">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Base Camp Pendleton</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">125475.984</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-117.3486</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">33.3164</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_BEALE">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Beale Air Force Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22453.5</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-121.4353</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">39.1339</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_TRAVIS">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Travis Air Force Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">6633.4</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-121.9247</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">38.2667</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_CA_VANDENBERG">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Vandenberg Space Force Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">118664.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-120.5728</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">34.7394</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USSF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">California</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_SHAFTER">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fort Shafter</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">602.335</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-157.8606</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.3419</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_WHEELER">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wheeler Army Airfield</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-158.0397</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.4856</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_PMRF">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Pacific Missile Range Facility Barking Sands</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17652.7</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-159.7864</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">22.0283</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_HI_MCBH">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Base Hawaii</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">3234.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-157.7639</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">21.4469</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">sovereign</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Hawaii</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_WL_WAKE">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wake Island Airfield</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">2600.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">166.6481</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">19.2822</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USAF</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">territory</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USA (Wake Island)</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Wake Island</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_GU_BLAZ">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Base Camp Blaz</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">363.151</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">144.8181</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">13.5336</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">territory</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Guam</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_MH_KWAJALEIN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Army Garrison-Kwajalein Atoll</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1361.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">167.7325</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.7197</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marshall Islands</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marshall Islands</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_ZAMA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camp Zama</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">578.07</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">139.4125</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.4872</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Central</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_SHARIKI">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Shariki Communications Site</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">140.345</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">40.8578</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-North</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_KYOGAMISAKI">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Kyogamisaki Communications Site</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">135.1955</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.7658</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Central</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_ATSUGI">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Air Facility Atsugi</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1233.596</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">139.4506</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.4533</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Central</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_OKINAWA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Army Garrison Okinawa (Torii Station)</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">505.38</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.8628</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.3319</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Okinawa</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_JP_BUTLER">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Base Camp Butler</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1814.9</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">127.7703</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">26.2964</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Japan-Okinawa</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_DAEGU">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Army Garrison Daegu</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1477.8</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">128.6033</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.8492</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_YONGSAN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Army Garrison Yongsan-Casey</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10884.6</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">126.9942</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">37.5322</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">US Army</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_CHINHAE">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fleet Activities Chinhae</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">81.74</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">128.6383</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.1136</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_KR_MUJUK">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Marine Corps Installations Camp Mujuk</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">87.95</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">129.4252</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">35.9577</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USMC</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">South Korea</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Korea</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_BAUTISTA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Antonio Bautista Air Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">118.76</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">9.7408</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAF/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_BASA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Basa Air Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">120.5475</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">14.9867</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAF/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_MAGSAYSAY">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Fort Magsaysay</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">121.1086</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">15.4142</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PA/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_LUMBIA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Lumbia Airport</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">124.4553</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">8.6122</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAF/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_EBUEN">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Benito Ebuen Air Base</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">123.9792</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">10.3075</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PAF/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_PH_MELCHOR">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#SupportSite"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Camp Melchor Dela Cruz</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">121.8662</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">17.073</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">PA/US (EDCA)</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Philippines</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_SG_NRCS">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Navy Region Center Singapore</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">0.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">103.8103</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">1.4517</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Singapore</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Singapore</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_ROBERTSON">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#LandBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Robertson Barracks</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">130.9755</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-12.4373</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australian Army/US</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_AU_HOLT">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Communication Station Harold E. Holt</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">20076.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">114.1667</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-21.8164</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Australia</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:NamedIndividual rdf:about="http://pmtec.example.org/tc#base_IO_DIEGOGARCIA">
+  <rdf:type rdf:resource="http://pmtec.example.org/tc#NavalBase"/>
+  <hasAccessState rdf:resource="http://pmtec.example.org/tc#state_open"/>
+  <rdfs:label rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Naval Support Facility Diego Garcia</rdfs:label>
+  <personnelCount rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">0</personnelCount>
+  <areaAcres rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">7000.0</areaAcres>
+  <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">72.4122</longitude>
+  <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#decimal">-7.3136</latitude>
+  <tierLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1</tierLevel>
+  <branchCode rdf:datatype="http://www.w3.org/2001/XMLSchema#string">USN</branchCode>
+  <accessUncertainty rdf:datatype="http://www.w3.org/2001/XMLSchema#string">host_nation</accessUncertainty>
+  <countryName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">British Indian Ocean Territory</countryName>
+  <regionName rdf:datatype="http://www.w3.org/2001/XMLSchema#string">Diego Garcia</regionName>
+  <basedAircraft rdf:datatype="http://www.w3.org/2001/XMLSchema#string">N/A</basedAircraft>
+</owl:NamedIndividual>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#OpenState"/>
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#RestrictedState"/>
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#DeniedState"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+<owl:AllDisjointClasses>
+  <owl:members rdf:parseType="Collection">
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#AirBase"/>
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#NavalBase"/>
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#LandBase"/>
+    <rdf:Description rdf:about="http://pmtec.example.org/tc#SupportSite"/>
+  </owl:members>
+</owl:AllDisjointClasses>
+
+
+</rdf:RDF>
