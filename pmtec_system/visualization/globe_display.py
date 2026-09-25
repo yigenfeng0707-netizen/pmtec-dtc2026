@@ -56,8 +56,9 @@ def load_bases():
 def load_political():
     """灰色地带演化确定性回放 (seed=42, 与实验 2 / 演示动画同源).
 
-    返回 (peak_snapshot, 全程限入峰值, transitions, final_snapshot):
-    peak_snapshot 为 Denied 最多时刻的逐基地准入态, 用于地球着色。
+    返回 (peak_snapshot, 全程限入峰值, transitions, final_snapshot, snaps):
+    peak_snapshot 为 Denied 最多时刻的逐基地准入态, 用于地球静态着色;
+    snaps 为逐周期快照序列, 驱动前端推演回放。
     """
     if PROJECT_ROOT not in sys.path:
         sys.path.insert(0, PROJECT_ROOT)
@@ -106,7 +107,7 @@ def load_political():
                 transitions.append({"cycle": s["cycle"], "base_id": bid,
                                     "from": old, "to": st})
         prev = dict(s["states"])
-    return peak, peak_res, transitions, snaps[-1]
+    return peak, peak_res, transitions, snaps[-1], snaps
 
 
 def load_warhead(bases_by_id):
@@ -210,13 +211,13 @@ def build_geojson(bases, final_state, launches):
             m = arc_mid(pts, 0.55 + 0.08 * k)
             burst_feats.append({"type": "Feature",
                                 "properties": {"ok": True, "target": L["target_name"],
-                                               "missile": L["type"]},
+                                               "missile": L["type"], "cycle": L["cycle"]},
                                 "geometry": {"type": "Point", "coordinates": m}})
         if any(not x["ok"] for x in L["intercepts"]):
             m = arc_mid(pts, 0.9)
             burst_feats.append({"type": "Feature",
                                 "properties": {"ok": False, "target": L["target_name"],
-                                               "missile": L["type"]},
+                                               "missile": L["type"], "cycle": L["cycle"]},
                                 "geometry": {"type": "Point", "coordinates": m}})
     hub_feats = [{"type": "Feature", "properties": {"name": b["name_cn"] or b["name"]},
                   "geometry": {"type": "Polygon",
@@ -242,14 +243,15 @@ HTML = """<!DOCTYPE html>
 *{box-sizing:border-box;margin:0}
 body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsoft YaHei",system-ui,sans-serif;overflow:hidden}
 #map{position:absolute;inset:0}
-.hud{position:absolute;top:0;left:0;right:0;padding:18px 26px;display:flex;gap:18px;align-items:baseline;
- background:linear-gradient(180deg,rgba(5,7,15,.92),transparent);pointer-events:none;z-index:5}
-.hud h1{font-size:19px;letter-spacing:2px;white-space:nowrap}
+.hud{position:absolute;top:0;left:0;right:0;padding:14px 20px;display:flex;gap:14px;align-items:center;flex-wrap:nowrap;
+ background:linear-gradient(180deg,rgba(5,7,15,.92),transparent);pointer-events:none;z-index:5;overflow:hidden}
+.hud h1{font-size:18px;letter-spacing:2px;white-space:nowrap}
 .hud h1 em{color:var(--cyan);font-style:normal}
-.chips{display:flex;gap:10px;flex-wrap:wrap}
-.chip{border:1px solid #263149;border-radius:20px;padding:2px 12px;font-size:12px;color:var(--dim)}
-.chip b{color:var(--ink);font-size:14px;margin-right:2px}
+.chips{display:flex;gap:7px;flex-wrap:nowrap}
+.chip{border:1px solid #263149;border-radius:20px;padding:2px 10px;font-size:11.5px;color:var(--dim);white-space:nowrap}
+.chip b{color:var(--ink);font-size:13px;margin-right:2px}
 .chip.red b{color:var(--red)}.chip.green b{color:var(--green)}.chip.amber b{color:var(--amber)}
+.chip.cyan b{color:var(--cyan)}
 .legend{position:absolute;left:26px;bottom:22px;z-index:5;background:rgba(8,11,22,.86);
  border:1px solid #263149;border-radius:10px;padding:12px 16px;font-size:12px;color:var(--dim)}
 .legend div{display:flex;align-items:center;gap:8px;margin:3px 0}
@@ -264,7 +266,7 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
 .maplibregl-popup-tip{border-top-color:#0d1426!important;border-bottom-color:#0d1426!important}
 .pop b{color:var(--cyan)}.pop .row{margin:2px 0;color:var(--dim)}
 .pop .st{padding:1px 8px;border-radius:8px;font-size:11px;color:#0b0f1a;font-weight:700}
-.foot{position:absolute;left:50%;transform:translateX(-50%);bottom:26px;z-index:5;font-size:11px;color:#42506e;pointer-events:none;white-space:nowrap}
+.foot{position:absolute;left:20px;top:60px;z-index:5;font-size:11px;color:#42506e;pointer-events:none;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -272,16 +274,17 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
 <div class="hud">
   <h1>PMTEC <em>GLOBAL COPE</em> 地球总览</h1>
   <div class="chips">
-    <span class="chip"><b>__N_BASES__</b>权威基地实体</span>
-    <span class="chip red"><b>__N_PEAKDENIED__</b>站点拒止峰值 @c__PEAK_CYCLE__（可用 __AVAIL_PEAK__/67）</span>
-    <span class="chip amber"><b>__N_PEAKRES__</b>站点限入峰值（c1-c2）</span>
-    <span class="chip"><b>__N_POLTRANS__</b>准入状态迁移（seed=42 确定性回放）</span>
-    <span class="chip"><b>__N_LAUNCH__</b>波齐射 / __N_SALVO__ 弹头</span>
+    <span class="chip"><b>__N_BASES__</b>基地实体</span>
+    <span class="chip red"><b>__N_PEAKDENIED__</b>拒止峰值@c__PEAK_CYCLE__（可用 __AVAIL_PEAK__/67）</span>
+    <span class="chip amber"><b>__N_PEAKRES__</b>限入峰值（c1-c2）</span>
+    <span class="chip"><b>__N_POLTRANS__</b>准入迁移</span>
+    <span class="chip"><b>__N_LAUNCH__</b>波齐射/__N_SALVO__弹头</span>
     <span class="chip green"><b>__N_OK__</b>拦截成功</span>
-    <span class="chip red"><b>__N_FAIL__</b>拦截逃逸</span>
+    <span class="chip red"><b>__N_FAIL__</b>逃逸</span>
+    <span class="chip cyan"><b id="cyc">c0</b>推演周期</span>
   </div>
 </div>
-<div class="foot">数据源: bases_v2.geojson · political_access 灰色地带演化确定性回放（c1 限入→c3 主权打击 9 站拒止→c12 再保证恢复）· pmtec_spear_report.json 饱和攻击弹道回放</div>
+<div class="foot">数据源: bases_v2.geojson · political_access seed=42 确定性回放 · pmtec_spear_report.json 弹道回放 · 自动循环推演</div>
 <div class="legend">
   <div><span class="dot" style="background:#60a5fa"></span>Tier-1 枢纽&nbsp;&nbsp;<span class="dot" style="background:#3b82f6;transform:scale(.7)"></span>Tier-2/3</div>
   <div><span class="dot" style="box-shadow:0 0 0 2px var(--red)"></span>Denied（脉冲）&nbsp;&nbsp;<span class="dot" style="box-shadow:0 0 0 2px var(--amber)"></span>Restricted</div>
@@ -291,12 +294,15 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
   <div><span class="ln" style="border-top:2px dashed #7dd3fc;height:0"></span>EDCA 250km 辐射圈</div>
 </div>
 <div class="tools">
+  <button id="btn-play">⏸ 推演</button>
   <button id="btn-rot">⏸ 自转</button>
   <button id="btn-reset">🌏 视角复位</button>
   <button id="btn-zoom">🔍 西太聚焦</button>
 </div>
 <script>
 const BASES=__BASES_GJ__, ARCS=__ARCS_GJ__, BURSTS=__BURSTS_GJ__, HUBS=__HUBS_GJ__;
+const POL=__POL__, TMAX=__TMAX__;
+let baseData=JSON.parse(JSON.stringify(BASES)), playing=true;
 const FALLBACK={version:8,glyphs:"https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf",
  sources:{},layers:[{id:"bg",type:"background",paint:{"background-color":"#05070f"}}]};
 const map=new maplibregl.Map({container:"map",style:"https://demotiles.maplibre.org/style.json",
@@ -358,16 +364,27 @@ function boot(){
    new maplibregl.Popup({maxWidth:"240px",offset:8}).setLngLat(ev.lngLat).setHTML(
     `<div class="pop"><b>${p.type} ×${p.salvo}</b><div class="row">目标：${p.target} · 周期 c${p.cycle}</div></div>`).addTo(map);
  });
+ function polStateAt(t){let s={};for(const p of POL){if(p.cycle<=t)s=p.states;else break;}return s;}
+ function render(t){
+   window.__curT=t; const st=polStateAt(t);
+   baseData=JSON.parse(JSON.stringify(BASES));
+   baseData.features.forEach(ft=>{const s=st[ft.properties.id]||"full";
+     ft.properties.state=s;ft.properties._statec=stateColor(s);});
+   map.getSource("bases").setData(baseData);
+   map.getSource("arcs").setData({type:"FeatureCollection",features:ARCS.features.filter(f=>f.properties.cycle<=t)});
+   map.getSource("bursts").setData({type:"FeatureCollection",features:BURSTS.features.filter(f=>f.properties.cycle<=t)});
+   document.getElementById("cyc").textContent="c"+t;
+  }
+ window.render=render; render(0);
  let phase=0;
- setInterval(()=>{ // Denied 脉冲
+ setInterval(()=>{ // Denied 脉冲（随当前周期态）
    phase=(phase+1)%24; const f=phase/24;
-   const src=map.getSource("bases");
-   const d=JSON.parse(JSON.stringify(BASES));
-   d.features.forEach(ft=>{ft.properties._pulse=(6+f*16)*(ft.properties.state==="denied"?1:0);
-     ft.properties._pop=0.42*(1-f)*(ft.properties.state==="denied"?1:0);
-     ft.properties._statec=stateColor(ft.properties.state);});
-   src.setData(d);
+   const d=JSON.parse(JSON.stringify(baseData));
+   d.features.forEach(ft=>{const dn=ft.properties.state==="denied"?1:0;
+     ft.properties._pulse=(6+f*16)*dn; ft.properties._pop=0.42*(1-f)*dn;});
+   map.getSource("bases").setData(d);
   },70);
+ setInterval(()=>{ if(!playing)return; render(window.__curT>=TMAX?0:window.__curT+1); },220);
  let off=0; // 弹道流光
  (function flow(){off-=0.9;
    if(map.getLayer("arc-flow"))map.setPaintProperty("arc-flow","line-dashoffset",off);
@@ -380,6 +397,7 @@ let rot=true;
 setInterval(()=>{ if(!rot)return;
  map.easeTo({bearing:map.getBearing()+0.6,duration:1200,easing:t=>t});},1200);
 document.getElementById("btn-rot").onclick=e=>{rot=!rot;e.target.textContent=rot?"⏸ 自转":"▶ 自转"};
+document.getElementById("btn-play").onclick=e=>{playing=!playing;e.target.textContent=playing?"⏸ 推演":"▶ 推演"};
 document.getElementById("btn-reset").onclick=()=>map.easeTo({center:[158,16],zoom:2.4,pitch:38,bearing:0,duration:1500});
 document.getElementById("btn-zoom").onclick=()=>map.easeTo({center:[140,22],zoom:4.0,pitch:55,bearing:0,duration:1800});
 </script>
@@ -391,14 +409,18 @@ document.getElementById("btn-zoom").onclick=()=>map.easeTo({center:[140,22],zoom
 def main():
     bases = load_bases()
     by_id = {b["id"]: b for b in bases}
-    peak, peak_res, transitions, final = load_political()
+    peak, peak_res, transitions, final, snaps = load_political()
     launches, stats = load_warhead(by_id)
     bases_gj, arcs_gj, bursts_gj, hubs_gj = build_geojson(bases, peak["states"], launches)
+    tmax = max([s["cycle"] for s in snaps] + [L["cycle"] for L in launches])
+    pol_tl = [{"cycle": s["cycle"], "states": s["states"]} for s in snaps]
     html = (HTML
             .replace("__BASES_GJ__", json.dumps(bases_gj, ensure_ascii=False))
             .replace("__ARCS_GJ__", json.dumps(arcs_gj, ensure_ascii=False))
             .replace("__BURSTS_GJ__", json.dumps(bursts_gj, ensure_ascii=False))
             .replace("__HUBS_GJ__", json.dumps(hubs_gj, ensure_ascii=False))
+            .replace("__POL__", json.dumps(pol_tl, ensure_ascii=False))
+            .replace("__TMAX__", str(tmax))
             .replace("__N_BASES__", str(len(bases)))
             .replace("__N_PEAKDENIED__", str(peak["denied"]))
             .replace("__PEAK_CYCLE__", str(peak["cycle"]))
