@@ -12,6 +12,8 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, "output", "index.html")
 
 CARDS = [
+    ("🌍", "全球地球总览", "pmtec_globe.html",
+     "MapLibre GL 地球投影：9 站拒止脉冲（seed=42 确定性回放）+ 饱和弹道流光 + EDCA 圈", "#22d3ee"),
     ("🛰️", "实时态势大屏", "pmtec_realtime_display.html",
      "2D/3D/数字地球三态切换 + 杀伤链实时流 + 孪生面板 + AI 参谋官按钮", "#2ec4b6"),
     ("🧬", "数字孪生仪表盘", "dt_dashboard.html",
