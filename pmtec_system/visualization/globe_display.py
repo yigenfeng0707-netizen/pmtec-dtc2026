@@ -11,6 +11,8 @@ output/assets/，答辩断网可用；在线 CDN 仅作兜底）。
   - models/political_access.py 灰色地带演化确定性回放 (seed=42, 与
     scripts/political_resilience_analysis.py 实验 2 及演示动画同源:
     c3 主权打击峰值 9 站点 Denied / 可用基地 67→58)
+交互: 图层控制面板(政治准入/弹道齐射/拦截突防/EDCA/昼夜线) +
+昼夜终结线(浏览器端真实时间天文计算, 无任何外部 feed).
 产物: output/pmtec_globe.html
 """
 import json
@@ -260,6 +262,13 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
 .tools button{background:#0d1426;color:var(--ink);border:1px solid #2a3752;border-radius:8px;
  padding:7px 14px;font-size:12px;cursor:pointer}
 .tools button:hover{border-color:var(--cyan);color:var(--cyan)}
+.layers{position:absolute;right:26px;bottom:74px;z-index:6;background:rgba(8,11,22,.86);
+ border:1px solid #263149;border-radius:10px;padding:10px 14px;font-size:12px;color:var(--dim);
+ display:flex;flex-direction:column;gap:4px}
+.layers b{color:var(--ink);font-size:10.5px;letter-spacing:2px;margin-bottom:2px}
+.layers label{display:flex;align-items:center;gap:7px;cursor:pointer;white-space:nowrap}
+.layers input{accent-color:var(--cyan);width:13px;height:13px;cursor:pointer}
+.layers label:hover{color:var(--cyan)}
 .maplibregl-popup-content{background:#0d1426!important;color:var(--ink)!important;
  border:1px solid #2a3752;border-radius:10px;font-size:12.5px;padding:12px 14px!important}
 .maplibregl-popup-close-button{color:var(--dim)!important;right:4px;top:2px}
@@ -284,7 +293,7 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
     <span class="chip cyan"><b id="cyc">c0</b>推演周期</span>
   </div>
 </div>
-<div class="foot">数据源: bases_v2.geojson · political_access seed=42 确定性回放 · pmtec_spear_report.json 弹道回放 · 自动循环推演</div>
+<div class="foot">数据源: bases_v2.geojson · political_access seed=42 确定性回放 · pmtec_spear_report.json 弹道回放 · 昼夜线为浏览器本地天文计算(真实时间)</div>
 <div class="legend">
   <div><span class="dot" style="background:#60a5fa"></span>Tier-1 枢纽&nbsp;&nbsp;<span class="dot" style="background:#3b82f6;transform:scale(.7)"></span>Tier-2/3</div>
   <div><span class="dot" style="box-shadow:0 0 0 2px var(--red)"></span>Denied（脉冲）&nbsp;&nbsp;<span class="dot" style="box-shadow:0 0 0 2px var(--amber)"></span>Restricted</div>
@@ -298,6 +307,14 @@ body{background:var(--bg);color:var(--ink);font:14px/1.6 "PingFang SC","Microsof
   <button id="btn-rot">⏸ 自转</button>
   <button id="btn-reset">🌏 视角复位</button>
   <button id="btn-zoom">🔍 西太聚焦</button>
+</div>
+<div class="layers">
+  <b>图层控制</b>
+  <label><input type="checkbox" data-l="pol" checked>政治准入演化</label>
+  <label><input type="checkbox" data-l="strike" checked>弹道齐射</label>
+  <label><input type="checkbox" data-l="burst" checked>拦截 / 突防</label>
+  <label><input type="checkbox" data-l="hub" checked>EDCA 枢纽圈</label>
+  <label><input type="checkbox" data-l="day" checked>昼夜终结线</label>
 </div>
 <script>
 const BASES=__BASES_GJ__, ARCS=__ARCS_GJ__, BURSTS=__BURSTS_GJ__, HUBS=__HUBS_GJ__;
@@ -313,12 +330,45 @@ map.on("error",()=>{ // 在线底图失败(断网)时降级: 纯暗色地球仍�
  if(!window.__fb&&!(map.getStyle()&&map.getStyle().layers&&map.getStyle().layers.length)){
    window.__fb=true; map.setStyle(FALLBACK);}});
 function stateColor(s){return s==="denied"?"#ef4444":s==="restricted"?"#f59e0b":"#16213a"}
+const DEG=Math.PI/180;
+function subsolar(){ // 太阳直射点（低精度 VSOP 近似，±0.05° 足够绘图）
+ const n=Date.now()/86400000+2440587.5-2451545.0;
+ const L=280.460+0.9856474*n, g=(357.528+0.98560028*n)*DEG;
+ const lam=(L+1.915*Math.sin(g)+0.020*Math.sin(2*g))*DEG;
+ const eps=(23.439-0.00000036*n)*DEG;
+ const ra=Math.atan2(Math.cos(eps)*Math.sin(lam),Math.cos(lam))/DEG;
+ const lat=Math.asin(Math.sin(eps)*Math.sin(lam))/DEG;
+ const gmst=(280.461+360.986*n)%360;
+ let lon=(ra-gmst)%360; if(lon>180)lon-=360; if(lon<-180)lon+=360;
+ return {lat,lon};}
+function nightCells(){ // 夜半球 = 与直射点角距>90.3° 的经纬网格（小方格避免跨日界线破洞）
+ const ss=subsolar(), sn=Math.sin(ss.lat*DEG), cs=Math.cos(ss.lat*DEG);
+ const T=-0.005, STEP=2.5, Q=1.25, feats=[];
+ function addRect(a,b,p0,p1){
+   const an=((a+180)%360+360)%360-180, w=b-a;
+   const ring=(x1,x2)=>[[x1,p0],[x2,p0],[x2,p1],[x1,p1],[x1,p0]];
+   const mk=(x1,x2)=>feats.push({type:"Feature",properties:{},
+     geometry:{type:"Polygon",coordinates:[ring(x1,x2)]}});
+   if(an+w<=180)mk(an,an+w);
+   else{mk(an,180);mk(-180,an+w-360);}}
+ for(let ph=-89;ph<=89;ph+=STEP){
+   const ps=Math.sin(ph*DEG), pc=Math.cos(ph*DEG);
+   const x=(T-ps*sn)/(pc*cs||1e-9); // cos(dλ)<x 时为夜
+   if(x>=1)continue;
+   const hw=x<=-1?180:Math.acos(Math.min(1,Math.max(-1,x)))/DEG;
+   for(let d=180-hw;d<=180+hw;d+=STEP)
+     addRect(ss.lon+d-Q,ss.lon+d+Q,ph-Q,ph+Q);}
+ return {type:"FeatureCollection",features:feats};}
 function boot(){
  if(window.__booted || !map.setProjection) return; window.__booted=true;
  try{map.setProjection({type:"globe"})}catch(_){}
  map.setSky({"sky-color":"#060a16","horizon-color":"#0d1b33","fog-color":"#05070f",
              "sky-horizon-blend":0.35,"horizon-fog-blend":0.4,"fog-ground-blend":0.85,
              "atmosphere-blend":["interpolate",["linear"],["zoom"],0,0.35,6,0.08]});
+ map.addSource("daynight",{type:"geojson",data:nightCells()});
+ map.addLayer({id:"daynight",type:"fill",source:"daynight",
+  paint:{"fill-color":"#02040c","fill-opacity":0.62,"fill-antialias":false}});
+ setInterval(()=>{const s=map.getSource("daynight");if(s)s.setData(nightCells());},60000);
  map.addSource("hubs",{type:"geojson",data:HUBS});
  map.addSource("arcs",{type:"geojson",data:ARCS});
  map.addSource("bursts",{type:"geojson",data:BURSTS});
@@ -400,6 +450,12 @@ document.getElementById("btn-rot").onclick=e=>{rot=!rot;e.target.textContent=rot
 document.getElementById("btn-play").onclick=e=>{playing=!playing;e.target.textContent=playing?"⏸ 推演":"▶ 推演"};
 document.getElementById("btn-reset").onclick=()=>map.easeTo({center:[158,16],zoom:2.4,pitch:38,bearing:0,duration:1500});
 document.getElementById("btn-zoom").onclick=()=>map.easeTo({center:[140,22],zoom:4.0,pitch:55,bearing:0,duration:1800});
+const LGROUPS={pol:["pulse","ring","base-pt"],strike:["arc-glow","arc-line","arc-flow"],
+ burst:["burst"],hub:["hub-ring"],day:["daynight"]};
+document.querySelectorAll(".layers input").forEach(cb=>cb.addEventListener("change",()=>{
+ for(const id of LGROUPS[cb.dataset.l])
+  if(map.getLayer(id))map.setLayoutProperty(id,"visibility",cb.checked?"visible":"none");
+}));
 </script>
 </body>
 </html>
