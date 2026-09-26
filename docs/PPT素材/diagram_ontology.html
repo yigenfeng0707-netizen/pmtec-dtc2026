@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+  html,body{margin:0;background:#0d1117;font-family:"Microsoft YaHei","Segoe UI",sans-serif;color:#c9d1d9}
+  #stage{width:1600px;height:900px;box-sizing:border-box;padding:36px 48px;position:relative;display:flex;flex-direction:column;justify-content:center}
+  h1{font-size:34px;color:#58a6ff;margin:0 0 8px;font-weight:700}
+  .sub{font-size:19px;color:#8b949e;margin-bottom:20px}
+  .grid{display:flex;gap:26px}
+  .col{flex:1}
+  .card{background:#161b22;border:2px solid #30363d;border-radius:14px;padding:16px 20px;margin-bottom:14px}
+  .card .t{font-size:20px;font-weight:700;margin-bottom:6px}
+  .card .d{font-size:15.5px;color:#8b949e;line-height:1.5}
+  .onto .t{color:#bc8cff}.onto{border-color:#bc8cff}
+  .infer .t{color:#3fb950}.infer{border-color:#3fb950}
+  .prov .t{color:#d29922}.prov{border-color:#d29922}
+  .conf .t{color:#58a6ff}.conf{border-color:#58a6ff}
+  .flip{background:rgba(248,81,73,.07);border:2px dashed #f85149;border-radius:12px;padding:14px 18px;font-size:16.5px;line-height:1.6;color:#ffa198}
+  .flow{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px 0 22px;font-size:17px}
+  .fnode{background:#21262d;border:1.5px solid #58a6ff;border-radius:10px;padding:10px 16px;color:#58a6ff;font-weight:700}
+  .fnode.g{border-color:#3fb950;color:#3fb950}
+  .fnode.p{border-color:#bc8cff;color:#bc8cff}
+  .fa{color:#8b949e;font-size:26px}
+  .foot{position:absolute;bottom:28px;left:48px;right:48px;display:flex;justify-content:space-between;font-size:16px;color:#8b949e}
+</style></head><body><div id="stage">
+  <h1>P14 本体层 — 让目标特性数据可推理、可校验、可溯源</h1>
+  <div class="sub">从"查表"升级为"推理"：翻转横田基地准入为 Denied，HermiT 立刻把它踢出"可 launch 基地"集合 — 纯数据库做不到</div>
+  <div class="flow">
+    <span class="fnode p">五元组建模</span><span class="fa">→</span>
+    <span class="fnode">OWL 2 DL · 86 实体</span><span class="fa">→</span>
+    <span class="fnode g">HermiT 一致性证明</span><span class="fa">→</span>
+    <span class="fnode g">SHACL 3 形状 · 7 约束全合规</span><span class="fa">→</span>
+    <span class="fnode">SPARQL 杀伤网查询</span><span class="fa">→</span>
+    <span class="fnode p">PROV-O 溯源 643 三元组</span>
+  </div>
+  <div class="grid">
+    <div class="col">
+      <div class="card onto"><div class="t">五元组本体 (TO)</div><div class="d">平台 Platform / 载荷 Payload / 事件 Event / 环境 Environment / 政治准入 Political-Access，86 实体全部挂接权威来源</div></div>
+      <div class="card infer"><div class="t">描述逻辑推理</div><div class="d">HermiT 判定本体一致性；准入状态机进入推理链：Denied 站点自动从可发射集合剔除，PAE Top10 由 SPARQL 直接查出（Hickam / Kadena / Andersen…），不写死一行代码</div></div>
+    </div>
+    <div class="col">
+      <div class="card conf"><div class="t">D-S 证据理论置信度</div><div class="d">67 基地按数据精度分级 A/A-/B = 45/21/1；Bel(Open) ∈ [0.67, 0.92]；概率预测校准 Brier 0.1128（35 判定样本实算）</div></div>
+      <div class="card prov"><div class="t">PROV-O 全链溯源</div><div class="d">每个断言可回溯到 CRS 报告 / FY2024 基地结构报告 / UJTL 编号段，643 三元组溯源图机器可验证</div></div>
+      <div class="flip"><b>翻转测试</b>：修改 Yokota 准入 → 推理机实时重分类 → 下游火力分配方案联动变化。验收 21 项断言全过，CI 六阶段全绿。</div>
+    </div>
+  </div>
+  <div class="foot"><span>数据源：ontology/ 产物 · test_p14_ontology.py · CI 记录</span><span>PMTEC · DTC2026 赛道二</span></div>
+</div></body></html>

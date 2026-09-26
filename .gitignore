@@ -79,3 +79,10 @@ pmtec_system/output/*.log
 /Approved Universal Joint Task List (UJTL) Database (2026).pdf
 /CJCSI_3500.02D_结构化查询表.xlsx
 /UJTL_2026_任务数据集.xlsx
+
+# 新版答辩 PPT 素材生成物（可由 scripts/build_ppt_charts.py + build_defense_ppt.py 重建，本地留存）
+docs/PPT素材/*.png
+docs/PPT素材/*.jpg
+docs/PPT素材/*.pdf
+docs/PPT素材/slidepreview/
+/DTC2026赛道二答辩-PMTEC新版.pptx

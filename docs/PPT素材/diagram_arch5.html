@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+  html,body{margin:0;background:#0d1117;font-family:"Microsoft YaHei","Segoe UI",sans-serif;color:#c9d1d9}
+  #stage{width:1600px;height:900px;box-sizing:border-box;padding:36px 60px;position:relative}
+  h1{font-size:34px;color:#58a6ff;margin:0 0 8px;font-weight:700}
+  .sub{font-size:19px;color:#8b949e;margin-bottom:24px}
+  .layer{display:flex;align-items:center;margin-bottom:14px}
+  .tag{width:200px;font-size:19px;font-weight:700;text-align:right;padding-right:22px;flex-shrink:0}
+  .body{flex:1;background:#161b22;border:2px solid;border-radius:12px;padding:14px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .body .n{font-size:17.5px;font-weight:700}
+  .body .m{font-size:15px;color:#8b949e}
+  .chip{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:6px 12px;font-size:15px}
+  .l1 .tag{color:#bc8cff}.l1 .body{border-color:#bc8cff}
+  .l2 .tag{color:#58a6ff}.l2 .body{border-color:#58a6ff}
+  .l3 .tag{color:#3fb950}.l3 .body{border-color:#3fb950}
+  .l4 .tag{color:#d29922}.l4 .body{border-color:#d29922}
+  .l5 .tag{color:#f85149}.l5 .body{border-color:#f85149}
+  .foot{position:absolute;bottom:28px;left:60px;right:60px;display:flex;justify-content:space-between;font-size:16px;color:#8b949e}
+</style></head><body><div id="stage">
+  <h1>PMTEC 五层系统架构 — 三级交付一体化</h1>
+  <div class="sub">126 个 Python 文件 · 3.7 万行代码 · 433 行 protobuf 接口契约 · 一键 Docker 起跑</div>
+  <div class="layer l1"><div class="tag">L5 展示交互层</div><div class="body"><span class="n">指挥中心大屏 / 地球总览 / 实时孪生 / 3D 战术</span><span class="chip">COP 三态视图</span><span class="chip">MapLibre 地球 + 昼夜终结线</span><span class="chip">LLM 参谋官面板</span></div></div>
+  <div class="layer l2"><div class="tag">L4 服务接入层</div><div class="body"><span class="n">DTB-Service 三通道</span><span class="chip">gRPC :50051</span><span class="chip">WebSocket :8765 毫秒级推送</span><span class="chip">REST :8080</span><span class="chip">PROV-O 溯源查询</span></div></div>
+  <div class="layer l3"><div class="tag">L3 仿真引擎层</div><div class="body"><span class="n">ASDA 闭环引擎 (DTB-Model)</span><span class="chip">DQN 火力分配 219 维</span><span class="chip">UCB1 / MA-DQN</span><span class="chip">政治准入状态机</span><span class="chip">NSFW 部署优化 NSGA-II 六目标</span></div></div>
+  <div class="layer l4"><div class="tag">L2 本体知识层</div><div class="body"><span class="n">P14 目标特性本体 (DTB-Ontology)</span><span class="chip">OWL 2 DL · 86 实体五元组</span><span class="chip">HermiT 一致性推理</span><span class="chip">SHACL / SPARQL</span><span class="chip">D-S 置信度</span></div></div>
+  <div class="layer l5"><div class="tag">L1 数据底座层</div><div class="body"><span class="n">权威数据 (DTB-Data)</span><span class="chip">67 基地实体 · CRS/FY2024 溯源</span><span class="chip">UJTL 1169 任务</span><span class="chip">CJCSI 3500.02D 条款库</span><span class="chip">威胁轨迹库</span></div></div>
+  <div class="foot"><span>每层可独立测试：21 项验收断言 · CI 六阶段全绿</span><span>PMTEC · DTC2026 赛道二</span></div>
+</div></body></html>

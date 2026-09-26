@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+  html,body{margin:0;background:#0d1117;font-family:"Microsoft YaHei","Segoe UI",sans-serif;color:#c9d1d9}
+  #stage{width:1600px;height:900px;box-sizing:border-box;padding:36px 48px;position:relative;display:flex;flex-direction:column;justify-content:center}
+  h1{font-size:34px;color:#58a6ff;margin:0 0 8px;font-weight:700}
+  .sub{font-size:19px;color:#8b949e;margin-bottom:26px}
+  .row{display:flex;align-items:stretch;justify-content:center;gap:0}
+  .node{background:#161b22;border:2px solid #30363d;border-radius:14px;padding:18px 22px;width:250px;text-align:center;position:relative}
+  .node .t{font-size:22px;font-weight:700;margin-bottom:6px}
+  .node .d{font-size:15.5px;color:#8b949e;line-height:1.45}
+  .node.observe{border-color:#58a6ff}.node.observe .t{color:#58a6ff}
+  .node.judge{border-color:#bc8cff}.node.judge .t{color:#bc8cff}
+  .node.decide{border-color:#d29922}.node.decide .t{color:#d29922}
+  .node.act{border-color:#3fb950}.node.act .t{color:#3fb950}
+  .arrow{display:flex;align-items:center;font-size:40px;color:#8b949e;padding:0 10px}
+  .loop{margin:34px auto 0;width:1240px;display:flex;justify-content:space-between;align-items:center}
+  .loop .ret{flex:1;border:2px dashed #f85149;border-radius:12px;padding:14px 20px;font-size:18px;color:#f85149;text-align:center;background:rgba(248,81,73,.06)}
+  .chip{display:inline-block;background:#21262d;border:1px solid #30363d;border-radius:20px;padding:4px 14px;font-size:14.5px;color:#c9d1d9;margin:4px 3px}
+  .foot{position:absolute;bottom:30px;left:48px;right:48px;display:flex;justify-content:space-between;font-size:16px;color:#8b949e}
+</style></head><body><div id="stage">
+  <h1>ASDA 闭环 × 政治准入状态机 — 每周期 4 阶段滚动推演</h1>
+  <div class="sub">政治事件注入后当周期即响应：准入容量因子直接进入 DQN 观测，决策闭环实时重平衡</div>
+  <div class="row">
+    <div class="node observe"><div class="t">Observe 感知</div><div class="d">67 实体孪生状态<br>219 维观测向量<br><span class="chip">含各站点准入容量因子</span></div></div>
+    <div class="arrow">→</div>
+    <div class="node judge"><div class="t">Judge 研判</div><div class="d">威胁排序 + 卡尔曼融合<br>政治灰区事件识别<br>Brier 0.1128 在线校准</div></div>
+    <div class="arrow">→</div>
+    <div class="node decide"><div class="t">Decide 决策</div><div class="d">DQN 火力分配<br>UCB1 策略选择<br>MA-DQN 基地分散</div></div>
+    <div class="arrow">→</div>
+    <div class="node act"><div class="t">Act 行动</div><div class="d">拦截弹发射 / C2 指令<br>伤停与转移结算<br>孪生状态回写</div></div>
+  </div>
+  <div class="loop"><div class="ret">Act 结果回写孪生 → 下一周期 Observe（实跑 120 个 ASDA 周期 / 1506 事件）</div></div>
+  <div style="margin:30px auto 0;width:1240px;display:flex;gap:16px;justify-content:center">
+    <div class="chip" style="border-color:#3fb950;color:#3fb950;font-size:17px">Open 完全准入</div>
+    <div style="color:#8b949e;font-size:22px;align-self:center">⇄</div>
+    <div class="chip" style="border-color:#d29922;color:#d29922;font-size:17px">Restricted 受限</div>
+    <div style="color:#8b949e;font-size:22px;align-self:center">⇄</div>
+    <div class="chip" style="border-color:#f85149;color:#f85149;font-size:17px">Denied 拒止</div>
+    <div style="font-size:17px;align-self:center;color:#8b949e;margin-left:14px">33 次双向迁移：降级可恢复，主权打击下 9 站拒止、可用基地 67→58</div>
+  </div>
+  <div class="foot"><span>数据源：pmtec_spear_report.json（饱和攻击实跑）· 数字全部来自系统真实产物</span><span>PMTEC · DTC2026 赛道二</span></div>
+</div></body></html>
