@@ -86,3 +86,8 @@ docs/PPT素材/*.jpg
 docs/PPT素材/*.pdf
 docs/PPT素材/slidepreview/
 /DTC2026赛道二答辩-PMTEC新版.pptx
+
+# 演示视频V2 素材与中间产物（本地留存，脚本可重建）
+pmtec_system/output/pmtec_demo_raw_take.mp4
+pmtec_system/output/pmtec_demo_video_v2.mp4
+pmtec_system/output/v2_work/
