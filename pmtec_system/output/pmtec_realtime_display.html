@@ -456,9 +456,9 @@ function generateAIAnalysis() {
       document.getElementById('ai-meta').textContent = d.model + ' | ' + d.generated_at;
       renderAI(d.markdown);
       if (d.docx_path) {
-        var btn = document.getElementById('btn-ai-docx');
-        btn.href = REST_BASE + '/analysis/download';
-        btn.style.display = 'inline-block';
+        var docxBtn = document.getElementById('btn-ai-docx');
+        docxBtn.href = REST_BASE + '/analysis/download';
+        docxBtn.style.display = 'inline-block';
       }
     } else {
       status.textContent = ' 生成失败: ' + (d.error || 'unknown');
