@@ -73,3 +73,9 @@ local_run.json
 pmtec_system/output/*.log
 local_run.json
 pmtec_system/output/*.log
+
+# UJTL/CJCSI 规范原文二进制（清洗产物已入库 data/ujtl/，源文件本地留存）
+/CJCSI 3500.02D, Universal Joint Task List Program.pdf
+/Approved Universal Joint Task List (UJTL) Database (2026).pdf
+/CJCSI_3500.02D_结构化查询表.xlsx
+/UJTL_2026_任务数据集.xlsx

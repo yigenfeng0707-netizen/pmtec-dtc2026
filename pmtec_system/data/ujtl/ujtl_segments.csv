@@ -1,0 +1,35 @@
+﻿序号,编号段,层级代码,层级名称,编号段名称（原文）,编号段名称（中文）,本段任务合计,直属子项数,衡量指标数,近期变更数,删除审计数
+1,OP 1,OP,战役层,Conduct Operational Maneuver,实施战役机动,40,6,479,1,8
+2,OP 2,OP,战役层,Conduct Joint Intelligence Operations,实施联合情报行动,47,8,736,0,8
+3,OP 3,OP,战役层,Conduct Fires,实施火力打击,40,8,410,5,15
+4,OP 4,OP,战役层,Provide Operational Sustainment,提供战役后勤保障,55,9,765,2,7
+5,OP 5,OP,战役层,Provide Command and Control (C2),提供指挥与控制,95,10,1177,7,11
+6,OP 6,OP,战役层,Provide Operational Force Protection (FP),提供战役部队防护,32,6,419,1,13
+7,OP 7,OP,战役层,Execute Countering Weapons of Mass Destruction (CWMD),实施反大规模杀伤性武器行动,8,5,209,0,6
+8,OP 8,OP,战役层,Conduct Military Engagement,实施军事接触,14,12,77,0,9
+9,SN 1,SN,战略—国家层,Manage Deployment and Redeployment,管理部署与重新部署,15,2,305,0,3
+10,SN 2,SN,战略—国家层,Provide Strategic Intelligence,提供战略情报,57,8,452,0,4
+11,SN 3,SN,战略—国家层,Employ Forces,运用部队,102,12,802,9,7
+12,SN 4,SN,战略—国家层,Provide Sustainment,提供后勤保障,54,7,345,8,9
+13,SN 5,SN,战略—国家层,Issue Strategic Direction,发布战略指导,107,10,674,24,16
+14,SN 6,SN,战略—国家层,Conduct Mobilization,实施动员,21,3,148,0,19
+15,SN 7,SN,战略—国家层,Conduct Force Development,实施部队发展,36,7,288,1,3
+16,SN 8,SN,战略—国家层,Coordinate Military Engagement Activities,协调军事接触活动,19,3,195,0,9
+17,SN 9,SN,战略—国家层,Coordinate Countering Weapons of Mass Destruction (CWMD),协调反大规模杀伤性武器行动,21,4,275,0,9
+18,ST 1,ST,战略—战区层,Deploy Forces,部署部队,29,6,251,0,6
+19,ST 2,ST,战略—战区层,Provide Theater Intelligence,提供战区情报,63,16,706,0,7
+20,ST 3,ST,战略—战区层,Employ Fires,运用火力,24,11,288,3,7
+21,ST 4,ST,战略—战区层,Sustain Forces,保障部队,36,8,486,6,4
+22,ST 5,ST,战略—战区层,Conduct Command and Control (C2),实施指挥与控制,72,10,865,7,15
+23,ST 6,ST,战略—战区层,Coordinate Protection,协调防护,27,4,341,2,14
+24,ST 7,ST,战略—战区层,Establish Force Requirements,确定部队需求,17,2,159,0,0
+25,ST 8,ST,战略—战区层,Perform Military Engagement,遂行军事接触,44,6,581,1,13
+26,ST 9,ST,战略—战区层,Conduct Countering Weapons of Mass Destruction (CWMD),实施反大规模杀伤性武器行动,9,8,264,0,1
+27,TA 1,TA,战术层,Execute Maneuver,执行机动,13,2,76,0,4
+28,TA 2,TA,战术层,Share Intelligence,共享情报,12,11,64,0,0
+29,TA 3,TA,战术层,Execute Fires,执行火力打击,23,9,177,2,7
+30,TA 4,TA,战术层,Sustain Deployed Forces,保障已部署部队,3,1,15,0,1
+31,TA 5,TA,战术层,Exercise Command and Control (C2),遂行指挥与控制,21,5,215,3,16
+32,TA 6,TA,战术层,Protect the Force,防护部队,9,8,120,0,3
+33,TA 7,TA,战术层,"Operate in a Chemical, Biological, Radiological, or Nuclear (CBRN) Hazardous Area",在化学、生物、放射或核危险区域行动,4,1,50,0,0
+,合计,,,,,1169,228,12414,82,254

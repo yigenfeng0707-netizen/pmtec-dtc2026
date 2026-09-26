@@ -1,0 +1,255 @@
+﻿序号,任务编号,层级代码,层级名称,编号段,编号段名称（中文）,原任务名称（原文）
+1,SN 1.1.6,SN,战略—国家层,SN 1,管理部署与重新部署,Determine the Impact of Threat Activity
+2,SN 1.1.7,SN,战略—国家层,SN 1,管理部署与重新部署,Determine the Impact of Meteorology and Oceanography (METOC) on Employment of Nuclear Weapons
+3,SN 1.2.6,SN,战略—国家层,SN 1,管理部署与重新部署,Conduct Redeployment
+4,SN 2.1.11,SN,战略—国家层,SN 2,提供战略情报,Analyze Intelligence Operations
+5,SN 2.3,SN,战略—国家层,SN 2,提供战略情报,Process Collected Information
+6,SN 2.4.1.3,SN,战略—国家层,SN 2,提供战略情报,Determine Enemys Centers of Gravity (COG)
+7,SN 2.9.1,SN,战略—国家层,SN 2,提供战略情报,Synchronize Forensic Collection
+8,SN 3.1.2,SN,战略—国家层,SN 3,运用部队,Coordinate Periodic Deployments
+9,SN 3.2.5,SN,战略—国家层,SN 3,运用部队,Determine National Strategic Targeting Policy
+10,SN 3.2.6,SN,战略—国家层,SN 3,运用部队,Provide National Strategic Attack Policy
+11,SN 3.3.5,SN,战略—国家层,SN 3,运用部队,Synchronize Combat Assessment (CA)
+12,SN 3.4.7.1,SN,战略—国家层,SN 3,运用部队,Produce Counterterrorism (CT) Intelligence
+13,SN 3.5.1.1,SN,战略—国家层,SN 3,运用部队,Launch and Initialize New Satellites
+14,SN 3.9,SN,战略—国家层,SN 3,运用部队,"Provide Position, Navigation, and Timing (PNT) Services"
+15,SN 4.2.3.1,SN,战略—国家层,SN 4,提供后勤保障,Control National Inventories
+16,SN 4.2.12,SN,战略—国家层,SN 4,提供后勤保障,Set Sustainment Priorities
+17,SN 4.3.4,SN,战略—国家层,SN 4,提供后勤保障,Conduct Medical Surveillance Program
+18,SN 4.4,SN,战略—国家层,SN 4,提供后勤保障,Reconstitute National Forces and Means
+19,SN 4.6.1.1,SN,战略—国家层,SN 4,提供后勤保障,Defense Acquisition
+20,SN 4.6.1.3.4,SN,战略—国家层,SN 4,提供后勤保障,Provide Contract Administration Services
+21,SN 4.6.1.5,SN,战略—国家层,SN 4,提供后勤保障,Provide Supply Chain Intervention
+22,SN 4.9,SN,战略—国家层,SN 4,提供后勤保障,Synchronize Operational Contract Support
+23,SN 4.12.11.1,SN,战略—国家层,SN 4,提供后勤保障,Provide Operational Contract Support (OCS) Information Management
+24,SN 5.1.2.2.5,SN,战略—国家层,SN 5,发布战略指导,Provide Global Directory Services for the Department of Defense (DoD)
+25,SN 5.1.2.2.6,SN,战略—国家层,SN 5,发布战略指导,Provide Electronic Business/ Electronic Commerce Applications
+26,SN 5.1.2.6,SN,战略—国家层,SN 5,发布战略指导,Conduct Combat Support Agency (CSA) Review Team (CSART) Assessments
+27,SN 5.1.2.10,SN,战略—国家层,SN 5,发布战略指导,Perform as the DOD Executive Agent for Information Technology (IT) Standards
+28,SN 5.2.4,SN,战略—国家层,SN 5,发布战略指导,Decide on Need for Military Action or Change
+29,SN 5.3,SN,战略—国家层,SN 5,发布战略指导,Determine National Military Strategic Direction
+30,SN 5.3.3,SN,战略—国家层,SN 5,发布战略指导,"Select Strategies, Plans, and Actions"
+31,SN 5.3.4,SN,战略—国家层,SN 5,发布战略指导,Review Strategic Options and Recommendations
+32,SN 5.3.5.1,SN,战略—国家层,SN 5,发布战略指导,Produce a National Military Strategy
+33,SN 5.3.5.2,SN,战略—国家层,SN 5,发布战略指导,Produce the Joint Strategic Capabilities Plan (JSCP)
+34,SN 5.4.5,SN,战略—国家层,SN 5,发布战略指导,Synchronize the Joint Urban Operation (JUO)
+35,SN 5.5.3.2,SN,战略—国家层,SN 5,发布战略指导,Protect and Theater Information Grid (TIG)
+36,SN 5.5.8,SN,战略—国家层,SN 5,发布战略指导,Manage Operations Security (OPSEC)
+37,SN 5.5.11.1,SN,战略—国家层,SN 5,发布战略指导,Direct Department of Defense Information Network (DODIN) Operations
+38,SN 5.7.6.1,SN,战略—国家层,SN 5,发布战略指导,Manage the General Defense Intelligence Program (GDIP)
+39,SN 5.9,SN,战略—国家层,SN 5,发布战略指导,Provide Strategic Guidance and Integration of National Guard Resources
+40,SN 6.1.3,SN,战略—国家层,SN 6,实施动员,Support Mobilization
+41,SN 6.2.1,SN,战略—国家层,SN 6,实施动员,Alert Units and Individuals of Pending Mobilization
+42,SN 6.2.4,SN,战略—国家层,SN 6,实施动员,"Conduct Preparatory Administrative, Logistic, Medical, and Readiness Activities"
+43,SN 6.3,SN,战略—国家层,SN 6,实施动员,Mobilize at Home Station
+44,SN 6.3.2,SN,战略—国家层,SN 6,实施动员,Conduct Specified Training
+45,SN 6.3.3,SN,战略—国家层,SN 6,实施动员,Requisition Mobilization Station (MS) Training and Support Requirements
+46,SN 6.3.4,SN,战略—国家层,SN 6,实施动员,Transfer Home Station (HS) Property and Prepare for Movement to Mobilization Station
+47,SN 6.4,SN,战略—国家层,SN 6,实施动员,Move to Mobilization Station
+48,SN 6.4.2,SN,战略—国家层,SN 6,实施动员,Provide Transportation for Mobilized Units and Individuals
+49,SN 6.4.3,SN,战略—国家层,SN 6,实施动员,Provide Movement Control
+50,SN 6.5,SN,战略—国家层,SN 6,实施动员,Prepare Units and Individuals at Mobilization Station or Continental United States (CONUS) Replacement Center (CRC) for Deployment
+51,SN 6.5.1,SN,战略—国家层,SN 6,实施动员,Receive and Provide Base and Operations Support for Units and Individuals
+52,SN 6.5.5,SN,战略—国家层,SN 6,实施动员,Secure Clearance for Deploying Nonvalidated Units
+53,SN 6.6.1,SN,战略—国家层,SN 6,实施动员,Expand Mobilization Stations
+54,SN 6.6.2,SN,战略—国家层,SN 6,实施动员,Expand Training Base
+55,SN 6.6.4,SN,战略—国家层,SN 6,实施动员,Expand Health Service Support (HSS)
+56,SN 6.6.6,SN,战略—国家层,SN 6,实施动员,Expand Other Support
+57,SN 6.6.7.1,SN,战略—国家层,SN 6,实施动员,Provide Industrial Base Capability Analysis
+58,SN 6.7,SN,战略—国家层,SN 6,实施动员,Provide Command and Control Over Mobilized Forces
+59,SN 7.2.4.1.3,SN,战略—国家层,SN 7,实施部队发展,Manage Operational Testing for National Security Systems and Information Technology (IT) Systems
+60,SN 7.3.1,SN,战略—国家层,SN 7,实施部队发展,Develop Combat Force Structure
+61,SN 7.4.3.3,SN,战略—国家层,SN 7,实施部队发展,Educate Cryptologic Personnel
+62,SN 8.1.2,SN,战略—国家层,SN 8,协调军事接触活动,Provide Foreign Assistance
+63,SN 8.1.5.1,SN,战略—国家层,SN 8,协调军事接触活动,Direct Humanitarian and Civic Assistance (HCA)
+64,SN 8.1.8,SN,战略—国家层,SN 8,协调军事接触活动,Provide Support to Foreign Internal Defense (FID)
+65,SN 8.1.11,SN,战略—国家层,SN 8,协调军事接触活动,Direct Humanitarian Demining Assistance
+66,SN 8.1.14,SN,战略—国家层,SN 8,协调军事接触活动,Coordinate Export License Control Activity
+67,SN 8.1.18,SN,战略—国家层,SN 8,协调军事接触活动,Direct Peace Operations (PO)
+68,SN 8.1.19,SN,战略—国家层,SN 8,协调军事接触活动,Direct Counterdrug (CD) Operations
+69,SN 8.2.3,SN,战略—国家层,SN 8,协调军事接触活动,Support Evacuation of Noncombatants from Theaters
+70,SN 8.3.4,SN,战略—国家层,SN 8,协调军事接触活动,Coordinate Consequence Management (CM) in the Interagency Arena
+71,SN 9.3.3.1,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,Coordinate Combating Weapons of Mass Destruction (CWMD) Counterforce Operations
+72,SN 9.4.2,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,"Coordinate Chemical, Biological, Radiological, and Nuclear (CBRN) Protection"
+73,SN 9.4.3,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,Coordinate Contaminated Material Disposal
+74,SN 9.4.5,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,"Provide Chemical, Biological, Radiological, and Nuclear (CBRN) Incident Protection"
+75,SN 9.4.6,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,Coordinate Weapons of Mass Destruction (WMD) or Medical Response
+76,SN 9.4.9,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,"Provide Chemical, Biological, Radiological, and Nuclear Consequence Management (CBRN CM) Command and Control (C2)"
+77,SN 9.4.10,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,"Provide Chemical, Biological, Radiological, and Nuclear (CBRN) Incident/Hazard Risk Communication"
+78,SN 9.4.11,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,"Provide Subject Matter Expert (SME) for Chemical, Biological, Radiological, and Nuclear Consequence Management (CBRN CM)"
+79,SN 9.5.2,SN,战略—国家层,SN 9,协调反大规模杀伤性武器行动,Manage Defense Treaty Inspection Readiness
+80,ST 1.1.2.1,ST,战略—战区层,ST 1,部署部队,Provide Strategic Reception
+81,ST 1.1.2.3,ST,战略—战区层,ST 1,部署部队,Provide Onward Movement
+82,ST 1.1.2.4,ST,战略—战区层,ST 1,部署部队,Integrate Deploying Forces
+83,ST 1.1.2.5,ST,战略—战区层,ST 1,部署部队,Estimate Closure Time
+84,ST 1.3.3,ST,战略—战区层,ST 1,部署部队,Synchronize Forcible Entry
+85,ST 1.3.6,ST,战略—战区层,ST 1,部署部队,Conduct Theater of War Operations in Depth
+86,ST 2.1.7.4,ST,战略—战区层,ST 2,提供战区情报,Provide Literal Derived Imagery
+87,ST 2.1.8,ST,战略—战区层,ST 2,提供战区情报,"Manage Theater Intelligence Boards, Bureaus, Centers, Cells, and Working Groups"
+88,ST 2.5.1,ST,战略—战区层,ST 2,提供战区情报,Manage Intelligence Dissemination
+89,ST 2.8.2,ST,战略—战区层,ST 2,提供战区情报,Provide Intelligence Support to Theater Dynamic Re-tasking
+90,ST 2.9.2,ST,战略—战区层,ST 2,提供战区情报,Support Munitions Effectiveness Assessment (MEA)
+91,ST 2.9.3,ST,战略—战区层,ST 2,提供战区情报,Support Re-Attack Recommendations
+92,ST 2.9.4,ST,战略—战区层,ST 2,提供战区情报,Conduct Theater Battle Damage Assessment (BDA)
+93,ST 3.3.1,ST,战略—战区层,ST 3,运用火力,Coordinate Intelligence Collection Sensors Counter Countermeasures
+94,ST 3.3.2,ST,战略—战区层,ST 3,运用火力,Coordinate Precision Engagement Counter Countermeasures
+95,ST 3.5.2,ST,战略—战区层,ST 3,运用火力,Manage Space Control
+96,ST 3.5.2.3,ST,战略—战区层,ST 3,运用火力,Manage Space Negation
+97,ST 3.5.2.6.2,ST,战略—战区层,ST 3,运用火力,Manage Space Surveillance
+98,ST 3.5.2.6.3,ST,战略—战区层,ST 3,运用火力,Manage Space Reconnaissance
+99,ST 3.5.2.6.4,ST,战略—战区层,ST 3,运用火力,Manage Space-Related Environmental Monitoring
+100,ST 4.2.2.1,ST,战略—战区层,ST 4,保障部队,Manage Theater Joint Blood Program
+101,ST 4.2.6,ST,战略—战区层,ST 4,保障部队,Determine Residual Capabilities
+102,ST 4.4.4,ST,战略—战区层,ST 4,保障部队,Integrate Third Party Logistics
+103,ST 4.5,ST,战略—战区层,ST 4,保障部队,"Acquire, Manage, and Distribute Funds"
+104,ST 5.1.2.2,ST,战略—战区层,ST 5,实施指挥与控制,Maintain a Joint Frequency Management Office (JFMO)
+105,ST 5.1.2.3,ST,战略—战区层,ST 5,实施指挥与控制,Manage Information Assurance Policies
+106,ST 5.1.2.4,ST,战略—战区层,ST 5,实施指挥与控制,Manage a Theater Communications Control Center
+107,ST 5.1.7,ST,战略—战区层,ST 5,实施指挥与控制,Develop Electromagnetic Spectrum (EMS) Plan
+108,ST 5.1.9,ST,战略—战区层,ST 5,实施指挥与控制,Implement Theater-Positive Identification (PID)
+109,ST 5.1.14,ST,战略—战区层,ST 5,实施指挥与控制,Establish Knowledge Management
+110,ST 5.2.5,ST,战略—战区层,ST 5,实施指挥与控制,Project Future Combatant Command (CCMD) Campaigns or Strategic Operations
+111,ST 5.3.1,ST,战略—战区层,ST 5,实施指挥与控制,Conduct Strategic Estimates
+112,ST 5.3.5,ST,战略—战区层,ST 5,实施指挥与控制,Designate the Focus Area
+113,ST 5.5.10,ST,战略—战区层,ST 5,实施指挥与控制,Direct Electronic Warfare (EW)
+114,ST 5.5.10.1,ST,战略—战区层,ST 5,实施指挥与控制,Coordinate Electronic Warfare (EW)
+115,ST 5.5.10.2,ST,战略—战区层,ST 5,实施指挥与控制,Direct Electronic Attack (EA)
+116,ST 5.5.10.3,ST,战略—战区层,ST 5,实施指挥与控制,Direct Electronic Warfare Support (ES)
+117,ST 5.5.10.4,ST,战略—战区层,ST 5,实施指挥与控制,Direct Electronic Protection (EP)
+118,ST 5.6.4,ST,战略—战区层,ST 5,实施指挥与控制,Coordinate Multimedia Production
+119,ST 6.1.2,ST,战略—战区层,ST 6,协调防护,Provide Airspace Control Measures
+120,ST 6.2.2,ST,战略—战区层,ST 6,协调防护,Coordinate Removal of Hazards
+121,ST 6.2.3,ST,战略—战区层,ST 6,协调防护,Protect Use of Electromagnetic Spectrum (EMS)
+122,ST 6.2.4,ST,战略—战区层,ST 6,协调防护,Ensure Acoustic Protection
+123,ST 6.2.5,ST,战略—战区层,ST 6,协调防护,Establish and Coordinate Positive Identification Procedures for Friendly Forces in Theater
+124,ST 6.2.6.1,ST,战略—战区层,ST 6,协调防护,Establish and Coordinate Counter-Reconnaissance Theater-Wide
+125,ST 6.2.6.2,ST,战略—战区层,ST 6,协调防护,"Establish and Coordinate Protection of Theater Installations, Facilities, and Systems"
+126,ST 6.2.8,ST,战略—战区层,ST 6,协调防护,Establish NBC Defense in Theater
+127,ST 6.2.9,ST,战略—战区层,ST 6,协调防护,Minimize Safety and Health Risks
+128,ST 6.3,ST,战略—战区层,ST 6,协调防护,Secure Theater Systems and Capabilities
+129,ST 6.3.2,ST,战略—战区层,ST 6,协调防护,Employ Theater Electronic Security
+130,ST 6.4.1,ST,战略—战区层,ST 6,协调防护,Protect Strategy and Plans
+131,ST 6.5.1,ST,战略—战区层,ST 6,协调防护,Coordinate Defensive Countermeasures Against Adversary Intelligence Collection Sensor Capabilities
+132,ST 6.5.2,ST,战略—战区层,ST 6,协调防护,Coordinate Defensive Countermeasures Against Threat Precision Engagement Capabilities
+133,ST 8.1.2.3,ST,战略—战区层,ST 8,遂行军事接触,Foster Government Legitimacy
+134,ST 8.1.2.4,ST,战略—战区层,ST 8,遂行军事接触,Address Core Grievances
+135,ST 8.1.3,ST,战略—战区层,ST 8,遂行军事接触,Develop Coalition Organizations
+136,ST 8.1.10.1,ST,战略—战区层,ST 8,遂行军事接触,Organize Counterterrorism (CT) Framework
+137,ST 8.2.5,ST,战略—战区层,ST 8,遂行军事接触,Coordinate Nation Assistance (NA)
+138,ST 8.2.7,ST,战略—战区层,ST 8,遂行军事接触,Restore Order
+139,ST 8.2.7.1,ST,战略—战区层,ST 8,遂行军事接触,Establish Interim Criminal Justice System
+140,ST 8.2.8.1,ST,战略—战区层,ST 8,遂行军事接触,Support Multilateral Peace Operations
+141,ST 8.2.8.3,ST,战略—战区层,ST 8,遂行军事接触,Coordinate Peace Enforcement
+142,ST 8.4.4,ST,战略—战区层,ST 8,遂行军事接触,Counter-Weapon and Technology Proliferation
+143,ST 8.5.1,ST,战略—战区层,ST 8,遂行军事接触,Coordinate Policy for the Conduct of Operations
+144,ST 8.5.4,ST,战略—战区层,ST 8,遂行军事接触,Coordinate Theater Consequence Management (CM)
+145,ST 8.6.2,ST,战略—战区层,ST 8,遂行军事接触,Integrate Stability
+146,ST 9.1,ST,战略—战区层,ST 9,实施反大规模杀伤性武器行动,Develop Combating Weapons of Mass Destruction (CWMD) Programs in Theater
+147,OP 1.2.4.2,OP,战役层,OP 1,实施战役机动,Conduct a Demonstration
+148,OP 1.2.7,OP,战役层,OP 1,实施战役机动,Conduct Withdrawal Operations
+149,OP 1.2.8,OP,战役层,OP 1,实施战役机动,Conduct Joint Urban Operations (JUO)
+150,OP 1.5.4,OP,战役层,OP 1,实施战役机动,Isolate the Joint Operations Area
+151,OP 1.5.5.2,OP,战役层,OP 1,实施战役机动,Demobilize Excombatants
+152,OP 1.5.5.3,OP,战役层,OP 1,实施战役机动,Reintegrate Excombatants
+153,OP 1.5.5.4,OP,战役层,OP 1,实施战役机动,Reintegrate Dislocated Civilians (DCs)
+154,OP 1.5.6,OP,战役层,OP 1,实施战役机动,Control Operationally Significant Riverine Area(s)
+155,OP 2.1.2,OP,战役层,OP 2,实施联合情报行动,Establish the Joint Force Intelligence Information Technology (IT) Architecture
+156,OP 2.3.3.1,OP,战役层,OP 2,实施联合情报行动,Collate Information
+157,OP 2.3.4.1,OP,战役层,OP 2,实施联合情报行动,Provide Motion Imagery
+158,OP 2.7.2,OP,战役层,OP 2,实施联合情报行动,Provide Intelligence Support to Time-Sensitive Target (TST) Operations
+159,OP 2.7.3,OP,战役层,OP 2,实施联合情报行动,Provide Intelligence Support to Dynamic Retasking
+160,OP 2.8.4,OP,战役层,OP 2,实施联合情报行动,Provide Intelligence Support to Combat Assessment (CA)
+161,OP 2.8.4.2,OP,战役层,OP 2,实施联合情报行动,Monitor Munitions Effectiveness Assessment (MEA)
+162,OP 2.8.4.3,OP,战役层,OP 2,实施联合情报行动,Monitor Reattack Recommendations
+163,OP 3.1.3,OP,战役层,OP 3,实施火力打击,Develop Operational Targets
+164,OP 3.1.5.1,OP,战役层,OP 3,实施火力打击,Publish Joint Space Tasking Order(s) (JSTO[s])
+165,OP 3.1.6.1,OP,战役层,OP 3,实施火力打击,Assess Battle Damage on Operational Targets
+166,OP 3.1.6.2,OP,战役层,OP 3,实施火力打击,Assess Munitions Effects on Operational Targets
+167,OP 3.1.6.3,OP,战役层,OP 3,实施火力打击,Assess Re-Attack Requirement
+168,OP 3.1.8,OP,战役层,OP 3,实施火力打击,Coordinate Immediate Targets for Two or More Components
+169,OP 3.1.13,OP,战役层,OP 3,实施火力打击,Conduct Collateral Damage Estimation (CDE)
+170,OP 3.1.14,OP,战役层,OP 3,实施火力打击,Perform Weaponeering
+171,OP 3.2.2.3,OP,战役层,OP 3,实施火力打击,Employ Information Operations Capabilities in Offensive Operations
+172,OP 3.2.2.4,OP,战役层,OP 3,实施火力打击,Employ Nonlethal Means
+173,OP 3.2.5.2,OP,战役层,OP 3,实施火力打击,Conduct Surface Interdiction
+174,OP 3.3.3,OP,战役层,OP 3,实施火力打击,Conduct Multilateral Peace Operations
+175,OP 3.4.1,OP,战役层,OP 3,实施火力打击,Provide Intelligence Collection Sensor Counter Countermeasures
+176,OP 3.4.2,OP,战役层,OP 3,实施火力打击,Provide Precision Engagement Counter Countermeasures
+177,OP 3.5.1.3,OP,战役层,OP 3,实施火力打击,Conduct Satellite Anomaly Resolution
+178,OP 4.5.1.1,OP,战役层,OP 4,提供战役后勤保障,Perform Contract Support Integration
+179,OP 4.5.1.2,OP,战役层,OP 4,提供战役后勤保障,Develop Contracting Requirements
+180,OP 4.5.1.5,OP,战役层,OP 4,提供战役后勤保障,Perform Contract Closeout
+181,OP 4.5.3,OP,战役层,OP 4,提供战役后勤保障,Recommend Evacuation Policy and Procedures
+182,OP 4.6.1,OP,战役层,OP 4,提供战役后勤保障,Determine Number and Location of Sustaining Bases
+183,OP 4.6.3,OP,战役层,OP 4,提供战役后勤保障,Expand Throughput Capacity of Ports of Debarkation (PODs)
+184,OP 4.6.4.1,OP,战役层,OP 4,提供战役后勤保障,Manage Enemy Prisoner of War (EPW) Reporting
+185,OP 5.1.10,OP,战役层,OP 5,提供指挥与控制,Conduct Joint Electromagnetic Spectrum Management Operations (JEMSMO)
+186,OP 5.1.13,OP,战役层,OP 5,提供指挥与控制,Coordinate with Security Contractors
+187,OP 5.6.4,OP,战役层,OP 5,提供指挥与控制,Conduct Electronic Warfare (EW)
+188,OP 5.6.4.1,OP,战役层,OP 5,提供指挥与控制,Coordinate Electronic Warfare (EW)
+189,OP 5.6.4.2,OP,战役层,OP 5,提供指挥与控制,Conduct Electronic Attack (EA)
+190,OP 5.6.4.3,OP,战役层,OP 5,提供指挥与控制,Conduct Electronic Warfare Support (ES)
+191,OP 5.6.4.4,OP,战役层,OP 5,提供指挥与控制,Conduct Electronic Protection (EP)
+192,OP 5.6.5.1,OP,战役层,OP 5,提供指挥与控制,Coordinate Cyberspace Operations (CO)
+193,OP 5.6.5.2,OP,战役层,OP 5,提供指挥与控制,Conduct Cyberspace Attack
+194,OP 5.7.8,OP,战役层,OP 5,提供指挥与控制,Coordinate Consequence Management in the Joint Operations Area
+195,OP 5.7.10,OP,战役层,OP 5,提供指挥与控制,Determine Operational End State
+196,OP 6.2.3,OP,战役层,OP 6,提供战役部队防护,Protect Use of Electromagnetic Spectrum in the Joint Operations Area
+197,OP 6.2.4,OP,战役层,OP 6,提供战役部队防护,Protect Use of the Acoustic Spectrum in the Joint Operations Area
+198,OP 6.2.5,OP,战役层,OP 6,提供战役部队防护,Provide Positive Identification of Friendly Forces within the Joint Operations Area
+199,OP 6.2.7,OP,战役层,OP 6,提供战役部队防护,Establish Disaster Control Measures
+200,OP 6.2.8,OP,战役层,OP 6,提供战役部队防护,"Establish Nuclear, Biological, and Chemical (NBC) Protection"
+201,OP 6.3.4,OP,战役层,OP 6,提供战役部队防护,Protect Information Systems in the Joint Operations Area
+202,OP 6.3.5,OP,战役层,OP 6,提供战役部队防护,Coordinate Concealment of Forces/Facilities
+203,OP 6.5.1,OP,战役层,OP 6,提供战役部队防护,Provide Counterreconnaissance in the Joint Operations Area
+204,OP 6.5.2,OP,战役层,OP 6,提供战役部队防护,"Secure Flanks, Joint Security Areas, and Communications Zone (COMMZ) in the Theater of Operations"
+205,OP 6.6,OP,战役层,OP 6,提供战役部队防护,Conduct Defensive Countermeasure Operations
+206,OP 6.6.1,OP,战役层,OP 6,提供战役部队防护,Conduct Defensive Countermeasures Against Threat Intelligence Sensors
+207,OP 6.6.2,OP,战役层,OP 6,提供战役部队防护,Conduct Defensive Countermeasures Against Threat Precision Engagement
+208,OP 6.9.3,OP,战役层,OP 6,提供战役部队防护,Provide Foreign Security Forces (FSF) Logistics Support
+209,OP 7.1,OP,战役层,OP 7,实施反大规模杀伤性武器行动,Enable Combating Weapons of Mass Destruction (CWMD) Operations in Joint Operations Area (JOA)
+210,OP 7.5,OP,战役层,OP 7,实施反大规模杀伤性武器行动,Conduct Combating Weapons of Mass Destruction (CWMD) Active Defense Operations in Joint Operations Area (JOA)
+211,OP 7.6,OP,战役层,OP 7,实施反大规模杀伤性武器行动,Conduct Weapons of Mass Destruction (WMD) Elimination
+212,OP 7.7,OP,战役层,OP 7,实施反大规模杀伤性武器行动,Conduct CombatingWeapons of Mass Destruction (CWMD) Offensive Operations
+213,OP 7.9.1,OP,战役层,OP 7,实施反大规模杀伤性武器行动,"Conduct Chemical, Biological, Radiological, and Nuclear Consequence Management (CBRN CM)"
+214,OP 7.9.2,OP,战役层,OP 7,实施反大规模杀伤性武器行动,"Conduct Weapons of Mass Destruction (WMD)/Chemical, Biological, Radiological, and Nuclear (CBRN) Foreign Consequence Management (FCM) Operations in Joint Operations Area (JOA)"
+215,OP 8.4.2,OP,战役层,OP 8,实施军事接触,Conduct Interagency Conflict Assessment
+216,OP 8.6,OP,战役层,OP 8,实施军事接触,Provide Population Security
+217,OP 8.6.1,OP,战役层,OP 8,实施军事接触,Support Security Sector Reform (SSR)
+218,OP 8.6.2,OP,战役层,OP 8,实施军事接触,Provide Territorial Security
+219,OP 8.6.2.1,OP,战役层,OP 8,实施军事接触,Protect Infrastructure
+220,OP 8.6.2.2,OP,战役层,OP 8,实施军事接触,Implement Property Resolution
+221,OP 8.7,OP,战役层,OP 8,实施军事接触,Conduct Nation Assistance (NA)
+222,OP 8.11,OP,战役层,OP 8,实施军事接触,Conduct Humanitarian and Civic Assistance (HCA)
+223,OP 8.13,OP,战役层,OP 8,实施军事接触,Conduct Humanitarian Demining Assistance
+224,TA 1.2,TA,战术层,TA 1,执行机动,Conduct Passage of Lines
+225,TA 1.2.3,TA,战术层,TA 1,执行机动,Conduct Amphibious Assault
+226,TA 1.2.3.1,TA,战术层,TA 1,执行机动,Conduct Raids
+227,TA 1.6,TA,战术层,TA 1,执行机动,Operate from Afloat Forward Staging Base (AFSB)
+228,TA 3.2.4,TA,战术层,TA 3,执行火力打击,Conduct Joint Suppression of Enemy Air Defenses (JSEAD)
+229,TA 3.2.8.1,TA,战术层,TA 3,执行火力打击,Conduct Offensive Counterair (OCA)
+230,TA 3.2.8.2,TA,战术层,TA 3,执行火力打击,Conduct Defensive Counterair Operations
+231,TA 3.2.9,TA,战术层,TA 3,执行火力打击,Conduct Air Defense
+232,TA 3.3.2,TA,战术层,TA 3,执行火力打击,Control Tactical Airspace
+233,TA 3.5,TA,战术层,TA 3,执行火力打击,Employ Space Capabilities
+234,TA 3.8.1,TA,战术层,TA 3,执行火力打击,Clear Assigned Areas for Testing Task
+235,TA 4.2,TA,战术层,TA 4,保障已部署部队,Provide Sustainment
+236,TA 5.5.1,TA,战术层,TA 5,遂行指挥与控制,Conduct Force Link-Up
+237,TA 5.6.1,TA,战术层,TA 5,遂行指挥与控制,Provide Operations Security (OPSEC)
+238,TA 5.6.3.1,TA,战术层,TA 5,遂行指挥与控制,Coordinate Employment of Military Deception (MILDEC)
+239,TA 5.6.4,TA,战术层,TA 5,遂行指挥与控制,Employ Electronic Warfare (EW)
+240,TA 5.6.4.1,TA,战术层,TA 5,遂行指挥与控制,Coordinate Employment of Electronic Warfare (EW)
+241,TA 5.6.4.2,TA,战术层,TA 5,遂行指挥与控制,Employ Electronic Attack (EA)
+242,TA 5.6.4.3,TA,战术层,TA 5,遂行指挥与控制,Employ Electronic Warfare Support (ES)
+243,TA 5.6.4.4,TA,战术层,TA 5,遂行指挥与控制,Employ Electronic Protection (EP)
+244,TA 5.6.5,TA,战术层,TA 5,遂行指挥与控制,Employ Computer Network Operations (CNO)
+245,TA 5.6.5.1,TA,战术层,TA 5,遂行指挥与控制,Coordinate Employment of Computer Network Operations (CNO)
+246,TA 5.6.5.4,TA,战术层,TA 5,遂行指挥与控制,Employ Computer Network Exploitation (CNE) Enabling Operations
+247,TA 5.6.7,TA,战术层,TA 5,遂行指挥与控制,Employ Operations Security (OPSEC)
+248,TA 5.6.7.1,TA,战术层,TA 5,遂行指挥与控制,Coordinate Employment of Operations Security (OPSEC)
+249,TA 5.7,TA,战术层,TA 5,遂行指挥与控制,Conduct Support to Civil Administration (SCA)
+250,TA 5.7.7,TA,战术层,TA 5,遂行指挥与控制,Conduct Civil Administration (CA)
+251,TA 5.9,TA,战术层,TA 5,遂行指挥与控制,Conduct Populace and Resource Control
+252,TA 6.9,TA,战术层,TA 6,防护部队,Conduct Counter-Improvised Explosive Device (C-IED) Activities
+253,TA 6.12,TA,战术层,TA 6,防护部队,Neutralize Improvised Explosive Devices (IEDs)
+254,TA 6.13,TA,战术层,TA 6,防护部队,Mitigate Improvised Explosive Device (IED) Effects

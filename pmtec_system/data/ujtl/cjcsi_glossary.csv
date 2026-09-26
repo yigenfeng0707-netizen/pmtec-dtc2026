@@ -1,0 +1,56 @@
+﻿序号,类别,术语/缩写,英文全称,中文释义
+1,缩写,API,application programming interface,应用程序接口
+2,缩写,CCMD,Combatant Command,作战司令部
+3,缩写,CJCS,Chairman of the Joint Chiefs of Staff,参联会主席
+4,缩写,CJCSI,Chairman of the Joint Chiefs of Staff Instruction,参联会主席指令
+5,缩写,CJCSM,Chairman of the Joint Chiefs of Staff Manual,参联会主席手册
+6,缩写,CSA,Combat Support Agency,作战支援机构
+7,缩写,DD JCDE,"Deputy Director for Joint Concepts, Doctrine, and Education",J-7 联合概念、条令与教育部副部长
+8,缩写,DJ-7,"Joint Staff Director for Joint Force Development, J-7",联合参谋部 J-7 主任
+9,缩写,DoW,Department of War,战争部（原国防部称谓）
+10,缩写,DRRS,Defense Readiness Reporting System,防务战备报告系统
+11,缩写,J-6,"Directorate for Command, Control, Communications, and Computers/Cyber",联合参谋部指挥控制通信计算机/网络空间局
+12,缩写,J-7,Directorate for Joint Force Development,联合参谋部联合力量发展局
+13,缩写,J-8,"Directorate for Force Structure, Resources, and Assessment",联合参谋部力量结构、资源与评估局
+14,缩写,J-Dir,Joint Staff Directorate,联合参谋部各局
+15,缩写,JCA,joint capability area,联合能力区
+16,缩写,JDEIS,"Joint Doctrine, Education, and Training Electronic Information System",联合条令教育训练电子信息系统
+17,缩写,JEDD,Joint Education and Doctrine Division,联合教育与条令处
+18,缩写,JEL+,Joint Electronic Library Plus,联合电子图书馆+
+19,缩写,JFRP,Joint Force Requirements Process,联合力量需求程序
+20,缩写,JLLIS,Joint Lessons Learned Information System,联合经验教训信息系统
+21,缩写,JLLP,Joint Lessons Learned Program,联合经验教训项目
+22,缩写,JMET,joint mission-essential task,联合使命必要任务
+23,缩写,JMETL,joint mission-essential task list,联合使命必要任务清单
+24,缩写,JMT,joint mission thread,联合任务线程
+25,缩写,JOP,joint operational problem,联合作战问题
+26,缩写,JP,joint publication,联合出版物
+27,缩写,JTS,Joint Training System,联合训练系统
+28,缩写,JTT,Joint Training Tool,联合训练工具
+29,缩写,MET,mission-essential task,使命必要任务
+30,缩写,METL,mission-essential task list,使命必要任务清单
+31,缩写,NGB,National Guard Bureau,国民警卫局
+32,缩写,NIPRNET,Non-classified Internet Protocol Router Network,非涉密互联网协议路由器网络
+33,缩写,NMS,National Military Strategy,国家军事战略
+34,缩写,OPOC,organizational point of contact,组织联络点
+35,缩写,SIPRNET,SECRET Internet Protocol Router Network,涉密互联网协议路由器网络
+36,缩写,TO,training objective,训练目标
+37,缩写,UDC,UJTL Development Community,任务清单发展共同体
+38,缩写,UJTL,Universal Joint Task List,通用联合任务清单
+39,缩写,UJT,universal joint task,通用联合任务
+40,缩写,UTDT,UJTL Task Development Tool,任务清单任务发展工具
+41,缩写,UUAG,UJTL User Advisory Group,任务清单用户咨询组
+42,定义,capability,capability,在规定条件与绩效水平下完成任务或行动方案的能力（引自 CJCSM 3500.03）
+43,定义,condition,condition,作战环境或态势中可能影响绩效的变量；或实现目标所需的系统物理或行为状态（引自 JP 3-0）
+44,定义,essential task,essential task,组织完成使命必须执行的指定或暗含任务（引自 JP 5-0）
+45,定义,implied task,implied task,使命分析中推导出、上级命令未明示但完成使命必需的任务（引自 JP 5-0）
+46,定义,joint capability area,joint capability area,按功能分组的战争部能力集合，支撑能力分析、战略发展、投资决策与能力组合管理（引自 CJCSM 5123.01）
+47,定义,joint doctrine,joint doctrine,指导美军协同行动达成共同目标的基本原则与标准化术语，可含战术、技术与程序（引自 CJCSI 5120.02）
+48,定义,joint mission-essential task,joint mission-essential task,联合部队指挥官认定为完成使命所必需、以任务清单共同语言按任务—条件—标准定义的使命任务（引自 JP 3-33）
+49,定义,joint mission-essential task list,joint mission-essential task list,指挥官为完成受领或预期使命选定的联合使命必要任务清单，含关联任务、条件与标准，并要求识别指挥链接与支援任务（引自 CJCSM 3500.03）
+50,定义,joint mission thread,joint mission thread,以一系列步骤呈现的、达成使命的端到端任务、活动与事件序列（引自战争部使命工程指南）
+51,定义,joint task,joint task,分配给单位或组织执行特定功能和（或）提供能力资源的行动或活动；基于现有联合能力、以联合条令为依据；亦称通用联合任务
+52,定义,measure,measure,描述任务绩效不同水平的参数（引自 CJCSI 3500.01）
+53,定义,mission-essential task,mission-essential task,基于使命分析并经单位指挥官批准、对使命成功必要且关键的任务；亦称必要任务（引自 DoDD 7730.65）
+54,定义,specified task,specified task,上级机关明确分配给某组织的任务（引自 JP 5-0）
+55,定义,standard,standard,规定任务绩效水平的定量或定性度量与准则（引自 CJCSI 3500.01）

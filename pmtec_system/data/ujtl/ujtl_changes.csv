@@ -1,0 +1,83 @@
+﻿序号,任务编号,层级代码,层级名称,编号段,编号段名称（中文）,任务名称（原文）,批准日期,衡量指标数
+1,SN 3.2.10,SN,战略—国家层,SN 3,运用部队,Provide Nuclear Operations,2026-08-13,3
+2,SN 3.4.6,SN,战略—国家层,SN 3,运用部队,Coordinate Protection of Strategic Information,2026-08-13,13
+3,SN 3.5,SN,战略—国家层,SN 3,运用部队,Provide Space Capabilities,2026-08-13,15
+4,SN 3.5.2,SN,战略—国家层,SN 3,运用部队,Provide Space Freedom of Action,2026-08-13,9
+5,SN 3.5.2.4,SN,战略—国家层,SN 3,运用部队,Provide Offensive Space Actions,2026-08-13,3
+6,SN 3.5.2.5,SN,战略—国家层,SN 3,运用部队,Provide Defensive Space Actions,2026-08-13,3
+7,SN 3.5.3.1,SN,战略—国家层,SN 3,运用部队,"Provide Positioning, Navigation, and Timing (PNT)",2026-08-13,3
+8,SN 3.5.3.3.1,SN,战略—国家层,SN 3,运用部队,Provide Space-Based and Terrestrial- Based Missile Warning / Tracking,2026-08-13,5
+9,SN 3.9.3,SN,战略—国家层,SN 3,运用部队,Provide Orientation Services,2026-08-13,3
+10,SN 4.6,SN,战略—国家层,SN 4,提供后勤保障,Conduct Materiel Acquisition,2026-08-20,4
+11,SN 4.6.1,SN,战略—国家层,SN 4,提供后勤保障,Conduct Defense Acquisition,2026-08-20,9
+12,SN 4.6.1.2,SN,战略—国家层,SN 4,提供后勤保障,Conduct Procurement,2026-08-20,3
+13,SN 4.6.1.3,SN,战略—国家层,SN 4,提供后勤保障,Provide Acquisition Life Cycle Support,2026-08-20,5
+14,SN 4.6.1.3.1,SN,战略—国家层,SN 4,提供后勤保障,Acquire Supplies / Services,2026-08-20,3
+15,SN 4.6.1.3.2,SN,战略—国家层,SN 4,提供后勤保障,Execute Contracts,2026-08-20,3
+16,SN 4.6.1.3.3,SN,战略—国家层,SN 4,提供后勤保障,Assist Execution of Contracts,2026-08-20,3
+17,SN 4.6.1.4,SN,战略—国家层,SN 4,提供后勤保障,Provide Program Support / Customer Relations,2026-08-20,6
+18,SN 5.1,SN,战略—国家层,SN 5,发布战略指导,Manage Global Communications,2026-08-13,31
+19,SN 5.1.1.1,SN,战略—国家层,SN 5,发布战略指导,Provide Cybersecurity Products / Services,2026-08-13,7
+20,SN 5.1.1.2,SN,战略—国家层,SN 5,发布战略指导,Provide Key Management / Public Key Operations,2026-08-13,4
+21,SN 5.1.1.3,SN,战略—国家层,SN 5,发布战略指导,Provide Cybersecurity Education / Awareness,2026-08-13,3
+22,SN 5.1.1.4,SN,战略—国家层,SN 5,发布战略指导,Provide Cybersecurity Support,2026-08-13,3
+23,SN 5.1.2.1,SN,战略—国家层,SN 5,发布战略指导,"Provide Command, Control, Communications, and Computer Systems",2026-08-13,6
+24,SN 5.1.2.1.1,SN,战略—国家层,SN 5,发布战略指导,"Provide Global, Secure, and Interoperable Communications or Networks for the Department of War (DoW)",2026-08-13,3
+25,SN 5.1.2.1.2,SN,战略—国家层,SN 5,发布战略指导,Provide Department of War Information Network (DoWIN),2026-08-13,3
+26,SN 5.1.2.1.4,SN,战略—国家层,SN 5,发布战略指导,Provide Global Communications / Networks for Video Services,2026-08-13,3
+27,SN 5.1.2.1.7,SN,战略—国家层,SN 5,发布战略指导,Provide Community of Interest (COI) Global Networks for the Department of War (DoW),2026-08-13,5
+28,SN 5.1.2.2,SN,战略—国家层,SN 5,发布战略指导,Provide Enterprise Services,2026-08-13,3
+29,SN 5.1.2.2.4,SN,战略—国家层,SN 5,发布战略指导,Provide Global Messaging Services,2026-08-13,4
+30,SN 5.1.2.3,SN,战略—国家层,SN 5,发布战略指导,Provide Enterprise-Wide Computing Services for the Department of War (DoW),2026-08-13,3
+31,SN 5.1.2.5,SN,战略—国家层,SN 5,发布战略指导,Integrate Ballistic Missile Defense (BMD) Command and Control (C2) Communications Systems,2026-08-13,6
+32,SN 5.1.2.7,SN,战略—国家层,SN 5,发布战略指导,Provide Fielding / Supporting Services,2026-08-13,3
+33,SN 5.1.2.8,SN,战略—国家层,SN 5,发布战略指导,"Operate Computing Centers, Applications, Services, Systems, and Networks",2026-08-13,3
+34,SN 5.5.3,SN,战略—国家层,SN 5,发布战略指导,Provide Defensive Cyberspace Operations (DCO),2026-08-13,4
+35,SN 5.5.3.1,SN,战略—国家层,SN 5,发布战略指导,Provide Network Management for Computer Network Infrastructures,2026-08-13,6
+36,SN 5.5.3.3,SN,战略—国家层,SN 5,发布战略指导,Provide a Common Operational Picture (COP),2026-08-13,3
+37,SN 5.5.3.4,SN,战略—国家层,SN 5,发布战略指导,Operate Global Network Operations Center,2026-08-13,4
+38,SN 5.5.4,SN,战略—国家层,SN 5,发布战略指导,Manage Department of War Information Network (DoWIN) Operations,2026-08-13,3
+39,SN 5.5.5,SN,战略—国家层,SN 5,发布战略指导,Defend the Department of War Information Network (DoWIN),2026-08-13,3
+40,SN 5.5.7.1,SN,战略—国家层,SN 5,发布战略指导,Coordinate Cyberspace Operations (CO),2026-08-13,13
+41,SN 5.5.11,SN,战略—国家层,SN 5,发布战略指导,Manage Cyberspace Operations (CO),2026-08-13,8
+42,SN 7.2.4.1.1,SN,战略—国家层,SN 7,实施部队发展,Provide Independent Testing Support for National Security Systems and Information Technology (IT) Systems,2026-08-13,3
+43,ST 3.2.10,ST,战略—战区层,ST 3,运用火力,Manage Nuclear Operations,2026-08-13,3
+44,ST 3.5.2.6,ST,战略—战区层,ST 3,运用火力,Manage Space Domain Awareness (SDA),2026-08-13,3
+45,ST 3.7,ST,战略—战区层,ST 3,运用火力,Conduct Cyberspace Operations (CO),2026-08-13,15
+46,ST 4.2.1.1,ST,战略—战区层,ST 4,保障部队,Provide Contingency Contract Administration Services (CCAS),2026-08-20,7
+47,ST 4.2.1.2,ST,战略—战区层,ST 4,保障部队,Support Contingency Contract Administration Services (CCAS),2026-08-20,4
+48,ST 4.2.1.3,ST,战略—战区层,ST 4,保障部队,Provide Initial Response Contracting Capability,2026-08-20,3
+49,ST 4.5.1,ST,战略—战区层,ST 4,保障部队,Perform Contract Support Integration,2026-08-20,41
+50,ST 4.5.2,ST,战略—战区层,ST 4,保障部队,Perform Contractor Management,2026-08-20,37
+51,ST 4.8,ST,战略—战区层,ST 4,保障部队,Conduct Operational Contract Support (OCS),2026-08-20,18
+52,ST 5.1.2,ST,战略—战区层,ST 5,实施指挥与控制,"Manage Command, Control, Communications, Computers, and Intelligence Systems Requirements",2026-08-13,27
+53,ST 5.4.3.1.1,ST,战略—战区层,ST 5,实施指挥与控制,Provide Contract Management Liaison,2026-08-20,5
+54,ST 5.5.7,ST,战略—战区层,ST 5,实施指挥与控制,Direct Cyberspace Operations (CO),2026-08-13,31
+55,ST 5.5.7.1,ST,战略—战区层,ST 5,实施指挥与控制,Synchronize Cyberspace Operations (CO),2026-08-13,16
+56,ST 5.5.7.2,ST,战略—战区层,ST 5,实施指挥与控制,Provide Cyberspace Attack,2026-08-13,18
+57,ST 5.5.7.3,ST,战略—战区层,ST 5,实施指挥与控制,Direct Defensive Cyberspace Operations Internal Defensive Measures (DCO- IDM),2026-08-13,15
+58,ST 5.9.5,ST,战略—战区层,ST 5,实施指挥与控制,Assure Freedom of Maneuver in the Electromagnetic Spectrum (EMS),2026-08-13,6
+59,ST 6.3.3,ST,战略—战区层,ST 6,协调防护,Manage Communications Security (COMSEC),2026-08-13,8
+60,ST 6.3.5,ST,战略—战区层,ST 6,协调防护,Protect Information Systems,2026-08-13,20
+61,ST 8,ST,战略—战区层,ST 8,遂行军事接触,Perform Military Engagement,2026-08-19,17
+62,OP 1.2.4.6,OP,战役层,OP 1,实施战役机动,Conduct a Form of Maneuver,2026-08-13,13
+63,OP 3.2.10,OP,战役层,OP 3,实施火力打击,Conduct Nuclear Operations,2026-08-13,3
+64,OP 3.5.2.1,OP,战役层,OP 3,实施火力打击,Conduct Offensive Counterspace Activities,2026-08-13,3
+65,OP 3.5.3.8,OP,战役层,OP 3,实施火力打击,Conduct Navigation Warfare (NAVWAR),2026-08-13,3
+66,OP 3.5.4,OP,战役层,OP 3,实施火力打击,Conduct Defensive Counterspace Activities,2026-08-13,3
+67,OP 3.5.5,OP,战役层,OP 3,实施火力打击,Conduct Nuclear Detonation (NUDET) Detection,2026-08-13,3
+68,OP 4.5.1.3,OP,战役层,OP 4,提供战役后勤保障,Organize Contracting Support,2026-08-20,16
+69,OP 4.6.6,OP,战役层,OP 4,提供战役后勤保障,Manage Contracts,2026-08-20,13
+70,OP 5.1.2,OP,战役层,OP 5,提供指挥与控制,Manage Means of Communicating Operational Information,2026-08-13,26
+71,OP 5.1.15,OP,战役层,OP 5,提供指挥与控制,Conduct Freedom of Information Act (FOIA) Requirements,2026-08-13,6
+72,OP 5.4.7,OP,战役层,OP 5,提供指挥与控制,Integrate Computer Investigations and Operations in Cyberspace Operations (CO),2026-08-13,6
+73,OP 5.6.5.3,OP,战役层,OP 5,提供指挥与控制,Conduct Defensive Cyberspace Operations (DCO),2026-08-13,11
+74,OP 5.9,OP,战役层,OP 5,提供指挥与控制,Coordinate Joint Electromagnetic Spectrum Operations (JEMSO),2026-08-13,5
+75,OP 5.9.1.1,OP,战役层,OP 5,提供指挥与控制,Conduct Electromagnetic Attack (EA),2026-08-13,3
+76,OP 5.9.1.3,OP,战役层,OP 5,提供指挥与控制,Conduct Electromagnetic Protection (EP),2026-08-13,3
+77,OP 6.3.2,OP,战役层,OP 6,提供战役部队防护,Supervise Communications Security (COMSEC),2026-08-13,10
+78,TA 3.2.10,TA,战术层,TA 3,执行火力打击,Execute Nuclear Operations,2026-08-13,3
+79,TA 3.5.3.8,TA,战术层,TA 3,执行火力打击,Execute Navigation Warfare (NAVWAR),2026-08-13,3
+80,TA 5.2.1,TA,战术层,TA 5,遂行指挥与控制,Operate Department of War Information Network (DoWIN) Extension,2026-08-13,8
+81,TA 5.5,TA,战术层,TA 5,遂行指挥与控制,Conduct Cybersecurity,2026-08-13,11
+82,TA 5.6.5.3,TA,战术层,TA 5,遂行指挥与控制,Execute Defensive Cyberspace Operations (DCO),2026-08-13,10

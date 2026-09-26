@@ -1,0 +1,43 @@
+﻿序号,附件,段落号,主题,内容类型,核心内容（中文摘要）,关键英文原文,责任主体/对象
+1,A,1,任务清单项目宗旨,政策,确立 CJCS 对任务清单项目的政策、指导与职责；任务清单是全部获批联合任务的权威任务库，用于联合计划、战备报告、训练演习、经验教训处理与能力建设；把国家防务战略、国家军事战略等政策来源转译为全战争部通晓的联合任务；任务清单在 UTDT 内作为权威数据库动态维护，托管于 NIPRNET,authoritative menu (or library) of all approved joint tasks,全体适用单位
+2,A,2.a,联合任务定义,定义,联合任务是分配给单位或组织执行特定功能和（或）提供能力资源的行动或活动；基于现有联合能力、以联合条令为依据，指定单一联合出版物（JP）为主要参考,an action or activity assigned to a unit or organization,—
+3,A,2.a(1),任务边界,定义,任务不回答为何做、何时做、在哪里做、怎样做、由谁做,"do not address why, when, where, how, or by whom",—
+4,A,2.a(2),通用性,定义,任务具有通用性——通过配置定制化的条件与标准，适配任何组织的使命计划、训练与战备要求（汇编为使命任务清单 METL）,adaptable and adjustable ... through tailored conditions and standards,—
+5,A,2.b,任务清单与条令关系,政策,任务清单与联合条令相互依存；每项任务引用一个 JP 为主要来源；任务引用条款列入每部 JP；极少数情况下因与条令缺乏关联而以指令或非条令文件为主要参考；任务的发展变化反过来推动条令修改,The UJTL and joint doctrine are interdependent,J-7 / 条令界
+6,A,2.c,JMETL 与跨系统衔接,政策,任务清单是拟制联合使命任务清单（JMETL）的前提；各组成部分应将获批的必要与支援任务对应到联合任务，在 DRRS 中形成 JMETL；数据支撑 JTT、JLLIS、联合力量需求程序（JFRP）；与联合通用系统功能清单及其指定继承者战争部企业服务本体相关联，提供联合任务与权威能力分类学之间的数据交换或桥接,the DoW Enterprise Service Ontology,全体适用单位
+7,A,2.d,层级与类别,定义,任务按三层战争层级（战略—国家、战略—战区、战役、战术合并为三层）分组，再按功能类别划分,three levels of warfare,—
+8,A,2.e,五项基本要素,定义,每项任务至少五项要素：任务编号、任务名称、任务描述、衡量指标、参考文件；可含任务说明/背景。编号、名称、描述为权威要素；说明、指标、条令引用为非权威要素。权威要素的重大改动须经 UDC 协调并由 J-7 联合概念、条令与教育部副部长（DD JCDE）批准；权威要素不等于强制使用,"authoritative elements of the UJT are task number, task title, and task description",DD JCDE / UDC
+9,A,2.f,任务清单结构边界,政策,任务清单是独立、通用、联合的参考，不直接适配每个系统；通常不保留严格的父任务—子任务关系（部分存在）；细节性任务关联交由战备与训练项目处理,not designed to directly align with every system,—
+10,A,3,任务发展工具（UTDT）,系统,UTDT 是任务与记录系统，提供最新任务清单；网页应用支持变更请求的提交、会签、协调与表决；托管于 NIPRNET；支持多种用户自定义格式导出,the authoritative database and system of record for UJTs,J-7 任务清单项目经理
+11,A,4,任务清单用途总述,政策,任务清单服务联合作战与军种战役计划的执行，提供跨联合部队的共同语言；广泛支撑战争部活动与第 10 编要求；列明 13 类用途（a–m）,a common language across the Joint Force,—
+12,A,4.a,其他系统/功能使用,政策,仅获批的任务名称可转译到其他联合系统；任务、内容与衡量指标对司令部内部使用不构成规定性或强制性要求；司令部自主确定任务及运用方式；任务清单程序之外的政策文件可指示使用特定任务或指标,neither prescriptive nor mandatory for internal command use,各司令部
+13,A,4.b,战备报告,用途,任务清单是联合作战战备报告的关键要素，支撑联合部队战备审查；获批任务清单上传 DRRS 供 JMETL 选择；任务对齐使命必要任务后配置使命特定的标准与条件；批准的任务名称在 JMETL 及其他系统中不得编辑；找不到相关任务时按程序增补候选或紧急任务,Approved UJT titles shall not be edited,各司令部 / DRRS
+14,A,4.c,联合训练,用途,以联合训练系统（JTS）流程对齐训练战略与使命；在 JTT 中依据 JMETL 与训练目标计划、实施、评估训练；任务熟练度评估关联回 DRRS 中的任务；课程学习目标与联合训练目标须至少关联一项任务,must link to at least one UJT,各司令部 / JTT
+15,A,4.d,联合国家训练能力,用途,支撑联合国家训练能力对军种与特种作战司令部训练项目和场地的认证鉴定；用于编制认证鉴定矩阵、评估联合训练环境能力短板,accreditation matrix,—
+16,A,4.e,教育,用途,JMETL 是联合训练与教育的规划—任务关联基础；联合知识在线（JKO）在线课程与部分任务关联，辅助个人选课,Joint Knowledge Online,—
+17,A,4.f,经验教训,用途,联合经验教训项目（JLLP）旨在提升条令、组织、训练、装备、领导力、人员、设施与战备政策；JLLIS 按任务记录观察、问题与最佳实践，识别能力需求与缺口,capability requirements and associated capability gaps,JLLIS 用户
+18,A,4.g,能力建设,用途,JFRP 用任务清单在能力组合管理过程中识别与组织任务、条件、所需能力；任务用于将问题文档化为联合任务线程（JMT）；任务发展/评估的责任在报告任务的单位,joint mission threads (JMTs),JFRP / 报告单位
+19,A,4.h,联合能力区（JCA）,用途,JCA 是按功能分组的能力集合，支撑能力分析、战略发展、投资决策与能力组合管理；任务清单与 JCA 的最底层级链接由 J-8 管理,managed by ... J-8,J-8
+20,A,4.i,联合任务线程（JMT）,用途,任务清单是发展 JMT 的起点之一；JMT 是作战驱动、技术支撑的端到端活动描述；由 J-6 管理,managed by ... J-6,J-6
+21,A,4.j,联合计划,用途,使命分析完成后，从任务库选择任务以支撑使命与相关计划；对选定任务配置条件与标准，形成同步计划、训练与评估的框架,"synchronizing plans, training, and assessments",计划人员
+22,A,4.k,联合概念发展,用途,任务清单为联合概念发展提供现有能力与拟议方案比较的参考基线,"a reference, or baseline",—
+23,A,4.l,军种任务清单,用途,各军种发布并自行管理其任务清单；军种任务清单应与任务清单链接并提供交叉引用；军种任务清单数据库托管于 JEL+；相关工具须与 JEL+ 及任务清单数据库兼容，用于 DRRS、E-SRTS 与 JTT,Service task lists should link to the UJTL,各军种 / J-7
+24,A,4.m,应用程序接口（API）,系统,未来 JDEIS 将通过 UTDT 以 API 开放数据（开发中）；API 作为任务清单与其他应用之间的数据交换桥，允许企业架构服务注册库（EASR）等企业系统动态查询并链接联合任务，实现持续集成、减少人工导出,which is under development,J-7 / DoW CIO 侧系统
+25,B,1,参联会主席职责,职责,依据第 10 编制定武装部队联合训练政策；与其他军种参谋长和作战司令部司令协调后批准任务清单政策变化,formulating policies for the joint training,CJCS
+26,B,2,J-7 主任职责,职责,联合参谋部 J-7 主任（DJ-7）对 CJCS 负责，主管任务清单项目：代表 CJCS 处理项目执行事务、就项目政策向 CJCS 提供建议,directing the UJTL Program,DJ-7
+27,B,3.a,DD JCDE 职责,职责,批准任务清单变更、管理项目资源、确保执行；裁决协调 J-7 领导层与 UDC 后仍未解决的争议问题,Approve changes to the UJTL,DD JCDE
+28,B,3.b,联合教育与条令处（JEDD）长职责,职责,依据第 10 编与联合作战要求监督任务清单项目与资源；确保任务清单与现行及新兴条令对齐,Ensure UJTL alignment with current and emerging doctrine,JEDD
+29,B,3.c,任务清单项目经理职责（1-5）,职责,建立项目程序；建立并监督过程、系统与培训以确保合规；获取与管理资源；监督任务清单发展、主动管理与分发；随条令演进对齐任务更新,Establish UJTL Program procedures,任务清单项目经理
+30,B,3.c(6),项目经理：协调变更请求,职责,协调全部权威变更请求，经 UDC 会签、DD JCDE 批准并发布；协调全部非权威变更请求经 JEDD 批准并直接发布；涵盖新任务提名、删除请求、修改、紧急任务与条令维护性更新,"nominations for new UJTs, requests to delete UJTs",任务清单项目经理
+31,B,3.c(7-9),项目经理：会签与裁决,职责,按联合参谋部任务清单协调流程会签变更请求（含新/改/删方法与会签层级）；裁决 UDC 对变更请求的表决与意见；协调行动军官与计划层级会签后的批准,Adjudicate UDC votes and comments,任务清单项目经理
+32,B,3.c(10-13),项目经理：发布与系统,职责,向任务清单数据库及相关系统发布并电子分发获批变更（含权威与非权威）；管理多安全域上项目级协作系统的开发部署；开发、维护、运行 UTDT 并确保可用性；制定政策并协调任务清单与战争部其他信息系统的集成,"Develop, maintain, operate, and ensure accessibility of the UTDT",任务清单项目经理
+33,B,3.c(14-17),项目经理：条件、咨询组与紧急任务,职责,管理并发布联合条件（Joint Conditions）供战争部各单位定制运用任务；组织年度用户咨询组（UUAG）；支撑第 10 编相关职责；按政策以请求函临时批准紧急任务提交直至最终批准,Provisionally approve urgent task submissions,任务清单项目经理
+34,B,4,任务清单发展共同体（UDC）,职责,UDC 由作战司令部、军种、作战支援机构、国民警卫局与联合参谋部组成；每个组织一票,Each organization within the UDC is a voting member (one organizational vote),UDC 全体成员
+35,B,5.a,任命组织联络点,职责,各作战司令部、联合参谋部各局、作战支援机构、军种与国民警卫局为任务清单事务任命主/备组织联络点（OPOC）,Appointing primary and alternate organizational points of contact,各成员组织
+36,B,5.b,内部会签,职责,在职能专长领域内部协调拟议变更请求，必要时对照本司令部 JMETL 评估效果,Coordinating the staffing of proposed UJTL change requests,各成员组织
+37,B,5.c,表决与沟通渠道,职责,以 UTDT 为主要渠道对表决模块中的变更请求提交输入与表决；企业任务管理软件方案（ETMSS）作为正式通知机制；联合参谋部整体一票，必要时由 J-7 协调统一立场；具体变更经 NIPRNET 电子邮件与 UTDT 协调；涉密衡量指标发布于 SIPRNET JEL+,The Joint Staff has a single vote on UJTL matters,各成员组织
+38,B,5.d(1),提名限制（新版核心收紧）,政策,全体 UDC 成员可提议修改；但新任务提名或对名称、描述的重大改动必须由在 DRRS 中拥有 JMETL/METL 的组织提交或担保，并说明拟议任务填补何种使命/能力缺口、为何现有任务不足；无 JMETL/METL 的单位不得单独提名、重大改动权威字段或提关键/重大意见，须与愿作担保的组织协调；联合参谋部各局（J-Dirs）因非受援司令、无报告责任而不得提交，须找 CCMD、CSA 或军种担保，各局每案仅一份内部协调意见,"must be submitted, or sponsored, by an organization with a JMETL or METL",J-Dirs / 无报告责任单位
+39,B,5.d(2),修改优先于新建,政策,应首先考虑拓宽或修改现有任务而非新建；清单内重复行动会阻碍联合战备报告、妨碍下级映射到最相关任务、遮蔽该行动的整体部队准备状态,Commands should first consider modifying ... instead of creating a new one,全体成员
+40,B,5.d(3),禁止重排或重构编号,政策,不允许重排或重构任务清单；编号断链会损害现实行动与评估（JMETL/METL 战备评估、受援/支援司令链接、训练熟练度数据、能力/资源分配、历史记录等）；如确有提议，由联合参谋部 J-7 决定是否必要——极罕见情形,Renumbering or restructuring the UJTL is not permitted,联合参谋部 J-7
+41,B,5.e,参与咨询组与工作组,职责,参与 UUAG 及为处理任务清单议题而设立的工作组,Participate in the UUAG and UDC working groups,各成员组织
+42,B,6,用户咨询组（UUAG）,职责,由 J-7 任务清单项目经理指导并主持，成员为 UDC（有表决权）及其他利益相关方；每年或按需召开，讨论项目发展、未来方向及本指令与参考文件的更新；提供程序与软件视角的发展情况、社区建议与倡议；可提供任务清单与 UTDT 导向培训；不是对任务建议进行表决的论坛,The UUAG is not a forum to vote on task recommendations,J-7 项目经理 / UDC
