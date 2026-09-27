@@ -1,0 +1,731 @@
+@prefix dd: <http://pmtec.example.org/dodaf#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tc: <http://pmtec.example.org/tc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+dd:Scenario a owl:Class ;
+    rdfs:label "作战场景（CV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:aboutEntity a owl:ObjectProperty ;
+    rdfs:label "交换所描述的信息实体"@zh .
+
+dd:allocatedTo a owl:ObjectProperty ;
+    rdfs:label "角色/活动配置到系统"@zh .
+
+dd:categoryInfo a owl:DatatypeProperty ;
+    rdfs:label "服务类别"@zh ;
+    rdfs:range xsd:string .
+
+dd:endpointInfo a owl:DatatypeProperty ;
+    rdfs:label "接口端点"@zh ;
+    rdfs:range xsd:string .
+
+dd:ex_adapt_summary a dd:InformationExchange ;
+    rdfs:label "adapt_summary" ;
+    dd:aboutEntity dd:ent_c2_status ;
+    dd:observedCount 30 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_op_5 .
+
+dd:ex_asda_cycle a dd:InformationExchange ;
+    rdfs:label "asda_cycle" ;
+    dd:aboutEntity dd:ent_c2_status ;
+    dd:observedCount 120 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_op_5 .
+
+dd:ex_c2_feedback a dd:InformationExchange ;
+    rdfs:label "c2_feedback" ;
+    dd:aboutEntity dd:ent_c2_status ;
+    dd:observedCount 35 ;
+    dd:producedBy dd:role_c2_chain ;
+    dd:tracesTo dd:oa_op_5 .
+
+dd:ex_c2_order a dd:InformationExchange ;
+    rdfs:label "c2_order" ;
+    dd:aboutEntity dd:ent_fire_control ;
+    dd:observedCount 230 ;
+    dd:producedBy dd:role_c2_chain ;
+    dd:tracesTo dd:oa_op_5 .
+
+dd:ex_c2_report a dd:InformationExchange ;
+    rdfs:label "c2_report" ;
+    dd:aboutEntity dd:ent_c2_status ;
+    dd:observedCount 15 ;
+    dd:producedBy dd:role_c2_chain ;
+    dd:tracesTo dd:oa_op_5 .
+
+dd:ex_cyber_attack a dd:InformationExchange ;
+    rdfs:label "cyber_attack" ;
+    dd:aboutEntity dd:ent_missile_threat ;
+    dd:observedCount 8 ;
+    dd:producedBy dd:role_hostile_forces ;
+    dd:tracesTo dd:oa_ta_6 .
+
+dd:ex_cyber_detected a dd:InformationExchange ;
+    rdfs:label "cyber_detected" ;
+    dd:aboutEntity dd:ent_missile_threat ;
+    dd:observedCount 2 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_ta_6 .
+
+dd:ex_detect a dd:InformationExchange ;
+    rdfs:label "detect" ;
+    dd:aboutEntity dd:ent_sensor_track ;
+    dd:observedCount 591 ;
+    dd:producedBy dd:role_sensor_grid ;
+    dd:tracesTo dd:oa_ta_2 .
+
+dd:ex_dqn_dispersal a dd:InformationExchange ;
+    rdfs:label "dqn_dispersal" ;
+    dd:aboutEntity dd:ent_platform_state ;
+    dd:observedCount 42 ;
+    dd:producedBy dd:role_dqn_agent ;
+    dd:tracesTo dd:oa_ta_1 .
+
+dd:ex_ew_jam_start a dd:InformationExchange ;
+    rdfs:label "ew_jam_start" ;
+    dd:aboutEntity dd:ent_missile_threat ;
+    dd:observedCount 5 ;
+    dd:producedBy dd:role_hostile_forces ;
+    dd:tracesTo dd:oa_ta_6 .
+
+dd:ex_intercept_decision a dd:InformationExchange ;
+    rdfs:label "intercept_decision" ;
+    dd:aboutEntity dd:ent_fire_control ;
+    dd:observedCount 230 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_ta_3 .
+
+dd:ex_intercept_fail a dd:InformationExchange ;
+    rdfs:label "intercept_fail" ;
+    dd:aboutEntity dd:ent_fire_control ;
+    dd:observedCount 2 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_ta_3 .
+
+dd:ex_intercept_success a dd:InformationExchange ;
+    rdfs:label "intercept_success" ;
+    dd:aboutEntity dd:ent_fire_control ;
+    dd:observedCount 33 ;
+    dd:producedBy dd:role_asda_engine ;
+    dd:tracesTo dd:oa_ta_3 .
+
+dd:ex_kalman_fuse a dd:InformationExchange ;
+    rdfs:label "kalman_fuse" ;
+    dd:aboutEntity dd:ent_sensor_track ;
+    dd:observedCount 30 ;
+    dd:producedBy dd:role_lvc_fusion ;
+    dd:tracesTo dd:oa_ta_2 .
+
+dd:ex_live_data_inject a dd:InformationExchange ;
+    rdfs:label "live_data_inject" ;
+    dd:aboutEntity dd:ent_sensor_track ;
+    dd:observedCount 30 ;
+    dd:producedBy dd:role_lvc_live ;
+    dd:tracesTo dd:oa_ta_2 .
+
+dd:ex_ma_dqn_decision a dd:InformationExchange ;
+    rdfs:label "ma_dqn_decision" ;
+    dd:aboutEntity dd:ent_platform_state ;
+    dd:observedCount 30 ;
+    dd:producedBy dd:role_maddpg_agent ;
+    dd:tracesTo dd:oa_ta_1 .
+
+dd:ex_missile_launch a dd:InformationExchange ;
+    rdfs:label "missile_launch" ;
+    dd:aboutEntity dd:ent_missile_threat ;
+    dd:observedCount 14 ;
+    dd:producedBy dd:role_hostile_forces ;
+    dd:tracesTo dd:oa_ta_3 .
+
+dd:ex_political_access_change a dd:InformationExchange ;
+    rdfs:label "political_access_change" ;
+    dd:aboutEntity dd:ent_political_access ;
+    dd:observedCount 33 ;
+    dd:producedBy dd:role_political_access_model ;
+    dd:tracesTo dd:oa_sn_5 .
+
+dd:ex_political_grey_zone a dd:InformationExchange ;
+    rdfs:label "political_grey_zone" ;
+    dd:aboutEntity dd:ent_political_access ;
+    dd:observedCount 22 ;
+    dd:producedBy dd:role_hostile_forces ;
+    dd:tracesTo dd:oa_sn_5 .
+
+dd:ex_recover a dd:InformationExchange ;
+    rdfs:label "recover" ;
+    dd:aboutEntity dd:ent_platform_state ;
+    dd:observedCount 1 ;
+    dd:producedBy dd:role_sensor_grid ;
+    dd:tracesTo dd:oa_ta_4 .
+
+dd:ex_sim_start a dd:InformationExchange ;
+    rdfs:label "sim_start" ;
+    dd:aboutEntity dd:ent_platform_state ;
+    dd:observedCount 1 ;
+    dd:producedBy dd:role_platform_clock ;
+    dd:tracesTo dd:oa_ta_1 .
+
+dd:ex_transfer a dd:InformationExchange ;
+    rdfs:label "transfer" ;
+    dd:aboutEntity dd:ent_sensor_track ;
+    dd:observedCount 2 ;
+    dd:producedBy dd:role_sensor_grid ;
+    dd:tracesTo dd:oa_ta_2 .
+
+dd:measureCount a owl:DatatypeProperty ;
+    rdfs:label "UJTL衡量指标数"@zh ;
+    rdfs:range xsd:integer .
+
+dd:oa_op_1 a dd:OperationalActivity ;
+    rdfs:label "Conduct Operational Maneuver" ;
+    dd:tracesTo dd:cap_op_1 .
+
+dd:oa_op_2 a dd:OperationalActivity ;
+    rdfs:label "Conduct Joint Intelligence Operations" ;
+    dd:tracesTo dd:cap_op_2 .
+
+dd:oa_op_3 a dd:OperationalActivity ;
+    rdfs:label "Conduct Fires" ;
+    dd:tracesTo dd:cap_op_3 .
+
+dd:oa_op_4 a dd:OperationalActivity ;
+    rdfs:label "Provide Operational Sustainment" ;
+    dd:tracesTo dd:cap_op_4 .
+
+dd:oa_op_6 a dd:OperationalActivity ;
+    rdfs:label "Provide Operational Force Protection (FP)" ;
+    dd:tracesTo dd:cap_op_6 .
+
+dd:oa_op_7 a dd:OperationalActivity ;
+    rdfs:label "Execute Countering Weapons of Mass Destruction (CWMD)" ;
+    dd:tracesTo dd:cap_op_7 .
+
+dd:oa_op_8 a dd:OperationalActivity ;
+    rdfs:label "Conduct Military Engagement" ;
+    dd:tracesTo dd:cap_op_8 .
+
+dd:oa_sn_1 a dd:OperationalActivity ;
+    rdfs:label "Manage Deployment and Redeployment" ;
+    dd:tracesTo dd:cap_sn_1 .
+
+dd:oa_sn_2 a dd:OperationalActivity ;
+    rdfs:label "Provide Strategic Intelligence" ;
+    dd:tracesTo dd:cap_sn_2 .
+
+dd:oa_sn_3 a dd:OperationalActivity ;
+    rdfs:label "Employ Forces" ;
+    dd:tracesTo dd:cap_sn_3 .
+
+dd:oa_sn_4 a dd:OperationalActivity ;
+    rdfs:label "Provide Sustainment" ;
+    dd:tracesTo dd:cap_sn_4 .
+
+dd:oa_sn_6 a dd:OperationalActivity ;
+    rdfs:label "Conduct Mobilization" ;
+    dd:tracesTo dd:cap_sn_6 .
+
+dd:oa_sn_7 a dd:OperationalActivity ;
+    rdfs:label "Conduct Force Development" ;
+    dd:tracesTo dd:cap_sn_7 .
+
+dd:oa_sn_8 a dd:OperationalActivity ;
+    rdfs:label "Coordinate Military Engagement Activities" ;
+    dd:tracesTo dd:cap_sn_8 .
+
+dd:oa_sn_9 a dd:OperationalActivity ;
+    rdfs:label "Coordinate Countering Weapons of Mass Destruction (CWMD)" ;
+    dd:tracesTo dd:cap_sn_9 .
+
+dd:oa_st_1 a dd:OperationalActivity ;
+    rdfs:label "Deploy Forces" ;
+    dd:tracesTo dd:cap_st_1 .
+
+dd:oa_st_2 a dd:OperationalActivity ;
+    rdfs:label "Provide Theater Intelligence" ;
+    dd:tracesTo dd:cap_st_2 .
+
+dd:oa_st_3 a dd:OperationalActivity ;
+    rdfs:label "Employ Fires" ;
+    dd:tracesTo dd:cap_st_3 .
+
+dd:oa_st_4 a dd:OperationalActivity ;
+    rdfs:label "Sustain Forces" ;
+    dd:tracesTo dd:cap_st_4 .
+
+dd:oa_st_5 a dd:OperationalActivity ;
+    rdfs:label "Conduct Command and Control (C2)" ;
+    dd:tracesTo dd:cap_st_5 .
+
+dd:oa_st_6 a dd:OperationalActivity ;
+    rdfs:label "Coordinate Protection" ;
+    dd:tracesTo dd:cap_st_6 .
+
+dd:oa_st_7 a dd:OperationalActivity ;
+    rdfs:label "Establish Force Requirements" ;
+    dd:tracesTo dd:cap_st_7 .
+
+dd:oa_st_8 a dd:OperationalActivity ;
+    rdfs:label "Perform Military Engagement" ;
+    dd:tracesTo dd:cap_st_8 .
+
+dd:oa_st_9 a dd:OperationalActivity ;
+    rdfs:label "Conduct Countering Weapons of Mass Destruction (CWMD)" ;
+    dd:tracesTo dd:cap_st_9 .
+
+dd:oa_ta_5 a dd:OperationalActivity ;
+    rdfs:label "Exercise Command and Control (C2)" ;
+    dd:tracesTo dd:cap_ta_5 .
+
+dd:oa_ta_7 a dd:OperationalActivity ;
+    rdfs:label "Operate in a Chemical, Biological, Radiological, or Nuclear (CBRN) Hazardous Area" ;
+    dd:tracesTo dd:cap_ta_7 .
+
+dd:observedCount a owl:DatatypeProperty ;
+    rdfs:label "实测观测次数"@zh ;
+    rdfs:range xsd:integer .
+
+dd:producedBy a owl:ObjectProperty ;
+    rdfs:label "交换由角色产生"@zh .
+
+dd:proj_ci_pipeline a dd:ProjectActivity ;
+    rdfs:label "CI/CD 质量门建设"@zh ;
+    dd:verifies dd:sys-ApplicationStore,
+        dd:sys-BattleNetwork,
+        dd:sys-PlugAndPlay,
+        dd:sys-WarEngine .
+
+dd:proj_containerization a dd:ProjectActivity ;
+    rdfs:label "容器化交付建设"@zh ;
+    dd:verifies dd:sys-ApplicationStore,
+        dd:sys-BattleNetwork,
+        dd:sys-PlugAndPlay,
+        dd:sys-WarEngine .
+
+dd:providedBy a owl:ObjectProperty ;
+    rdfs:label "服务/系统提供"@zh .
+
+dd:realizes a owl:ObjectProperty ;
+    rdfs:label "实现/支撑能力"@zh .
+
+dd:std_dodaf_projection a dd:StandardBaseline ;
+    rdfs:label "DoDAF 2.02 视点投影基线（方法借用，非条款引用）"@zh ;
+    dd:tracesTo dd:cap_op_5,
+        dd:ent_political_access .
+
+dd:svc_app_ace_dispersal a dd:ServiceContract ;
+    rdfs:label "ACE Agile Combat Employment" ;
+    dd:categoryInfo "logistics" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_ta_4 ;
+    dd:versionInfo "v2.5" .
+
+dd:svc_app_f35_strike a dd:ServiceContract ;
+    rdfs:label "F-35A Strike Package" ;
+    dd:categoryInfo "strike" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_op_3 ;
+    dd:versionInfo "v2.1" .
+
+dd:svc_app_iamd_defense a dd:ServiceContract ;
+    rdfs:label "IAMD Integrated Air Defense" ;
+    dd:categoryInfo "defense" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_ta_6 ;
+    dd:versionInfo "v3.0" .
+
+dd:svc_app_isr_collection a dd:ServiceContract ;
+    rdfs:label "ISR Sensor Collection" ;
+    dd:categoryInfo "isr" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_st_2 ;
+    dd:versionInfo "v1.8" .
+
+dd:svc_app_jad_ai a dd:ServiceContract ;
+    rdfs:label "JAD-AI Joint All-Domain AI" ;
+    dd:categoryInfo "decision" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_op_5 ;
+    dd:versionInfo "v0.9-beta" .
+
+dd:svc_app_spear_replay a dd:ServiceContract ;
+    rdfs:label "SPEAR Replay Analysis" ;
+    dd:categoryInfo "analysis" ;
+    dd:providedBy dd:sys-ApplicationStore ;
+    dd:realizes dd:cap_op_5 ;
+    dd:versionInfo "v1.2" .
+
+dd:sys-page-dt_dashboard a dd:SystemNode ;
+    rdfs:label "dt_dashboard.html" ;
+    dd:endpointInfo "static://output/dt_dashboard.html" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:sys-page-pmtec_globe a dd:SystemNode ;
+    rdfs:label "pmtec_globe.html" ;
+    dd:endpointInfo "static://output/pmtec_globe.html" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:sys-page-pmtec_realtime_display a dd:SystemNode ;
+    rdfs:label "pmtec_realtime_display.html" ;
+    dd:endpointInfo "static://output/pmtec_realtime_display.html" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:sys-page-pmtec_spear_timeline a dd:SystemNode ;
+    rdfs:label "pmtec_spear_timeline.html" ;
+    dd:endpointInfo "static://output/pmtec_spear_timeline.html" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:sys-rest-gateway a dd:SystemNode ;
+    rdfs:label "数字孪生 REST 网关"@zh ;
+    dd:endpointInfo ":8080" ;
+    dd:realizes dd:cap_st_1 .
+
+dd:taskCount a owl:DatatypeProperty ;
+    rdfs:label "UJTL任务合计数"@zh ;
+    rdfs:range xsd:integer .
+
+dd:tracesTo a owl:ObjectProperty ;
+    rdfs:label "追溯到活动"@zh .
+
+dd:verifies a owl:ObjectProperty ;
+    rdfs:label "项目验证系统"@zh .
+
+dd:versionInfo a owl:DatatypeProperty ;
+    rdfs:label "版本号"@zh ;
+    rdfs:range xsd:string .
+
+dd:StandardBaseline a owl:Class ;
+    rdfs:label "标准基线（StdV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:cap_op_1 a dd:Capability ;
+    rdfs:label "实施战役机动"@zh ;
+    dd:measureCount 479 ;
+    dd:taskCount 40 .
+
+dd:cap_op_2 a dd:Capability ;
+    rdfs:label "实施联合情报行动"@zh ;
+    dd:measureCount 736 ;
+    dd:taskCount 47 .
+
+dd:cap_op_4 a dd:Capability ;
+    rdfs:label "提供战役后勤保障"@zh ;
+    dd:measureCount 765 ;
+    dd:taskCount 55 .
+
+dd:cap_op_6 a dd:Capability ;
+    rdfs:label "提供战役部队防护"@zh ;
+    dd:measureCount 419 ;
+    dd:taskCount 32 .
+
+dd:cap_op_7 a dd:Capability ;
+    rdfs:label "实施反大规模杀伤性武器行动"@zh ;
+    dd:measureCount 209 ;
+    dd:taskCount 8 .
+
+dd:cap_op_8 a dd:Capability ;
+    rdfs:label "实施军事接触"@zh ;
+    dd:measureCount 77 ;
+    dd:taskCount 14 .
+
+dd:cap_sn_1 a dd:Capability ;
+    rdfs:label "管理部署与重新部署"@zh ;
+    dd:measureCount 305 ;
+    dd:taskCount 15 .
+
+dd:cap_sn_2 a dd:Capability ;
+    rdfs:label "提供战略情报"@zh ;
+    dd:measureCount 452 ;
+    dd:taskCount 57 .
+
+dd:cap_sn_3 a dd:Capability ;
+    rdfs:label "运用部队"@zh ;
+    dd:measureCount 802 ;
+    dd:taskCount 102 .
+
+dd:cap_sn_4 a dd:Capability ;
+    rdfs:label "提供后勤保障"@zh ;
+    dd:measureCount 345 ;
+    dd:taskCount 54 .
+
+dd:cap_sn_5 a dd:Capability ;
+    rdfs:label "发布战略指导"@zh ;
+    dd:measureCount 674 ;
+    dd:taskCount 107 .
+
+dd:cap_sn_6 a dd:Capability ;
+    rdfs:label "实施动员"@zh ;
+    dd:measureCount 148 ;
+    dd:taskCount 21 .
+
+dd:cap_sn_7 a dd:Capability ;
+    rdfs:label "实施部队发展"@zh ;
+    dd:measureCount 288 ;
+    dd:taskCount 36 .
+
+dd:cap_sn_8 a dd:Capability ;
+    rdfs:label "协调军事接触活动"@zh ;
+    dd:measureCount 195 ;
+    dd:taskCount 19 .
+
+dd:cap_sn_9 a dd:Capability ;
+    rdfs:label "协调反大规模杀伤性武器行动"@zh ;
+    dd:measureCount 275 ;
+    dd:taskCount 21 .
+
+dd:cap_st_3 a dd:Capability ;
+    rdfs:label "运用火力"@zh ;
+    dd:measureCount 288 ;
+    dd:taskCount 24 .
+
+dd:cap_st_4 a dd:Capability ;
+    rdfs:label "保障部队"@zh ;
+    dd:measureCount 486 ;
+    dd:taskCount 36 .
+
+dd:cap_st_5 a dd:Capability ;
+    rdfs:label "实施指挥与控制"@zh ;
+    dd:measureCount 865 ;
+    dd:taskCount 72 .
+
+dd:cap_st_6 a dd:Capability ;
+    rdfs:label "协调防护"@zh ;
+    dd:measureCount 341 ;
+    dd:taskCount 27 .
+
+dd:cap_st_7 a dd:Capability ;
+    rdfs:label "确定部队需求"@zh ;
+    dd:measureCount 159 ;
+    dd:taskCount 17 .
+
+dd:cap_st_8 a dd:Capability ;
+    rdfs:label "遂行军事接触"@zh ;
+    dd:measureCount 581 ;
+    dd:taskCount 44 .
+
+dd:cap_st_9 a dd:Capability ;
+    rdfs:label "实施反大规模杀伤性武器行动"@zh ;
+    dd:measureCount 264 ;
+    dd:taskCount 9 .
+
+dd:cap_ta_1 a dd:Capability ;
+    rdfs:label "执行机动"@zh ;
+    dd:measureCount 76 ;
+    dd:taskCount 13 .
+
+dd:cap_ta_3 a dd:Capability ;
+    rdfs:label "执行火力打击"@zh ;
+    dd:measureCount 177 ;
+    dd:taskCount 23 .
+
+dd:cap_ta_5 a dd:Capability ;
+    rdfs:label "遂行指挥与控制"@zh ;
+    dd:measureCount 215 ;
+    dd:taskCount 21 .
+
+dd:cap_ta_7 a dd:Capability ;
+    rdfs:label "在化学、生物、放射或核危险区域行动"@zh ;
+    dd:measureCount 50 ;
+    dd:taskCount 4 .
+
+dd:oa_ta_4 a dd:OperationalActivity ;
+    rdfs:label "Sustain Deployed Forces" ;
+    dd:tracesTo dd:cap_ta_4 .
+
+dd:role_dqn_agent a dd:Role ;
+    rdfs:label "DQN 分散决策智能体"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 42 .
+
+dd:role_lvc_fusion a dd:Role ;
+    rdfs:label "LVC 航迹融合"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 30 .
+
+dd:role_lvc_live a dd:Role ;
+    rdfs:label "LVC 实装数据接入"@zh ;
+    dd:allocatedTo dd:sys-realtime-ws ;
+    dd:observedCount 30 .
+
+dd:role_maddpg_agent a dd:Role ;
+    rdfs:label "MADDPG 多智能体"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 30 .
+
+dd:role_platform_clock a dd:Role ;
+    rdfs:label "平台系统自身"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 1 .
+
+dd:role_political_access_model a dd:Role ;
+    rdfs:label "政治准入模型"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 33 .
+
+dd:sys-realtime-ws a dd:SystemNode ;
+    rdfs:label "实时态势 WebSocket 服务"@zh ;
+    dd:endpointInfo ":8765" ;
+    dd:realizes dd:cap_ta_2 .
+
+dd:ProjectActivity a owl:Class ;
+    rdfs:label "建设项目（PV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:cap_op_3 a dd:Capability ;
+    rdfs:label "实施火力打击"@zh ;
+    dd:measureCount 410 ;
+    dd:taskCount 40 .
+
+dd:cap_st_1 a dd:Capability ;
+    rdfs:label "部署部队"@zh ;
+    dd:measureCount 251 ;
+    dd:taskCount 29 .
+
+dd:cap_st_2 a dd:Capability ;
+    rdfs:label "提供战区情报"@zh ;
+    dd:measureCount 706 ;
+    dd:taskCount 63 .
+
+dd:cap_ta_2 a dd:Capability ;
+    rdfs:label "共享情报"@zh ;
+    dd:measureCount 64 ;
+    dd:taskCount 12 .
+
+dd:cap_ta_4 a dd:Capability ;
+    rdfs:label "保障已部署部队"@zh ;
+    dd:measureCount 15 ;
+    dd:taskCount 3 .
+
+dd:oa_sn_5 a dd:OperationalActivity ;
+    rdfs:label "Issue Strategic Direction" ;
+    dd:tracesTo dd:cap_sn_5 .
+
+dd:sys-BattleNetwork a dd:SystemNode ;
+    rdfs:label "作战网络服务"@zh ;
+    dd:endpointInfo "pmtec://grpc:50051" ;
+    dd:realizes dd:cap_op_5,
+        dd:cap_ta_6 .
+
+dd:sys-PlugAndPlay a dd:SystemNode ;
+    rdfs:label "即插即用服务"@zh ;
+    dd:endpointInfo "pmtec://grpc:50051" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:cap_ta_6 a dd:Capability ;
+    rdfs:label "防护部队"@zh ;
+    dd:measureCount 120 ;
+    dd:taskCount 9 .
+
+dd:ent_political_access a dd:InformationEntity ;
+    rdfs:label "政治准入状态信息"@zh ;
+    dd:tracesTo tc:AccessState .
+
+dd:oa_ta_1 a dd:OperationalActivity ;
+    rdfs:label "Execute Maneuver" ;
+    dd:tracesTo dd:cap_ta_1 .
+
+dd:oa_ta_6 a dd:OperationalActivity ;
+    rdfs:label "Protect the Force" ;
+    dd:tracesTo dd:cap_ta_6 .
+
+dd:role_c2_chain a dd:Role ;
+    rdfs:label "指挥链模型"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 280 .
+
+dd:role_sensor_grid a dd:Role ;
+    rdfs:label "传感网与友邻单元"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 594 .
+
+dd:ent_c2_status a dd:InformationEntity ;
+    rdfs:label "指挥控制状态信息"@zh ;
+    dd:tracesTo tc:AccessDeniedSite .
+
+dd:ent_fire_control a dd:InformationEntity ;
+    rdfs:label "拦截火力协同信息"@zh ;
+    dd:tracesTo tc:LaunchCapable .
+
+dd:ent_missile_threat a dd:InformationEntity ;
+    rdfs:label "导弹与网络电磁威胁信息"@zh ;
+    dd:tracesTo tc:MilitaryInstallation .
+
+dd:ent_platform_state a dd:InformationEntity ;
+    rdfs:label "平台与数字孪生体状态信息"@zh ;
+    dd:tracesTo tc:FacilityPart .
+
+dd:ent_sensor_track a dd:InformationEntity ;
+    rdfs:label "传感器航迹信息"@zh ;
+    dd:tracesTo tc:MilitaryInstallation .
+
+dd:oa_ta_2 a dd:OperationalActivity ;
+    rdfs:label "Share Intelligence" ;
+    dd:tracesTo dd:cap_ta_2 .
+
+dd:oa_ta_3 a dd:OperationalActivity ;
+    rdfs:label "Execute Fires" ;
+    dd:tracesTo dd:cap_ta_3 .
+
+dd:role_hostile_forces a dd:Role ;
+    rdfs:label "红方对手兵力"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 49 .
+
+dd:oa_op_5 a dd:OperationalActivity ;
+    rdfs:label "Provide Command and Control (C2)" ;
+    dd:tracesTo dd:cap_op_5 .
+
+dd:InformationEntity a owl:Class ;
+    rdfs:label "信息实体（DIV 契约）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:ServiceContract a owl:Class ;
+    rdfs:label "作战服务契约（SvcV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:role_asda_engine a dd:Role ;
+    rdfs:label "ASDA 决策引擎"@zh ;
+    dd:allocatedTo dd:sys-WarEngine ;
+    dd:observedCount 417 .
+
+dd:sys-ApplicationStore a dd:SystemNode ;
+    rdfs:label "应用商店服务"@zh ;
+    dd:endpointInfo "pmtec://grpc:50051" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:ArchitectureDomain a owl:Class ;
+    rdfs:label "架构视点域"@zh .
+
+dd:Role a owl:Class ;
+    rdfs:label "作战角色（OV-2）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:SystemNode a owl:Class ;
+    rdfs:label "系统/装备节点（SV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:sys-WarEngine a dd:SystemNode ;
+    rdfs:label "战争引擎服务"@zh ;
+    dd:endpointInfo "pmtec://grpc:50051" ;
+    dd:realizes dd:cap_op_5 .
+
+dd:cap_op_5 a dd:Capability ;
+    rdfs:label "提供指挥与控制"@zh ;
+    dd:measureCount 1177 ;
+    dd:taskCount 95 .
+
+dd:InformationExchange a owl:Class ;
+    rdfs:label "信息交换（OV-3）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:Capability a owl:Class ;
+    rdfs:label "作战能力（CV）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+
+dd:OperationalActivity a owl:Class ;
+    rdfs:label "作战活动/任务（OV-2）"@zh ;
+    rdfs:subClassOf dd:ArchitectureDomain .
+

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""DTC2026 赛道二答辩新版 PPT 组装 — 14 页正文 + 3 页附录，深色科技风。
+"""DTC2026 赛道二答辩新版 PPT 组装 — 15 页正文 + 3 页附录，深色科技风。
 
 素材全部来自仓库真实产物与 build_ppt_charts.py / 浏览器截图（docs/PPT素材/）。
 运行: python -X utf8 pmtec_system/scripts/build_defense_ppt.py
@@ -317,9 +317,14 @@ s = new_slide()
 title_bar(s, "第三幕 · 核心创新", "P14 本体层：可推理、可校验、可溯源", 10)
 pic_fit(s, A("diagram_ontology.png"), Inches(0.7), Inches(1.62), Inches(11.93), Inches(5.55))
 
-# ================================================================ S11 系统实跑
+# ================================================================ S11 DoDAF 视点投影
 s = new_slide()
-title_bar(s, "第四幕 · 证明", "系统实跑：四块屏 + 地球总览，全部真实数据驱动", 11)
+title_bar(s, "第三幕 · 核心创新", "P16 DoDAF 2.02 视点投影：架构完整性由机器校验", 11)
+pic_fit(s, A("diagram_dodaf.png"), Inches(0.7), Inches(1.62), Inches(11.93), Inches(5.55))
+
+# ================================================================ S12 系统实跑
+s = new_slide()
+title_bar(s, "第四幕 · 证明", "系统实跑：四块屏 + 地球总览，全部真实数据驱动", 12)
 pic_fit(s, A("shot_globe.png"), Inches(0.55), Inches(1.7), Inches(6.15), Inches(3.55))
 pic_fit(s, A("shot_realtime_ai.png"), Inches(6.9), Inches(1.7), Inches(6.0), Inches(3.55))
 tb(s, Inches(0.55), Inches(5.35), Inches(6.15), Inches(0.4),
@@ -332,7 +337,7 @@ tb(s, Inches(10.8), Inches(6.2), Inches(2.3), Inches(0.8),
 
 # ================================================================ S12 工程质量与团队
 s = new_slide()
-title_bar(s, "第四幕 · 证明", "工程质量：一个人、21 天、可复现交付", 12)
+title_bar(s, "第四幕 · 证明", "工程质量：一个人、21 天、可复现交付", 13)
 pic_fit(s, os.path.join(ROOT, "pmtec_system", "output", "PMTEC_CICD_Run_Record.png"),
         Inches(0.55), Inches(1.7), Inches(7.3), Inches(4.6))
 tb(s, Inches(8.15), Inches(1.8), Inches(4.7), Inches(4.9), [
@@ -351,7 +356,7 @@ tb(s, Inches(8.15), Inches(1.8), Inches(4.7), Inches(4.9), [
 
 # ================================================================ S13 指标总表
 s = new_slide()
-title_bar(s, "第四幕 · 证明", "规格结果指标：全部实测数值", 13)
+title_bar(s, "第四幕 · 证明", "规格结果指标：全部实测数值", 14)
 rows = [
     ("维度", "实测结果", "证据产物（仓库内可复核）"),
     ("部署韧性", "齐射场景 100 次蒙特卡洛：出动 156 架次全保存 · 损失率 0.0% · 恢复 16.3 h", "NSFW 部署优化输出"),
@@ -429,6 +434,7 @@ tb(s, Inches(0.6), Inches(1.7), Inches(6.1), Inches(5.3), [
    [("敏感性", {"bold": True, "size": 15, "color": GREEN}), ("  N=100,000 · 最差可用率 95.5%", {"size": 13.5, "color": FG})],
    [("校准", {"bold": True, "size": 15, "color": GREEN}), ("  Brier 0.1128（35 样本）· Bel(Open)∈[0.67,0.92] · K<0.08", {"size": 13.5, "color": FG})],
    [("本体", {"bold": True, "size": 15, "color": GREEN}), ("  86 实体 · 643 三元组 · LC 67→66 翻转 · 21 断言", {"size": 13.5, "color": FG})],
+   [("DoDAF", {"bold": True, "size": 15, "color": GREEN}), ("  8 视点 · 33 能力 · 22 交换类 1,506 对账 · SHACL conforms · 26 断言", {"size": 13.5, "color": FG})],
    [("韧性指标", {"bold": True, "size": 15, "color": GREEN}), ("  156 架次 · 损失 0.0% · 恢复 16.3 h", {"size": 13.5, "color": FG})],
    [("工程", {"bold": True, "size": 15, "color": GREEN}), (f"  {COMMITS} 提交 / 21 天 · {PYF} py · {LOC/10000:.1f} 万行 · {PROTO} 行 proto", {"size": 13.5, "color": FG})],
 ], leading=1.5)

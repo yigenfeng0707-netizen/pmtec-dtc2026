@@ -1,0 +1,98 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix dd: <http://pmtec.example.org/dodaf#> .
+@prefix tc: <http://pmtec.example.org/tc#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# P16-D3: DoDAF 追溯链形状约束 —— CAP ← OA ← EX → ENT（+Role/SYS/SER/PRO）
+# 无悬空 = 每条链路的每一跳都 minCount 1 且 sh:class 强制值节点已声明类型。
+
+dd:CapabilityShape a sh:NodeShape ;
+    sh:targetClass dd:Capability ;
+    sh:property [
+        sh:path dd:taskCount ; sh:minCount 1 ; sh:datatype xsd:integer ;
+        sh:message "能力缺少 UJTL 任务计数实证" ;
+    ] ;
+    sh:property [
+        sh:path dd:measureCount ; sh:minCount 1 ; sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "能力缺少衡量指标计数实证" ;
+    ] ;
+    sh:sparql [
+        sh:message "能力无作战活动回溯——悬空能力" ;
+        sh:select """PREFIX dd: <http://pmtec.example.org/dodaf#>
+            SELECT $this WHERE { FILTER NOT EXISTS { ?oa dd:tracesTo $this } }""" ;
+    ] .
+
+dd:OperationalActivityShape a sh:NodeShape ;
+    sh:targetClass dd:OperationalActivity ;
+    sh:property [
+        sh:path dd:tracesTo ; sh:minCount 1 ; sh:class dd:Capability ;
+        sh:message "作战活动未追溯到已声明能力——链路断裂" ;
+    ] .
+
+dd:InformationExchangeShape a sh:NodeShape ;
+    sh:targetClass dd:InformationExchange ;
+    sh:property [
+        sh:path dd:observedCount ; sh:minCount 1 ; sh:datatype xsd:integer ;
+        sh:minInclusive 1 ;
+        sh:message "信息交换必须有实测观测计数（来自 SPEAR 报告）" ;
+    ] ;
+    sh:property [
+        sh:path dd:tracesTo ; sh:minCount 1 ; sh:class dd:OperationalActivity ;
+        sh:message "交换未追溯到作战活动" ;
+    ] ;
+    sh:property [
+        sh:path dd:aboutEntity ; sh:minCount 1 ; sh:class dd:InformationEntity ;
+        sh:message "交换未锚定信息实体（DIV 契约）" ;
+    ] ;
+    sh:property [
+        sh:path dd:producedBy ; sh:minCount 1 ; sh:class dd:Role ;
+        sh:message "交换无产生角色（OV-3 源缺省）" ;
+    ] .
+
+dd:InformationEntityShape a sh:NodeShape ;
+    sh:targetClass dd:InformationEntity ;
+    sh:property [
+        sh:path dd:tracesTo ; sh:minCount 1 ;
+        sh:message "信息实体未锚定目标特性本体——跨本体悬空" ;
+    ] ;
+    sh:sparql [
+        sh:message "信息实体未锚定目标特性本体 tc# 类型——跨本体悬空" ;
+        sh:select """PREFIX dd: <http://pmtec.example.org/dodaf#>
+            SELECT $this WHERE {
+              $this dd:tracesTo ?t .
+              FILTER (!strstarts(str(?t), "http://pmtec.example.org/tc#"))
+            }""" ;
+    ] .
+
+dd:RoleShape a sh:NodeShape ;
+    sh:targetClass dd:Role ;
+    sh:property [
+        sh:path dd:allocatedTo ; sh:minCount 1 ; sh:class dd:SystemNode ;
+        sh:message "角色未配置到任何系统节点" ;
+    ] .
+
+dd:ServiceContractShape a sh:NodeShape ;
+    sh:targetClass dd:ServiceContract ;
+    sh:property [
+        sh:path dd:realizes ; sh:minCount 1 ; sh:class dd:Capability ;
+        sh:message "服务契约未支撑任何能力" ;
+    ] ;
+    sh:property [
+        sh:path dd:providedBy ; sh:minCount 1 ;
+        sh:message "服务契约无提供方系统" ;
+    ] .
+
+dd:SystemNodeShape a sh:NodeShape ;
+    sh:targetClass dd:SystemNode ;
+    sh:property [
+        sh:path dd:realizes ; sh:minCount 1 ; sh:class dd:Capability ;
+        sh:message "系统节点不支撑任何能力——SV 悬空" ;
+    ] .
+
+dd:ProjectActivityShape a sh:NodeShape ;
+    sh:targetClass dd:ProjectActivity ;
+    sh:property [
+        sh:path dd:verifies ; sh:minCount 1 ; sh:class dd:SystemNode ;
+        sh:message "建设项目未指向任何被验证系统（PV 断链）" ;
+    ] .

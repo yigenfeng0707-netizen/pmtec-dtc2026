@@ -1,0 +1,29 @@
+{
+  "source_artifact": "dodaf_overlay.ttl",
+  "class_counts": {
+    "Capability": 33,
+    "OperationalActivity": 33,
+    "InformationExchange": 22,
+    "InformationEntity": 6,
+    "Role": 10,
+    "ServiceContract": 6,
+    "SystemNode": 10,
+    "ProjectActivity": 2,
+    "StandardBaseline": 1
+  },
+  "shacl": {
+    "conforms": true,
+    "violation_count": 0,
+    "violations": []
+  },
+  "cross_ontology": {
+    "broken_anchors": [],
+    "anchored_tc_classes": [
+      "AccessDeniedSite",
+      "AccessState",
+      "FacilityPart",
+      "LaunchCapable",
+      "MilitaryInstallation"
+    ]
+  }
+}

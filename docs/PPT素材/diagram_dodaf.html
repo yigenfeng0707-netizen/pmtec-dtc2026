@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8">
+<style>
+  html,body{margin:0;background:#0d1117;font-family:"Microsoft YaHei","Segoe UI",sans-serif;color:#c9d1d9}
+  #stage{width:1600px;height:900px;box-sizing:border-box;padding:36px 48px;position:relative;display:flex;flex-direction:column;justify-content:center}
+  h1{font-size:34px;color:#58a6ff;margin:0 0 8px;font-weight:700}
+  .sub{font-size:19px;color:#8b949e;margin-bottom:20px}
+  .grid{display:flex;gap:26px}
+  .col{flex:1}
+  .card{background:#161b22;border:2px solid #30363d;border-radius:14px;padding:16px 20px;margin-bottom:14px}
+  .card .t{font-size:20px;font-weight:700;margin-bottom:6px}
+  .card .d{font-size:15.5px;color:#8b949e;line-height:1.5}
+  .cv .t{color:#bc8cff}.cv{border-color:#bc8cff}
+  .ov .t{color:#3fb950}.ov{border-color:#3fb950}
+  .sv .t{color:#d29922}.sv{border-color:#d29922}
+  .gate .t{color:#58a6ff}.gate{border-color:#58a6ff}
+  .flip{background:rgba(248,81,73,.07);border:2px dashed #f85149;border-radius:12px;padding:14px 18px;font-size:16.5px;line-height:1.6;color:#ffa198}
+  .flow{display:flex;align-items:center;justify-content:center;gap:10px;margin:18px 0 22px;font-size:17px}
+  .fnode{background:#21262d;border:1.5px solid #58a6ff;border-radius:10px;padding:10px 16px;color:#58a6ff;font-weight:700}
+  .fnode.g{border-color:#3fb950;color:#3fb950}
+  .fnode.p{border-color:#bc8cff;color:#bc8cff}
+  .fa{color:#8b949e;font-size:26px}
+  .foot{position:absolute;bottom:28px;left:48px;right:48px;display:flex;justify-content:space-between;font-size:16px;color:#8b949e}
+</style></head><body><div id="stage">
+  <h1>P16 DoDAF 2.02 视点投影 — 架构完整性由机器校验，不是手画框图</h1>
+  <div class="sub">只借用 DoDAF 公开方法论；八视点矩阵每一行由脚本从仓库真实工件自动生成，人工誊写零行</div>
+  <div class="flow">
+    <span class="fnode p">真实工件<br>SPEAR 1506 事件 · UJTL 33 段 · 源码</span><span class="fa">→</span>
+    <span class="fnode">dd 覆盖层本体<br>123 个体 · 578 三元组</span><span class="fa">→</span>
+    <span class="fnode g">SHACL 追溯链<br>9 形状 · conforms=true</span><span class="fa">→</span>
+    <span class="fnode g">八视点文档自动导出<br>重跑即再生</span>
+  </div>
+  <div class="grid">
+    <div class="col">
+      <div class="card cv"><div class="t">CV / OV — 能力与作战视点</div><div class="d">33 项能力锚定 UJTL 编号段（任务/指标计数为数据集实测）；OV-3 信息交换矩阵 22 行 = SPEAR 实跑 22 类事件，观测计数合计 1,506 与事件流逐一对账；10 个作战角色由事件源分组实测生成</div></div>
+      <div class="card ov"><div class="t">DIV / SvcV / SV — 契约与系统视点</div><div class="d">6 类信息实体锚定目标特性本体 tc#（跨本体 6/6 无断链）；6 项服务契约 ast 解析自 gRPC 源码；10 个系统节点 = 4 gRPC 服务 + REST/WS 端口 + 4 张演示页面文件，端点均为 config.py 实测值</div></div>
+    </div>
+    <div class="col">
+      <div class="card sv"><div class="t">追溯主链，每一跳可查询</div><div class="d">CAP ← OA ← EX → ENT → tc#；Role → SYS、SER → CAP、PV → SYS。SHACL 对每条链路强制 minCount + sh:class：任何一行悬空、任何一格手写虚构，校验立即变红</div></div>
+      <div class="card gate"><div class="t">防虚构守卫</div><div class="d">映射表与实测事件类型双向完整性校验（缺一项拒绝构建）；观测计数 minInclusive 1；负样本测试证明删边/清零必被拦截 — 验收 26 断言全绿</div></div>
+      <div class="flip"><b>合规声明</b>：DoDAF 2.02 为公开框架，本文只借用视点方法与追溯范式；不引用任何条款原文、不誊写参考文档措辞，全部内容为 PMTEC 自有体系独立建模。</div>
+    </div>
+  </div>
+  <div class="foot"><span>数据源：ontology/dodaf_* · docs/PMTEC-DoDAF视点架构说明.md · test_p16_dodaf.py 26 断言</span><span>PMTEC · DTC2026 赛道二</span></div>
+</div></body></html>
