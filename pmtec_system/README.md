@@ -289,6 +289,27 @@ Brier 分数入终态 `twin_summary.calibration`。饱和攻击实测（P14 重�
 
 - 验收：`test_p14_ontology.py` 21 项全过（结构/推理/翻转/SHACL 正负/D-S 公理/溯源/杀伤网）
 
+### P15: 全球地球总览页（MapLibre globe 投影）
+
+- `visualization/globe_display.py` → `output/pmtec_globe.html`（单文件 + MapLibre GL JS 5.9 本地 vendor，断网可用）
+- 数据全真实：67 权威实体（bases_v2.geojson）+ 饱和攻击 SPEAR 回放弧线 + 政治准入灰色地带确定性回放（seed=42，c3 主权打击峰值 9 站 Denied、可用 67→58）
+- 交互：政治准入/弹道齐射/拦截突防/EDCA/昼夜线五图层开关；夜半球由浏览器端按真实时间天文计算（零外部 feed）；2.5° 格点规避跨日界线破洞
+
+### P16: DoDAF 2.02 视点投影（机器可校验）
+
+- `ontology/dodaf_build.py` → `dodaf_overlay.ttl`：覆盖层本体由真实产物机器生成——33 项能力（锚定 UJTL 编号段）、22 类信息交换（SPEAR 实跑 1,506 事件对账）、6 项服务契约（gRPC 源码 ast 解析）、10 系统节点
+- 追溯链 CAP←OA←EX→ENT→tc# 由 `dodaf_shapes.ttl` 九形状强制校验（conforms=true，0 违规 0 断锚）；负样本（删追溯边/清零观测计数）必被拦截
+- 八视点文档 `docs/PMTEC-DoDAF视点架构说明.md` 由 `build_dodaf_views.py` 自动导出（重跑即再生）
+- 验收：`test_p16_dodaf.py` 26 项全过
+
+### P17: 语义工具层 + 自进化路线图（演化受控）
+
+- `ontology/semantic_tools.py`：browse / resolve / manifest 只读语义工具——对标 EvoOntology（RUC-DataLab, arXiv:2609.15779）的工具层形态，rdflib 直读既有产物，零新依赖；提示词只注入 manifest 轻量清单，其余语义按需检索（active access）
+- 四类语义对象：term（85 类与个体）/ mapping（16 属性到 GeoJSON 字段锚定）/ constraint（3 SHACL 形状）/ evidence（71 溯源断言含 Bel/Pl 区间与证据源）
+- 设计红线：只读不写——本体变更必须先过 test_p14/test_p16/test_p17 逻辑门禁（EvoOntology 消融：w/o Gate −11.2 为最大减分项）；演化闭环（轨迹诊断→归因→单层类型化补丁→行为门禁）见根目录《DTC2026自进化本体提升计划-P17.md》
+- 验收：`test_p17_semantic_tools.py` 15 项全过（manifest/四类检索/Misawa 全档案/类解析/负样本/确定性）
+
+
 ---
 
 
@@ -444,9 +465,9 @@ GitHub Actions 6 阶段：Lint → Unit Tests → Proto Compile → Docker Build
 
 | 指标 | 数值 |
 |------|------|
-| Python 代码 | 132 文件 / 37,460 行（pmtec_system + ace_deployment，不含归档） |
+| Python 代码 | 141 文件 / 39,077 行（pmtec_system + ace_deployment，不含 archive 与生成桩） |
 | AI 模型 | 6 核心 + 15 检查点 + P14 本体推理链（HermiT/SHACL/D-S） |
-| 测试文件 | 22 个 (P3-P14) |
+| 测试文件 | 24 个 (P3-P17) |
 | HTML 交付物 | 12 个 |
 | Proto 定义 | 433 行 / 4 服务 |
 | 安全模块 | 6 个 / 898 行 |
