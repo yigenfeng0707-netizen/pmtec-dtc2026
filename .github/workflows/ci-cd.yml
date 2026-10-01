@@ -115,6 +115,15 @@ jobs:
           print('All imports successful')
           "
 
+      # P14 ontology + P16 DoDAF acceptance gates (HermiT needs a JVM — preinstalled on ubuntu runners)
+      - name: Ontology acceptance tests (P14/P16)
+        env:
+          PYTHONPATH: pmtec_system
+        run: |
+          cd pmtec_system
+          python test_p14_ontology.py
+          python test_p16_dodaf.py
+
   # ============================================================
   # Stage 3: Docker Build
   # ============================================================

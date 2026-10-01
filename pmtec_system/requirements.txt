@@ -20,3 +20,8 @@ opentelemetry-api>=1.44.0
 opentelemetry-sdk>=1.44.0
 opentelemetry-exporter-otlp>=1.44.0
 opentelemetry-instrumentation-grpc>=0.65b0
+
+# Ontology Layer (P14/P16: OWL 2 DL + HermiT reasoning [requires JVM, java>=8] + SHACL + SPARQL)
+rdflib>=6.3.0
+owlready2>=0.46
+pyshacl>=0.25.0
