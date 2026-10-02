@@ -32,7 +32,9 @@ class RealtimeServer:
 
     def __init__(
         self,
-        host: str = "localhost",
+        # 0.0.0.0 (同 REST 网关) so the containerized engine accepts connections
+        # forwarded by docker-proxy from the host; localhost binds only 127.0.0.1
+        host: str = "0.0.0.0",
         port: int = 8765,
         max_clients: int = 10,
         history_size: int = 1200,

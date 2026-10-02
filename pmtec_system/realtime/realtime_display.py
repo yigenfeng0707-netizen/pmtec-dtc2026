@@ -13,6 +13,8 @@ from config import OUTPUT_DIR
 class RealtimeDisplay:
     """Generates real-time tactical display HTML with WebSocket client."""
 
+    # ws_host 是嵌入 HTML 由浏览器拨号的地址（非监听地址）：容器化部署经宿主机
+    # 8765 端口转发，浏览器必须拨 ws://localhost:8765；监听侧见 websocket_server.py
     def __init__(self, ws_host: str = "localhost", ws_port: int = 8765):
         self.ws_host = ws_host
         self.ws_port = ws_port

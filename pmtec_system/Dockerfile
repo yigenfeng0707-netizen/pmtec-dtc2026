@@ -81,6 +81,8 @@ COPY visualization/ ./visualization/
 COPY scripts/ ./scripts/
 COPY output/ ./output/
 COPY config/ ./config/
+# P13 demo entrypoint runs main.py — root-level runtime modules must ship in the image
+COPY main.py model_metadata.py tracing.py ./
 # P13: base data (geojson) + pretrained RL models for one-command demo
 COPY data/ ./data/
 

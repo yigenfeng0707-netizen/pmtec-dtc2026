@@ -7,7 +7,8 @@ __pycache__/
 .git/
 .gitignore
 output/*.json
-output/*.html
+# output/*.html 必须进镜像：展示中心 (nginx :8888) 静态托管 index/实时大屏/报告页，
+# 全新 volume 由镜像 output/ 初始化，缺页会导致 403
 data/persistence/*.db
 data/persistence/*.db-wal
 data/persistence/*.db-shm
