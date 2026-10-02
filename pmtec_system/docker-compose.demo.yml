@@ -34,6 +34,11 @@ services:
     volumes:
       - pmtec-demo-output:/pmtec/output
     restart: unless-stopped
+    # 2GB ECS 上的内存护栏：长时连续推演若再现累积，cgroup 先杀引擎（restart
+    # 策略自动拉起）而不是拖垮整机。上限必须写在这里——`docker update` 打的
+    # 限制在 up -d recreate 后会静默丢失（2026-10-03 教训）。
+    mem_limit: 1200m
+    memswap_limit: 3200m
     healthcheck:
       test:
         [
@@ -60,6 +65,8 @@ services:
       pmtec-engine:
         condition: service_healthy
     restart: unless-stopped
+    mem_limit: 200m
+    memswap_limit: 2200m
 
 volumes:
   pmtec-demo-output:
