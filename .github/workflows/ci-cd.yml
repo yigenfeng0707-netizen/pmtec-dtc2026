@@ -125,6 +125,14 @@ jobs:
           python test_p16_dodaf.py
           python test_p17_semantic_tools.py
 
+      # Web 展示层认证门禁（JWT 会话 + 角色矩阵，真实 ThreadingHTTPServer 全链路）
+      - name: Web auth acceptance tests
+        env:
+          PYTHONPATH: pmtec_system
+        run: |
+          cd pmtec_system
+          python test_web_auth.py
+
   # ============================================================
   # Stage 3: Docker Build
   # ============================================================

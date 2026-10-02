@@ -20,8 +20,13 @@ Endpoints:
   GET  /api/v1/analysis       - Last cached AI situational analysis (P13)
   POST /api/v1/analysis       - Trigger fresh AI situational analysis (P13)
   GET  /api/v1/health         - Platform health check
+  POST /api/v1/auth/login     - Web 展示层登录（PMTEC_WEB_USERS 启用时生效）
+  GET  /api/v1/auth/check     - 会话校验（兼作 nginx auth_request 门禁端点）
+  POST /api/v1/auth/logout    - 退出并清除会话 Cookie
 """
 
+import hashlib
+import hmac
 import json
 import logging
 import os
@@ -31,6 +36,38 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from urllib.parse import parse_qs, urlparse
 
 logger = logging.getLogger("pmtec.rest")
+
+# 网关进程启动时刻（/api/v1/health uptime 基准）
+_GATEWAY_BOOT_AT = time.time()
+
+# Web 展示层认证：部署侧经环境变量 PMTEC_WEB_USERS 启用，缺省关闭（既有测试/本地开发零影响）。
+# 条目格式 "用户名:sha256(密码)hex:角色"，逗号分隔；角色 ∈ {observer, operator, commander}。
+WEB_AUTH_COOKIE = "pmtec_token"
+WEB_AUTH_PUBLIC_PATHS = {
+    "/",
+    "/api",
+    "/api/v1/health",
+    "/api/v1/auth/login",
+    "/api/v1/auth/logout",
+    "/api/v1/auth/check",
+}
+WEB_ROLE_RANK = {"observer": 0, "operator": 1, "commander": 2}
+# 评委(operator)可触发 AI 参谋官分析；其余 POST（仿真启停 / 实例注册）仅指挥员(commander)
+WEB_POST_MIN_ROLE = {"/api/v1/analysis": "operator"}
+
+
+def parse_web_users(raw: str) -> dict:
+    """解析 PMTEC_WEB_USERS → {用户名: (sha256摘要, 角色)}；格式非法条目跳过。"""
+    users = {}
+    for entry in (raw or "").split(","):
+        parts = entry.strip().split(":")
+        if len(parts) != 3:
+            continue
+        username, digest, role = parts
+        if not username or len(digest) != 64 or role not in WEB_ROLE_RANK:
+            continue
+        users[username] = (digest.lower(), role)
+    return users
 
 
 class RestGateway:
@@ -49,6 +86,51 @@ class RestGateway:
         self.port = port
         self._server: ThreadingHTTPServer | None = None
         self._thread: threading.Thread | None = None
+        self._web_users = parse_web_users(os.environ.get("PMTEC_WEB_USERS", ""))
+        self._auth_manager = None
+
+    # ---------------- Web 展示层认证（P7 安全模块端到端落地） ----------------
+
+    @property
+    def auth_enabled(self) -> bool:
+        return bool(self._web_users)
+
+    def _get_auth_manager(self):
+        if self._auth_manager is None:
+            from security.auth import AuthManager
+
+            self._auth_manager = AuthManager(
+                secret=os.environ.get("PMTEC_JWT_SECRET") or None
+            )
+        return self._auth_manager
+
+    def login_user(self, username: str, password: str):
+        """校验 PMTEC_WEB_USERS 凭据，成功返回 TokenInfo，失败返回 None。"""
+        entry = self._web_users.get(username or "")
+        if not entry or not password:
+            return None
+        digest = hashlib.sha256(password.encode("utf-8")).hexdigest()
+        if not hmac.compare_digest(digest, entry[0]):
+            return None
+        return self._get_auth_manager().issue_token(username, entry[1])
+
+    def verify_request(self, headers) -> dict | None:
+        """从 Authorization 头或 Cookie 提取并校验 JWT，返回 payload 或 None。"""
+        token = headers.get("Authorization") or ""
+        if not token.strip():
+            for part in (headers.get("Cookie") or "").split(";"):
+                name, _, value = part.strip().partition("=")
+                if name == WEB_AUTH_COOKIE:
+                    token = value
+                    break
+        if not token.strip():
+            return None
+        from security.auth import AuthError
+
+        try:
+            return self._get_auth_manager().verify_token(token)
+        except AuthError:
+            return None
 
     def attach_engine(self, engine):
         self.engine = engine
@@ -67,16 +149,58 @@ class RestGateway:
         gateway = self
 
         class RequestHandler(BaseHTTPRequestHandler):
-            def _send_json(self, code: int, data):
+            def _send_json(self, code: int, data, extra_headers=None):
                 body = json.dumps(data, ensure_ascii=False, default=str).encode("utf-8")
                 self.send_response(code)
                 self.send_header("Content-Type", "application/json; charset=utf-8")
                 self.send_header("Access-Control-Allow-Origin", "*")
                 self.send_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
-                self.send_header("Access-Control-Allow-Headers", "Content-Type")
+                self.send_header(
+                    "Access-Control-Allow-Headers", "Content-Type, Authorization"
+                )
+                for name, value in extra_headers or []:
+                    self.send_header(name, value)
                 self.send_header("Content-Length", str(len(body)))
                 self.end_headers()
                 self.wfile.write(body)
+
+            def _auth_cookie(self, token: str, max_age: int) -> str:
+                return (
+                    f"{WEB_AUTH_COOKIE}={token}; HttpOnly; SameSite=Strict; "
+                    f"Path=/; Max-Age={max_age}"
+                )
+
+            def _web_auth_gate(self, path: str, method: str) -> bool:
+                """认证门禁：未启用直接放行；返回 False 表示已应答（401/403）。"""
+                if not gateway.auth_enabled:
+                    return True
+                if path in WEB_AUTH_PUBLIC_PATHS:
+                    return True
+                payload = gateway.verify_request(self.headers)
+                if payload is None:
+                    self._send_json(
+                        401,
+                        {
+                            "error": "Unauthorized",
+                            "hint": "POST /api/v1/auth/login",
+                        },
+                    )
+                    return False
+                if method == "POST":
+                    required = WEB_POST_MIN_ROLE.get(path, "commander")
+                    role = payload.get("role", "observer")
+                    if WEB_ROLE_RANK.get(role, -1) < WEB_ROLE_RANK[required]:
+                        self._send_json(
+                            403,
+                            {
+                                "error": "Forbidden",
+                                "role": role,
+                                "required_role": required,
+                                "user_id": payload.get("user_id"),
+                            },
+                        )
+                        return False
+                return True
 
             def do_OPTIONS(self):
                 self._send_json(200, {"status": "ok"})
@@ -86,13 +210,30 @@ class RestGateway:
                 path = parsed.path
                 parse_qs(parsed.query)
 
-                if path == "/api/v1/health":
+                if not self._web_auth_gate(path, "GET"):
+                    return
+
+                if path == "/api/v1/auth/check":
+                    payload = gateway.verify_request(self.headers)
+                    if payload is None:
+                        self._send_json(401, {"error": "Unauthorized"})
+                    else:
+                        self._send_json(
+                            200,
+                            {
+                                "user_id": payload.get("user_id"),
+                                "role": payload.get("role"),
+                                "exp": payload.get("exp"),
+                            },
+                        )
+                elif path == "/api/v1/health":
                     self._send_json(
                         200,
                         {
                             "status": "healthy",
                             "version": "PMTEC-v2.0",
-                            "uptime_s": int(time.time()),
+                            "uptime_s": int(time.time() - _GATEWAY_BOOT_AT),
+                            "auth_enabled": gateway.auth_enabled,
                             "services": [
                                 "WarEngine",
                                 "BattleNetwork",
@@ -390,7 +531,42 @@ class RestGateway:
                     self._send_json(400, {"error": "Invalid JSON"})
                     return
 
-                if path == "/api/v1/sim/start":
+                if not self._web_auth_gate(path, "POST"):
+                    return
+
+                if path == "/api/v1/auth/login":
+                    info = gateway.login_user(
+                        str(payload.get("username", "")),
+                        str(payload.get("password", "")),
+                    )
+                    if info is None:
+                        self._send_json(401, {"error": "Invalid credentials"})
+                        return
+                    self._send_json(
+                        200,
+                        {
+                            "user_id": info.user_id,
+                            "role": info.role,
+                            "expires_at": info.expires_at,
+                            "token": info.token,
+                        },
+                        extra_headers=[
+                            ("Set-Cookie", self._auth_cookie(info.token, 86400))
+                        ],
+                    )
+                elif path == "/api/v1/auth/logout":
+                    self._send_json(
+                        200,
+                        {"status": "logged_out"},
+                        extra_headers=[
+                            (
+                                "Set-Cookie",
+                                f"{WEB_AUTH_COOKIE}=; HttpOnly; SameSite=Strict; "
+                                "Path=/; Max-Age=0",
+                            )
+                        ],
+                    )
+                elif path == "/api/v1/sim/start":
                     if gateway.engine:
                         scenario = payload.get("scenario", "PMTEC-Pacific")
                         duration = payload.get("duration", 1200)

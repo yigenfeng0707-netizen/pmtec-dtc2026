@@ -1,5 +1,60 @@
 # PMTEC 数字孪生战场系统 - 阿里云 ECS 部署指南
 
+## Web 展示层认证（演示中心登录门禁）
+
+演示栈自带三级角色会话门禁，账号由环境变量 `PMTEC_WEB_USERS` 配置（明文口令不落盘不入仓，
+只写 sha256 摘要）。**未设置该变量时认证关闭，行为与历史版本完全一致。**
+
+### 1. 生成账号条目
+
+```bash
+cd pmtec_system
+# 单条: 用户名 密码 角色(commander=管理员/operator=评委/observer=普通用户)
+python deploy/web_auth_helper.py fengyigen '你的管理员口令' commander --secret
+# 或多条交互:
+#   pingwei '评委口令' operator
+#   test '普通用户口令' observer
+python deploy/web_auth_helper.py --stdin
+```
+
+把输出的两行写入 `pmtec_system/.env`（与 docker-compose.demo.yml 同目录）：
+
+```env
+PMTEC_WEB_USERS=fengyigen:<sha256>:commander,pingwei:<sha256>:operator,test:<sha256>:observer
+PMTEC_JWT_SECRET=<48 字节随机串>
+```
+
+### 2. 生效
+
+```bash
+docker compose -f docker-compose.demo.yml up -d
+```
+
+### 3. 访问行为
+
+| 入口 | 未登录 | 登录后 |
+|---|---|---|
+| `http://<ECS_IP>:8888/` 静态展示页 | 302 → `/login.html` | 正常访问（Cookie 24h） |
+| `http://<ECS_IP>:8888/api/v1/*` | 网关 JWT 中间件 401 | 按角色放行 |
+| 直连 `:8080` 绕过 nginx | 网关 JWT 中间件同样 401（应用层强制） | 同上 |
+
+角色权限矩阵（web 层）：`observer` 只读全部 GET；`operator`（评委）额外可触发
+`POST /api/v1/analysis`（AI 参谋官）；`commander` 全量（含 `sim/start|stop`、`dt/register`）。
+与 P7 gRPC RBAC 三级角色（commander/operator/observer）同一套语义。
+
+### 4. 涉及组件
+
+| 文件 | 作用 |
+|---|---|
+| `dt_platform/rest_gateway.py` | login/check/logout 三端点 + 全端点 JWT 门禁中间件 |
+| `output/login.html` | 登录页（nginx 免门禁直出） |
+| `deploy/nginx-demo.conf` | 静态页 auth_request 会话预检 + `/api` `/ws` 同源反代 |
+| `deploy/web_auth_helper.py` | 摘要条目生成器 |
+| `test_web_auth.py` | 26 断言验收（CI 门禁步） |
+
+> 已知边界：`/ws` 实时推送（只读遥测流）未强制鉴权；直连 8080 的口令暴力破解无速率限制
+> （演示场景可接受，公网长期运行建议安全组仅放行 8888 并关闭 8080）。
+
 ## 快速开始
 
 ### 1. 创建 ECS 实例

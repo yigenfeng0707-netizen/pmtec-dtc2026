@@ -72,7 +72,11 @@ HTML = r"""<!DOCTYPE html>
 <div id="instances"></div>
 
 <script>
-var REST = 'http://localhost:8080/api/v1';
+/* REST 基址运行时解析：http(s) 走同源 /api/v1（nginx 反代，含会话 Cookie），
+   file:// 本地浏览回退 localhost:8080。 */
+var REST = (location.protocol === 'http:' || location.protocol === 'https:')
+  ? location.origin + '/api/v1'
+  : 'http://localhost:8080/api/v1';
 
 function setConn(ok) {
   var c = document.getElementById('conn');

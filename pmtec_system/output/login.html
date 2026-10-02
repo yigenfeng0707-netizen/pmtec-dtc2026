@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMTEC 登录 - 数字孪生战场演示中心</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:"Segoe UI","Microsoft YaHei",sans-serif; background:#0a0e17;
+         color:#c9d1d9; min-height:100vh; display:flex; align-items:center;
+         justify-content:center; }
+  .card { background:#101828; border:1px solid #1b263b; border-radius:12px;
+          padding:36px 40px; width:360px; box-shadow:0 8px 32px rgba(0,0,0,.45); }
+  h1 { color:#fff; font-size:20px; margin-bottom:4px; }
+  h1 span { color:#2ec4b6; }
+  .sub { color:#8b949e; font-size:12px; margin-bottom:24px; line-height:1.6; }
+  label { display:block; font-size:12px; color:#8b949e; margin:14px 0 6px; }
+  input { width:100%; padding:10px 12px; border-radius:6px; border:1px solid #1b263b;
+          background:#0a0e17; color:#e6edf3; font-size:14px; outline:none; }
+  input:focus { border-color:#2ec4b6; }
+  button { width:100%; margin-top:22px; padding:11px; border:none; border-radius:6px;
+           background:#2ec4b6; color:#0a0e17; font-size:14px; font-weight:bold;
+           cursor:pointer; }
+  button:hover { background:#3fd6c8; }
+  button:disabled { opacity:.6; cursor:wait; }
+  .err { display:none; margin-top:14px; padding:8px 10px; border-radius:6px;
+         background:#2d1216; border:1px solid #5c1f26; color:#f54e4e; font-size:12px; }
+  .foot { margin-top:20px; font-size:11px; color:#556070; text-align:center;
+          line-height:1.7; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>PMTEC <span>数字孪生战场</span></h1>
+  <div class="sub">演示中心访问控制 · 三级角色（指挥员 / 评委 / 观察员）<br>
+  请使用分配的账号登录</div>
+  <form id="f" autocomplete="off">
+    <label for="u">用户名</label>
+    <input id="u" type="text" required autofocus>
+    <label for="p">密码</label>
+    <input id="p" type="password" required>
+    <button id="b" type="submit">登 录</button>
+    <div class="err" id="e"></div>
+  </form>
+  <div class="foot">PMTEC · DTC2026 赛道二 · JWT 会话 24 小时</div>
+</div>
+<script>
+var API = (location.protocol === 'http:' || location.protocol === 'https:')
+  ? location.origin + '/api/v1'
+  : 'http://localhost:8080/api/v1';
+
+function nextUrl() {
+  var n = new URLSearchParams(location.search).get('next');
+  // 仅允许站内相对路径，防开放跳转
+  return (n && n.charAt(0) === '/' && n.charAt(1) !== '/') ? n : 'index.html';
+}
+
+fetch(API + '/auth/check', {credentials:'same-origin'})
+  .then(function(r){ if (r.ok) location.replace(nextUrl()); })
+  .catch(function(){});
+
+document.getElementById('f').addEventListener('submit', function(ev){
+  ev.preventDefault();
+  var btn = document.getElementById('b'), err = document.getElementById('e');
+  btn.disabled = true; err.style.display = 'none';
+  fetch(API + '/auth/login', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    credentials: 'same-origin',
+    body: JSON.stringify({
+      username: document.getElementById('u').value.trim(),
+      password: document.getElementById('p').value
+    })
+  }).then(function(r){
+    if (r.ok) { location.replace(nextUrl()); return; }
+    return r.json().then(function(d){
+      throw new Error(d.error === 'Invalid credentials' ? '用户名或密码错误' : ('登录失败 (' + r.status + ')'));
+    });
+  }).catch(function(ex){
+    err.textContent = ex.message;
+    err.style.display = 'block';
+    btn.disabled = false;
+  });
+});
+</script>
+</body>
+</html>

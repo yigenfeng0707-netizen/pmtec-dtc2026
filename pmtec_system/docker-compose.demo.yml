@@ -1,10 +1,14 @@
-# PMTEC 数字孪生战场 - 演示栈 (P13)
+# PMTEC 数字孪生战场 - 演示栈 (P13 + Web 会话门禁)
 # 一键启动完整演示：仿真引擎(饱和攻击) + REST + WebSocket + 展示中心
 #
+#   先在 pmtec_system/.env 配置演示账号（生成器: python deploy/web_auth_helper.py 账号 密码 角色）
+#     PMTEC_WEB_USERS=pingwei:<sha256>:operator,fengyigen:<sha256>:commander,test:<sha256>:observer
+#     PMTEC_JWT_SECRET=<随机长串>
+#
 #   docker compose -f docker-compose.demo.yml up -d
-#     → 演示中心:  http://localhost:8888/
+#     → 演示中心:  http://localhost:8888/           (未登录自动跳转 /login.html)
 #     → REST API:  http://localhost:8080/api/v1/health
-#     → WebSocket: ws://localhost:8765
+#     → WebSocket: ws://localhost:8765 （公网经 nginx 同源 /ws 反代）
 #
 # 完整生产栈（4 gRPC 服务 + Prometheus + Grafana + Jaeger）见 docker-compose.yml
 
@@ -24,6 +28,9 @@ services:
       - PMTEC_ADVERSARY_AGGRESSION=0.8
       - PMTEC_ADVERSARY_MAX_CONCURRENT=12
       - PMTEC_ADVERSARY_SALVO_MAX=4
+      # Web 会话门禁（未设置 = 关闭，行为与历史版本一致）
+      - PMTEC_WEB_USERS=${PMTEC_WEB_USERS:-}
+      - PMTEC_JWT_SECRET=${PMTEC_JWT_SECRET:-}
     volumes:
       - pmtec-demo-output:/pmtec/output
     restart: unless-stopped
@@ -40,7 +47,7 @@ services:
       retries: 3
       start_period: 30s
 
-  # 展示中心: 静态托管 output/ (index / 实时大屏 / 仪表盘 / AI 报告)
+  # 展示中心: 静态托管 output/ (index / 实时大屏 / 仪表盘 / AI 报告) + /api //ws 反代 + 会话门禁
   pmtec-display:
     image: nginx:alpine
     container_name: pmtec-demo-display
@@ -48,6 +55,7 @@ services:
       - "8888:80"
     volumes:
       - pmtec-demo-output:/usr/share/nginx/html:ro
+      - ./deploy/nginx-demo.conf:/etc/nginx/conf.d/default.conf:ro
     depends_on:
       pmtec-engine:
         condition: service_healthy

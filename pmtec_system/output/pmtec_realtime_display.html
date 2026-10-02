@@ -193,7 +193,14 @@
 </div>
 <script>
 var bases = [{"id": "Misawa Air Base", "name": "Misawa Air Base", "lat": 40.7058, "lon": 141.3814, "is_ace_hub": false}, {"id": "Yokota Air Base", "name": "Yokota Air Base", "lat": 35.7447, "lon": 139.3475, "is_ace_hub": false}, {"id": "Kadena Air Base", "name": "Kadena Air Base", "lat": 26.3505, "lon": 127.7686, "is_ace_hub": false}, {"id": "MCAS Futenma", "name": "MCAS Futenma", "lat": 26.2783, "lon": 127.7658, "is_ace_hub": false}, {"id": "Sasebo Naval Base", "name": "Sasebo Naval Base", "lat": 33.1611, "lon": 129.7225, "is_ace_hub": false}, {"id": "Yokosuka Naval Base", "name": "Yokosuka Naval Base", "lat": 35.2906, "lon": 139.6672, "is_ace_hub": false}, {"id": "MCAS Iwakuni", "name": "MCAS Iwakuni", "lat": 34.1442, "lon": 132.2347, "is_ace_hub": false}, {"id": "Andersen AFB", "name": "Andersen AFB", "lat": 13.5839, "lon": 144.9167, "is_ace_hub": false}, {"id": "Naval Base Guam", "name": "Naval Base Guam", "lat": 13.4469, "lon": 144.6589, "is_ace_hub": false}, {"id": "Camp Humphreys", "name": "Camp Humphreys", "lat": 36.9647, "lon": 127.0336, "is_ace_hub": false}, {"id": "Osan Air Base", "name": "Osan Air Base", "lat": 37.0906, "lon": 127.0336, "is_ace_hub": false}, {"id": "Kunsan Air Base", "name": "Kunsan Air Base", "lat": 35.9014, "lon": 126.6156, "is_ace_hub": false}, {"id": "Joint Base Pearl Harbor-Hickam", "name": "Joint Base Pearl Harbor-Hickam", "lat": 21.3694, "lon": -157.9622, "is_ace_hub": false}, {"id": "Schofield Barracks", "name": "Schofield Barracks", "lat": 21.495, "lon": -158.0636, "is_ace_hub": false}, {"id": "Joint Base Elmendorf-Richardson", "name": "Joint Base Elmendorf-Richardson", "lat": 61.2647, "lon": -149.7275, "is_ace_hub": false}, {"id": "Eielson AFB", "name": "Eielson AFB", "lat": 64.6431, "lon": -147.6106, "is_ace_hub": false}, {"id": "RAAF Base Darwin", "name": "RAAF Base Darwin", "lat": -12.4153, "lon": 130.8769, "is_ace_hub": false}, {"id": "RAAF Base Tindal", "name": "RAAF Base Tindal", "lat": -14.5236, "lon": 132.3789, "is_ace_hub": false}, {"id": "NB Camilo Osias", "name": "NB Camilo Osias", "lat": 18.5667, "lon": 121.1833, "is_ace_hub": false}, {"id": "Lal-lo Airport", "name": "Lal-lo Airport", "lat": 18.2, "lon": 121.4, "is_ace_hub": false}, {"id": "Balabac Island", "name": "Balabac Island", "lat": 8.0333, "lon": 117.05, "is_ace_hub": false}, {"id": "Tinian North Field", "name": "Tinian North Field", "lat": 15.0833, "lon": 145.6167, "is_ace_hub": false}];
-var wsUrl = "ws://localhost:8765";
+/* WS 候选端点轮换：同源 /ws（nginx 反代，公网部署）优先，回退直连 ws://localhost:8765
+   （本地开发 / SSH 隧道场景）。onclose 时切换下一个候选并重连。 */
+var WS_CANDIDATES = [];
+if (location.protocol === 'http:' || location.protocol === 'https:') {
+  WS_CANDIDATES.push((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
+}
+WS_CANDIDATES.push("ws://localhost:8765");
+var wsIdx = 0;
 var ws = null;
 var map = L.map('map', {zoomControl: true}).setView([25, 140], 3);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -208,10 +215,16 @@ var history = [];
 var historyIdx = -1;
 var maxHistory = 200;
 
+function nextWsCandidate() {
+  wsIdx = (wsIdx + 1) % WS_CANDIDATES.length;
+}
+
 function connectWS() {
+  var url = WS_CANDIDATES[wsIdx];
   try {
-    ws = new WebSocket(wsUrl);
+    ws = new WebSocket(url);
   } catch(e) {
+    nextWsCandidate();
     setTimeout(connectWS, 3000);
     return;
   }
@@ -220,6 +233,7 @@ function connectWS() {
   };
   ws.onclose = function() {
     document.getElementById('conn-dot').className = 'conn-dot dot-off';
+    nextWsCandidate();
     setTimeout(connectWS, 2000);
   };
   ws.onerror = function() {};
@@ -402,7 +416,11 @@ function togglePause() {
 }
 
 /* ---------------- P13: AI situational analysis panel ---------------- */
-var REST_BASE = 'http://localhost:8080/api/v1';
+/* REST 基址运行时解析：http(s) 页面走同源 /api/v1（nginx 反代，含会话 Cookie），
+   file:// 本地浏览回退 localhost:8080。 */
+var REST_BASE = (location.protocol === 'http:' || location.protocol === 'https:')
+  ? location.origin + '/api/v1'
+  : 'http://localhost:8080/api/v1';
 
 function toggleAIPanel() {
   var p = document.getElementById('ai-panel');
@@ -438,7 +456,7 @@ function loadAICache() {
     }
   }).catch(() => {
     document.getElementById('ai-content').textContent =
-      'REST 网关不可达 (http://localhost:8080)。';
+      'REST 网关不可达 (' + REST_BASE + ')。';
   });
 }
 

@@ -13,8 +13,9 @@ from config import OUTPUT_DIR
 class RealtimeDisplay:
     """Generates real-time tactical display HTML with WebSocket client."""
 
-    # ws_host 是嵌入 HTML 由浏览器拨号的地址（非监听地址）：容器化部署经宿主机
-    # 8765 端口转发，浏览器必须拨 ws://localhost:8765；监听侧见 websocket_server.py
+    # ws_host 是嵌入 HTML 的回退直拨地址（非监听地址）：本地开发 / SSH 隧道场景
+    # 浏览器拨 ws://localhost:8765；公网部署时页面优先同源 /ws（nginx 反代），
+    # 拨号失败自动轮换回退；监听侧见 websocket_server.py
     def __init__(self, ws_host: str = "localhost", ws_port: int = 8765):
         self.ws_host = ws_host
         self.ws_port = ws_port
@@ -257,7 +258,14 @@ _REALTIME_HTML_TEMPLATE = r"""<!DOCTYPE html>
 </div>
 <script>
 var bases = __BASES__;
-var wsUrl = "__WS_URL__";
+/* WS 候选端点轮换：同源 /ws（nginx 反代，公网部署）优先，回退直连 __WS_URL__
+   （本地开发 / SSH 隧道场景）。onclose 时切换下一个候选并重连。 */
+var WS_CANDIDATES = [];
+if (location.protocol === 'http:' || location.protocol === 'https:') {
+  WS_CANDIDATES.push((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws');
+}
+WS_CANDIDATES.push("__WS_URL__");
+var wsIdx = 0;
 var ws = null;
 var map = L.map('map', {zoomControl: true}).setView([25, 140], 3);
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -272,10 +280,16 @@ var history = [];
 var historyIdx = -1;
 var maxHistory = 200;
 
+function nextWsCandidate() {
+  wsIdx = (wsIdx + 1) % WS_CANDIDATES.length;
+}
+
 function connectWS() {
+  var url = WS_CANDIDATES[wsIdx];
   try {
-    ws = new WebSocket(wsUrl);
+    ws = new WebSocket(url);
   } catch(e) {
+    nextWsCandidate();
     setTimeout(connectWS, 3000);
     return;
   }
@@ -284,6 +298,7 @@ function connectWS() {
   };
   ws.onclose = function() {
     document.getElementById('conn-dot').className = 'conn-dot dot-off';
+    nextWsCandidate();
     setTimeout(connectWS, 2000);
   };
   ws.onerror = function() {};
@@ -466,7 +481,11 @@ function togglePause() {
 }
 
 /* ---------------- P13: AI situational analysis panel ---------------- */
-var REST_BASE = 'http://localhost:8080/api/v1';
+/* REST 基址运行时解析：http(s) 页面走同源 /api/v1（nginx 反代，含会话 Cookie），
+   file:// 本地浏览回退 localhost:8080。 */
+var REST_BASE = (location.protocol === 'http:' || location.protocol === 'https:')
+  ? location.origin + '/api/v1'
+  : 'http://localhost:8080/api/v1';
 
 function toggleAIPanel() {
   var p = document.getElementById('ai-panel');
@@ -502,7 +521,7 @@ function loadAICache() {
     }
   }).catch(() => {
     document.getElementById('ai-content').textContent =
-      'REST 网关不可达 (http://localhost:8080)。';
+      'REST 网关不可达 (' + REST_BASE + ')。';
   });
 }
 
