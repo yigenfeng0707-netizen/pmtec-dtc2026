@@ -15,6 +15,7 @@ P12-3 upgrades:
 
 import asyncio
 import json
+import os
 import threading
 import time
 from collections import deque
@@ -37,7 +38,10 @@ class RealtimeServer:
         host: str = "0.0.0.0",
         port: int = 8765,
         max_clients: int = 10,
-        history_size: int = 1200,
+        # 历史快照存原始 state 字典（MB 级/条）：1200 条在饱和模式下会累积到
+        # GB 级，2026-10-02 曾把 2GB ECS 整机挤到僵死。默认 300 条（PMTEC_WS_HISTORY
+        # 可调），演示 replay 窗口仍够用；容器侧另有 cgroup 内存上限兜底。
+        history_size: int = int(os.environ.get("PMTEC_WS_HISTORY", "300")),
     ):
         self.host = host
         self.port = port

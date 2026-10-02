@@ -12,8 +12,12 @@ from collections import defaultdict
 class SpearReplay:
     """Records and replays simulation events for post-action analysis."""
 
-    def __init__(self, buffer_size: int = 10000):
+    def __init__(self, buffer_size: int = 10000, snapshot_buffer_size: int = 240):
         self.buffer_size = buffer_size
+        # 快照与事件分开限长：一条快照内嵌全量实体/航迹 dict（约 0.4MB），
+        # 沿用 10000 条事件上限意味着 3-5GB 内存——2026-10-02 曾把 2GB ECS
+        # 整机挤到僵死。240 条 ≈ 100MB，回放窗口仍覆盖数十分钟推演。
+        self.snapshot_buffer_size = snapshot_buffer_size
         self.events: list[dict] = []
         self.snapshots: list[dict] = []
         self.metrics: dict = defaultdict(list)
@@ -27,8 +31,8 @@ class SpearReplay:
     def record_snapshot(self, snapshot: dict):
         """Record a system state snapshot."""
         self.snapshots.append(snapshot)
-        if len(self.snapshots) > self.buffer_size:
-            self.snapshots = self.snapshots[-self.buffer_size :]
+        if len(self.snapshots) > self.snapshot_buffer_size:
+            self.snapshots = self.snapshots[-self.snapshot_buffer_size :]
 
     def record_metric(self, name: str, value: float):
         """Record a time-series metric."""

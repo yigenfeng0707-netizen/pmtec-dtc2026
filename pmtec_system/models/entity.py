@@ -322,12 +322,18 @@ class EWThreatEntity(BattlefieldEntity):
         self.jammed_bands = list(EW_BANDS)
         self.effectiveness = 0.0  # 0=ineffective, 1=full jam
         self.active_duration = 0.0
+        # P13-fix2: 干扰机最长在站时间——到期转入 expired 并被实体清理回收；
+        # 否则每波协调 EW 攻击的实体永久滞留 _entities（tracemalloc 实证累积）
+        self.max_on_station_s = 240.0
         self._move_to_target = speed > 0
 
     def update(self, dt_seconds: float):
         if self.status != "active":
             return
         self.active_duration += dt_seconds
+        if self.active_duration > self.max_on_station_s:
+            self.status = "expired"
+            return
         if self._move_to_target:
             self.move(dt_seconds)
             dist = self.distance_to(self.target_lat, self.target_lon)

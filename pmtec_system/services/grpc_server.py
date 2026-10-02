@@ -1947,17 +1947,26 @@ class PMTECEngine:
                         )
             self.lvc.virtual.remove_entity(m.id)
         self._missiles = active_missiles
-        # Also clean up destroyed/neutralized entities from entities list
+        # Also clean up destroyed/neutralized/expired entities from entities list
         self._entities = [
             e
             for e in self._entities
-            if e.status not in ("destroyed", "neutralized")
+            if e.status not in ("destroyed", "neutralized", "expired")
             or isinstance(e, AircraftEntity)
         ]
 
     def _update_tracks(self):
         """Fuse and update track picture."""
         self.track_mgr.fuse()
+        # P13-fix2: 清理已消亡航迹的 C2 溯源项——饱和推演下 track_id 每波唯一，
+        # 不清理则该 dict 随导弹/航迹 churn 无界增长（tracemalloc 实证）
+        if self._c2_track_source:
+            live = self.track_mgr.tracks
+            self._c2_track_source = {
+                tid: src
+                for tid, src in self._c2_track_source.items()
+                if tid in live
+            }
 
     def _calc_network_vulnerability(self) -> float:
         """Calculate network vulnerability score (0=secure, 1=critical)."""
