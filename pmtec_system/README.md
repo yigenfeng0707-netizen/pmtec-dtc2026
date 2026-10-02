@@ -472,7 +472,7 @@ GitHub Actions 6 阶段：Lint → Unit Tests → Proto Compile → Docker Build
 
 | 指标 | 数值 |
 |------|------|
-| Python 代码 | 144 文件 / 39,544 行（pmtec_system + ace_deployment，不含 archive 与生成桩） |
+| Python 代码 | 144 文件 / 39,567 行（pmtec_system + ace_deployment，不含 archive 与生成桩） |
 | AI 模型 | 6 核心 + 15 检查点 + P14 本体推理链（HermiT/SHACL/D-S） |
 | 测试文件 | 27 个 (P3-P17 + Web 认证) |
 | HTML 交付物 | 19 个 |
