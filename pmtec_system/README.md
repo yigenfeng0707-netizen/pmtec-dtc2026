@@ -235,6 +235,13 @@ docker compose -f docker-compose.demo.yml up -d
 ```
 生产级分布式栈（4 gRPC + Prometheus + Grafana + Jaeger）保留在 `docker-compose.yml`。
 
+**Web 展示层会话门禁**（P7 安全模块端到端落地）：nginx auth_request 会话预检 +
+REST 网关全端点 JWT 中间件，三级角色（commander 管理员 / operator 评委 / observer
+普通用户）复用 gRPC RBAC 同一套语义——observer 只读、operator 可触发 AI 参谋官、
+commander 全量。账号经 `deploy/web_auth_helper.py` 生成 sha256 摘要写入 `.env`
+（明文口令不落盘不入仓），未配置该变量时认证关闭、行为与历史版本一致。
+验收：`test_web_auth.py` 26 断言（CI 门禁步），详见 `deploy/README.md`。
+
 ### P14: 目标特性本体（TO 五元组）+ 描述逻辑推理 + 置信度溯源层
 
 对标赛道二学术支撑材料《西太平洋战区目标特性本体构建》（胡权），把 P1-P13 的
@@ -465,9 +472,9 @@ GitHub Actions 6 阶段：Lint → Unit Tests → Proto Compile → Docker Build
 
 | 指标 | 数值 |
 |------|------|
-| Python 代码 | 142 文件 / 39,081 行（pmtec_system + ace_deployment，不含 archive 与生成桩） |
+| Python 代码 | 144 文件 / 39,544 行（pmtec_system + ace_deployment，不含 archive 与生成桩） |
 | AI 模型 | 6 核心 + 15 检查点 + P14 本体推理链（HermiT/SHACL/D-S） |
-| 测试文件 | 26 个 (P3-P17) |
+| 测试文件 | 27 个 (P3-P17 + Web 认证) |
 | HTML 交付物 | 19 个 |
 | Proto 定义 | 433 行 / 4 服务 |
 | 安全模块 | 6 个 / 1,022 行 |
