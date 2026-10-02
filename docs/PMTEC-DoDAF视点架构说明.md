@@ -1,6 +1,6 @@
 # PMTEC 政治韧性数字孪生体系 — DoDAF 2.02 视点架构说明
 
-> 生成日期：2026-09-27（由 `pmtec_system/ontology/build_dodaf_views.py` 自动导出，重跑可再生）  
+> 生成日期：2026-10-02（由 `pmtec_system/ontology/build_dodaf_views.py` 自动导出，重跑可再生）  
 > 方法声明：本文借用 DoDAF 2.02 公开视点框架（AV/CV/OV/DIV/SvcV/SV/StdV/PV）与追溯链范式；全部内容针对 PMTEC 自有体系独立建模，所有矩阵行由脚本从仓库真实工件（SPEAR 实跑报告、UJTL 数据集、gRPC 服务源码、配置文件、页面文件）推导，无人工誊写行。  
 > 追溯链校验：SHACL `conforms=True`，违规 0 条，跨本体锚点断裂 0 处。
 

@@ -8,7 +8,7 @@ tc:assertion_AK_CLEAR a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -19,7 +19,7 @@ tc:assertion_AK_EARECKSON a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -30,7 +30,7 @@ tc:assertion_AK_EIELSON a prov:Entity ;
     tc:beliefOpen 8.8e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -39,7 +39,7 @@ tc:assertion_AK_GREELEY a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -50,7 +50,7 @@ tc:assertion_AK_JBER a prov:Entity ;
     tc:beliefOpen 8.8e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -59,7 +59,7 @@ tc:assertion_AK_WAINWRIGHT a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -70,7 +70,7 @@ tc:assertion_AU_DARWIN a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -79,7 +79,7 @@ tc:assertion_AU_HOLT a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -90,7 +90,7 @@ tc:assertion_AU_ROBERTSON a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -101,7 +101,7 @@ tc:assertion_AU_TINDAL a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -110,7 +110,7 @@ tc:assertion_CA_BEALE a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -121,7 +121,7 @@ tc:assertion_CA_CORONADO a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -132,7 +132,7 @@ tc:assertion_CA_MIRAMAR a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -143,7 +143,7 @@ tc:assertion_CA_PENDLETON a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -154,7 +154,7 @@ tc:assertion_CA_POINTLOMA a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -165,7 +165,7 @@ tc:assertion_CA_SANDIEGO a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -176,7 +176,7 @@ tc:assertion_CA_TRAVIS a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -187,7 +187,7 @@ tc:assertion_CA_VANDENBERG a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -198,7 +198,7 @@ tc:assertion_CA_VENTURA a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -209,7 +209,7 @@ tc:assertion_CNMI_TINIAN a prov:Entity ;
     tc:beliefOpen 6.8e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "B" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -218,7 +218,7 @@ tc:assertion_GU_ANDERSEN a prov:Entity ;
     tc:beliefOpen 7.6e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -227,7 +227,7 @@ tc:assertion_GU_APRA a prov:Entity ;
     tc:beliefOpen 7.6e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -236,7 +236,7 @@ tc:assertion_GU_BLAZ a prov:Entity ;
     tc:beliefOpen 8.4e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -247,7 +247,7 @@ tc:assertion_HI_MCBH a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -258,7 +258,7 @@ tc:assertion_HI_PHICKAM a prov:Entity ;
     tc:beliefOpen 8.8e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -267,7 +267,7 @@ tc:assertion_HI_PMRF a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -278,7 +278,7 @@ tc:assertion_HI_SCHOFIELD a prov:Entity ;
     tc:beliefOpen 8.8e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -287,7 +287,7 @@ tc:assertion_HI_SHAFTER a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -298,7 +298,7 @@ tc:assertion_HI_WHEELER a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -309,7 +309,7 @@ tc:assertion_IO_DIEGOGARCIA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -320,7 +320,7 @@ tc:assertion_JP_ATSUGI a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -331,7 +331,7 @@ tc:assertion_JP_BUTLER a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -342,7 +342,7 @@ tc:assertion_JP_FUTENMA a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -351,7 +351,7 @@ tc:assertion_JP_IWAKUNI a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -360,7 +360,7 @@ tc:assertion_JP_KADENA a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -369,7 +369,7 @@ tc:assertion_JP_KYOGAMISAKI a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -380,7 +380,7 @@ tc:assertion_JP_MISAWA a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -389,7 +389,7 @@ tc:assertion_JP_OKINAWA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -400,7 +400,7 @@ tc:assertion_JP_SASEBO a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -409,7 +409,7 @@ tc:assertion_JP_SHARIKI a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -420,7 +420,7 @@ tc:assertion_JP_YOKOSUKA a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -429,7 +429,7 @@ tc:assertion_JP_YOKOTA a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -438,7 +438,7 @@ tc:assertion_JP_ZAMA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -449,7 +449,7 @@ tc:assertion_KR_CHINHAE a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -460,7 +460,7 @@ tc:assertion_KR_DAEGU a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -471,7 +471,7 @@ tc:assertion_KR_HUMPHREYS a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -480,7 +480,7 @@ tc:assertion_KR_KUNSAN a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -489,7 +489,7 @@ tc:assertion_KR_MUJUK a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -500,7 +500,7 @@ tc:assertion_KR_OSAN a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -509,7 +509,7 @@ tc:assertion_KR_YONGSAN a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -520,7 +520,7 @@ tc:assertion_MH_KWAJALEIN a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -531,7 +531,7 @@ tc:assertion_PH_BALABAC a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -540,7 +540,7 @@ tc:assertion_PH_BASA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -551,7 +551,7 @@ tc:assertion_PH_BAUTISTA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -562,7 +562,7 @@ tc:assertion_PH_CAMILO a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -571,7 +571,7 @@ tc:assertion_PH_EBUEN a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -582,7 +582,7 @@ tc:assertion_PH_LALLO a prov:Entity ;
     tc:beliefOpen 6.702e-01 ;
     tc:plausibilityOpen 9.574e-01 ;
     tc:precisionGrade "A-" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:v1:pmtec-22base-database> ;
     prov:wasGeneratedBy <urn:pmtec:activity:geojson-to-abox-extraction> .
 
@@ -591,7 +591,7 @@ tc:assertion_PH_LUMBIA a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -602,7 +602,7 @@ tc:assertion_PH_MAGSAYSAY a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -613,7 +613,7 @@ tc:assertion_PH_MELCHOR a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -624,7 +624,7 @@ tc:assertion_SG_NRCS a prov:Entity ;
     tc:beliefOpen 7.784e-01 ;
     tc:plausibilityOpen 9.73e-01 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -635,7 +635,7 @@ tc:assertion_WA_EVERETT a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -646,7 +646,7 @@ tc:assertion_WA_FAIRCHILD a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -657,7 +657,7 @@ tc:assertion_WA_JBLM a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -668,7 +668,7 @@ tc:assertion_WA_KITSAP a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -679,7 +679,7 @@ tc:assertion_WA_WHIDBEY a prov:Entity ;
     tc:beliefOpen 9.2e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
@@ -690,7 +690,7 @@ tc:assertion_WL_WAKE a prov:Entity ;
     tc:beliefOpen 8.4e-01 ;
     tc:plausibilityOpen 1e+00 ;
     tc:precisionGrade "A" ;
-    prov:generatedAtTime "2026-09-22T13:30:34.876926+00:00" ;
+    prov:generatedAtTime "2026-10-02T01:53:34.438171+00:00" ;
     prov:wasDerivedFrom <urn:pmtec:source:crs:R47589-TableA-1>,
         <urn:pmtec:source:dod:FY2024-Base-Structure-Report>,
         <urn:pmtec:source:web:coordinate-verification> ;
