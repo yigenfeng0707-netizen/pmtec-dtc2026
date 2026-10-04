@@ -268,8 +268,8 @@ WS_CANDIDATES.push("__WS_URL__");
 var wsIdx = 0;
 var ws = null;
 var map = L.map('map', {zoomControl: true}).setView([25, 140], 3);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'PMTEC | DTC 2026 P0', maxZoom: 12
+L.tileLayer('tiles/{z}/{x}/{y}.png', {
+  attribution: 'PMTEC | DTC 2026 P0 | © OpenStreetMap 离线瓦片', maxZoom: 12, maxNativeZoom: 7
 }).addTo(map);
 
 var entityMarkers = {};

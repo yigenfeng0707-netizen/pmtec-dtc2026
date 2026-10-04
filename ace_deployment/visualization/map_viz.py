@@ -166,9 +166,9 @@ const threats = {threats_json};
 const damages = {damages_json};
 
 const map = L.map('map', {{ zoomControl: true }}).setView([20, 140], 3);
-L.tileLayer('https://{{s}}.basemaps.cartocdn.com/dark_all/{{z}}/{{x}}/{{y}}{{r}}.png', {{
-  attribution: '&copy; OpenStreetMap, &copy; CARTO',
-  maxZoom: 18
+L.tileLayer('tiles/{{z}}/{{x}}/{{y}}.png', {{
+  attribution: '&copy; OpenStreetMap 离线瓦片',
+  maxZoom: 18, maxNativeZoom: 7
 }}).addTo(map);
 
 let totalAircraft = 0, hubCount = 0, totalVuln = 0;

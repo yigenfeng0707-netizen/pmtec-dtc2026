@@ -179,9 +179,9 @@ var bases = __BASES__;
 var events = __EVENTS__;
 
 var map = L.map('map', {zoomControl: true}).setView([25, 140], 3);
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: 'PMTEC | DTC 2026',
-  maxZoom: 12,
+L.tileLayer('tiles/{z}/{x}/{y}.png', {
+  attribution: 'PMTEC | DTC 2026 | © OpenStreetMap 离线瓦片',
+  maxZoom: 12, maxNativeZoom: 7,
 }).addTo(map);
 
 bases.forEach(function(b) {
