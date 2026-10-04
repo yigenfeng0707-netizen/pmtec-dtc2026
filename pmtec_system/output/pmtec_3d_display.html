@@ -135,8 +135,8 @@ var frameCount = 0, fpsTime = 0, fpsVal = 0;
 
 // P5-4 Optimization 1: Shared geometry cache (unit geometries, scale per-entity)
 var GEO = {
-  aircraft: new THREE.BoxGeometry(12, 4, 12),
-  missile: new THREE.ConeGeometry(8, 20, 5),
+  aircraft: new THREE.BoxGeometry(60, 20, 60),
+  missile: new THREE.ConeGeometry(40, 100, 25),
   glow: new THREE.SphereGeometry(15, 6, 5),
   sensorDome: new THREE.SphereGeometry(1, 12, 8, 0, Math.PI*2, 0, Math.PI/2),
   sensorWire: new THREE.SphereGeometry(1, 8, 5, 0, Math.PI*2, 0, Math.PI/2),
@@ -224,10 +224,10 @@ function updateAIPanel() {
 function init() {
   scene = new THREE.Scene();
   scene.background = new THREE.Color(0x0a0e1a);
-  scene.fog = new THREE.Fog(0x0a0e1a, 3000, 15000);
+  scene.fog = new THREE.Fog(0x0a0e1a, 6000, 20000);
 
   camera = new THREE.PerspectiveCamera(60, window.innerWidth / (window.innerHeight - 50), 0.1, 50000);
-  camera.position.set(0, 3000, 5000);
+  camera.position.set(-5899, 3592, -4950);
   camera.lookAt(0, 0, 0);
 
   renderer = new THREE.WebGLRenderer({
@@ -301,7 +301,7 @@ function init() {
 function addBases() {
   bases.forEach(function(b) {
     var pos = latLonTo3D(b.lat, b.lon, 0);
-    var size = b.is_ace_hub ? 30 : 15;
+    var size = b.is_ace_hub ? 120 : 60;
     var geo = b.is_ace_hub ? GEO.baseConeBig : GEO.baseConeSmall;
     var mat = b.is_ace_hub ? MAT.aceHub : MAT.baseStd;
     var mesh = new THREE.Mesh(geo, mat);
@@ -442,7 +442,7 @@ function addKalmanTracks() {
     var pos = latLonTo3D(t.lat, t.lon, t.alt_m || t.alt || 5000);
     var conf = t.confidence || 0.5;
     var mat = confidenceColor(conf);
-    var size = 4 + conf * 8;
+    var size = 20 + conf * 40;
     var mesh = new THREE.Mesh(GEO.kalmanSphere, mat);
     mesh.position.copy(pos);
     mesh.scale.set(size, size, size);
