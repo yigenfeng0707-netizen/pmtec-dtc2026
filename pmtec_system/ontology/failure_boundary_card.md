@@ -31,11 +31,19 @@
 - **实测证据**：Misawa 置 Denied → LC 67→66、AD={base_JP_MISAWA}（唯一成员）；
   **仅 Restricted 不翻转**（Open⊔Restricted 均可战）——刻意设计，与东道国
   "受限但未禁飞"的现实语义一致
-- **置信侧对称结论（参数扫描）**：host_nation+A 级证据下，政治证据 m({Denied})
-  从 0.10→0.40 时 Bel(Open) 0.910→0.400，在 0.35-0.40 区间跌破 0.5 判决线；
-  同期冲突系数 K 升至 0.500 逼近 0.7 拒绝阈值——结论翻转与证据自我否决同步发生
-- **复现**：`python -X utf8 test_p14_ontology.py`（断言 07-10）；
-  扫描改 `confidence.py` 的 `ACCESS_TYPE_MASS` 后重跑
+- **置信侧对称结论（参数扫描，2026-10-05 修正为可复算口径）**：host_nation+A 级
+  证据下，政治证据 m({Denied}) 从 0.10→0.40（质量自无知集 Θ 转入明确拒止）时，
+  **Bel(Open) 0.778→0.760，单参数域内判决不翻转**（始终 >0.5 判决线）；
+  同期冲突系数 K 0.075→0.300 线性逼近 0.7 拒合成阈（已走 43% 路程）。
+  **修正说明**：本卡曾引用"0.910→0.400 在 0.35-0.40 破 0.5、K 至 0.500"的扫描值，
+  经复核与 `confidence.py` 的 `dempster_combine` 不相容（恒有 K≤m({Denied})，且
+  Open 侧质量固定时 Bel 对 md 单参数不敏感）且无脚本可复现——P18 已作废该数字，
+  以 `scripts/five_questions_analysis.py` Q5 实跑扫描为准。**正确的翻转机制是
+  断言改写（上条 Misawa 实测）而非先验漂移**——置信层对先验单参数扰动稳健
+  恰是设计目标（结论对先验不敏感），多参数联合失效见 Q3 敏感性排序
+  （σ 扰动下 Denied 均值 0.15、最大 3）与 S1/S3 复合场景
+- **复现**：`python -X utf8 test_p14_ontology.py`（断言 07-10，Misawa 翻转）；
+  `python scripts/five_questions_analysis.py --fast`（Q5 m(Denied) 扫描，独立复算）
 
 ## 问三：本体出错场景——低精度数据源（Tinian B 级）会否产生假确定？
 

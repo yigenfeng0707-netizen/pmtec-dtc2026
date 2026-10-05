@@ -1,0 +1,439 @@
+{
+ "generated_at": "2026-10-05 23:56:36",
+ "data_cutoff": "2026-09（CRS R47589 / DoD FY2024 BSR）",
+ "value_weight_basis": "FY2024 BSR 不动产重置价值 fy24_prv_musd（$M）；55/67 直接取值，缺失按 Tier 中位数插补",
+ "imputed_bases": [
+  {
+   "id": "PH-CAMILO",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-LALLO",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-BALABAC",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "HI-WHEELER",
+   "tier": 2,
+   "imputed_value": 5241.1
+  },
+  {
+   "id": "GU-BLAZ",
+   "tier": 2,
+   "imputed_value": 5241.1
+  },
+  {
+   "id": "PH-BAUTISTA",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-BASA",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-MAGSAYSAY",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-LUMBIA",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-EBUEN",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "PH-MELCHOR",
+   "tier": 4,
+   "imputed_value": 116.1
+  },
+  {
+   "id": "AU-ROBERTSON",
+   "tier": 4,
+   "imputed_value": 116.1
+  }
+ ],
+ "tier_medians": {
+  "2": 5241.1,
+  "1": 18568.9,
+  "4": 116.1,
+  "3": 2735.55
+ },
+ "n_mc": 20000,
+ "Q1_failure_scenarios": {
+  "S1": {
+   "name": "S1 政治拒止（灰色地带→主权打击链）",
+   "red_cost_missiles": 0,
+   "denied_sites": 9,
+   "avail_bases": 58,
+   "value_retention": 0.9981,
+   "count_retention": 0.8657,
+   "denied_ids": [
+    "PH-CAMILO",
+    "PH-LALLO",
+    "PH-BALABAC",
+    "PH-BAUTISTA",
+    "PH-BASA",
+    "PH-MAGSAYSAY",
+    "PH-LUMBIA",
+    "PH-EBUEN",
+    "PH-MELCHOR"
+   ],
+   "engine_caliber": {
+    "note": "引擎实时推演口径：v1 22 站（P6/P12 观测与训练模型锚定），政治准入盟友 15 站/4 东道国（澳日菲韩）",
+    "n_total": 22,
+    "n_ally": 15,
+    "denied_sites": 3,
+    "avail_bases": 19
+   }
+  },
+  "S2": {
+   "name": "S2 动能打掉 30% 节点（定向 PAE 序）",
+   "k": 20,
+   "value_retention": 0.2878,
+   "count_retention": 0.7015,
+   "tier1_removed": 14,
+   "red_cost_missiles_low": 100,
+   "red_cost_missiles_high": 160,
+   "red_cost_model": {
+    "leak_p_per_missile": 0.2086,
+    "expected_missiles_per_kill": 5,
+    "salvo_doctrine_per_base": 8
+   }
+  },
+  "S3": {
+   "name": "S3 复合失效（政治拒止 + 对剩余可用集定向打掉 30%）",
+   "k": 17,
+   "denied_sites": 9,
+   "value_retention": 0.3811,
+   "count_retention": 0.6119,
+   "red_cost_missiles_low": 85,
+   "red_cost_missiles_high": 136
+  },
+  "political_chain": {
+   "n_ally_sites": 36,
+   "baseline_67": 67
+  }
+ },
+ "Q2_removal_curves": {
+  "targeted": {
+   "0.1": {
+    "k": 7,
+    "value_retention": 0.6463,
+    "count_retention": 0.8955,
+    "tier1_removed": 7
+   },
+   "0.2": {
+    "k": 13,
+    "value_retention": 0.5088,
+    "count_retention": 0.806,
+    "tier1_removed": 13
+   },
+   "0.3": {
+    "k": 20,
+    "value_retention": 0.2878,
+    "count_retention": 0.7015,
+    "tier1_removed": 14
+   },
+   "0.4": {
+    "k": 27,
+    "value_retention": 0.1631,
+    "count_retention": 0.597,
+    "tier1_removed": 14
+   },
+   "0.5": {
+    "k": 34,
+    "value_retention": 0.0996,
+    "count_retention": 0.4925,
+    "tier1_removed": 14
+   }
+  },
+  "random": {
+   "0.1": {
+    "k": 7,
+    "n_mc": 20000,
+    "value_retention_mean": 0.8956,
+    "value_retention_p5": 0.8226,
+    "value_retention_p95": 0.9596
+   },
+   "0.2": {
+    "k": 13,
+    "n_mc": 20000,
+    "value_retention_mean": 0.8058,
+    "value_retention_p5": 0.7149,
+    "value_retention_p95": 0.889
+   },
+   "0.3": {
+    "k": 20,
+    "n_mc": 20000,
+    "value_retention_mean": 0.7014,
+    "value_retention_p5": 0.5961,
+    "value_retention_p95": 0.8004
+   },
+   "0.4": {
+    "k": 27,
+    "n_mc": 20000,
+    "value_retention_mean": 0.597,
+    "value_retention_p5": 0.4851,
+    "value_retention_p95": 0.7059
+   },
+   "0.5": {
+    "k": 34,
+    "n_mc": 20000,
+    "value_retention_mean": 0.4922,
+    "value_retention_p5": 0.3791,
+    "value_retention_p95": 0.6049
+   }
+  }
+ },
+ "Q3_sensitivity_ranking": [
+  {
+   "param": "准入基线扰动 σ（政治不确定性强度）",
+   "sweep": [
+    0.05,
+    0.1,
+    0.15,
+    0.2,
+    0.25
+   ],
+   "dep_var": "Denied 站点数均值",
+   "low": 0,
+   "high": 1.27,
+   "param_span": 0.2,
+   "delta_abs": 1.27,
+   "response_per_unit": 6.35,
+   "rel_response_per_unit": 10.0,
+   "rank": 1
+  },
+  {
+   "param": "拦截率（策略/训练水平差异）",
+   "sweep": [
+    0.68,
+    0.8824
+   ],
+   "dep_var": "每千发突防数",
+   "low": 117.6,
+   "high": 320.0,
+   "param_span": 0.2023999999999999,
+   "delta_abs": 202.4,
+   "response_per_unit": 1000.0,
+   "rel_response_per_unit": 4.57,
+   "rank": 2
+  },
+  {
+   "param": "定向移除比例 k（动能打击规模）",
+   "sweep": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5
+   ],
+   "dep_var": "价值保留率",
+   "low": 0.1,
+   "high": 0.646,
+   "param_span": 0.4,
+   "delta_abs": 0.546,
+   "response_per_unit": 1.365,
+   "rel_response_per_unit": 3.66,
+   "rank": 3
+  },
+  {
+   "param": "主权打击事件强度（政治战压力）",
+   "sweep": [
+    0.3,
+    0.6,
+    0.9,
+    1.2,
+    1.5
+   ],
+   "dep_var": "可用基地数",
+   "low": 58,
+   "high": 67,
+   "param_span": 1.2,
+   "delta_abs": 9,
+   "response_per_unit": 7.5,
+   "rel_response_per_unit": 0.12,
+   "rank": 4
+  },
+  {
+   "param": "m(Denied) 政治证据先验（东道国拒止质量）",
+   "sweep": [
+    0.1,
+    0.15,
+    0.2,
+    0.25,
+    0.3,
+    0.35,
+    0.4
+   ],
+   "dep_var": "Bel(Open)（A 级精度×host_nation）",
+   "low": 0.76,
+   "high": 0.7784,
+   "param_span": 0.30000000000000004,
+   "delta_abs": 0.018,
+   "response_per_unit": 0.06,
+   "rel_response_per_unit": 0.078,
+   "rank": 5
+  }
+ ],
+ "Q4_exchange_ratio": {
+  "overall": {
+   "total_missiles": 5268,
+   "total_through": 1099,
+   "missiles_per_through": 4.79
+  },
+  "per_strategy": {
+   "saturation_attack": {
+    "n_episodes": 25,
+    "total_missiles": 1275,
+    "total_through": 253,
+    "missiles_per_through": 5.04,
+    "intercept_rate": 0.8016
+   },
+   "stealth_breakthrough": {
+    "n_episodes": 25,
+    "total_missiles": 369,
+    "total_through": 81,
+    "missiles_per_through": 4.56,
+    "intercept_rate": 0.7805
+   },
+   "electronic_warfare": {
+    "n_episodes": 25,
+    "total_missiles": 571,
+    "total_through": 123,
+    "missiles_per_through": 4.64,
+    "intercept_rate": 0.7846
+   },
+   "decoy_swarm": {
+    "n_episodes": 25,
+    "total_missiles": 1000,
+    "total_through": 194,
+    "missiles_per_through": 5.15,
+    "intercept_rate": 0.806
+   },
+   "multi_axis_saturation": {
+    "n_episodes": 25,
+    "total_missiles": 1393,
+    "total_through": 300,
+    "missiles_per_through": 4.64,
+    "intercept_rate": 0.7846
+   },
+   "political_divergence": {
+    "n_episodes": 25,
+    "total_missiles": 660,
+    "total_through": 148,
+    "missiles_per_through": 4.46,
+    "intercept_rate": 0.7758
+   }
+  },
+  "kinetic_30pct": {
+   "scenario": "动能打掉 30% 节点（定向）",
+   "blue_loss": "20 基地（价值保留率 28.8%）",
+   "red_cost_low": 100,
+   "red_cost_high": 160,
+   "cost_basis": {
+    "leak_p_per_missile": 0.2086,
+    "expected_missiles_per_kill": 5,
+    "salvo_doctrine_per_base": 8
+   }
+  },
+  "salvo_reference": {
+   "scenario": "齐射场景 100 次 MC（第二级规格口径）",
+   "red_input": "4 波 21 弹头",
+   "blue_loss": "出动 156 架次全保存、损失率 0.0%、疏散挽救价值 3860",
+   "repro": "python ace_deployment/extract_spec_metrics.py（见算法说明 §5.2）"
+  }
+ },
+ "Q5_political_resilience": {
+  "scenarios": {
+   "A_22site_P6": {
+    "intercept_rate": 0.7623,
+    "ci": [
+     0.7473,
+     0.7767
+    ],
+    "n_episodes": 100
+   },
+   "B_v2_182d_P6": {
+    "intercept_rate": 0.7899,
+    "ci": [
+     0.7711,
+     0.8075
+    ],
+    "n_episodes": 60
+   },
+   "C_v2_political_219d_P12": {
+    "intercept_rate": 0.7914,
+    "ci": [
+     0.7802,
+     0.8021
+    ],
+    "n_episodes": 150
+   }
+  },
+  "m_denied_sweep": [
+   {
+    "m_denied": 0.1,
+    "bel_open": 0.7784,
+    "pl_open": 0.973,
+    "conflict_K": 0.075
+   },
+   {
+    "m_denied": 0.15,
+    "bel_open": 0.7775,
+    "pl_open": 0.9577,
+    "conflict_K": 0.1125
+   },
+   {
+    "m_denied": 0.2,
+    "bel_open": 0.7765,
+    "pl_open": 0.9412,
+    "conflict_K": 0.15
+   },
+   {
+    "m_denied": 0.25,
+    "bel_open": 0.7754,
+    "pl_open": 0.9231,
+    "conflict_K": 0.1875
+   },
+   {
+    "m_denied": 0.3,
+    "bel_open": 0.7742,
+    "pl_open": 0.9032,
+    "conflict_K": 0.225
+   },
+   {
+    "m_denied": 0.35,
+    "bel_open": 0.7729,
+    "pl_open": 0.8814,
+    "conflict_K": 0.2625
+   },
+   {
+    "m_denied": 0.4,
+    "bel_open": 0.76,
+    "pl_open": 0.8667,
+    "conflict_K": 0.3
+   }
+  ],
+  "resilience_mc": {
+   "n": 10000,
+   "sigma": 0.15,
+   "avail_mean": 0.9978,
+   "avail_min": 0.9552,
+   "denied_mean": 0.15,
+   "denied_max": 3
+  }
+ }
+}
