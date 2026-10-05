@@ -1,0 +1,261 @@
+openapi: 3.0.3
+info:
+  title: PMTEC Digital Twin Battlefield REST API
+  description: |
+    DTC2026 赛道二 · PMTEC 数字孪生战场系统 REST 接口（P18 全量文档化）。
+
+    - 基地址：`http://<host>:8080`（Docker 演示栈经 nginx 同源反代 `/api`）
+    - 实时推送：WebSocket `ws://<host>:8765`（公网经 nginx `/ws` 反代），消息结构与 REST 快照同源（见 `pmtec_system/docs` 数据字典 §2）
+    - 鉴权：未配置 `PMTEC_WEB_USERS` 时门禁关闭（行为与历史版本一致）；配置后写操作与敏感读按角色门禁
+    - 数字口径：67=权威库实体总数 / 22=引擎实时推演口径 / 15=引擎政治准入盟友站点（见 pmtec_system/README.md「评估口径说明」）
+    - 信息截至 2026-09（CRS R47589 / DoD FY2024 BSR）
+  version: 18.0.0
+  contact:
+    name: 根深叶茂团队（DTC2026 赛道二）
+servers:
+  - url: http://localhost:8080
+    description: 本机/演示栈引擎直连
+tags:
+  - name: meta
+    description: 服务发现与健康
+  - name: auth
+    description: 会话门禁（JWT Bearer + HttpOnly Cookie 双通道）
+  - name: simulation
+    description: 仿真状态与实体（只读）
+  - name: analysis
+    description: AI 参谋官（LLM，建议位）
+  - name: twin
+    description: 数字孪生同步层（P13）
+  - name: situation
+    description: 态势聚合（威胁/EW/网络/政治/指挥链）
+  - name: appstore
+    description: 应用商店与即插即用（DTB 组件）
+  - name: control
+    description: 仿真控制（commander 角色）
+paths:
+  /:
+    get:
+      tags: [meta]
+      summary: 服务索引（端点清单 JSON）
+      responses:
+        "200": { description: 端点自描述清单 }
+  /api/v1/health:
+    get:
+      tags: [meta]
+      summary: 健康检查（含 auth_enabled 标志）
+      responses:
+        "200":
+          description: 健康
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, example: ok }
+                  auth_enabled: { type: boolean }
+  /api/v1/auth/login:
+    post:
+      tags: [auth]
+      summary: 登录（用户名+口令 → JWT + HttpOnly Cookie）
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [username, password]
+              properties:
+                username: { type: string, example: pingwei }
+                password: { type: string, format: password }
+      responses:
+        "200": { description: Set-Cookie HttpOnly + JSON{token, role} }
+        "401": { $ref: "#/components/responses/Error" }
+  /api/v1/auth/logout:
+    post:
+      tags: [auth]
+      summary: 登出（清 Cookie + 令牌吊销）
+      responses:
+        "200": { description: 已登出 }
+  /api/v1/auth/check:
+    get:
+      tags: [auth]
+      summary: 会话校验（Cookie 或 Bearer 皆可）
+      responses:
+        "200": { description: 角色与会话信息 }
+        "401": { $ref: "#/components/responses/Error" }
+  /api/v1/state:
+    get:
+      tags: [simulation]
+      summary: 引擎全量状态快照（REST/WS/SPEAR 同源）
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200":
+          description: 结构见数据字典 §2（24 键，含 coord_guard 审计计数）
+        "503": { description: 引擎未挂载（演示栈冷启动中） }
+  /api/v1/bases:
+    get:
+      tags: [simulation]
+      summary: 基地数据库（引擎实时推演口径 22 站；权威库 67 实体见 GeoJSON）
+      responses:
+        "200": { description: 基地列表 }
+  /api/v1/entities:
+    get:
+      tags: [simulation]
+      summary: 动态实体（经 _coord_check 坐标防护）
+      responses:
+        "200": { description: 实体列表（lat/lon 恒在 WGS84 定义域内） }
+  /api/v1/tracks:
+    get:
+      tags: [simulation]
+      summary: 活动航迹
+      responses:
+        "200": { description: 航迹列表 }
+  /api/v1/spear/report:
+    get:
+      tags: [simulation]
+      summary: SPEAR 事件流报告（22 类事件 + 快照 + 指标）
+      responses:
+        "200": { description: 报告 JSON（结构见数据字典 §3） }
+  /api/v1/threat-summary:
+    get:
+      tags: [situation]
+      summary: 威胁汇总（发射/拦截/突防/拦截率）
+      responses:
+        "200": { description: threat_stats 聚合 }
+  /api/v1/war/ew-threats:
+    get:
+      tags: [situation]
+      summary: 电子战干扰机态势
+      responses:
+        "200": { description: EW 威胁列表 }
+  /api/v1/war/cyber-threats:
+    get:
+      tags: [situation]
+      summary: 网络攻击态势
+      responses:
+        "200": { description: Cyber 威胁列表 }
+  /api/v1/network/lvc-status:
+    get:
+      tags: [situation]
+      summary: LVC 网络状态（Live/Virtual/Constructive 分层）
+      responses:
+        "200": { description: LVC 状态 }
+  /api/v1/political/access:
+    get:
+      tags: [situation]
+      summary: 政治准入态势（15 盟友站点三态 + 升级度 + MRF-D 轮换）
+      responses:
+        "200": { description: P10 状态机快照 }
+  /api/v1/c2/chain:
+    get:
+      tags: [situation]
+      summary: 指挥链态势（8 指挥机构 + 消息流）
+      responses:
+        "200": { description: P11 指挥链快照 }
+  /api/v1/dt/instances:
+    get:
+      tags: [twin]
+      summary: 孪生体实例列表
+      responses:
+        "200": { description: 孪生注册表 }
+  /api/v1/dt/sync:
+    get:
+      tags: [twin]
+      summary: 孪生同步层摘要（保真度）
+      responses:
+        "200": { description: twin_summary + twin_top }
+  /api/v1/dt/register:
+    post:
+      tags: [twin]
+      summary: 注册第三方孪生体（Maven 契约）
+      security: [{ bearerAuth: [] }]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [instance_id, twin_type]
+              properties:
+                instance_id: { type: string }
+                twin_type: { type: string }
+                endpoint: { type: string }
+      responses:
+        "201": { description: 已注册 }
+        "503": { $ref: "#/components/responses/Error" }
+  /api/v1/analysis:
+    post:
+      tags: [analysis]
+      summary: 触发 AI 参谋官态势报告（operator+；建议位；同步长端点 30-90s，客户端超时 ≥150s）
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: 报告生成结果与文件路径 }
+        "403": { $ref: "#/components/responses/Error" }
+        "503": { description: LLM analyst disabled（未配 API key，预期降级行为） }
+  /api/v1/analysis/download:
+    get:
+      tags: [analysis]
+      summary: 下载最近一次参谋官报告（md/html/docx）
+      responses:
+        "200": { description: 报告文件 }
+        "404": { $ref: "#/components/responses/Error" }
+  /api/v1/plugins:
+    get:
+      tags: [appstore]
+      summary: 应用商店插件清单
+      responses:
+        "200": { description: 插件列表 }
+  /api/v1/app/dqn/status:
+    get:
+      tags: [appstore]
+      summary: DQN 推理服务状态（模型在场/已训练）
+      responses:
+        "200": { description: dqn_agent 状态 }
+  /api/v1/pnp/health:
+    get:
+      tags: [appstore]
+      summary: 即插即用总线健康
+      responses:
+        "200": { description: PnP 组件健康 }
+  /api/v1/maven/services:
+    get:
+      tags: [appstore]
+      summary: Maven 服务契约清单（REST 9 端点契约）
+      responses:
+        "200": { description: 服务契约 }
+  /api/v1/sim/start:
+    post:
+      tags: [control]
+      summary: 启动仿真（commander 角色）
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: 已启动 }
+        "403": { $ref: "#/components/responses/Error" }
+  /api/v1/sim/stop:
+    post:
+      tags: [control]
+      summary: 停止仿真（commander 角色）
+      security: [{ bearerAuth: [] }]
+      responses:
+        "200": { description: 已停止 }
+        "403": { $ref: "#/components/responses/Error" }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 登录接口颁发；HttpOnly Cookie 同步可用（浏览器通道）
+  responses:
+    Error:
+      description: 统一错误 { "error": "<原因>（含 503 引擎未挂载/LLM 未配置等预期降级）" }
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error: { type: string }
+webhooks: {}
+externalDocs:
+  description: 数据字典 / 接入指南 / 复现指南
+  url: https://github.com/yigenfeng0707-netizen/pmtec-dtc2026

@@ -1,0 +1,79 @@
+{
+ "base": "http://localhost:8080",
+ "at": "2026-10-06 00:54:55",
+ "identity": "third-party（独立进程/公开通道/演示账号）",
+ "passed": 14,
+ "total": 14,
+ "checks": [
+  {
+   "name": "服务发现 GET /api",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "健康探测 /api/v1/health",
+   "pass": true,
+   "detail": "auth_enabled=True"
+  },
+  {
+   "name": "登录（thirdparty）",
+   "pass": true,
+   "detail": "http=200"
+  },
+  {
+   "name": "JWT 颁发且带角色",
+   "pass": true,
+   "detail": "operator"
+  },
+  {
+   "name": "拉取引擎状态 /state",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "状态含 coord_guard 坐标防护审计字段",
+   "pass": true,
+   "detail": "{'entities_rejected': 0, 'tracks_rejected': 0, 'kalman_rejected': 0, 'last_rejec"
+  },
+  {
+   "name": "实体坐标全在 WGS84 定义域（第三方独立复核）",
+   "pass": true,
+   "detail": "n=? 越界=0"
+  },
+  {
+   "name": "政治准入态势可读",
+   "pass": true,
+   "detail": "{'ally_sites': 15, 'ally_countries': ['Australia', 'Japan', 'Philippines', 'Sout"
+  },
+  {
+   "name": "WS 实时订阅收到 ≥3 帧快照（ws://localhost:8765）",
+   "pass": true,
+   "detail": "实际 3 帧"
+  },
+  {
+   "name": "WS 快照结构与 REST /state 同源（含 asda_cycle）",
+   "pass": true,
+   "detail": ""
+  },
+  {
+   "name": "AI 参谋官通道可达（200 生成 / 503 预期降级均算通过）",
+   "pass": true,
+   "detail": "http=200 {'status': 'generated', 'model': 'step-3.7-flash', 'generate"
+  },
+  {
+   "name": "commander 账号登录（写操作角色升级）",
+   "pass": true,
+   "detail": "http=200"
+  },
+  {
+   "name": "第三方孪生体注册（commander 通道；503=引擎未挂载但通道可达）",
+   "pass": true,
+   "detail": "http=201"
+  },
+  {
+   "name": "注销",
+   "pass": true,
+   "detail": ""
+  }
+ ]
+}

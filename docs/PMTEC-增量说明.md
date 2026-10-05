@@ -10,7 +10,7 @@
 
 | 评审项 | 状态 | 增量内容与验证锚点 |
 |--------|------|--------------------|
-| 修复实体坐标投影 bug | ✅ | ①3D 战场页坐标系尺度错配已于 10-04 根治（生成器+产物双改，commit 9b599e6）；②P18 新增**引擎统一出口坐标防护** `_coord_check`：经纬度定义域+有限性+成对性校验，非法坐标拦截并计数入 `coord_guard` 审计字段随状态外发——"坐标大面积越界"从根上不可能进入任何交付产物。验证：`test_p18` 冒烟 47 实体 0 越界 0 误拦；`output/pmtec_final_state.json` 全量扫描 0 越界 |
+| 修复实体坐标投影 bug | ✅ | ①3D 战场页坐标系尺度错配已于 10-04 根治（commit 9b599e6）；②P18 新增**引擎统一出口坐标防护** `_coord_check`：纬度域+有限性+成对性校验，非法坐标拦截计数入 `coord_guard` 审计字段随状态外发；③**评审所报"坐标越界"的真正根因 10-06 实锤**：阿拉斯加 JBER 的 F-22 巡逻跨越国际日期变更线，经度从 +179.9 卷绕到 -180.1（WGS84 合法），Leaflet 画成横跨全球的直线、首版防护则误拒 244 次——出口统一经度归一化到 [-180,180)（含 target_lon），6000 仿真秒长跑 0 误拒 0 越界，46 实体全部外发 |
 | 修复 history 全局变量覆盖 | ✅ | `realtime/realtime_display.py` 模板 `var history = []`（window.history 只读属性，赋值静默失败→回放 push TypeError）改名 `replayHistory`，模板+产物双改防启动覆盖。验证：模板 grep 无 `var history` |
 | 服务器补装 requests 使 AI 参谋官可用 | ✅ | 根因：`services/llm_analyst.py` 依赖 `requests`/`matplotlib`/`python-docx`，但 `requirements.txt` 均未声明→容器内 ImportError→参谋官 503 静默降级。P18 三依赖全部补入 requirements（重建镜像即生效）。验证：`pip install -r requirements.txt` 后 `import requests` 通过 |
 | 《数据字典》与本体文件 | ✅ | `docs/PMTEC-数据字典.md`（生成器 `scripts/generate_data_dictionary.py` 实跑再生）：67 实体 ×34 字段逐列定义/覆盖数/示例、引擎状态 schema 24 键、SPEAR 22 类事件（与 OV-3 22 行对账）、本体语义对象 term85/mapping16/constraint3/evidence71、本体文件三件套加载方式、MC 结果文件字典 |
