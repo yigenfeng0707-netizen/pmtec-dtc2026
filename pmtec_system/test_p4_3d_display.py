@@ -82,7 +82,7 @@ def test_p4_3_enhanced_3d():
         html_content = f.read()
 
     checks = [
-        ("P4 title", "P4 Enhanced" in html_content),
+        ("Page title", "PMTEC 3D Battlefield" in html_content),  # P18: 标题自 P5 起为 P5 Optimized，断言改锚稳定前缀
         ("Sensor dome function", "addSensorDomes" in html_content),
         ("EW zone function", "addEWZones" in html_content),
         ("Cyber zone function", "addCyberZones" in html_content),

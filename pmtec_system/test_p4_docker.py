@@ -66,8 +66,9 @@ def check_compose():
         with open(path) as f:
             data = yaml.safe_load(f)
         svc_count = len(data.get("services", {}))
-        if svc_count != 4:
-            return False, f"Expected 4 services, got {svc_count}"
+        if svc_count < 4:
+            # P18: 栈已从 P4 时代 4 服务扩展到 8（演示栈/展示中心等），断言改下限
+            return False, f"Expected >= 4 services, got {svc_count}"
         checks.append(("yaml valid", True))
     except ImportError:
         pass  # pyyaml not installed, manual checks sufficient
