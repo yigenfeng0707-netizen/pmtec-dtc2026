@@ -1,6 +1,6 @@
 {
- "base": "http://localhost:8080",
- "at": "2026-10-06 00:54:55",
+ "base": "http://47.98.35.86:8080",
+ "at": "2026-10-06 07:44:37",
  "identity": "third-party（独立进程/公开通道/演示账号）",
  "passed": 14,
  "total": 14,
@@ -16,7 +16,7 @@
    "detail": "auth_enabled=True"
   },
   {
-   "name": "登录（thirdparty）",
+   "name": "登录（pingwei）",
    "pass": true,
    "detail": "http=200"
   },
@@ -46,7 +46,7 @@
    "detail": "{'ally_sites': 15, 'ally_countries': ['Australia', 'Japan', 'Philippines', 'Sout"
   },
   {
-   "name": "WS 实时订阅收到 ≥3 帧快照（ws://localhost:8765）",
+   "name": "WS 实时订阅收到 ≥3 帧快照（ws://47.98.35.86:8765）",
    "pass": true,
    "detail": "实际 3 帧"
   },

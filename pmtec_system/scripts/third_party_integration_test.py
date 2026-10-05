@@ -141,9 +141,14 @@ def main():
     st, pol = http(base, "/api/v1/political/access", token=token)
     check("政治准入态势可读", st == 200, str(pol)[:80])
 
-    # 2) WebSocket 订阅
-    frames = ws_frames("ws://localhost:8765", want=3)
-    check(f"WS 实时订阅收到 ≥3 帧快照（ws://localhost:8765）", len(frames) >= 3,
+    # 2) WebSocket 订阅（URI 由 base 推导：8888 走 nginx 同源 /ws；8080 直连引擎 8765）
+    if base.endswith(":8888"):
+        ws_uri = base.replace("http://", "ws://") + "/ws"
+    else:
+        host = base.split("//")[1].split(":")[0]
+        ws_uri = f"ws://{host}:8765"
+    frames = ws_frames(ws_uri, want=3)
+    check(f"WS 实时订阅收到 ≥3 帧快照（{ws_uri}）", len(frames) >= 3,
           f"实际 {len(frames)} 帧")
     if frames:
         check("WS 快照结构与 REST /state 同源（含 asda_cycle）",
