@@ -140,14 +140,24 @@ except ImportError:
     _security_available = False
 
 
+def _wrap_lon(v: float) -> float:
+    """经度卷绕到 [-180, 180)：跨国际日期变更线的实体（如阿拉斯加巡逻）
+    会出现 lon=-180.125 这类合法但超域的值，等价于 +179.875——出口统一归一，
+    下游（Leaflet/GeoJSON/交付产物）拿到的永远是标准域内坐标。"""
+    return ((float(v) + 180.0) % 360.0) - 180.0
+
+
 def _coord_check(d: dict):
-    """P18-A3 地理坐标出口校验。
+    """P18-A3 地理坐标出口校验 + 经度归一化（就地修改 d）。
 
     返回 (ok, reason)。约定语义：
-    - 同时含 lat/lon → 必须为有限数值且落在经纬度定义域（WGS84）内；
+    - 同时含 lat/lon → lat 必须为有限数值且落在 [-90,90]；lon 先卷绕到
+      [-180,180) 再校验有限性（跨日期变更线是合法地理现象，归一而非拒绝——
+      2026-10-06 实测：JBER F-22 巡逻 lon=-180.6 被误拒 244 次，即本函数
+      首版把跨线巡逻当越界砍掉的回归，已修正）；
     - 两个字段都缺 → 非地理实体，放行；
-    - 只缺其一 / 非数值 / NaN·Inf / 超域 → 拦截（评审 P0"坐标大面积越界"的
-      防线：坏数据在出口可见、可计数，绝不静默进入交付产物）。
+    - 只缺其一 / 非数值 / NaN·Inf / 纬度超域 → 拦截（评审 P0"坐标大面积
+      越界"的防线：坏数据在出口可见、可计数，绝不静默进入交付产物）。
     """
     has_lat = "lat" in d
     has_lon = "lon" in d
@@ -157,13 +167,20 @@ def _coord_check(d: dict):
         return False, "partial_coords"
     try:
         latf = float(d["lat"])
-        lonf = float(d["lon"])
+        lonf = _wrap_lon(d["lon"])
     except (TypeError, ValueError):
         return False, "non_numeric"
     if not (math.isfinite(latf) and math.isfinite(lonf)):
         return False, "non_finite"
-    if not (-90.0 <= latf <= 90.0 and -180.0 <= lonf <= 180.0):
-        return False, "out_of_range"
+    if not (-90.0 <= latf <= 90.0):
+        return False, "lat_out_of_range"
+    d["lon"] = round(lonf, 6)
+    for k in ("target_lon",):
+        if k in d and d[k] is not None:
+            try:
+                d[k] = round(_wrap_lon(d[k]), 6)
+            except (TypeError, ValueError):
+                return False, "non_numeric"
     return True, None
 
 
