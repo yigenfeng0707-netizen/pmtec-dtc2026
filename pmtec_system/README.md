@@ -332,6 +332,17 @@ Brier 分数入终态 `twin_summary.calibration`。饱和攻击实测（P14 重�
 - 设计红线：只读不写——本体变更必须先过 test_p14/test_p16/test_p17 逻辑门禁（EvoOntology 消融：w/o Gate −11.2 为最大减分项）；演化闭环（轨迹诊断→归因→单层类型化补丁→行为门禁）见根目录《DTC2026自进化本体提升计划-P17.md》
 - 验收：`test_p17_semantic_tools.py` 15 项全过（manifest/四类检索/Misawa 全档案/类解析/负样本/确定性）
 
+### P18: 评审整改全面改造（2026-10-05/06，依据评审 51/100 反馈 + Palantir AIP/OntoFlow 对标）
+
+- **P0 三项代码根治**：`var history` 全局覆盖（window.history 只读，回放 TypeError）改名 `replayHistory`；requirements 补 `requests/matplotlib/python-docx`（AI 参谋官服务器 503 的根因）；引擎统一出口坐标防护 `_coord_check`（纬度域校验+经度卷绕归一化，`coord_guard` 审计字段随状态外发）
+- **"坐标大面积越界"真根因实锤**：阿拉斯加 JBER 的 F-22 巡逻跨国际日期变更线（lon +179.9→-180.1，WGS84 合法），Leaflet 画成横跨全球直线——出口统一归一 [-180,180)（含 target_lon），6000 仿真秒长跑 0 误拒 0 越界
+- **必答五问实跑作答**（评审 P1）：`scripts/five_questions_analysis.py`（MC 20,000）→ `output/Five_Questions_Report.html` + `docs/必答五问作答.md`——失效场景×红方代价（政治拒止 67→58 红方 0 弹/定向打掉 30% 价值保留 28.8%/复合实体 61.2%）、随机 vs 定向移除曲线、敏感性响应度排序（σ 第一）、交换比三类口径（4.79 发/突防）、政治韧性独立判断（76.2→79.0→79.1 + m(Denied) 可复算翻转边界）；`test_p18_five_questions.py` 20 断言入 CI
+- **口径统一**（评审 P1）：README「评估口径说明」扩编为唯一权威表——67=权威库实体总数 / 22=引擎实时推演口径 / 15=引擎政治盟友站点 / 36=分析管线 host_nation / 45-21-1+D0 置信度四级 + 信息截至 2026-09 声明；`scripts/caliber_check.py` 防漂移自检入 CI
+- **交付物五件套**（评审 P0）：数据字典（生成器实跑再生）/《增量说明》/《智能体使用档案》/ 复现包（`scripts/reproduce_all.py` 一键复现+端到端日志）/ ≥5 分钟视频分镜（含失败与边界四段）
+- **OpenAPI + 第三方接入**（评审 P2）：`docs/openapi.yaml` 28 端点全量 + 接入指南三语言示例 + `scripts/third_party_integration_test.py` 第三方身份全链路自测（带门禁引擎实跑 14/14，证据 JSON 随包）
+- **本体工作台**：`output/pmtec_ontology_workbench.html`——TBox 类层级 + 语义检索台（85 术语/67 全档案离线导出）+ Bel(Open) 分布 + 决策链路审计；对标 OntoFlow/OntoStudio(MIT) 画布范式与 Palantir AIP 审计范式，未复制其代码，断网可用
+- **顺带根治**：失效边界卡不可复算扫描数字作废修正（与自家 `dempster_combine` 数学不相容的旧值 0.910→0.400，换可复算口径 Bel 0.778→0.760/K 0.075→0.300，留痕在卡）
+
 
 ---
 

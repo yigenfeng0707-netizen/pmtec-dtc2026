@@ -133,6 +133,15 @@ jobs:
           cd pmtec_system
           python test_web_auth.py
 
+      # P18 验收门禁：必答五问实跑（评审 P1）+ 口径自检（评审 P1 统一 67/22/15）
+      - name: P18 five questions + caliber gates
+        env:
+          PYTHONPATH: pmtec_system
+        run: |
+          cd pmtec_system
+          python test_p18_five_questions.py
+          python scripts/caliber_check.py
+
   # ============================================================
   # Stage 3: Docker Build
   # ============================================================
