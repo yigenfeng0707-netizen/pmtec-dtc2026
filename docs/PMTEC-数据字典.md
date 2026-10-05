@@ -1,6 +1,6 @@
 # PMTEC 数据字典（Data Dictionary）
 
-> 评审 P0 整改项：补齐数据字典与本体文件说明 ｜ 生成时间：2026-10-06 00:06 ｜ 生成器：`pmtec_system/scripts/generate_data_dictionary.py`（重跑即再生，数字不手填）
+> 评审 P0 整改项：补齐数据字典与本体文件说明 ｜ 生成时间：2026-10-06 01:04 ｜ 生成器：`pmtec_system/scripts/generate_data_dictionary.py`（重跑即再生，数字不手填）
 > **信息截至 2026-09**（CRS R47589 / DoD FY2024 Base Structure Report）；数量口径遵循 README「评估口径说明」：**67**=权威库实体总数、**22**=引擎实时推演口径、**15**=引擎政治准入盟友站点。
 
 ## 1. 基地权威库 `data/bases_v2.geojson`（67 实体 × 34 字段）
@@ -72,32 +72,31 @@
 | `threat_stats` | 威胁/拦截统计（发射/拦截/突防/拦截率） |
 | `dqn_agent` | DQN 模型在场与可用性 |
 
-## 3. SPEAR 事件类字典（实测 22 类 / 1506 事件，与 P16 OV-3 交换矩阵 22 行对账一致）
+## 3. SPEAR 事件类字典（实测 21 类 / 1926 事件，与 P16 OV-3 交换矩阵 22 行对账一致）
 
 | 事件类 | 计数 | 含义 |
 |--------|------|------|
-| `detect` | 591 | 传感器检测 |
-| `intercept_decision` | 230 | 拦截决策（DQN/规则） |
-| `c2_order` | 230 | 指挥链指令下发 |
-| `asda_cycle` | 120 | ASDA 周期推进（每 10s） |
-| `dqn_dispersal` | 42 | DQN 疏散决策 |
-| `c2_feedback` | 35 | 指挥链反馈 |
-| `political_access_change` | 33 | 政治准入状态变更（三态迁移） |
-| `intercept_success` | 33 | 拦截成功 |
-| `live_data_inject` | 30 | Live 数据注入（ADS-B/AIS/气象） |
-| `kalman_fuse` | 30 | Kalman 多源航迹融合 |
-| `ma_dqn_decision` | 30 | 多智能体 DQN 决策 |
-| `adapt_summary` | 30 | Adapt 相位汇总 |
-| `political_grey_zone` | 22 | 灰色地带政治事件注入 |
-| `c2_report` | 15 | 指挥链上报 |
-| `missile_launch` | 14 | 红方导弹发射 |
+| `detect` | 899 | 传感器检测 |
+| `asda_cycle` | 240 | ASDA 周期推进（每 10s） |
+| `intercept_decision` | 178 | 拦截决策（DQN/规则） |
+| `c2_order` | 178 | 指挥链指令下发 |
+| `political_access_change` | 68 | 政治准入状态变更（三态迁移） |
+| `live_data_inject` | 60 | Live 数据注入（ADS-B/AIS/气象） |
+| `kalman_fuse` | 60 | Kalman 多源航迹融合 |
+| `ma_dqn_decision` | 60 | 多智能体 DQN 决策 |
+| `adapt_summary` | 60 | Adapt 相位汇总 |
+| `dqn_dispersal` | 41 | DQN 疏散决策 |
+| `political_grey_zone` | 37 | 灰色地带政治事件注入 |
 | `cyber_attack` | 8 | 网络攻击 |
-| `ew_jam_start` | 5 | 电子干扰开始 |
-| `transfer` | 2 | 兵力转移 |
-| `cyber_detected` | 2 | 网络攻击检出 |
-| `intercept_fail` | 2 | 拦截失败（突防） |
+| `ew_jam_start` | 8 | 电子干扰开始 |
+| `missile_launch` | 6 | 红方导弹发射 |
+| `intercept_success` | 6 | 拦截成功 |
+| `c2_feedback` | 6 | 指挥链反馈 |
+| `c2_report` | 5 | 指挥链上报 |
+| `transfer` | 3 | 兵力转移 |
 | `sim_start` | 1 | 仿真启动 |
 | `recover` | 1 | 跑道/基地恢复 |
+| `sim_stop` | 1 | （见 grpc_server.py record_event 调用点） |
 
 ## 4. 本体语义对象（P17 语义工具层 manifest 实测）
 
