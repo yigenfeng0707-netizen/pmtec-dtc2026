@@ -32,8 +32,12 @@ CARDS = [
      "十万次蒙特卡洛敏感性：最差情形体系可用率 95.5%", "#e63946"),
     ("🎯", "ACE 部署方案", "ace_deployment_map.html",
      "政治约束下的敏捷战斗部署（Denied 站点自动排除）", "#2ec4b6"),
-    ("🎬", "演示视频", "pmtec_demo_video.mp4",
-     "127s 电影级演示（edge-tts 旁白 + 程序化配乐 + Ken Burns 镜头）", "#f5b84e"),
+    ("🧩", "本体工作台", "pmtec_ontology_workbench.html",
+     "本体类层级 + 语义检索台（67 全档案）+ D-S 置信分布 + 决策链路审计（P17/P18）", "#8b5cf6"),
+    ("❓", "必答五问作答报告", "Five_Questions_Report.html",
+     "失效场景×红方代价 / 30% 节点保留率 / 敏感性排序 / 交换比 / 政治韧性（MC 2 万次实跑）", "#e63946"),
+    ("🎬", "演示视频 V2", "pmtec_demo_video_v2.mp4",
+     "169s 演示（标题卡+五幕 CDP 实拍+TTS 旁白+同源字幕）；≥5 分钟 V3 分镜见仓库", "#f5b84e"),
 ]
 
 HTML = f"""<!DOCTYPE html>
