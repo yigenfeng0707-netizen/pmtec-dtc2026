@@ -5,6 +5,7 @@ ASDA: Full cycle (Act->Sense->Decide->Adapt) executed each simulation cycle.
 """
 
 import json
+import math
 import os
 import random
 import sys
@@ -137,6 +138,33 @@ try:
     _security_available = True
 except ImportError:
     _security_available = False
+
+
+def _coord_check(d: dict):
+    """P18-A3 地理坐标出口校验。
+
+    返回 (ok, reason)。约定语义：
+    - 同时含 lat/lon → 必须为有限数值且落在经纬度定义域（WGS84）内；
+    - 两个字段都缺 → 非地理实体，放行；
+    - 只缺其一 / 非数值 / NaN·Inf / 超域 → 拦截（评审 P0"坐标大面积越界"的
+      防线：坏数据在出口可见、可计数，绝不静默进入交付产物）。
+    """
+    has_lat = "lat" in d
+    has_lon = "lon" in d
+    if not has_lat and not has_lon:
+        return True, None
+    if has_lat != has_lon:
+        return False, "partial_coords"
+    try:
+        latf = float(d["lat"])
+        lonf = float(d["lon"])
+    except (TypeError, ValueError):
+        return False, "non_numeric"
+    if not (math.isfinite(latf) and math.isfinite(lonf)):
+        return False, "non_finite"
+    if not (-90.0 <= latf <= 90.0 and -180.0 <= lonf <= 180.0):
+        return False, "out_of_range"
+    return True, None
 
 
 class PMTECEngine:
@@ -2024,6 +2052,46 @@ class PMTECEngine:
         weather = {}
         if self.live_data:
             weather = self.live_data.get_weather_impact()
+        # P18-A3 坐标出口防护（评审 P0：杜绝"实体坐标大面积越界"进入任何
+        # 交付产物）：所有经 REST/WS/SPEAR 快照外发的地理实体在此统一校验，
+        # 非法坐标（缺角/非数值/非有限/超经纬度域）一律拦截并计数——审计
+        # 计数器随状态外发，坏数据可见而非静默。无坐标字段的非地理实体放行。
+        guard = getattr(self, "_coord_guard", None)
+        if guard is None:
+            guard = self._coord_guard = {
+                "entities_rejected": 0,
+                "tracks_rejected": 0,
+                "kalman_rejected": 0,
+                "last_reject_reason": None,
+            }
+        entities_out = []
+        for e in list(self._entities):
+            if e.status != "active":
+                continue
+            d = e.to_dict()
+            ok, reason = _coord_check(d)
+            if ok:
+                entities_out.append(d)
+            else:
+                guard["entities_rejected"] += 1
+                guard["last_reject_reason"] = reason
+        tracks_out = []
+        for t in self.track_mgr.active_tracks:
+            d = t.to_dict()
+            ok, reason = _coord_check(d)
+            if ok:
+                tracks_out.append(d)
+            else:
+                guard["tracks_rejected"] += 1
+                guard["last_reject_reason"] = reason
+        kalman_out = []
+        for d in kalman_tracks:
+            ok, reason = _coord_check(d)
+            if ok:
+                kalman_out.append(d)
+            else:
+                guard["kalman_rejected"] += 1
+                guard["last_reject_reason"] = reason
         return {
             "sim_time": str(self.clock.current),
             "sim_seconds": self.clock.current.sim_seconds,
@@ -2034,11 +2102,10 @@ class PMTECEngine:
             if self.asda_cycle_count > 0
             else "idle",
             "network_vulnerability": round(self._calc_network_vulnerability(), 3),
-            "entities": [
-                e.to_dict() for e in list(self._entities) if e.status == "active"
-            ],
-            "tracks": [t.to_dict() for t in self.track_mgr.active_tracks],
-            "kalman_tracks": kalman_tracks,
+            "entities": entities_out,
+            "tracks": tracks_out,
+            "kalman_tracks": kalman_out,
+            "coord_guard": guard,
             "weather": weather,
             "live_data_stats": self._live_injection_stats if self.live_data else {},
             "lvc_live_entities": self.lvc.live.entity_count if self.lvc else 0,

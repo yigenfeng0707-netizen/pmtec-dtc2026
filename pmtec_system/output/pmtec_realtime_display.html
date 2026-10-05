@@ -211,7 +211,7 @@ var entityMarkers = {};
 var trackMarkers = {};
 var paused = false;
 var speedMultiplier = 1.0;
-var history = [];
+var replayHistory = [];
 var historyIdx = -1;
 var maxHistory = 200;
 
@@ -257,9 +257,9 @@ function handleFull(msg) {
   entities.forEach(function(e) { addEntity(e); });
   (msg.tracks || []).forEach(function(t) { addTrack(t); });
   (msg.events || []).forEach(function(ev) { addEvent(ev); });
-  history.push(msg);
-  if (history.length > maxHistory) history.shift();
-  historyIdx = history.length - 1;
+  replayHistory.push(msg);
+  if (replayHistory.length > maxHistory) replayHistory.shift();
+  historyIdx = replayHistory.length - 1;
   updateStatus(msg);
 }
 
@@ -269,9 +269,9 @@ function handleDelta(msg) {
   (msg.removed_ids || []).forEach(function(id) { removeEntity(id); });
   (msg.new_tracks || []).forEach(function(t) { addTrack(t); });
   (msg.new_events || []).forEach(function(ev) { addEvent(ev); });
-  history.push(msg);
-  if (history.length > maxHistory) history.shift();
-  historyIdx = history.length - 1;
+  replayHistory.push(msg);
+  if (replayHistory.length > maxHistory) replayHistory.shift();
+  historyIdx = replayHistory.length - 1;
   updateStatus(msg);
 }
 
@@ -491,15 +491,15 @@ function generateAIAnalysis() {
 function stepBack() {
   if (historyIdx > 0) {
     historyIdx--;
-    var snap = history[historyIdx];
+    var snap = replayHistory[historyIdx];
     if (snap.type === 'full') handleFull(snap);
   }
 }
 
 function stepFwd() {
-  if (historyIdx < history.length - 1) {
+  if (historyIdx < replayHistory.length - 1) {
     historyIdx++;
-    var snap = history[historyIdx];
+    var snap = replayHistory[historyIdx];
     if (snap.type === 'full') handleFull(snap);
     else if (snap.type === 'delta') handleDelta(snap);
   }
