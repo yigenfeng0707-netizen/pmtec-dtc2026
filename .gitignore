@@ -103,3 +103,6 @@ pmtec_system/output/tts/
 pmtec_system/output/*.log
 *.bak-20*
 archive/pmtec_demo_video_v2.mp4
+node_modules/
+package-lock.json
+docs/pv-*.png
