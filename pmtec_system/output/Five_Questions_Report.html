@@ -9,8 +9,8 @@ th,td{border:1px solid #c9d2e0;padding:6px 10px;text-align:left} th{background:#
 .meta{color:#5a6a80;font-size:13px}
 </style></head><body>
 <h1>PMTEC 必答五问作答报告</h1>
-<p class="meta">生成时间 2026-10-06 01:14:39 ｜ 数据截至 2026-09（CRS R47589 / DoD FY2024 BSR） ｜ 全部数字由
-<code>python scripts/five_questions_analysis.py</code> 实跑产出，无手工填数（MC n=2000）</p>
+<p class="meta">生成时间 2026-10-06 08:20:54 ｜ 数据截至 2026-09（CRS R47589 / DoD FY2024 BSR） ｜ 全部数字由
+<code>python scripts/five_questions_analysis.py</code> 实跑产出，无手工填数（MC n=20000）</p>
 <div class="note"><b>能力权重口径</b>：FY2024 BSR 不动产重置价值 fy24_prv_musd（$M）；55/67 直接取值，缺失按 Tier 中位数插补。
 Tier 中位数：{'2': 5241.1, '1': 18568.9, '4': 116.1, '3': 2735.55}。插补 12 站清单见 JSON。
 数量口径：67=印太基地实体总数；22=v1 旧库基线；15=政治准入建模盟友站点。</div>
@@ -30,12 +30,12 @@ Tier 中位数：{'2': 5241.1, '1': 18568.9, '4': 116.1, '3': 2735.55}。插补 
 
 <h2>Q2 打掉 30% 节点后的体系保留率</h2>
 <table><tr><th>移除比例</th><th>定向（PAE 序）价值保留率</th><th>随机 MC 均值</th><th>随机 90% 区间</th><th>其中 Tier-1</th></tr>
-<tr><td class='num'>10%（k=7）</td><td class='num'>64.6%</td><td class='num'>89.6%</td><td class='num'>[82.3%, 96.0%]</td><td class='num'>7</td></tr><tr><td class='num'>20%（k=13）</td><td class='num'>50.9%</td><td class='num'>80.8%</td><td class='num'>[71.8%, 89.4%]</td><td class='num'>13</td></tr><tr><td class='num'>30%（k=20）</td><td class='num'>28.8%</td><td class='num'>70.3%</td><td class='num'>[59.5%, 80.7%]</td><td class='num'>14</td></tr><tr><td class='num'>40%（k=27）</td><td class='num'>16.3%</td><td class='num'>59.7%</td><td class='num'>[49.0%, 70.7%]</td><td class='num'>14</td></tr><tr><td class='num'>50%（k=34）</td><td class='num'>10.0%</td><td class='num'>49.4%</td><td class='num'>[38.6%, 60.8%]</td><td class='num'>14</td></tr></table>
+<tr><td class='num'>10%（k=7）</td><td class='num'>64.6%</td><td class='num'>89.6%</td><td class='num'>[82.3%, 96.0%]</td><td class='num'>7</td></tr><tr><td class='num'>20%（k=13）</td><td class='num'>50.9%</td><td class='num'>80.6%</td><td class='num'>[71.5%, 88.9%]</td><td class='num'>13</td></tr><tr><td class='num'>30%（k=20）</td><td class='num'>28.8%</td><td class='num'>70.1%</td><td class='num'>[59.6%, 80.0%]</td><td class='num'>14</td></tr><tr><td class='num'>40%（k=27）</td><td class='num'>16.3%</td><td class='num'>59.7%</td><td class='num'>[48.5%, 70.6%]</td><td class='num'>14</td></tr><tr><td class='num'>50%（k=34）</td><td class='num'>10.0%</td><td class='num'>49.2%</td><td class='num'>[37.9%, 60.5%]</td><td class='num'>14</td></tr></table>
 <p><b>答</b>：定向打掉 30%（k=20，PAE 优先序）是最坏情形；随机 30% 的均值与最坏情形之间的差距即体系抗随机毁伤的冗余度。</p>
 
 <h2>Q3 敏感性参数排序（单因素，按每单位参数跨度响应度降序）</h2>
 <table><tr><th>排名</th><th>参数</th><th>因变量</th><th>低 → 高</th><th>相对响应度（每单位参数）</th></tr>
-<tr><td class='num'>#1</td><td>准入基线扰动 σ（政治不确定性强度）</td><td>Denied 站点数均值</td><td class='num'>0 → 1.29</td><td class='num'>10.0</td></tr><tr><td class='num'>#2</td><td>拦截率（策略/训练水平差异）</td><td>每千发突防数</td><td class='num'>117.6 → 320.0</td><td class='num'>4.57</td></tr><tr><td class='num'>#3</td><td>定向移除比例 k（动能打击规模）</td><td>价值保留率</td><td class='num'>0.1 → 0.646</td><td class='num'>3.66</td></tr><tr><td class='num'>#4</td><td>主权打击事件强度（政治战压力）</td><td>可用基地数</td><td class='num'>58 → 67</td><td class='num'>0.12</td></tr><tr><td class='num'>#5</td><td>m(Denied) 政治证据先验（东道国拒止质量）</td><td>Bel(Open)（A 级精度×host_nation）</td><td class='num'>0.76 → 0.7784</td><td class='num'>0.078</td></tr></table>
+<tr><td class='num'>#1</td><td>准入基线扰动 σ（政治不确定性强度）</td><td>Denied 站点数均值</td><td class='num'>0 → 1.27</td><td class='num'>10.0</td></tr><tr><td class='num'>#2</td><td>拦截率（策略/训练水平差异）</td><td>每千发突防数</td><td class='num'>117.6 → 320.0</td><td class='num'>4.57</td></tr><tr><td class='num'>#3</td><td>定向移除比例 k（动能打击规模）</td><td>价值保留率</td><td class='num'>0.1 → 0.646</td><td class='num'>3.66</td></tr><tr><td class='num'>#4</td><td>主权打击事件强度（政治战压力）</td><td>可用基地数</td><td class='num'>58 → 67</td><td class='num'>0.12</td></tr><tr><td class='num'>#5</td><td>m(Denied) 政治证据先验（东道国拒止质量）</td><td>Bel(Open)（A 级精度×host_nation）</td><td class='num'>0.76 → 0.7784</td><td class='num'>0.078</td></tr></table>
 
 <h2>Q4 交换比</h2>
 <p><b>防空拦截弹耗比（场景 C 六策略，150 episodes）</b>：全量 5268 发击落
@@ -52,7 +52,7 @@ Tier 中位数：{'2': 5241.1, '1': 18568.9, '4': 116.1, '3': 2735.55}。插补 
 且存在可复算的翻转边界——这是有条件的结论，不是绝对安全声明。</p>
 <table><tr><th>场景</th><th>拦截率</th><th>95% CI</th><th>episodes</th></tr><tr><td>A_22site_P6</td><td class='num'>76.2%</td><td class='num'>[74.7%, 77.7%]</td><td class='num'>100</td></tr><tr><td>B_v2_182d_P6</td><td class='num'>79.0%</td><td class='num'>[77.1%, 80.8%]</td><td class='num'>60</td></tr><tr><td>C_v2_political_219d_P12</td><td class='num'>79.1%</td><td class='num'>[78.0%, 80.2%]</td><td class='num'>150</td></tr></table>
 <p>证据链：① 数据净效应 +2.8pp（A→B）；② 政治约束全量后 79.14%（C，CI 窄于 A）；
-③ 1000 次准入扰动下可用率均值 99.8%、最低 95.5%、
+③ 10000 次准入扰动下可用率均值 99.8%、最低 95.5%、
 Denied 均值 0.15、最大 3。</p>
 <p><b>翻转边界（D-S 置信层独立复算，A 级精度 × host_nation）</b>：</p>
 <table><tr><th>m(Denied)</th><th>Bel(Open)</th><th>Pl(Open)</th><th>冲突系数 K</th></tr><tr><td class='num'>0.1</td><td class='num'>0.7784</td><td class='num'>0.973</td><td class='num'>0.075</td></tr><tr><td class='num'>0.15</td><td class='num'>0.7775</td><td class='num'>0.9577</td><td class='num'>0.1125</td></tr><tr><td class='num'>0.2</td><td class='num'>0.7765</td><td class='num'>0.9412</td><td class='num'>0.15</td></tr><tr><td class='num'>0.25</td><td class='num'>0.7754</td><td class='num'>0.9231</td><td class='num'>0.1875</td></tr><tr><td class='num'>0.3</td><td class='num'>0.7742</td><td class='num'>0.9032</td><td class='num'>0.225</td></tr><tr><td class='num'>0.35</td><td class='num'>0.7729</td><td class='num'>0.8814</td><td class='num'>0.2625</td></tr><tr><td class='num'>0.4</td><td class='num'>0.76</td><td class='num'>0.8667</td><td class='num'>0.3</td></tr></table>

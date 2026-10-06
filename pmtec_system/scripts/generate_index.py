@@ -78,12 +78,12 @@ HTML = f"""<!DOCTYPE html>
 <body>
 <header>
   <h1>PMTEC <span>数字孪生战场</span> · 演示中心</h1>
-  <div class="sub">DTC 2026 Level 3 · Digital Twin Battlefield · ASDA 闭环 · LVC 三层架构 · P1-P13</div>
+  <div class="sub">DTC 2026 Level 3 · Digital Twin Battlefield · ASDA 闭环 · LVC 三层架构 · P1-P18</div>
   <div class="stats">
     <div class="stat"><b>79.1%</b><span>基准拦截率 (CI 78.0-80.2%)</span></div>
     <div class="stat"><b>67</b><span>权威基地实体 (CRS/DoD 溯源)</span></div>
     <div class="stat"><b>23+</b><span>数字孪生体 (虚实同步)</span></div>
-    <div class="stat"><b>13</b><span>迭代轮次 (P1-P13)</span></div>
+    <div class="stat"><b>13</b><span>迭代轮次 (P1-P18)</span></div>
   </div>
 </header>
 <div class="grid">
