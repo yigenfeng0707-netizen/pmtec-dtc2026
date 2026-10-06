@@ -94,3 +94,11 @@ pmtec_system/output/v2_work/
 
 参考资料/
 pmtec_system/output/tiles/
+
+# P18 运行时状态与可再生工作产物（引擎/测试每次运行都会改写，跟踪只会产生脏 diff）
+pmtec_system/data/learning_params.json
+pmtec_system/data/output/
+pmtec_system/output/v3_work/
+pmtec_system/output/tts/
+pmtec_system/output/*.log
+*.bak-20*

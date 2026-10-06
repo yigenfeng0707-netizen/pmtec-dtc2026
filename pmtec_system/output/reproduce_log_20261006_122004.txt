@@ -1,0 +1,229 @@
+PMTEC 端到端复现日志（P18 复现包）
+时间：2026-10-06 12:20:04
+仓库根：D:\APPs\数字孪生挑战赛
+Python：3.13.13 ｜ 平台：win32
+信息截至 2026-09（CRS R47589 / DoD FY2024 BSR）｜数量口径 67/22/15 见 pmtec_system/README.md「评估口径说明」
+
+==================================================================
+[步骤] 依赖体检
+------------------------------------------------------------------
+  [OK] grpc
+  [OK] websockets
+  [OK] numpy
+  [OK] scipy
+  [OK] networkx
+  [OK] rdflib
+  [OK] pyshacl
+  [OK] matplotlib
+  [OK] requests
+  [OK] jwt
+  [OK] owlready2（HermiT 一致性推理（需 JVM java≥8）；缺失时 P14 推理断言跳过）
+  [OK] torch（DQN 推理；缺失时回退规则基线）
+  [OK] prometheus_client（指标端点）
+
+==================================================================
+[步骤] 口径自检（67/22/15 防漂移）
+[命令] D:\miniconda3\python.exe pmtec_system/scripts/caliber_check.py
+------------------------------------------------------------------
+  ───── 全仓唯一口径权威表（权威定义见 pmtec_system/README.md「评估口径说明」）─────
+    67 = 印太基地实体总数（v2 权威库 bases_v2.geojson，CRS+FY2024 BSR 双源）
+    22 = 引擎实时推演口径（v1 库；P6/P12 观测维度、训练模型、MC 三场景锚定）
+    15 = 引擎政治准入盟友站点（22 站中澳日菲韩 4 东道国；推演中 5/7/3 分布）
+    36 = v2 权威库 host_nation 计数（分析管线口径：韧性分析/五问 S1 主行）
+    45/21/1(+D0) = 置信度四级：A 多源核验 / A- v1 沿用 / B 降级(Tinian) / D 待核验留白
+    信息截至 2026-09（CRS R47589 / DoD FY2024 BSR）
+  ──────────────────────────────────────────────────────────────────────
+  
+  [硬校验] 全部通过
+  [裸引用扫描] 扫描 8 个关键文档，缺限定语的口径引用 6 处（WARN，人工复核）
+    [WARN] pmtec_system/README.md:217  - **22 个基地孪生体**：物理域（飞机在位/传感器/政治准入实测）↔ 虚拟域（就绪度模型 = 资产可用性 × 准入概率），实时偏差与保真度追踪
+    [WARN] pmtec_system/README.md:274  - 67 基地 + 16 跑道 + 3 状态共 86 实体自一级 GeoJSON 自动装配，实体 IRI 统一 `tc#` 命名空间
+    [WARN] pmtec_system/README.md:279  - pySHACL：67 基地 0 违规全绿；负样本（删军种码/纬度 999/缺状态断言）全部报警命中
+    [WARN] pmtec_system/README.md:283  各建 mass 函数，Dempster 合成（冲突系数 K<0.08，零拒绝），输出 67 基地 Bel/Pl 区间：
+    [WARN] pmtec_system/README.md:508  | 基地数据库 | 67 实体（CRS 66 + Tinian，33 属性字段） |
+    [WARN] DTC2026全面提升改造计划-P18.md:96  - 落地方式：`scripts/caliber_check.py` 扫描全仓裸数字"67/22/15 基地"引用并报告不带限定语的出处（防再漂移）。
+  
+  结论： 口径一致，可交付
+[PASS] 口径自检（67/22/15 防漂移）（0.1s，退出码 0）
+
+==================================================================
+[步骤] 数据字典再生（docs/PMTEC-数据字典.md）
+[命令] D:\miniconda3\python.exe scripts/generate_data_dictionary.py
+------------------------------------------------------------------
+  数据字典已生成: D:\APPs\数字孪生挑战赛\docs\PMTEC-数据字典.md（133 行）
+    字段 34 | 事件类 22 | 语义对象 term 85/mapping 16/constraint 3/evidence 71
+[PASS] 数据字典再生（docs/PMTEC-数据字典.md）（0.7s，退出码 0）
+
+==================================================================
+[步骤] 必答五问实跑（快速档 MC n=2000）
+[命令] D:\miniconda3\python.exe scripts/five_questions_analysis.py --fast
+------------------------------------------------------------------
+  [Q2] 节点移除曲线（随机 MC n=2000）...
+  [Q1] 失效场景 × 红方代价...
+  [Q3] 敏感性单因素排序...
+  [Q4] 交换比...
+  [Q5] 政治韧性 + m(Denied) 翻转扫描...
+  
+  === 五问速览 ===
+  Q1 政治拒止: 58 可用 / 价值保留 99.8%，红方 0 弹
+  Q2 打掉30%: 定向 28.8% / 随机均值 70.3%，红方 100-160 弹
+  Q3 敏感性第一: 准入基线扰动 σ（政治不确定性强度）（相对响应度 10.0）
+  Q4 交换比: 全量 4.79 弹/突防；动能场景红方 100-160 弹换 20 基地
+  Q5 三场景: 76.2% → 79.0% → 79.1%
+  
+  产出: D:\APPs\数字孪生挑战赛\pmtec_system\output\five_questions_report.json
+        D:\APPs\数字孪生挑战赛\pmtec_system\output\Five_Questions_Report.html
+[PASS] 必答五问实跑（快速档 MC n=2000）（1.6s，退出码 0）
+
+==================================================================
+[步骤] 验收测试 test_p17_semantic_tools.py
+[命令] D:\miniconda3\python.exe -X utf8 test_p17_semantic_tools.py
+------------------------------------------------------------------
+  [PASS] 01 manifest 四类计数均为正 
+  [PASS] 02 manifest 计数与检索索引一致（evidence ≥ 67 基地） 
+  [PASS] 03 browse term 命中 Kadena 
+  [PASS] 04 browse mapping 锚定域（branchCode → MilitaryInstallation） 
+  [PASS] 05 browse constraint 命中军种代码形状 
+  [PASS] 06 browse evidence 存在 B 级降级断言 
+  [PASS] 07 B 级最宽无知区间跨工具层一致（Pl(Open)=1.0） 
+  [PASS] 08 resolve Misawa 命中且类型为 AirBase 
+  [PASS] 09 resolve Misawa 属性含 branchCode 且准入态 state_open 
+  [PASS] 10 resolve Misawa 挂接适用约束（InstallationShape） 
+  [PASS] 11 resolve Misawa 溯源证据（A- 级，Bel=0.6702） 
+  [PASS] 12 resolve Misawa D-S 置信与证据跨源一致（Bel 同值） 
+  [PASS] 13 LaunchCapable 类解析（等价类公理可见；ABox 直例 0 为真值） 
+  [PASS] 14 负样本：未知 kind 必须报错 
+  [PASS] 15 负样本：乱码查询空结果、未知 id found=False（不崩溃） 
+  
+  P17 语义工具层验收: 15 PASS / 0 FAIL / 15 断言
+[PASS] 验收测试 test_p17_semantic_tools.py（0.6s，退出码 0）
+
+==================================================================
+[步骤] 验收测试 test_p18_five_questions.py
+[命令] D:\miniconda3\python.exe -X utf8 test_p18_five_questions.py
+------------------------------------------------------------------
+  ======================================================================
+    [PASS] 报告生成脚本 --fast 退出码 0
+    [PASS] Q1 S1 政治拒止 0 弹、67→58 可用 — cost=0 avail=58
+    [PASS] Q1 S1 引擎口径 15 盟友/3 拒止/19 可用
+    [PASS] Q1 S2 红方代价区间 100-160 发、Tier-1 14 座
+    [PASS] Q1 S3 复合场景实体规模最重伤（61.2% < S2 70.1%） — S3 value=0.3811 count=0.6119
+    [PASS] Q1 代价模型泄漏率与 MC 拦截率自洽 — 0.2086
+    [PASS] Q2 定向 30% 保留率 28.8%（最坏情形） — 0.2878
+    [PASS] Q2 随机 30% 均值 ~70%（体系抗随机冗余） — 0.7028
+    [PASS] Q2 定向严格劣于随机（30% 处）
+    [PASS] Q2 曲线单调递减（定向）
+    [PASS] Q3 五参数全排序
+    [PASS] Q3 排序按响应度降序
+    [PASS] Q3 第一敏感参数 = 准入扰动 σ — 准入基线扰动 σ（政治不确定性强度）
+    [PASS] Q4 全量弹耗比 4.79 发/突防 — 4.79
+    [PASS] Q4 六策略区间 4.4-5.3 — [4.46, 4.56, 4.64, 4.64, 5.04, 5.15]
+    [PASS] Q4 齐射场景对照在场（156 全保存/0.0% 口径） — 出动 156 架次全保存、损失率 0.0%、疏散挽救价值 3860
+    [PASS] Q5 三场景拦截率 76.2/79.0/79.1 — [0.762, 0.79, 0.791]
+    [PASS] Q5 m(Denied) 扫描 K 单调递增且 ≤ md（可复算口径） — K 0.075→0.3
+    [PASS] Q5 m(Denied) 域内 Bel(Open) 恒 >0.5（稳健性结论） — Bel 0.7784→0.76
+    [PASS] Q5 失效边界卡已切换为可复算口径（修正留痕在场）
+  
+  ======================================================================
+  P18 Five Questions: 20 passed, 0 failed
+  ======================================================================
+[PASS] 验收测试 test_p18_five_questions.py（2.2s，退出码 0）
+
+==================================================================
+[步骤] 验收测试 test_p14_ontology.py
+[命令] D:\miniconda3\python.exe -X utf8 test_p14_ontology.py
+------------------------------------------------------------------
+  [PASS] 02 ABox 67 基地实体 
+  [PASS] 03 基地四子类互斥（AllDisjoint） 
+  [PASS] 04 全部基地含 branchCode 
+  [PASS] 05 全部基地含 hasAccessState 状态断言 
+  [PASS] 06 HermiT 公理集一致 
+  [PASS] 07 基线 c0：67 基地全部推入 LaunchCapable 
+  [PASS] 08 基线 c0：AccessDeniedSite 为空 
+  [PASS] 09 翻转测试：Misawa 置 Denied 后退出 LaunchCapable 
+  [PASS] 10 翻转测试：Misawa 被推理归入 AccessDeniedSite（唯一成员） 
+  [PASS] 11 SHACL 正样本 conforms=True 
+  [PASS] 12 SHACL 负样本报警（删 branchCode/纬度越界/缺状态） 
+  [PASS] 13 Dempster 合成与全无知证据=自身（K=0） 
+  [PASS] 14 mass 函数全帧归一 
+  PROV triples=643 bases=67 grades={'A-': 21, 'B': 1, 'A': 45}
+  Bel(Open) min/mean/max = 0.6702/0.8066/0.92 | maxK=0.075 rejections=0
+  [PASS] 15 置信度报告 67 基地 + 精度分级 45/21/1 
+  [PASS] 16 Tinian B 级最宽无知区间（Pl(Open)=1, Bel(Open)<0.7） 
+  [PASS] 17 Brier 分数基准值（完美=0 / 0.5vs1=0.25） 
+  [PASS] 18 溯源链：每条断言均有证据源 wasDerivedFrom 
+  PAE top=10 effector=2 coa_nodes=13
+  [PASS] 19 PAE 清单：Tier 非降序且首条为 Tier1 最长跑道 
+  [PASS] 20 效应器匹配命中主权基地战斗机联队（JBER/Eielson） 
+  [PASS] 21 COA：单跑道脆弱节点均有同国替代方案 
+  
+  P14 验收: 21 PASS / 0 FAIL / 21 断言
+  [stderr 尾部] * Owlready * (NB: only changes on entities loaded in Python are shown, other changes are done but not listed)
+[PASS] 验收测试 test_p14_ontology.py（13.4s，退出码 0）
+
+==================================================================
+[步骤] 验收测试 test_p16_dodaf.py
+[命令] D:\miniconda3\python.exe -X utf8 test_p16_dodaf.py
+------------------------------------------------------------------
+  [PASS] 06 Role 数 = 事件源分组实测数(10) 
+  [PASS] 07 ServiceContract 数 = 应用商店实测数(6) 
+  [PASS] 08 SystemNode 含全部 gRPC Servicer(4) 
+  [PASS] 09 每个服务契约含版本号（源码 ast 解析实证） 
+  [PASS] 10 每条交换恰追溯到 1 个已声明作战活动 
+  [PASS] 11 每个作战活动追溯到已声明能力 
+  [PASS] 12 每条交换锚定已声明信息实体且有产生角色 
+  [PASS] 13 信息实体锚定的 tc# 类全部真实存在（跨本体 6/6） 
+  [PASS] 14 每个角色配置到真实存在的系统节点 
+  [PASS] 15 每个服务契约 realize 已声明能力且由系统提供 
+  [PASS] 16 每个系统节点支撑至少一个能力（SV 无悬空） 
+  [PASS] 17 建设项目 verifies 真实系统节点（PV 断链防护） 
+  {"class_counts": {"Capability": 33, "OperationalActivity": 33, "InformationExchange": 22, "InformationEntity": 6, "Role": 10, "ServiceContract": 6, "SystemNode": 10, "ProjectActivity": 2, "StandardBaseline": 1}, "conforms": true, "violations": 0, "broken_anchors": 0}
+  [PASS] 18 SHACL 正样本全绿（conforms 且零违规零断锚） 
+  [PASS] 19 负样本：删交换→活动边必须被追溯链校验拦截 
+  [PASS] 20 负样本：删角色→系统配置边必须报警 
+  [PASS] 21 负样本：观测计数归零违反 minInclusive 1（禁虚构/禁清空） 
+  [PASS] 22 映射表与实测事件类型双向完整性守卫（缺项即拒绝构建） 
+  OK: docs\PMTEC-DoDAF视点架构说明.md 191 行, 12 KB
+  [PASS] 23 视点文档已生成 
+  [PASS] 24 八视点章节齐全 
+  [PASS] 25 OV-3 矩阵含 detect=591 实测行（数字与工件一致） 
+  [PASS] 26 合规红线：文档不含参考文档誊写措辞 
+  
+  === P16 DoDAF: 26 passed, 0 failed ===
+[PASS] 验收测试 test_p16_dodaf.py（7.0s，退出码 0）
+
+==================================================================
+[步骤] 验收测试 test_web_auth.py
+[命令] D:\miniconda3\python.exe -X utf8 test_web_auth.py
+------------------------------------------------------------------
+    [PASS] health 200 且公开
+    [PASS] auth_enabled 标志
+    [PASS] uptime 为真实秒数
+    [PASS] 未认证访问 state → 401
+    [PASS] 伪造令牌 → 401
+    [PASS] 错误密码 → 401
+    [PASS] 评委登录 200
+    [PASS] 角色 operator
+    [PASS] Set-Cookie HttpOnly
+    [PASS] 同时返回 JWT
+    [PASS] Cookie 通道 check 200
+    [PASS] Bearer 通道 check 200
+    [PASS] operator 读 state 过门禁(503=引擎未挂)
+    [PASS] operator 可触发 AI 分析(过门禁)
+    [PASS] operator 启停仿真 → 403
+    [PASS] observer 触发分析 → 403
+    [PASS] commander 启停仿真过门禁(503)
+    [PASS] logout 200 + 清 Cookie
+    [PASS] 清后回 401
+    [PASS] auth_enabled=False
+    [PASS] 业务端点无门禁(503)
+    [PASS] health auth_enabled=False
+  ------------------------------------------------------------
+  PASS=26 FAIL=0
+  ALL TESTS PASSED
+  [stderr 尾部]   decoded = self.decode_complete(
+[PASS] 验收测试 test_web_auth.py（1.7s，退出码 0）
+
+==================================================================
+复现结论：全部步骤通过——交付物可由脚本再生
+日志已保存：D:\APPs\数字孪生挑战赛\pmtec_system\output\reproduce_log_20261006_122004.txt
