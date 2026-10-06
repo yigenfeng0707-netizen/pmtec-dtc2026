@@ -102,3 +102,4 @@ pmtec_system/output/v3_work/
 pmtec_system/output/tts/
 pmtec_system/output/*.log
 *.bak-20*
+archive/pmtec_demo_video_v2.mp4
