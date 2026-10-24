@@ -11,8 +11,8 @@ from transformers import (AutoModelForCausalLM, AutoTokenizer,
 from peft import LoraConfig, get_peft_model
 
 BASE = "/data/models/Qwen2.5-7B-Instruct"
-DATA = "/data/out/sft_pmtec.jsonl"
-OUT = "/data/out/sft_pmtec_lora"
+DATA = os.environ.get("PMTEC_SFT_DATA", "/data/out/sft_pmtec.jsonl")
+OUT = os.environ.get("PMTEC_SFT_OUT", "/data/out/sft_pmtec_lora")
 MAXLEN = 512
 
 print("== 环境 ==")

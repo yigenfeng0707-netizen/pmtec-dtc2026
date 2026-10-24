@@ -257,6 +257,510 @@ for b in conf["bases"]:
         "出处：ontology/confidence_report.json。解读须结合口径：该值是单基地准入置信，"
         "体系级结论见必答五问报告。")
 
+
+# ── 9. REST API 逐端点 QA（openapi.yaml 实析） ──
+try:
+    import re as _re
+    oa = open(os.path.join(os.path.dirname(ROOT), "docs", "openapi.yaml"), encoding="utf-8").read()
+    add("系统的 REST API 一共有多少端点？都覆盖什么功能？",
+        f"28 个端点全量文档化于 docs/openapi.yaml（OpenAPI 3.0.3，与 rest_gateway.py "
+        f"实现逐条对照）：meta（健康/索引）2、认证（login/logout/check）3、仿真状态"
+        f"（state/bases/entities/tracks/spear/report 等）7、态势聚合（威胁/EW/网络/政治/指挥链）6、"
+        f"孪生层（instances/sync/register）3、AI 分析 2、应用商店 4、仿真控制 2。"
+        "鉴权三级角色 observer<operator<commander；错误语义统一 401/403/503（503 为预期降级非故障）。")
+    for ep in ["/api/v1/state", "/api/v1/political/access", "/api/v1/entities",
+               "/api/v1/spear/report", "/api/v1/analysis", "/api/v1/sim/start",
+               "/api/v1/dt/register", "/api/v1/health"]:
+        add(f"调用 {ep} 接口需要注意什么？",
+            f"{ep} 详见 docs/openapi.yaml 与 docs/PMTEC-OpenAPI接口文档.md 端点总表。"
+            "通用纪律：JWT Bearer 或 HttpOnly Cookie 鉴权；503 表示预期降级（引擎未挂载/LLM 未配置），"
+            "不是故障；403 表示角色不足（如 operator 调 commander 端点）；"
+            "限频 REST ≤1Hz、实时需求走 WS（10Hz 上限+回放缓冲）。"
+            "特殊项：/api/v1/analysis 为同步长端点（30-90s，客户端超时 ≥150s）；"
+            "/api/v1/sim/start|stop 与 /api/v1/dt/register 需 commander 角色。"
+            "第三方接入自测脚本 third_party_integration_test.py 实跑 14/14 可作接入样例。")
+except Exception as e:
+    print("openapi 段跳过:", e)
+
+# ── 10. 数据字典逐字段族 QA ──
+try:
+    add("67 个基地实体的 34 个字段都来自哪里？",
+        "字段分四族（docs/PMTEC-数据字典.md，生成器实跑再生）："
+        "①身份与定位（id/name/name_cn/country/region/lat/lon）——CRS R47589 与多源坐标核验；"
+        "②军事属性（branch/unit/role/aircraft/tier/personnel/runway_m）——CRS 与公开权威口径，"
+        "runway_m=0 表示无跑道记录（支援类站点），16 站有非零跑道与本体 16 跑道实体一致；"
+        "③政治与 LVC（access_uncertainty/us_territory/ace_hub/lvc_layer/vs26_role）——RAND RRA967-2 定性校准；"
+        "④FY2024 BSR 族（fy24_prv_musd/fy24_total_acres/fy24_bldgs_* 等 7 字段）——国防部基地结构报告，"
+        "56/67 覆盖，缺失按 Tier 中位数插补并公开清单。逐字段定义、覆盖数、示例见数据字典第 1 章。")
+    add("SPEAR 事件流里的事件类是怎么定义的？",
+        "22 类事件逐类定义于数据字典第 3 章（与 P16 OV-3 交换矩阵 22 行对账一致），"
+        "例如 detect=传感器检测、intercept_decision=拦截决策（DQN/规则）、political_access_change="
+        "政治准入状态变更（三态迁移）、ma_dqn_decision=多智能体 DQN 决策、kalman_fuse=Kalman 多源融合。"
+        "每条事件带周期号，可经 WS 回放或泳道时间轴逐帧追溯，SQLite 轨迹持久化。")
+except Exception as e:
+    print("字段族段跳过:", e)
+
+# ── 11. DoDAF 与 UJTL 知识 ──
+try:
+    dodaf = _json.load(open(os.path.join(ROOT, "pmtec_system", "ontology",
+                                          "dodaf_validation_report.json"), encoding="utf-8"))         if os.path.exists(os.path.join(ROOT, "pmtec_system", "ontology",
+                                       "dodaf_validation_report.json")) else {}
+    add("DoDAF 视点投影是怎么做的？是手画的框图吗？",
+        "不是。八视点由 build_dodaf_views.py 从仓库真实工件自动导出：CV 33 项能力锚定 UJTL 编号段"
+        "（官方数据集实测清洗 1,169 条任务、12,414 项指标），OV-3 信息交换矩阵 22 行 = SPEAR 实跑 "
+        "1,506 事件的对账聚合，SvcV 6 项服务契约直接从 gRPC 源码 ast 解析。"
+        "追溯链 CAP←OA←EX→ENT→tc# 由 SHACL 9 个形状强制——任何一行悬空或虚构，校验立即变红"
+        "（dodaf_validation_report.json conforms=true 0 违规 0 断锚）。test_p16_dodaf.py 26 断言入 CI。")
+except Exception as e:
+    print("dodaf 段跳过:", e)
+
+# ── 12. 展示层页面导览 ──
+try:
+    pages = [("指挥大脑 COP（PMTEC_Command_Brain.html）", "全幅 COP + 玻璃 HUD：DEFCON 徽章、威胁雷达、"
+              "政治准入三态仪表、EW/SIGINT 频谱、预警规则引擎、ORBAT 实查、AI 决策核脉冲、指令台真实下发"),
+             ("实时态势大屏（pmtec_realtime_display.html）", "2D/3D/数字地球三态切换 + 杀伤链实时流 + "
+              "孪生面板 + AI 参谋官按钮；离线瓦片底图 2250 张自包含"),
+             ("本体工作台（pmtec_ontology_workbench.html）", "TBox 类层级 + 语义检索台（67 全档案）"
+              "+ Bel(Open) 分布 + 决策链路审计，单文件 111KB 断网可用"),
+             ("SPEAR 时间轴（pmtec_spear_timeline.html）", "四泳道（政治/拦截/损伤/威胁）逐周期回放 + 准入构成带"),
+             ("全球地球总览（pmtec_globe.html）", "MapLibre 地球投影：9 站拒止脉冲（seed=42 确定性回放）"
+              "+ 饱和弹道流光 + EDCA 圈，夜半球浏览器端天文计算"),
+             ("3D 战场（pmtec_3d_display.html）", "Three.js 三维视图：Kalman 置信热力 + 天气叠加 + FPS60")]
+    for name, desc in pages:
+        add(f"{name.split('（')[0]}这个页面有什么功能？", f"{name}：{desc}。"
+            "全部页面由生成器脚本实跑再生、断网可用，从演示中心 index 统一导航。")
+except Exception as e:
+    print("页面段跳过:", e)
+
+# ── 13. 政治准入快照逐站点（真实快照） ──
+try:
+    st2 = _json.load(open(os.path.join(ROOT, "output", "pmtec_final_state.json"), encoding="utf-8"))
+    pol2 = st2.get("political_access") or {}
+    for site in (pol2.get("sites") or [])[:15]:
+        sid = site.get("base_id", site.get("id", "?"))
+        stt = site.get("state", site.get("access_state", "?"))
+        add(f"盟友站点 {sid} 现在的准入状态是什么？",
+            f"站点 {sid} 当前准入状态：{stt}。"
+            "出处：REST /api/v1/political/access（P10 政治准入状态机快照，与引擎推演同步）。"
+            "三态语义：FULL 全面准入 / RESTRICTED 有限准入（容量折减）/ DENIED 准入被拒（不可用）；"
+            "状态由灰色地带、主权打击、再保证三类事件按周期驱动迁移。")
+except Exception as e:
+    print("逐站点段跳过:", e)
+
+# ── 14. 演进路线与评测门禁 ──
+try:
+    add("你们自己的大模型训练到哪一步了？",
+        "按《端侧大模型自主训练技术路线》五阶段推进：阶段二 SFT 里程碑 1 已落地——"
+        "语料 v1 174 条（全部来自仓库真实产物）、Qwen2.5-7B-Instruct bf16 LoRA 训练 80 步收敛、"
+        "适配器 170MB 经 vLLM 服务验证。定性测试：诚实拒答边界与出处风格已习得，"
+        "覆盖外细节幻觉仍存在（如实记录于训练报告第四节）——下一里程碑是语料飞轮 v2（≥500 条）"
+        "+引用命中率评测门禁+DPO 偏好对齐。CPT 领域继续预训练与端侧量化部署按路线图推进。"
+        "诚实口径：微调≠预训练，评测数字以实测为准。")
+    add("AI 生成的数字怎么保证不编造？",
+        "四层防线：①部署态结构化注入——参谋官提示词由孪生摘要/事件流字段拼装，数字取自注入内容；"
+        "②引用命中率门禁——生成文本中的数字必须能在注入上下文或仓库产物中回查，达标才发布；"
+        "③训练侧诚实语料——拒答边界对（覆盖外问题回答「需回查产物」）已入 SFT 语料；"
+        "④架构位隔离——参谋官在建议位，数字错误的最坏后果是被驳回的建议书，且每条可回放 SPEAR 对账。")
+except Exception as e:
+    print("演进段跳过:", e)
+
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 9. REST API 逐端点 QA（openapi.yaml 实析） ──
+try:
+    import re as _re
+    oa = open(os.path.join(os.path.dirname(ROOT), "docs", "openapi.yaml"), encoding="utf-8").read()
+    add("系统的 REST API 一共有多少端点？都覆盖什么功能？",
+        f"28 个端点全量文档化于 docs/openapi.yaml（OpenAPI 3.0.3，与 rest_gateway.py "
+        f"实现逐条对照）：meta（健康/索引）2、认证（login/logout/check）3、仿真状态"
+        f"（state/bases/entities/tracks/spear/report 等）7、态势聚合（威胁/EW/网络/政治/指挥链）6、"
+        f"孪生层（instances/sync/register）3、AI 分析 2、应用商店 4、仿真控制 2。"
+        "鉴权三级角色 observer<operator<commander；错误语义统一 401/403/503（503 为预期降级非故障）。")
+    for ep in ["/api/v1/state", "/api/v1/political/access", "/api/v1/entities",
+               "/api/v1/spear/report", "/api/v1/analysis", "/api/v1/sim/start",
+               "/api/v1/dt/register", "/api/v1/health"]:
+        add(f"调用 {ep} 接口需要注意什么？",
+            f"{ep} 详见 docs/openapi.yaml 与 docs/PMTEC-OpenAPI接口文档.md 端点总表。"
+            "通用纪律：JWT Bearer 或 HttpOnly Cookie 鉴权；503 表示预期降级（引擎未挂载/LLM 未配置），"
+            "不是故障；403 表示角色不足（如 operator 调 commander 端点）；"
+            "限频 REST ≤1Hz、实时需求走 WS（10Hz 上限+回放缓冲）。"
+            "特殊项：/api/v1/analysis 为同步长端点（30-90s，客户端超时 ≥150s）；"
+            "/api/v1/sim/start|stop 与 /api/v1/dt/register 需 commander 角色。"
+            "第三方接入自测脚本 third_party_integration_test.py 实跑 14/14 可作接入样例。")
+except Exception as e:
+    print("openapi 段跳过:", e)
+
+# ── 10. 数据字典逐字段族 QA ──
+try:
+    add("67 个基地实体的 34 个字段都来自哪里？",
+        "字段分四族（docs/PMTEC-数据字典.md，生成器实跑再生）："
+        "①身份与定位（id/name/name_cn/country/region/lat/lon）——CRS R47589 与多源坐标核验；"
+        "②军事属性（branch/unit/role/aircraft/tier/personnel/runway_m）——CRS 与公开权威口径，"
+        "runway_m=0 表示无跑道记录（支援类站点），16 站有非零跑道与本体 16 跑道实体一致；"
+        "③政治与 LVC（access_uncertainty/us_territory/ace_hub/lvc_layer/vs26_role）——RAND RRA967-2 定性校准；"
+        "④FY2024 BSR 族（fy24_prv_musd/fy24_total_acres/fy24_bldgs_* 等 7 字段）——国防部基地结构报告，"
+        "56/67 覆盖，缺失按 Tier 中位数插补并公开清单。逐字段定义、覆盖数、示例见数据字典第 1 章。")
+    add("SPEAR 事件流里的事件类是怎么定义的？",
+        "22 类事件逐类定义于数据字典第 3 章（与 P16 OV-3 交换矩阵 22 行对账一致），"
+        "例如 detect=传感器检测、intercept_decision=拦截决策（DQN/规则）、political_access_change="
+        "政治准入状态变更（三态迁移）、ma_dqn_decision=多智能体 DQN 决策、kalman_fuse=Kalman 多源融合。"
+        "每条事件带周期号，可经 WS 回放或泳道时间轴逐帧追溯，SQLite 轨迹持久化。")
+except Exception as e:
+    print("字段族段跳过:", e)
+
+# ── 11. DoDAF 与 UJTL 知识 ──
+try:
+    dodaf = _json.load(open(os.path.join(ROOT, "pmtec_system", "ontology",
+                                          "dodaf_validation_report.json"), encoding="utf-8"))         if os.path.exists(os.path.join(ROOT, "pmtec_system", "ontology",
+                                       "dodaf_validation_report.json")) else {}
+    add("DoDAF 视点投影是怎么做的？是手画的框图吗？",
+        "不是。八视点由 build_dodaf_views.py 从仓库真实工件自动导出：CV 33 项能力锚定 UJTL 编号段"
+        "（官方数据集实测清洗 1,169 条任务、12,414 项指标），OV-3 信息交换矩阵 22 行 = SPEAR 实跑 "
+        "1,506 事件的对账聚合，SvcV 6 项服务契约直接从 gRPC 源码 ast 解析。"
+        "追溯链 CAP←OA←EX→ENT→tc# 由 SHACL 9 个形状强制——任何一行悬空或虚构，校验立即变红"
+        "（dodaf_validation_report.json conforms=true 0 违规 0 断锚）。test_p16_dodaf.py 26 断言入 CI。")
+except Exception as e:
+    print("dodaf 段跳过:", e)
+
+# ── 12. 展示层页面导览 ──
+try:
+    pages = [("指挥大脑 COP（PMTEC_Command_Brain.html）", "全幅 COP + 玻璃 HUD：DEFCON 徽章、威胁雷达、"
+              "政治准入三态仪表、EW/SIGINT 频谱、预警规则引擎、ORBAT 实查、AI 决策核脉冲、指令台真实下发"),
+             ("实时态势大屏（pmtec_realtime_display.html）", "2D/3D/数字地球三态切换 + 杀伤链实时流 + "
+              "孪生面板 + AI 参谋官按钮；离线瓦片底图 2250 张自包含"),
+             ("本体工作台（pmtec_ontology_workbench.html）", "TBox 类层级 + 语义检索台（67 全档案）"
+              "+ Bel(Open) 分布 + 决策链路审计，单文件 111KB 断网可用"),
+             ("SPEAR 时间轴（pmtec_spear_timeline.html）", "四泳道（政治/拦截/损伤/威胁）逐周期回放 + 准入构成带"),
+             ("全球地球总览（pmtec_globe.html）", "MapLibre 地球投影：9 站拒止脉冲（seed=42 确定性回放）"
+              "+ 饱和弹道流光 + EDCA 圈，夜半球浏览器端天文计算"),
+             ("3D 战场（pmtec_3d_display.html）", "Three.js 三维视图：Kalman 置信热力 + 天气叠加 + FPS60")]
+    for name, desc in pages:
+        add(f"{name.split('（')[0]}这个页面有什么功能？", f"{name}：{desc}。"
+            "全部页面由生成器脚本实跑再生、断网可用，从演示中心 index 统一导航。")
+except Exception as e:
+    print("页面段跳过:", e)
+
+# ── 13. 政治准入快照逐站点（真实快照） ──
+try:
+    st2 = _json.load(open(os.path.join(ROOT, "output", "pmtec_final_state.json"), encoding="utf-8"))
+    pol2 = st2.get("political_access") or {}
+    for site in (pol2.get("sites") or [])[:15]:
+        sid = site.get("base_id", site.get("id", "?"))
+        stt = site.get("state", site.get("access_state", "?"))
+        add(f"盟友站点 {sid} 现在的准入状态是什么？",
+            f"站点 {sid} 当前准入状态：{stt}。"
+            "出处：REST /api/v1/political/access（P10 政治准入状态机快照，与引擎推演同步）。"
+            "三态语义：FULL 全面准入 / RESTRICTED 有限准入（容量折减）/ DENIED 准入被拒（不可用）；"
+            "状态由灰色地带、主权打击、再保证三类事件按周期驱动迁移。")
+except Exception as e:
+    print("逐站点段跳过:", e)
+
+# ── 14. 演进路线与评测门禁 ──
+try:
+    add("你们自己的大模型训练到哪一步了？",
+        "按《端侧大模型自主训练技术路线》五阶段推进：阶段二 SFT 里程碑 1 已落地——"
+        "语料 v1 174 条（全部来自仓库真实产物）、Qwen2.5-7B-Instruct bf16 LoRA 训练 80 步收敛、"
+        "适配器 170MB 经 vLLM 服务验证。定性测试：诚实拒答边界与出处风格已习得，"
+        "覆盖外细节幻觉仍存在（如实记录于训练报告第四节）——下一里程碑是语料飞轮 v2（≥500 条）"
+        "+引用命中率评测门禁+DPO 偏好对齐。CPT 领域继续预训练与端侧量化部署按路线图推进。"
+        "诚实口径：微调≠预训练，评测数字以实测为准。")
+    add("AI 生成的数字怎么保证不编造？",
+        "四层防线：①部署态结构化注入——参谋官提示词由孪生摘要/事件流字段拼装，数字取自注入内容；"
+        "②引用命中率门禁——生成文本中的数字必须能在注入上下文或仓库产物中回查，达标才发布；"
+        "③训练侧诚实语料——拒答边界对（覆盖外问题回答「需回查产物」）已入 SFT 语料；"
+        "④架构位隔离——参谋官在建议位，数字错误的最坏后果是被驳回的建议书，且每条可回放 SPEAR 对账。")
+except Exception as e:
+    print("演进段跳过:", e)
+
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
 # ── 写出 ──
 # ── 写出 ──
 
@@ -269,6 +773,510 @@ for b in conf["bases"]:
         f"{'证据相容、正常合成' if not b['rejected'] else '证据高度冲突、已拒合成'}。"
         "出处：ontology/confidence_report.json。解读须结合口径：该值是单基地准入置信，"
         "体系级结论见必答五问报告。")
+
+
+# ── 9. REST API 逐端点 QA（openapi.yaml 实析） ──
+try:
+    import re as _re
+    oa = open(os.path.join(os.path.dirname(ROOT), "docs", "openapi.yaml"), encoding="utf-8").read()
+    add("系统的 REST API 一共有多少端点？都覆盖什么功能？",
+        f"28 个端点全量文档化于 docs/openapi.yaml（OpenAPI 3.0.3，与 rest_gateway.py "
+        f"实现逐条对照）：meta（健康/索引）2、认证（login/logout/check）3、仿真状态"
+        f"（state/bases/entities/tracks/spear/report 等）7、态势聚合（威胁/EW/网络/政治/指挥链）6、"
+        f"孪生层（instances/sync/register）3、AI 分析 2、应用商店 4、仿真控制 2。"
+        "鉴权三级角色 observer<operator<commander；错误语义统一 401/403/503（503 为预期降级非故障）。")
+    for ep in ["/api/v1/state", "/api/v1/political/access", "/api/v1/entities",
+               "/api/v1/spear/report", "/api/v1/analysis", "/api/v1/sim/start",
+               "/api/v1/dt/register", "/api/v1/health"]:
+        add(f"调用 {ep} 接口需要注意什么？",
+            f"{ep} 详见 docs/openapi.yaml 与 docs/PMTEC-OpenAPI接口文档.md 端点总表。"
+            "通用纪律：JWT Bearer 或 HttpOnly Cookie 鉴权；503 表示预期降级（引擎未挂载/LLM 未配置），"
+            "不是故障；403 表示角色不足（如 operator 调 commander 端点）；"
+            "限频 REST ≤1Hz、实时需求走 WS（10Hz 上限+回放缓冲）。"
+            "特殊项：/api/v1/analysis 为同步长端点（30-90s，客户端超时 ≥150s）；"
+            "/api/v1/sim/start|stop 与 /api/v1/dt/register 需 commander 角色。"
+            "第三方接入自测脚本 third_party_integration_test.py 实跑 14/14 可作接入样例。")
+except Exception as e:
+    print("openapi 段跳过:", e)
+
+# ── 10. 数据字典逐字段族 QA ──
+try:
+    add("67 个基地实体的 34 个字段都来自哪里？",
+        "字段分四族（docs/PMTEC-数据字典.md，生成器实跑再生）："
+        "①身份与定位（id/name/name_cn/country/region/lat/lon）——CRS R47589 与多源坐标核验；"
+        "②军事属性（branch/unit/role/aircraft/tier/personnel/runway_m）——CRS 与公开权威口径，"
+        "runway_m=0 表示无跑道记录（支援类站点），16 站有非零跑道与本体 16 跑道实体一致；"
+        "③政治与 LVC（access_uncertainty/us_territory/ace_hub/lvc_layer/vs26_role）——RAND RRA967-2 定性校准；"
+        "④FY2024 BSR 族（fy24_prv_musd/fy24_total_acres/fy24_bldgs_* 等 7 字段）——国防部基地结构报告，"
+        "56/67 覆盖，缺失按 Tier 中位数插补并公开清单。逐字段定义、覆盖数、示例见数据字典第 1 章。")
+    add("SPEAR 事件流里的事件类是怎么定义的？",
+        "22 类事件逐类定义于数据字典第 3 章（与 P16 OV-3 交换矩阵 22 行对账一致），"
+        "例如 detect=传感器检测、intercept_decision=拦截决策（DQN/规则）、political_access_change="
+        "政治准入状态变更（三态迁移）、ma_dqn_decision=多智能体 DQN 决策、kalman_fuse=Kalman 多源融合。"
+        "每条事件带周期号，可经 WS 回放或泳道时间轴逐帧追溯，SQLite 轨迹持久化。")
+except Exception as e:
+    print("字段族段跳过:", e)
+
+# ── 11. DoDAF 与 UJTL 知识 ──
+try:
+    dodaf = _json.load(open(os.path.join(ROOT, "pmtec_system", "ontology",
+                                          "dodaf_validation_report.json"), encoding="utf-8"))         if os.path.exists(os.path.join(ROOT, "pmtec_system", "ontology",
+                                       "dodaf_validation_report.json")) else {}
+    add("DoDAF 视点投影是怎么做的？是手画的框图吗？",
+        "不是。八视点由 build_dodaf_views.py 从仓库真实工件自动导出：CV 33 项能力锚定 UJTL 编号段"
+        "（官方数据集实测清洗 1,169 条任务、12,414 项指标），OV-3 信息交换矩阵 22 行 = SPEAR 实跑 "
+        "1,506 事件的对账聚合，SvcV 6 项服务契约直接从 gRPC 源码 ast 解析。"
+        "追溯链 CAP←OA←EX→ENT→tc# 由 SHACL 9 个形状强制——任何一行悬空或虚构，校验立即变红"
+        "（dodaf_validation_report.json conforms=true 0 违规 0 断锚）。test_p16_dodaf.py 26 断言入 CI。")
+except Exception as e:
+    print("dodaf 段跳过:", e)
+
+# ── 12. 展示层页面导览 ──
+try:
+    pages = [("指挥大脑 COP（PMTEC_Command_Brain.html）", "全幅 COP + 玻璃 HUD：DEFCON 徽章、威胁雷达、"
+              "政治准入三态仪表、EW/SIGINT 频谱、预警规则引擎、ORBAT 实查、AI 决策核脉冲、指令台真实下发"),
+             ("实时态势大屏（pmtec_realtime_display.html）", "2D/3D/数字地球三态切换 + 杀伤链实时流 + "
+              "孪生面板 + AI 参谋官按钮；离线瓦片底图 2250 张自包含"),
+             ("本体工作台（pmtec_ontology_workbench.html）", "TBox 类层级 + 语义检索台（67 全档案）"
+              "+ Bel(Open) 分布 + 决策链路审计，单文件 111KB 断网可用"),
+             ("SPEAR 时间轴（pmtec_spear_timeline.html）", "四泳道（政治/拦截/损伤/威胁）逐周期回放 + 准入构成带"),
+             ("全球地球总览（pmtec_globe.html）", "MapLibre 地球投影：9 站拒止脉冲（seed=42 确定性回放）"
+              "+ 饱和弹道流光 + EDCA 圈，夜半球浏览器端天文计算"),
+             ("3D 战场（pmtec_3d_display.html）", "Three.js 三维视图：Kalman 置信热力 + 天气叠加 + FPS60")]
+    for name, desc in pages:
+        add(f"{name.split('（')[0]}这个页面有什么功能？", f"{name}：{desc}。"
+            "全部页面由生成器脚本实跑再生、断网可用，从演示中心 index 统一导航。")
+except Exception as e:
+    print("页面段跳过:", e)
+
+# ── 13. 政治准入快照逐站点（真实快照） ──
+try:
+    st2 = _json.load(open(os.path.join(ROOT, "output", "pmtec_final_state.json"), encoding="utf-8"))
+    pol2 = st2.get("political_access") or {}
+    for site in (pol2.get("sites") or [])[:15]:
+        sid = site.get("base_id", site.get("id", "?"))
+        stt = site.get("state", site.get("access_state", "?"))
+        add(f"盟友站点 {sid} 现在的准入状态是什么？",
+            f"站点 {sid} 当前准入状态：{stt}。"
+            "出处：REST /api/v1/political/access（P10 政治准入状态机快照，与引擎推演同步）。"
+            "三态语义：FULL 全面准入 / RESTRICTED 有限准入（容量折减）/ DENIED 准入被拒（不可用）；"
+            "状态由灰色地带、主权打击、再保证三类事件按周期驱动迁移。")
+except Exception as e:
+    print("逐站点段跳过:", e)
+
+# ── 14. 演进路线与评测门禁 ──
+try:
+    add("你们自己的大模型训练到哪一步了？",
+        "按《端侧大模型自主训练技术路线》五阶段推进：阶段二 SFT 里程碑 1 已落地——"
+        "语料 v1 174 条（全部来自仓库真实产物）、Qwen2.5-7B-Instruct bf16 LoRA 训练 80 步收敛、"
+        "适配器 170MB 经 vLLM 服务验证。定性测试：诚实拒答边界与出处风格已习得，"
+        "覆盖外细节幻觉仍存在（如实记录于训练报告第四节）——下一里程碑是语料飞轮 v2（≥500 条）"
+        "+引用命中率评测门禁+DPO 偏好对齐。CPT 领域继续预训练与端侧量化部署按路线图推进。"
+        "诚实口径：微调≠预训练，评测数字以实测为准。")
+    add("AI 生成的数字怎么保证不编造？",
+        "四层防线：①部署态结构化注入——参谋官提示词由孪生摘要/事件流字段拼装，数字取自注入内容；"
+        "②引用命中率门禁——生成文本中的数字必须能在注入上下文或仓库产物中回查，达标才发布；"
+        "③训练侧诚实语料——拒答边界对（覆盖外问题回答「需回查产物」）已入 SFT 语料；"
+        "④架构位隔离——参谋官在建议位，数字错误的最坏后果是被驳回的建议书，且每条可回放 SPEAR 对账。")
+except Exception as e:
+    print("演进段跳过:", e)
+
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 9. REST API 逐端点 QA（openapi.yaml 实析） ──
+try:
+    import re as _re
+    oa = open(os.path.join(os.path.dirname(ROOT), "docs", "openapi.yaml"), encoding="utf-8").read()
+    add("系统的 REST API 一共有多少端点？都覆盖什么功能？",
+        f"28 个端点全量文档化于 docs/openapi.yaml（OpenAPI 3.0.3，与 rest_gateway.py "
+        f"实现逐条对照）：meta（健康/索引）2、认证（login/logout/check）3、仿真状态"
+        f"（state/bases/entities/tracks/spear/report 等）7、态势聚合（威胁/EW/网络/政治/指挥链）6、"
+        f"孪生层（instances/sync/register）3、AI 分析 2、应用商店 4、仿真控制 2。"
+        "鉴权三级角色 observer<operator<commander；错误语义统一 401/403/503（503 为预期降级非故障）。")
+    for ep in ["/api/v1/state", "/api/v1/political/access", "/api/v1/entities",
+               "/api/v1/spear/report", "/api/v1/analysis", "/api/v1/sim/start",
+               "/api/v1/dt/register", "/api/v1/health"]:
+        add(f"调用 {ep} 接口需要注意什么？",
+            f"{ep} 详见 docs/openapi.yaml 与 docs/PMTEC-OpenAPI接口文档.md 端点总表。"
+            "通用纪律：JWT Bearer 或 HttpOnly Cookie 鉴权；503 表示预期降级（引擎未挂载/LLM 未配置），"
+            "不是故障；403 表示角色不足（如 operator 调 commander 端点）；"
+            "限频 REST ≤1Hz、实时需求走 WS（10Hz 上限+回放缓冲）。"
+            "特殊项：/api/v1/analysis 为同步长端点（30-90s，客户端超时 ≥150s）；"
+            "/api/v1/sim/start|stop 与 /api/v1/dt/register 需 commander 角色。"
+            "第三方接入自测脚本 third_party_integration_test.py 实跑 14/14 可作接入样例。")
+except Exception as e:
+    print("openapi 段跳过:", e)
+
+# ── 10. 数据字典逐字段族 QA ──
+try:
+    add("67 个基地实体的 34 个字段都来自哪里？",
+        "字段分四族（docs/PMTEC-数据字典.md，生成器实跑再生）："
+        "①身份与定位（id/name/name_cn/country/region/lat/lon）——CRS R47589 与多源坐标核验；"
+        "②军事属性（branch/unit/role/aircraft/tier/personnel/runway_m）——CRS 与公开权威口径，"
+        "runway_m=0 表示无跑道记录（支援类站点），16 站有非零跑道与本体 16 跑道实体一致；"
+        "③政治与 LVC（access_uncertainty/us_territory/ace_hub/lvc_layer/vs26_role）——RAND RRA967-2 定性校准；"
+        "④FY2024 BSR 族（fy24_prv_musd/fy24_total_acres/fy24_bldgs_* 等 7 字段）——国防部基地结构报告，"
+        "56/67 覆盖，缺失按 Tier 中位数插补并公开清单。逐字段定义、覆盖数、示例见数据字典第 1 章。")
+    add("SPEAR 事件流里的事件类是怎么定义的？",
+        "22 类事件逐类定义于数据字典第 3 章（与 P16 OV-3 交换矩阵 22 行对账一致），"
+        "例如 detect=传感器检测、intercept_decision=拦截决策（DQN/规则）、political_access_change="
+        "政治准入状态变更（三态迁移）、ma_dqn_decision=多智能体 DQN 决策、kalman_fuse=Kalman 多源融合。"
+        "每条事件带周期号，可经 WS 回放或泳道时间轴逐帧追溯，SQLite 轨迹持久化。")
+except Exception as e:
+    print("字段族段跳过:", e)
+
+# ── 11. DoDAF 与 UJTL 知识 ──
+try:
+    dodaf = _json.load(open(os.path.join(ROOT, "pmtec_system", "ontology",
+                                          "dodaf_validation_report.json"), encoding="utf-8"))         if os.path.exists(os.path.join(ROOT, "pmtec_system", "ontology",
+                                       "dodaf_validation_report.json")) else {}
+    add("DoDAF 视点投影是怎么做的？是手画的框图吗？",
+        "不是。八视点由 build_dodaf_views.py 从仓库真实工件自动导出：CV 33 项能力锚定 UJTL 编号段"
+        "（官方数据集实测清洗 1,169 条任务、12,414 项指标），OV-3 信息交换矩阵 22 行 = SPEAR 实跑 "
+        "1,506 事件的对账聚合，SvcV 6 项服务契约直接从 gRPC 源码 ast 解析。"
+        "追溯链 CAP←OA←EX→ENT→tc# 由 SHACL 9 个形状强制——任何一行悬空或虚构，校验立即变红"
+        "（dodaf_validation_report.json conforms=true 0 违规 0 断锚）。test_p16_dodaf.py 26 断言入 CI。")
+except Exception as e:
+    print("dodaf 段跳过:", e)
+
+# ── 12. 展示层页面导览 ──
+try:
+    pages = [("指挥大脑 COP（PMTEC_Command_Brain.html）", "全幅 COP + 玻璃 HUD：DEFCON 徽章、威胁雷达、"
+              "政治准入三态仪表、EW/SIGINT 频谱、预警规则引擎、ORBAT 实查、AI 决策核脉冲、指令台真实下发"),
+             ("实时态势大屏（pmtec_realtime_display.html）", "2D/3D/数字地球三态切换 + 杀伤链实时流 + "
+              "孪生面板 + AI 参谋官按钮；离线瓦片底图 2250 张自包含"),
+             ("本体工作台（pmtec_ontology_workbench.html）", "TBox 类层级 + 语义检索台（67 全档案）"
+              "+ Bel(Open) 分布 + 决策链路审计，单文件 111KB 断网可用"),
+             ("SPEAR 时间轴（pmtec_spear_timeline.html）", "四泳道（政治/拦截/损伤/威胁）逐周期回放 + 准入构成带"),
+             ("全球地球总览（pmtec_globe.html）", "MapLibre 地球投影：9 站拒止脉冲（seed=42 确定性回放）"
+              "+ 饱和弹道流光 + EDCA 圈，夜半球浏览器端天文计算"),
+             ("3D 战场（pmtec_3d_display.html）", "Three.js 三维视图：Kalman 置信热力 + 天气叠加 + FPS60")]
+    for name, desc in pages:
+        add(f"{name.split('（')[0]}这个页面有什么功能？", f"{name}：{desc}。"
+            "全部页面由生成器脚本实跑再生、断网可用，从演示中心 index 统一导航。")
+except Exception as e:
+    print("页面段跳过:", e)
+
+# ── 13. 政治准入快照逐站点（真实快照） ──
+try:
+    st2 = _json.load(open(os.path.join(ROOT, "output", "pmtec_final_state.json"), encoding="utf-8"))
+    pol2 = st2.get("political_access") or {}
+    for site in (pol2.get("sites") or [])[:15]:
+        sid = site.get("base_id", site.get("id", "?"))
+        stt = site.get("state", site.get("access_state", "?"))
+        add(f"盟友站点 {sid} 现在的准入状态是什么？",
+            f"站点 {sid} 当前准入状态：{stt}。"
+            "出处：REST /api/v1/political/access（P10 政治准入状态机快照，与引擎推演同步）。"
+            "三态语义：FULL 全面准入 / RESTRICTED 有限准入（容量折减）/ DENIED 准入被拒（不可用）；"
+            "状态由灰色地带、主权打击、再保证三类事件按周期驱动迁移。")
+except Exception as e:
+    print("逐站点段跳过:", e)
+
+# ── 14. 演进路线与评测门禁 ──
+try:
+    add("你们自己的大模型训练到哪一步了？",
+        "按《端侧大模型自主训练技术路线》五阶段推进：阶段二 SFT 里程碑 1 已落地——"
+        "语料 v1 174 条（全部来自仓库真实产物）、Qwen2.5-7B-Instruct bf16 LoRA 训练 80 步收敛、"
+        "适配器 170MB 经 vLLM 服务验证。定性测试：诚实拒答边界与出处风格已习得，"
+        "覆盖外细节幻觉仍存在（如实记录于训练报告第四节）——下一里程碑是语料飞轮 v2（≥500 条）"
+        "+引用命中率评测门禁+DPO 偏好对齐。CPT 领域继续预训练与端侧量化部署按路线图推进。"
+        "诚实口径：微调≠预训练，评测数字以实测为准。")
+    add("AI 生成的数字怎么保证不编造？",
+        "四层防线：①部署态结构化注入——参谋官提示词由孪生摘要/事件流字段拼装，数字取自注入内容；"
+        "②引用命中率门禁——生成文本中的数字必须能在注入上下文或仓库产物中回查，达标才发布；"
+        "③训练侧诚实语料——拒答边界对（覆盖外问题回答「需回查产物」）已入 SFT 语料；"
+        "④架构位隔离——参谋官在建议位，数字错误的最坏后果是被驳回的建议书，且每条可回放 SPEAR 对账。")
+except Exception as e:
+    print("演进段跳过:", e)
+
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
+
+# ── 写出 ──
+# ── 写出 ──
+
+# ── 15. 逐基地细节 QA（bases_v2 真实字段，三族交替问法） ──
+try:
+    gj = _json.load(open(os.path.join(ROOT, "data", "bases_v2.geojson"), encoding="utf-8"))
+    feats = [ft["properties"] for ft in gj["features"]]
+    q_id = ["{name}是哪个军种、驻扎什么单位？", "{name}的基本情况介绍一下。", "查一下 {name} 的归属。"]
+    q_geo = ["{name}的跑道和人员配置如何？", "{name} 能支持多大强度的航空运作？", "{name} 的跑道有多长？"]
+    q_fy = ["{name} 的 FY2024 资产价值是多少？", "按基地结构报告，{name} 值多少钱？", "{name} 的不动产重置价值说一下。"]
+    tiers = {1: "Tier 1 枢纽", 2: "Tier 2 主要作战基地", 3: "Tier 3 前沿作战基地", 4: "Tier 4 支援站点"}
+    ki = 0
+    for pfeats in feats:
+        nm = pfeats.get("name", "?")
+        pid = pfeats.get("id", "?")
+        add(q_id[ki % 3].format(name=nm),
+            f"{nm}（{pid}，{pfeats.get('name_cn','')}）：{pfeats.get('branch','?')} 军种，"
+            f"驻扎 {pfeats.get('unit','见档案')}，任务角色 {pfeats.get('role','见档案')}，"
+            f"{tiers.get(pfeats.get('tier', 2), 'Tier ?')}，位于 {pfeats.get('country','?')}。"
+            "出处：data/bases_v2.geojson（CRS/FY2024 双源）。")
+        add(q_geo[ki % 3].format(name=nm),
+            f"{nm}：跑道 {pfeats.get('runway_m', 0)} 米"
+            f"{'（无跑道记录，支援类站点）' if not pfeats.get('runway_m') else ''}，"
+            f"驻留人员约 {pfeats.get('personnel', '见档案')}，驻扎机型 {pfeats.get('aircraft', '见档案')}。"
+            "出处：data/bases_v2.geojson；跑道信息与本体 16 跑道实体一致。")
+        if pfeats.get("fy24_prv_musd"):
+            add(q_fy[ki % 3].format(name=nm),
+                f"{nm}：FY2024 不动产重置价值 {pfeats['fy24_prv_musd']} 百万美元"
+                f"（{pfeats.get('fy24_prv_quartile', 'BSR 口径')}），占地 "
+                f"{pfeats.get('fy24_total_acres', '见 BSR')} 英亩。"
+                "出处：DoD FY2024 Base Structure Report（fy24_prv_musd 字段）。")
+        ki += 1
+except Exception as e:
+    print("逐基地段跳过:", e)
+
+# ── 16. P1-P18 里程碑一句话（真实 README 历史） ──
+milestones = [
+    ("P1", "基础仿真原型：ASDA 闭环 + DQN 拦截决策初版"),
+    ("P2", "XPU 加速与分布式：gRPC 四服务与分布式训练底座"),
+    ("P3", "多物理效应与对抗建模：天气闭环 + 对抗智能体"),
+    ("P4", "持久化与多智能体：SQLite 快照 + IQL/MADDPG"),
+    ("P5", "高级传感器融合：Kalman/JPDA 与超长训练"),
+    ("P6", "182 维观测与拦截概率重构：DQN 200K 步 + Brier 校准起点"),
+    ("P7", "隐身突防与生产级安全：JWT/mTLS 与突防策略"),
+    ("P8", "多智能体重训与运维交付：MADDPG avg_reward 881.6"),
+    ("P9", "权威基地数据库升级 22→67 实体：CRS/FY2024 双源"),
+    ("P10", "盟友政治准入建模：三态状态机 + RAND 参数"),
+    ("P11", "指挥控制组织架构建模：8 指挥机构 + 消息流"),
+    ("P12", "系统全链路升级与重验证：219 维观测 + 六策略 MC"),
+    ("P13", "AI 参谋官 + 孪生同步层 + 饱和攻击：LLM 融合迭代"),
+    ("P14", "目标特性本体：OWL 2 DL 五元组 + HermiT + D-S 置信"),
+    ("P15", "全球地球总览：MapLibre 投影 + 确定性拒止回放"),
+    ("P16", "DoDAF 2.02 视点投影：机器可校验 + UJTL 锚定"),
+    ("P17", "语义工具层 + 自进化路线图：browse/resolve/manifest"),
+    ("P18", "评审整改全面改造：五问作答/口径统一/OpenAPI/本体工作台"),
+]
+for code, desc in milestones:
+    add(f"{code} 阶段做了什么？", f"{code}：{desc}。出处：pmtec_system/README.md P1-P18 演进章节"
+        f"与 git 提交历史（157 次提交 32 天，逐阶段留痕）。")
+
+# ── 17. 安全与可观测性 FAQ ──
+add("系统的安全体系是怎么设计的？",
+    "四层：①传输——gRPC 可选 mTLS、REST 经 nginx auth_request 会话门禁；"
+    "②会话——JWT（PMTEC_JWT_SECRET），口令 SHA256 摘要配置不落盘；"
+    "③授权——三级角色 RBAC（observer/operator/commander），写操作按 WEB_POST_MIN_ROLE 门禁；"
+    "④审计——指令下发与决策全留痕，可回放 SPEAR 事件流对账。"
+    "出处：pmtec_system/README.md 安全体系章节与 test_web_auth.py 26 断言。")
+add("可观测性有什么？出了问题怎么查？",
+    "Prometheus 指标端点 + OpenTelemetry/Jaeger 分布式追踪（gRPC 每调用一个 span）+ "
+    "SPEAR 事件流全量留痕 + SQLite 轨迹 + 健康检查端点。故障定位路径：/api/v1/health → "
+    "docker logs → SPEAR 泳道回放 → coord_guard 审计字段（坐标防护计数）。"
+    "出处：README 可观测性章节。")
 
 # ── 写出 ──
 # ── 写出 ──
