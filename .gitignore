@@ -108,3 +108,4 @@ package-lock.json
 docs/pv-*.png
 .workbuddy-ai/
 artifacts/
+pmtec_system/data/models/sft_pmtec_lora/adapter*
