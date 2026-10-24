@@ -106,3 +106,5 @@ archive/pmtec_demo_video_v2.mp4
 node_modules/
 package-lock.json
 docs/pv-*.png
+.workbuddy-ai/
+artifacts/
