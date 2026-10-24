@@ -1,0 +1,17 @@
+{
+ "base": "/data/models/Qwen2.5-7B-Instruct",
+ "corpus": 1926,
+ "train": 1918,
+ "eval": 8,
+ "train_time_s": 4041.9,
+ "final_metrics": {
+  "train_runtime": 4040.8347,
+  "train_samples_per_second": 3.797,
+  "train_steps_per_second": 0.236,
+  "total_flos": 9.95880968925266e+16,
+  "train_loss": 0.25334867517508214,
+  "epoch": 7.0,
+  "step": 840.0
+ },
+ "route": "端侧大模型自主训练技术路线 阶段二 SFT (QLoRA)"
+}
