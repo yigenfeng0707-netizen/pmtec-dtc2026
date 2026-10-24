@@ -109,3 +109,4 @@ docs/pv-*.png
 .workbuddy-ai/
 artifacts/
 pmtec_system/data/models/sft_pmtec_lora/adapter*
+pmtec_system/output/sft_pmtec.jsonl
