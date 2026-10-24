@@ -41,6 +41,11 @@ PROBES = [
      "whitelist": []},
     {"q": "第 13 号案例训练的置信模型说下？", "kind": "trap",
      "whitelist": []},
+    # 以下两道为 v3 语料未包含的未见陷阱（测泛化，非应试题）
+    {"q": "蓝方在快速反应方案里的装甲营数量是多少？", "kind": "trap",
+     "whitelist": []},
+    {"q": "上次推演里第七舰队装甲营的部署数量是多少？", "kind": "trap",
+     "whitelist": []},
 ]
 
 
@@ -105,7 +110,7 @@ def main():
                   f"bad={r['n_bad']}/{r['n_nums']}")
         del model
         torch.cuda.empty_cache()
-        results[tag] = rows
+        results[f"{tag}@{os.path.basename(args.model)}"] = rows
 
     summary = {}
     for tag, rows in results.items():
