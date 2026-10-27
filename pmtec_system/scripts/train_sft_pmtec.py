@@ -180,55 +180,136 @@ def to_features(row):
 train_ds = [to_features(r) for r in train_rows]
 eval_ds = [to_features(r) for r in eval_rows]
 
+# Liger 融合核（PMTEC_LIGER=0 关闭）：fused linear cross-entropy 不物化
+# 152K 词表 logits——24GB 卡上 backward 的 OOM 主因（10-28 实测三连爆 22.95GB，
+# 探针证 seq 最长仅 357、MAXLEN 降档无效；DPO 侧同款方案已验证 16.4GB 峰值）。
+USE_LIGER = os.environ.get("PMTEC_LIGER", "1") == "1"
+if USE_LIGER:
+    try:
+        from liger_kernel.transformers import apply_liger_kernel_to_qwen2
+        apply_liger_kernel_to_qwen2(rope=True, rms_norm=True, swiglu=True,
+                                    cross_entropy=False,
+                                    fused_linear_cross_entropy=True)
+        print("liger kernel: ON（fused CE，logits 不物化）")
+    except ImportError:
+        USE_LIGER = False
+        print("!! liger_kernel 未安装——24GB 卡大概率 OOM（pip install liger-kernel==0.5.10）")
+
 model = AutoModelForCausalLM.from_pretrained(
     BASE, device_map={"": GPU}, torch_dtype=torch.bfloat16)
-model.gradient_checkpointing_enable()
 lora = LoraConfig(r=16, lora_alpha=32, lora_dropout=0.05, bias="none",
                   task_type="CAUSAL_LM",
                   target_modules=["q_proj", "k_proj", "v_proj", "o_proj",
                                   "gate_proj", "up_proj", "down_proj"])
 model = get_peft_model(model, lora)
+model.enable_input_require_grads()
 model.print_trainable_parameters()
 
-args = TrainingArguments(
-    output_dir=OUT,
-    per_device_train_batch_size=1,
-    gradient_accumulation_steps=16,
-    num_train_epochs=EPOCHS,
-    learning_rate=LR,
-    lr_scheduler_type="cosine",
-    warmup_ratio=0.1,
-    logging_steps=5,
-    eval_strategy="epoch" if EARLY_STOP else "no",
-    save_strategy="epoch" if EARLY_STOP else "no",
-    save_total_limit=2 if EARLY_STOP else None,
-    load_best_model_at_end=EARLY_STOP,
-    metric_for_best_model="eval_loss" if EARLY_STOP else None,
-    greater_is_better=False if EARLY_STOP else None,
-    bf16=True,
-    report_to=[],
-    optim="paged_adamw_8bit",
-    seed=42,
-)
+# ── 训练循环：默认 manual（手写），HF Trainer 可选 ──
+# 10-28 实测：双卡 4090 实例上 HF Trainer 路径五连 OOM（allocated 恒 22.95GB、
+# 差额恒 130MB，对 liger/检查点路径/CUDA_VISIBLE_DEVICES/MAXLEN 全部不敏感，
+# tqdm 步数 0/80 与配置不符）——Trainer+accelerate+DP 黑盒在双卡环境行为不可控。
+# 而同构配置的手写前向/反向探针峰值仅 17.76GB（余量 5.9GB）。故默认手写循环：
+# 每 10 步打印显存，一切可见可控。PMTEC_TRAINER=hf 可切回（单卡机上用于对照）。
+MANUAL = os.environ.get("PMTEC_TRAINER", "manual") == "manual"
 
-trainer = Trainer(model=model, args=args, train_dataset=train_ds,
-                  eval_dataset=eval_ds,
-                  data_collator=DataCollatorForSeq2Seq(tok, padding=True))
-if EARLY_STOP:
-    from transformers import EarlyStoppingCallback
-    trainer.add_callback(EarlyStoppingCallback(early_stopping_patience=2))
-    print("!! 早停已启用（PMTEC_EARLY_STOP=1）——已知会造成锚点回退，仅用于对照")
+if MANUAL:
+    import random
 
-t0 = time.time()
-trainer.train()
-train_time = time.time() - t0
+    from transformers import get_cosine_schedule_with_warmup
+
+    try:
+        import bitsandbytes as bnb
+        opt = bnb.optim.AdamW8bit(model.parameters(), lr=LR)
+        optim_name = "bnb AdamW8bit"
+    except ImportError:
+        opt = torch.optim.AdamW(model.parameters(), lr=LR)
+        optim_name = "torch AdamW"
+
+    total_steps = max(1, (len(train_ds) * EPOCHS) // 16)
+    sched = get_cosine_schedule_with_warmup(opt, int(total_steps * 0.1), total_steps)
+    mem0 = (round(torch.cuda.memory_allocated(model.device) / 2**30, 2)
+            if torch.cuda.is_available() else 0)
+    print(f"manual 循环: {len(train_ds)} 行 × {EPOCHS}ep ÷ 16 累积 = {total_steps} 步"
+          f" ｜ 优化器 {optim_name} ｜ 显存起始 {mem0}GB",
+          flush=True)
+
+    rng = random.Random(42)
+    order = list(range(len(train_ds)))
+    model.train()
+    t0 = time.time()
+    micro, step, running = 0, 0, 0.0
+    done = False
+    for epoch in range(EPOCHS):
+        rng.shuffle(order)
+        for i in order:
+            ids = train_ds[i]
+            input_ids = torch.tensor([ids["input_ids"]], device=model.device)
+            out = model(input_ids=input_ids, labels=input_ids)
+            (out.loss / 16).backward()
+            running += out.loss.item()
+            micro += 1
+            if micro % 16 == 0:
+                opt.step()
+                sched.step()
+                opt.zero_grad(set_to_none=True)
+                step += 1
+                if step % 10 == 0 or step == total_steps:
+                    mem = (round(torch.cuda.memory_allocated(model.device) / 2**30, 2)
+                           if torch.cuda.is_available() else 0)
+                    print(f"step {step}/{total_steps}  loss {running/16:.4f}  "
+                          f"alloc {mem}GB", flush=True)
+                running = 0.0
+                if step >= total_steps:
+                    done = True
+                    break
+        if done:
+            break
+    train_time = time.time() - t0
+    final_loss = running / 16 if running else 0.0
+    print(f"训练结束: {step} 步 / {train_time:.0f}s ｜ 末段 loss ≈ {final_loss:.4f}",
+          flush=True)
+    metrics = {"train_loss_approx": round(final_loss, 4),
+               "steps": step, "manual_loop": True}
+else:
+    args = TrainingArguments(
+        output_dir=OUT,
+        per_device_train_batch_size=1,
+        gradient_accumulation_steps=16,
+        num_train_epochs=EPOCHS,
+        learning_rate=LR,
+        lr_scheduler_type="cosine",
+        warmup_ratio=0.1,
+        logging_steps=5,
+        gradient_checkpointing=True,
+        gradient_checkpointing_kwargs={"use_reentrant": False},
+        eval_strategy="epoch" if EARLY_STOP else "no",
+        save_strategy="epoch" if EARLY_STOP else "no",
+        save_total_limit=2 if EARLY_STOP else None,
+        load_best_model_at_end=EARLY_STOP,
+        metric_for_best_model="eval_loss" if EARLY_STOP else None,
+        greater_is_better=False if EARLY_STOP else None,
+        bf16=True,
+        report_to=[],
+        optim="paged_adamw_8bit",
+        seed=42,
+    )
+    trainer = Trainer(model=model, args=args, train_dataset=train_ds,
+                      eval_dataset=eval_ds,
+                      data_collator=DataCollatorForSeq2Seq(tok, padding=True))
+    if EARLY_STOP:
+        from transformers import EarlyStoppingCallback
+        trainer.add_callback(EarlyStoppingCallback(early_stopping_patience=2))
+        print("!! 早停已启用（PMTEC_EARLY_STOP=1）——已知会造成锚点回退，仅用于对照")
+    t0 = time.time()
+    trainer.train()
+    train_time = time.time() - t0
+    metrics = {k: float(v) for k, v in trainer.state.log_history[-1].items()
+               if isinstance(v, (int, float))}
 
 adapter_dir = os.path.join(OUT, "adapter")
 model.save_pretrained(adapter_dir)
 tok.save_pretrained(adapter_dir)
-
-metrics = {k: float(v) for k, v in trainer.state.log_history[-1].items()
-           if isinstance(v, (int, float))}
 meta = {
     "base": BASE,
     "corpus_path": os.path.abspath(DATA),
