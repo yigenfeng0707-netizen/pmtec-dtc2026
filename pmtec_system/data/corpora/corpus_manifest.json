@@ -1,0 +1,13 @@
+{
+ "recipe": "v2-clean",
+ "dedup": false,
+ "out": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\corpora\\sft_facts.jsonl",
+ "rows": 352,
+ "unique_questions": 352,
+ "dup_factor": 1.0,
+ "max_dup": 1,
+ "sha256": "be73740462a53b9e8316c55fa4f186ba1ac47eb5ab10f9a97149cae7a4279e5b",
+ "builder": "build_sft_corpus.py",
+ "builder_sha256": "fb27809f433703e3a91cfc3fb210edb7056dc60c8bdc987bdeefbae786fb8bca",
+ "system_prompt_sha256": "eeec17e788e5eca18e11ede015a1d0bf06011714150b061083a1b57afb409baf"
+}

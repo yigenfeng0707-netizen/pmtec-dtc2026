@@ -1,0 +1,11 @@
+{
+ "recipe": "v6 historic",
+ "note": "事实 1926（第15-17章被粘贴8次的事故版）+ 拒答 770",
+ "migrated_from": "mitigation: pmtec_bundle/sft_pmtec_v3.jsonl",
+ "rows": 2696,
+ "sha256": "a4a5ac4c92b12ea896015ddd76d9b721d2ab42d4de6c0c07ea70984176be2806",
+ "migrated_at": "2026-10-27",
+ "warning": "本文件为历史产物，未经 manifest 校验链生成；仅作对照与复现用途。新实验请用 build_sft_corpus.py / build_sft_refusal_corpus.py 生成。",
+ "unique_questions": 1106,
+ "dup_factor": 2.44
+}

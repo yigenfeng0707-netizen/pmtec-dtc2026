@@ -110,3 +110,12 @@ docs/pv-*.png
 artifacts/
 pmtec_system/data/models/sft_pmtec_lora/adapter*
 pmtec_system/output/sft_pmtec.jsonl
+
+# ── PMTEC 训练语料与 manifest（必须入库：配方可复现的载体）──
+# 语料是文本、体积可控（单份 < 2MB）；丢了就等于"重跑即再生"无从谈起。
+!pmtec_system/data/corpora/*.jsonl
+!pmtec_system/data/corpora/*_manifest.json
+
+# 用户自有文档（训练路线原始稿，不入库；依据它生成的训练记录在 docs/）
+/端侧大模型自主训练技术路线.docx
+/端侧大模型自主训练技术路线.pdf
