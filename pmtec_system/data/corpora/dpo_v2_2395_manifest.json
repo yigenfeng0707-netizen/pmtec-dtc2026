@@ -3,7 +3,8 @@
  "note": "1795 正例事实对 + 600 模板陷阱对",
  "migrated_from": "pmtec_system/output/dpo_pairs_v2.jsonl",
  "rows": 2395,
- "sha256": "66bfb85f3e629ceafedc898d3345e6149cc5c77e2127cf3f80980a48ea7634b3",
+ "sha256": "24583a7978da1fadea0da9960d9d4db0b72bd38401e049e9c8d89eff51921c30",
  "migrated_at": "2026-10-27",
- "warning": "本文件为历史产物，未经 manifest 校验链生成；仅作对照与复现用途。新实验请用 build_sft_corpus.py / build_sft_refusal_corpus.py 生成。"
+ "warning": "本文件为历史产物，未经 manifest 校验链生成；仅作对照与复现用途。新实验请用 build_sft_corpus.py / build_sft_refusal_corpus.py 生成。",
+ "sha_convention": "LF-normalized（CRLF→LF 后哈希，跨 Windows/Linux 行尾稳定）"
 }

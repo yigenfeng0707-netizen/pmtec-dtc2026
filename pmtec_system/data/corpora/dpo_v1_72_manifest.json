@@ -3,7 +3,8 @@
  "note": "72 对，约 90% 负例；已证伪（锚点 0.25→0.125）",
  "migrated_from": "pmtec_bundle/dpo_pairs.jsonl",
  "rows": 72,
- "sha256": "65b6f2d94fe464ffd9b8937bcd9aa21677ac5beae8a2200ccec8796e0b30d3ea",
+ "sha256": "e1992cb18df1c0d84cff7494b9611c093f7ebbe9ff34fe0cab865f2193aba5ab",
  "migrated_at": "2026-10-27",
- "warning": "本文件为历史产物，未经 manifest 校验链生成；仅作对照与复现用途。新实验请用 build_sft_corpus.py / build_sft_refusal_corpus.py 生成。"
+ "warning": "本文件为历史产物，未经 manifest 校验链生成；仅作对照与复现用途。新实验请用 build_sft_corpus.py / build_sft_refusal_corpus.py 生成。",
+ "sha_convention": "LF-normalized（CRLF→LF 后哈希，跨 Windows/Linux 行尾稳定）"
 }

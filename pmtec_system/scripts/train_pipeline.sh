@@ -146,7 +146,9 @@ PYEOF
 import hashlib, json, sys
 data, mf = sys.argv[1], sys.argv[2]
 m = json.load(open(mf, encoding="utf-8"))
-sha = hashlib.sha256(open(data, "rb").read()).hexdigest()
+sha = hashlib.sha256(open(data, "rb").read().replace(b"
+", b"
+")).hexdigest()
 rows = sum(1 for _ in open(data, encoding="utf-8"))
 bad = []
 if m.get("sha256") != sha: bad.append(f"sha256 {m.get('sha256','')[:12]}!={sha[:12]}")

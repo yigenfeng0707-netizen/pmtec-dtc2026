@@ -79,18 +79,39 @@ print("transformers", transformers.__version__, "| peft", peft.__version__,
       "| accelerate", accelerate.__version__)
 
 
+def manifest_candidates(data_path):
+    """可能的 manifest 路径，按优先级。
+
+    语料不都叫 corpus_manifest.json：事实语料的清单是 corpus_manifest.json，
+    拒答语料是 sft_refusal_manifest.json，历史归档是 <stem>_manifest.json。
+    早先只认死一个文件名，会让「拒答语料 + 强校验」这条组合直接拒训。
+    """
+    d = os.path.dirname(os.path.abspath(data_path))
+    stem = os.path.splitext(os.path.basename(data_path))[0]
+    # 顺序关键：先找与本语料同名的清单，再退回通用名——
+    # 否则拒答语料会先命中事实语料的 corpus_manifest.json 而 sha 不符被拒。
+    return [os.path.join(d, f"{stem}_manifest.json"),  # <stem>_manifest.json 优先
+            os.path.join(d, "corpus_manifest.json")]   # 事实语料惯例
+
+
 def verify_manifest(data_path):
-    """语料完整性校验：sha256 与行数必须与 manifest 一致，否则拒训。"""
+    """语料完整性校验：sha256 与行数必须与 manifest 一致，否则拒训。
+
+    sha 按 LF 归一化后计算（CRLF→LF）：构建器写文件用 LF，manifest 记录的是
+    LF 内容的 sha；而 Windows 上 core.autocrlf 会让 rebase/checkout 把磁盘文件
+    变成 CRLF（P19 当天实测：rebase 后 facts 语料 sha 从 be737404 变 bb5e5411）。
+    按原始字节哈希会让校验在每次 git 触碰后误报「语料被换」，按内容等价比较才稳。
+    """
     if SKIP_MANIFEST:
         print("!! 已跳过 manifest 校验（PMTEC_SKIP_MANIFEST_CHECK=1）")
         return None
-    mpath = os.path.join(os.path.dirname(os.path.abspath(data_path)),
-                         "corpus_manifest.json")
-    if not os.path.exists(mpath):
+    mpath = next((p for p in manifest_candidates(data_path) if os.path.exists(p)), None)
+    if mpath is None:
         # 默认强校验：manifest 缺失即拒训。曾经的形态是"警告后继续"，
         # 而语料静默降级（HEAD 构建器只产 352 行却正常训练）正是这样漏过去的。
         msg = "\n".join([
-            f"未找到语料 manifest: {mpath}",
+            f"未找到语料 manifest（已试 {len(manifest_candidates(data_path))} 个候选路径）:",
+            *["    " + p for p in manifest_candidates(data_path)],
             "  训练前必须能证明语料是哪一份。生成方式:",
             "    python scripts/build_sft_corpus.py --report",
             "    python scripts/build_sft_refusal_corpus.py --facts ... --report",
@@ -99,11 +120,12 @@ def verify_manifest(data_path):
         sys.exit(msg)
     m = json.load(open(mpath, encoding="utf-8"))
     raw = open(data_path, "rb").read()
-    sha = hashlib.sha256(raw).hexdigest()
+    sha = hashlib.sha256(raw.replace(b"\r\n", b"\n")).hexdigest()
     rows = sum(1 for _ in open(data_path, encoding="utf-8"))
     problems = []
     if m.get("sha256") and m["sha256"] != sha:
-        problems.append(f"sha256 不符：manifest={m['sha256'][:16]}… 实际={sha[:16]}…")
+        problems.append(f"sha256 不符：manifest={m['sha256'][:16]}… 实际={sha[:16]}…"
+                        f"（按 LF 归一化比较；若确认语料被换过，请用构建器重出 manifest）")
     if m.get("rows") is not None and m["rows"] != rows:
         problems.append(f"行数不符：manifest={m['rows']} 实际={rows}")
     if problems:

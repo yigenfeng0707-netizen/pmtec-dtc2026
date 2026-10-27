@@ -1,0 +1,2 @@
+# 语料 jsonl 统一 LF，杜绝 autocrlf 行尾漂移破坏 manifest sha
+*.jsonl text eol=lf
