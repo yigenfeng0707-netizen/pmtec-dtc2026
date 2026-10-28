@@ -1,0 +1,3 @@
+551e38a693bf5ac23e1637620a2f5f38915205e34f55ff70bf6a62fdcb72306c  sft_f_best/adapter_model.safetensors
+corpus=sft_f_refusal.jsonl (E 550行逐字节 + I族drill21 + J族腐蚀纠正36 = 607)
+299步/1169s; gate_drill_f: 净锚点 8/42 [0.100,0.333] 首次显著, clean 0.667, 假出处题 6/90
