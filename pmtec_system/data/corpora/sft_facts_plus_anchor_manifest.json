@@ -1,0 +1,11 @@
+{
+ "recipe": "facts+anchor_coverage",
+ "dedup": false,
+ "rows": 398,
+ "unique_questions": 398,
+ "dup_factor": 1.0,
+ "max_dup": 1,
+ "sha256": "8727c7261f0f07fe8db006e59016cc0ce8a67018abd8f865d6201b99d8d97a8b",
+ "builder": "build_sft_corpus.py + build_anchor_coverage.py（合并）",
+ "note": "352 事实 + 46 锚点变体（每事实 2-4 问法，与 90 探针零碰撞断言通过）"
+}
