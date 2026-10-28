@@ -57,48 +57,22 @@ _NUM = re.compile(r"(?<![A-Za-z0-9])\d+(?:\.\d+)?(?![A-Za-z0-9])")
 _PLACEHOLDER = re.compile(r"（假设|（模拟|假设查询后|假设得到|请稍等片刻|X个|X\s*个")
 
 # ── 出处校验（v2.1，2026-10-28 D 轮发现「数字对但出处假」盲区后补）──
-# 引用 token：带目录的路径式，或 名字.扩展名/节点（five_questions_report.json /
-# twin_summary.calibration）。判定口径与 build_citation_whitelist.py 的 note 一致。
-# 目录段/文件名前导只认 ASCII——Python 的 \w 含中文，
-# "即twin_summary.calibration" 会把"即"字一起抽出、查不到 corpus_refs（10-28 J 族构建实测）。
-_CIT = re.compile(
-    r"(?:[A-Za-z0-9_.\-]+/)+[A-Za-z0-9_.\-\u4e00-\u9fff]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv)\b"
-    r"|[A-Za-z0-9_\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv|calibration|conf|report)\b")
-_CITE_WL = None
+# 单一口径：实现收敛到 services/citation_guard.py（部署与评测共用同一规则与
+# 白名单，杜绝两套口径漂移）。评测脚本仅做 thin re-export。
+import sys as _sys
+
+_HERE_D = os.path.dirname(os.path.abspath(__file__))
+if os.path.join(_HERE_D, "..") not in _sys.path:
+    _sys.path.insert(0, os.path.join(_HERE_D, ".."))
+from services.citation_guard import (citation_check,          # noqa: E402,F401
+                                     load_guard,
+                                     load_guard as load_citation_whitelist)
+from services import citation_guard as _cg
 
 
-def load_citation_whitelist(path=None):
-    global _CITE_WL
-    p = path or os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                             "citation_whitelist.json")
-    if os.path.exists(p):
-        w = json.load(open(p, encoding="utf-8"))
-        _CITE_WL = (set(w["files"]), set(w["dirs"]),
-                    set(w["basenames"]), set(w["corpus_refs"]))
-        return True
-    _CITE_WL = None
-    return False
+def _STATE_LOADED():
+    return _cg._STATE["loaded"]
 
-
-def citation_check(answer):
-    """答案里的路径/实体式引用 → (可回查, 出处幻觉) 两组。
-
-    语料本身 0 误伤（四份语料全量回归验证，10-28）；
-    twin_summary.txt / data/musix_calibration.html / count_based/intercept_rate.md
-    （D 组 F12/F14 实证幻觉）五条规则全部命中不了。
-    """
-    if _CITE_WL is None:
-        return [], []
-    files, dirs, bnames, crefs = _CITE_WL
-    ok, bad = [], []
-    for t in set(_CIT.findall(answer or "")):
-        t2 = t.removeprefix("pmtec_system/")
-        if (t2 in files or f"pmtec_system/{t2}" in files or t2 in crefs
-                or t2.split("/")[-1] in bnames or t2 in dirs):
-            ok.append(t)
-        else:
-            bad.append(t)
-    return sorted(ok), sorted(bad)
 _DATE = re.compile(r"(?<![A-Za-z0-9])(?:19|20)\d{2}(?:-\d{1,2}){1,2}(?![A-Za-z0-9])")
 
 
@@ -252,8 +226,8 @@ def summarize(rows):
         "anchor_hits": anchor_hits,
         # v2.1 出处校验（build_citation_whitelist.py 白名单，缺失时两值为 None）
         "anchor_hit_rate_citation_clean": (
-            round(anchor_hits_c / n_fact, 4) if (n_fact and _CITE_WL) else None),
-        "citation_halluc_probes": cite_bad_rows if _CITE_WL else None,
+            round(anchor_hits_c / n_fact, 4) if (n_fact and _STATE_LOADED()) else None),
+        "citation_halluc_probes": cite_bad_rows if _STATE_LOADED() else None,
     }
 
 

@@ -24,6 +24,11 @@ from datetime import datetime
 
 import requests
 
+# P19 推理端出处守卫（训练研究线部署落点，见 services/citation_guard.py 模块头）
+from services.citation_guard import guard_answer, load_guard
+
+load_guard()
+
 # P13-3: 专业报告渲染（图表 + Word 排版）
 import matplotlib
 
@@ -294,6 +299,16 @@ ASDA 各环节事件数: {json.dumps(spear_report.get('asda_phase_activity', {})
         dt = time.time() - t0
         if content is None:
             return None
+        # 推理端出处守卫（P19 训练研究线的部署落点）：答案里的路径式引用必须
+        # 能在 citation_whitelist.json 回查，否则整答替换为拦截声明（原文进审计）。
+        # 训练六轮实证：出处幻觉（数字对但引用假文件）逐 token 纠正不根治，
+        # 推理端白名单校验是唯一确定的封死路径。
+        content, guard_audit = guard_answer(content)
+        if guard_audit["guarded"]:
+            print(
+                f"  [LLMAnalyst] citation guard TRIGGERED: "
+                f"{guard_audit['bad_citations']} — output replaced by banner"
+            )
         print(
             f"  [LLMAnalyst] analysis done in {dt:.1f}s "
             f"(prompt={self.last_usage.get('prompt_tokens')} "
