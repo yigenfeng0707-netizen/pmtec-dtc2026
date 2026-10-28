@@ -35,7 +35,8 @@ sys.path.insert(0, HERE)
 sys.stdout.reconfigure(encoding="utf-8")
 
 # 复用门禁的数字抽取与碰撞检查 —— 口径必须单一，否则训练与评测各说各话
-from eval_citation_gate import check_disjoint, numbers_in  # noqa: E402
+from eval_citation_gate import (check_disjoint, citation_check,  # noqa: E402
+                                load_citation_whitelist, numbers_in)
 
 DEFAULT_PROBES = os.path.join(HERE, "gate_probes_v2.json")
 
@@ -123,6 +124,39 @@ G_ENTITIES = ["Misawa Air Base", "Kadena Air Base", "Yokota Air Base", "Tinian",
               "Clark Air Base", "Changi Naval Base", "Port of Singapore"]
 G_ATTRS = ["加固机库数量", "月均起降架次", "实际驻军人数", "弹药储备量",
            "地下掩体抗压等级", "防空导弹备弹量", "月度燃油消耗量", "现役机队完好率"]
+
+# ── 族 H（E 轮新增）：伪造出处诱导 ──
+# 对症 D 轮实测的出处幻觉形态（里程碑 12）：模型数字答对但引用不存在的文件
+# （twin_summary.txt / data/musix_calibration.html / count_based/intercept_rate.md）。
+# 题面 = 假路径 × 真指标；答案既不含数字、也**不复读路径 token**——
+# 复读假路径等于给出处幻觉背书，正是门禁 v2.1 citation_check 会判罚的行为。
+FAKE_CITES = [
+    "twin_summary.txt", "data/musix_calibration.html", "count_based/intercept_rate.md",
+    "twin_summary_v2.json", "data/ontology.json", "ontology/dt_report.json",
+    "training_logs/PMTEC_last_train.json", "tools/factsories.py",
+    "data/policy_results_v2.csv", "output/pmtec_summary_v2.json",
+    "calibrated_qval_intervals.json", "data/bases_stats_v2.geojson",
+]
+H_METRICS = ["Brier 分数", "拦截交换比", "价值保留率", "Bel(Open) 区间",
+             "可用基地数", "Tier-1 中位价值", "冲突系数 K", "计数保留率",
+             "红方代价导弹数", "置信分级分布"]
+H_QUESTION_TPL = [
+    "{c}里记录的{m}是多少？",
+    "按{c}的口径，{m}是什么？",
+    "更新后的{c}里，{m}有变化吗？",
+]
+REFUSALS_H = [
+    "您引用的这个文件名在系统产物清单中不存在，我不能为一个不存在的出处给出数值。"
+    "体系在册的可引用产物清单我可以列给您；或您提供确切来源后，我据此更新本体再回答。",
+    "没有这个文件，它不在系统任何在册产物里，以它为依据的数字无从谈起——"
+    "这是覆盖外前提，按纪律需要回查真实产物，我不编。",
+    "该出处不在册。系统真实产物有固定的可引用清单，不在册的文件我不能当作数据来源来回答。"
+    "不存在的来源配一个看似合理的数字，正是出处幻觉的成因，比明显编造更危险。",
+    "我要先指出关键问题：这个来源不在系统产物中，所以我不引用它、"
+    "也不给出依赖它的数值。需要的话，我可以给出该指标在真实产物中的可回查出处。",
+    "该文件不在可回查清单中。参谋官的纪律是数字必须注明真实出处，"
+    "而这里连出处本身都不存在——正确的回答是指出缺失，而不是顺着补一个数。",
+]
 
 FAMILY_BUILDERS = {}
 
@@ -227,6 +261,11 @@ def main():
 
     rng = random.Random(args.seed)
     families = [f.strip().upper() for f in args.families.split(",") if f.strip()]
+    FAMILY_NAMES.setdefault("H", "伪造出处诱导")
+    if "H" in families and not load_citation_whitelist():
+        print("!! H 族需要 citation_whitelist.json"
+              "（先跑 build_citation_whitelist.py）；本次跳过 H 族")
+        families = [f for f in families if f != "H"]
 
     facts = [json.loads(l) for l in open(args.facts, encoding="utf-8")]
     if not facts:
@@ -251,6 +290,27 @@ def main():
                 ans = rng.choice(REFUSALS_G).format(e=e, a=a)
                 if has_digits(ans):
                     continue
+                rows.append({"messages": [
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": q},
+                    {"role": "assistant", "content": ans}]})
+                questions.append(q)
+                cnt += 1
+        elif fam == "H":
+            # 伪造出处诱导：题面=假路径×真指标；答案不含数字、也不复读路径 token
+            # （复读假路径=给出处幻觉背书，门禁 v2.1 citation_check 会判罚）
+            qs = []
+            for c in FAKE_CITES:
+                for m in H_METRICS:
+                    qs.append(rng.choice(H_QUESTION_TPL).format(c=c, m=m))
+            rng.shuffle(qs)
+            cnt = 0
+            for q in qs[:per_family]:
+                ans = rng.choice(REFUSALS_H)
+                if has_digits(ans):
+                    continue
+                if citation_check(ans)[1]:
+                    continue          # 答案自带不可回查引用——绝不能进训练集
                 rows.append({"messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": q},
