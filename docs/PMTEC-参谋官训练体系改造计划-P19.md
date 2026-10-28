@@ -547,6 +547,13 @@ v2 语料的 `TRAPS` 家族把三道门禁探针**逐字**硬编码进训练集�
    `.github/workflows/ci-cd.yml`，作为训练链路的回归门禁。
 5. **云端实例残留（未动，有意保留）**：实例 36.103.199.153 的 `/data/out/` 存有
    10-21 一代训练的 diag_rag17b*/diag_rag4b*/demo* 等旧文件（本地 `artifacts/`
-   有同源记录，该目录 gitignore 不入库）；`/data/models/` 下的 Qwen3-1.7B/4B/8B
-   与 `/data/serve_qwen3.sh` 等 vLLM 脚本属并行使用的其他项目，**不得清理**。
-   如需回收磁盘只动 diag_*/demo*，且先确认与南湖项目无交集。
+   有同源记录，该目录 gitignore 不入库）；`/data/models/` 下的 Qwen3-1.7B/4B
+   与 `docs/PMTEC-数据字典.md` 等属本项目旧代资产；Qwen3-8B/venv_vllm/
+   serve_qwen*.sh 已于 10-28 隔离至 `/data/_nanhu_quarantine/`（24G，含
+   ISOLATION_README.md，未删可恢复）。
+   **实例已关机（10-28 晚）**。下次开机的一次性清理清单：
+   ①`/data/pmtec19/` 下 A_*/B_*/C_*/D_*/E_*/F_*/AB_* 标记文件、sft_*/gate_*/
+   run_*.log 实验过程痕迹（结果 JSON 已回传入库）可整删；
+   ②`/data/out/` 下 sft_clean/sft_up3/sft_e 适配器按需删（sft_d/sft_f 已回传
+   本地 sft_d_best/sft_f_best，另有 tar 残 sft_f_adapter.tar.gz 可删）；
+   ③vLLM 挂 sft_f_best 冒烟验证（P19 收尾遗留项）。
