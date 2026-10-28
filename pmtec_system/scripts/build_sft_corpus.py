@@ -298,7 +298,8 @@ except Exception as e:
 
 
 # ── 8. 全基地置信查询（67 站逐一，真实 bel_pl） ──
-for b in conf["bases"]:
+# conf 在第 7 章 try 块内加载；部署环境无 data/ 输入时 conf 未定义——整段跳过而非炸
+for b in (conf["bases"] if "conf" in dir() else []):
     o = b["bel_pl"]["Open"]
     add(f"{b['name']}的准入置信怎么样？给我 Bel 和 Pl。",
         f"{b['name']}（{b['id']}，{b['grade']} 级 / {b['access_type']}）："
