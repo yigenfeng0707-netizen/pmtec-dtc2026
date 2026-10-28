@@ -59,8 +59,11 @@ _PLACEHOLDER = re.compile(r"（假设|（模拟|假设查询后|假设得到|请
 # ── 出处校验（v2.1，2026-10-28 D 轮发现「数字对但出处假」盲区后补）──
 # 引用 token：带目录的路径式，或 名字.扩展名/节点（five_questions_report.json /
 # twin_summary.calibration）。判定口径与 build_citation_whitelist.py 的 note 一致。
-_CIT = re.compile(r"(?:[\w.\-\u4e00-\u9fff]+/)+[\w.\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv)\b"
-                  r"|[\w\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv|calibration|conf|report)\b")
+# 目录段/文件名前导只认 ASCII——Python 的 \w 含中文，
+# "即twin_summary.calibration" 会把"即"字一起抽出、查不到 corpus_refs（10-28 J 族构建实测）。
+_CIT = re.compile(
+    r"(?:[A-Za-z0-9_.\-]+/)+[A-Za-z0-9_.\-\u4e00-\u9fff]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv)\b"
+    r"|[A-Za-z0-9_\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv|calibration|conf|report)\b")
 _CITE_WL = None
 
 

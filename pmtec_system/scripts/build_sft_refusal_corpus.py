@@ -158,6 +158,75 @@ REFUSALS_H = [
     "而这里连出处本身都不存在——正确的回答是指出缺失，而不是顺着补一个数。",
 ]
 
+# ── 族 I（F 轮新增）：出处正向 drill ──
+# E 轮形态发现（里程碑 13-3）：出处在事实 QA 里只是句尾附注，从未被当答案主体
+# 训练过 → 模型引真文件时只能近似重建（polICY 类拼写腐蚀）。I 族把「真路径本身」
+# 练成答案主体：问题问出处，回答的核心就是那串真实文件名。
+# 引用集全部经 citation_check 验证可回查（10-28 逐条验证，mc20k_*.json 等未跟踪者已剔）。
+I_FACTS = [
+    ("随机移除三成节点的计数保留率", "output/five_questions_report.json",
+     ["随机移除三成的计数保留率，可回查出处是哪里？", "随机移除曲线的数字落在哪个产物文件里？",
+      "要核对随机打掉三成的保留率，我应该打开哪个文件？"]),
+    ("定向移除三成的价值保留率", "output/five_questions_report.json",
+     ["定向打击价值保留率的可回查出处在哪里？", "定向移除曲线的原始记录在哪个文件？"]),
+    ("拦截交换比（六策略全量）", "data/monte_carlo_results_v2_political.json",
+     ["交换比的可回查出处是哪里？", "六策略全量蒙特卡洛的原始结果在哪个文件？",
+      "要复核总弹数与总突防数，打开哪个产物？"]),
+    ("基准拦截率及其置信区间", "data/monte_carlo_results_v2_political.json",
+     ["基准拦截率的可回查出处是哪里？", "拦截率置信区间的记录在哪个文件？"]),
+    ("概率校准的 Brier 分数", "twin_summary.calibration",
+     ["校准指标的可回查出处在哪里？", "Brier 分数记录在哪个产物的哪个节点？",
+      "要核对概率校准的证据，我该查哪里？"]),
+    ("D-S 置信分级与逐站区间", "ontology/confidence_report.json",
+     ["置信度分级的可回查出处是哪里？", "逐站置信区间的记录在哪个文件？"]),
+    ("基地数量口径权威表", "docs/PMTEC-数据字典.md",
+     ["基地数量口径的权威定义在哪个文件？", "要查多口径对照表，打开哪里？"]),
+    ("SPEAR 事件流构成", "output/pmtec_spear_report.json",
+     ["事件流统计的可回查出处是哪里？", "泳道回放的原始报告在哪个文件？"]),
+    ("权威基地库实体档案", "data/bases_v2.geojson",
+     ["权威基地库的文件名是什么？", "要核对在册站点的坐标与属性出处，打开哪个文件？"]),
+]
+
+# ── 族 J（F 轮新增）：腐蚀纠正 ──
+# 对症 E 轮新形态：假=真文件名的近似拼写。答案三段式——确认数值真实、
+# 指出所引文件不在册、给出真实可回查项；且**绝不复读题面的假 token**（背书）。
+J_REPAIRS = [
+    # (假路径[仅题面], 真指标, 真出处)
+    ("output/political_state.json", "政治准入三态快照", "data/bases_v2.geojson"),
+    ("data/mc20k_political_runs.json", "五问蒙特卡洛全量结果",
+     "output/five_questions_report.json"),
+    ("monte_carlo_results_v2_polICY.json", "六策略全量拦截统计",
+     "data/monte_carlo_results_v2_political.json"),
+    ("engine_caliber_v2.json", "引擎推演口径定义", "docs/PMTEC-数据字典.md"),
+    ("calibrated_dqn_confidence_interval.json", "概率校准 Brier 分数",
+     "twin_summary.calibration"),
+    ("pmtec_d_spear.json", "D-SPEAR 场景统计", "output/pmtec_spear_report.json"),
+    ("data/d_spear_report.json", "SPEAR 事件流报告", "output/pmtec_spear_report.json"),
+    ("intercept_beluncertainty.json", "拦截率置信区间",
+     "data/monte_carlo_results_v2_political.json"),
+    ("twin_summary.txt", "孪生摘要校准节点", "twin_summary.calibration"),
+    ("data/musix_calibration.html", "校准偏差证据", "twin_summary.calibration"),
+    ("count_based/intercept_rate.md", "交换比统计",
+     "data/monte_carlo_results_v2_political.json"),
+    ("value/estimators.json", "价值保留率", "output/five_questions_report.json"),
+]
+J_QUESTION = [
+    "{c}里记录的{m}，出处对吗？给个准数。",
+    "按{c}的口径，{m}是什么？",
+    "我在{c}看到过{m}，帮我确认一下。",
+]
+REFUSALS_J = [
+    "您提到的{m}在体系里确有可回查的真实值，出处：{t}。"
+    "但您引用的那个文件名不在系统产物清单中，我不能把它当数据来源。"
+    "以在册产物为准回答，才守得住参谋官的出处纪律。",
+    "{m}的真实值我可以直接给您——出处：{t}。不过要先纠正：您引用的文件不在册，"
+    "我不复读也不背书那个来源；体系的可引用清单以真实产物为准。",
+    "先确认：{m}在体系里是有真实出处的，即{t}。再说您引的那个文件——它不在系统产物中，"
+    "我不以其为依据作答。这是两种不同性质的错误里最隐蔽的一种：数对、出处假。",
+    "{m}可回查，出处：{t}。您引用的文件名不在可回查清单里，我不会顺着它作答，"
+    "也不会复述它——给假出处背书比编一个数危害更大。",
+]
+
 FAMILY_BUILDERS = {}
 
 
@@ -237,7 +306,8 @@ FAMILY_BUILDERS = {"A": build_a, "B": build_b, "C": build_c,
                    "D": build_d, "E": build_e, "F": build_f}
 FAMILY_NAMES = {"A": "基地属性", "B": "虚构场景", "C": "范围外时点",
                 "D": "范围外编号", "E": "假设单位", "F": "诱导估算",
-                "G": "近似产物≠本问答案"}
+                "G": "近似产物≠本问答案", "H": "伪造出处诱导",
+                "I": "出处正向 drill", "J": "腐蚀纠正"}
 
 
 def has_digits(s):
@@ -262,10 +332,10 @@ def main():
     rng = random.Random(args.seed)
     families = [f.strip().upper() for f in args.families.split(",") if f.strip()]
     FAMILY_NAMES.setdefault("H", "伪造出处诱导")
-    if "H" in families and not load_citation_whitelist():
-        print("!! H 族需要 citation_whitelist.json"
-              "（先跑 build_citation_whitelist.py）；本次跳过 H 族")
-        families = [f for f in families if f != "H"]
+    if ({"H", "I", "J"} & set(families)) and not load_citation_whitelist():
+        print("!! H/I/J 族需要 citation_whitelist.json"
+              "（先跑 build_citation_whitelist.py）；本次跳过这三族")
+        families = [f for f in families if f not in ("H", "I", "J")]
 
     facts = [json.loads(l) for l in open(args.facts, encoding="utf-8")]
     if not facts:
@@ -274,10 +344,14 @@ def main():
     n_fact = len(facts)
     print(f"事实语料 {n_fact} 条，系统提示 {len(system_prompt)} 字")
 
-    # 由目标比例反推拒答条数；A 族可扩展空间最大，其余族按池子上限
+    # 由目标比例反推拒答条数；A 族可扩展空间最大，其余族按池子上限。
+    # 配额固定按 8 个拒答族（A-H）除——I/J 是固定池 drill 族不参与除法，
+    # 否则 F 轮十族会让每族配额稀释到 15 条，破坏「F = E 逐字节 + I/J 增量」
+    # 的单变量前提（E 的 per_family=19，F 必须同样是 19）。
     ratio = min(max(args.refusal_ratio, 0.0), 0.9)
     target_refusal = int(round(n_fact * ratio / max(1e-9, 1 - ratio)))
-    per_family = max(10, target_refusal // max(1, len(families)))
+    n_quota = max(1, len([f for f in families if f in ("A", "B", "C", "D", "E", "F", "G", "H")]))
+    per_family = max(10, target_refusal // max(1, n_quota))
 
     rows = list(facts)
     family_counts = {}
@@ -317,6 +391,39 @@ def main():
                     {"role": "assistant", "content": ans}]})
                 questions.append(q)
                 cnt += 1
+        elif fam == "I":
+            # 出处正向 drill：答案主体=真实文件路径；允许含真实数字（豁免零数字纪律），
+            # 但引用必须全部可回查（citation_check bad 必须为空）。
+            cnt = 0
+            for fact_desc, t, variants in I_FACTS:
+                for q in variants:
+                    ans = f"{fact_desc}的可回查出处是：{t}。"
+                    if citation_check(ans)[1]:
+                        raise SystemExit(f"I 族答案引用不可回查（白名单外？）: {t}")
+                    rows.append({"messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": q},
+                        {"role": "assistant", "content": ans}]})
+                    questions.append(q)
+                    cnt += 1
+        elif fam == "J":
+            # 腐蚀纠正：答案确认真数归属 + 指出所引文件不在册 + 给真实出处；
+            # 关键纪律：**不复读题面假 token**（断言答案不含题面出现的假路径）。
+            cnt = 0
+            for c, m, t in J_REPAIRS:
+                for q in J_QUESTION:
+                    q = q.format(c=c, m=m)
+                    ans = rng.choice(REFUSALS_J).format(m=m, t=t)
+                    if c in ans:
+                        raise SystemExit(f"J 族答案复读假 token: {c}")
+                    if citation_check(ans)[1]:
+                        raise SystemExit(f"J 族答案引用不可回查: {ans[:60]}")
+                    rows.append({"messages": [
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": q},
+                        {"role": "assistant", "content": ans}]})
+                    questions.append(q)
+                    cnt += 1
         else:
             builder = FAMILY_BUILDERS[fam]
             qs = builder(rng, per_family)

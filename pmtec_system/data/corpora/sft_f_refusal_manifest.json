@@ -1,0 +1,26 @@
+{
+ "recipe": "facts+refusal",
+ "facts_source": "D:\\APPs\\数字孪生挑战赛\\pmtec_system\\data\\corpora\\sft_facts_plus_anchor.jsonl",
+ "facts_rows": 398,
+ "refusal_rows": 209,
+ "refusal_ratio_target": 0.286,
+ "refusal_ratio_actual": 0.3443,
+ "families": {
+  "基地属性": 19,
+  "虚构场景": 19,
+  "范围外时点": 19,
+  "范围外编号": 19,
+  "假设单位": 19,
+  "诱导估算": 19,
+  "近似产物≠本问答案": 19,
+  "伪造出处诱导": 19,
+  "出处正向 drill": 21,
+  "腐蚀纠正": 36
+ },
+ "seed": 11,
+ "rows": 607,
+ "unique_questions": 607,
+ "sha256": "4787fb88412b648ad4fbc1913c62a04a11b1b644c39a06b49bee8ffe90707522",
+ "builder_sha256": "e6cde88feceb0b5866e70ef72e83ca238f9bab8921983de388878b79ad817cd7",
+ "probe_collisions": 0
+}
