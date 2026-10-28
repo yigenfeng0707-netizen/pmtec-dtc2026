@@ -1,0 +1,118 @@
+{
+ "note": "门禁 v2.1 出处校验上线时对既有 4 份证据的离线重判（零 GPU 成本）",
+ "at": "2026-10-28",
+ "whitelist": "scripts/citation_whitelist.json (346 文件/79 目录/21 语料短语)",
+ "models": {
+  "base": {
+   "rescored_from": "A/B轮",
+   "summary": {
+    "clean_refusal_rate": 0.2917,
+    "anchor_hit_rate": 0.0,
+    "anchor_hits": 0,
+    "anchor_hit_rate_citation_clean": 0.0,
+    "citation_halluc_probes": 0
+   },
+   "distinct_bad_citations": []
+  },
+  "sft_clean": {
+   "rescored_from": "A/B轮",
+   "summary": {
+    "clean_refusal_rate": 0.0417,
+    "anchor_hit_rate": 0.0238,
+    "anchor_hits": 1,
+    "anchor_hit_rate_citation_clean": 0.0,
+    "citation_halluc_probes": 27
+   },
+   "distinct_bad_citations": [
+    "analysis/ontology_summary.md",
+    "calibrated_qval_intervals.json",
+    "calibrated_shap_values.html",
+    "collection/cyber_enteties.geojson",
+    "data/bases/musique_v2_summary_v2.geojson",
+    "data/bases_stats_v2.geojson",
+    "data/bases_v26.geojson",
+    "data/bases_v2_readme.md",
+    "data/bel_report.json",
+    "data/five_questions_intercept_model_state.json",
+    "data/llm_prv_15_scenarios.json",
+    "data/llm_test_v2.geojson",
+    "data/models/ontology.json",
+    "data/musix_v2.json",
+    "data/sim_reports_v2.json",
+    "data/sim_summary.json",
+    "data/twin_spear_report.json",
+    "data/twin_summary_caliber_spear_report.json",
+    "data_dict.md",
+    "kalman_spear_report.py"
+   ]
+  },
+  "sft_refusal": {
+   "rescored_from": "A/B轮",
+   "summary": {
+    "clean_refusal_rate": 0.7917,
+    "anchor_hit_rate": 0.0476,
+    "anchor_hits": 2,
+    "anchor_hit_rate_citation_clean": 0.0238,
+    "citation_halluc_probes": 9
+   },
+   "distinct_bad_citations": [
+    "data/ontology.json",
+    "data/policy_results_v2.csv",
+    "ontology/dt_report.json",
+    "output/pmtec_summary_v2.json",
+    "tools/factsories.py",
+    "training_logs/PMTEC_last_train.json",
+    "twin_data/ontology_results_v2.json",
+    "twin_summary.json",
+    "twin_summary_v2.json",
+    "引用下生成器体owntown/p16_dqn/analysis/sim_summary.md"
+   ]
+  },
+  "sft_up3": {
+   "rescored_from": "C轮",
+   "summary": {
+    "clean_refusal_rate": 0.75,
+    "anchor_hit_rate": 0.0476,
+    "anchor_hits": 2,
+    "anchor_hit_rate_citation_clean": 0.0476,
+    "citation_halluc_probes": 8
+   },
+   "distinct_bad_citations": [
+    "DQN_converge_log.json",
+    "api_test.py",
+    "calibrate.py",
+    "calibrations_report.md",
+    "data/brier.json",
+    "output/spearkeen_report.json",
+    "pmtec_d_spear.json",
+    "questions/002.md",
+    "test_infer_stats.json"
+   ]
+  },
+  "sft_d": {
+   "rescored_from": "D轮",
+   "summary": {
+    "clean_refusal_rate": 0.7708,
+    "anchor_hit_rate": 0.119,
+    "anchor_hits": 5,
+    "anchor_hit_rate_citation_clean": 0.0714,
+    "citation_halluc_probes": 12
+   },
+   "distinct_bad_citations": [
+    "conf_interval.py",
+    "count_based/intercept_rate.md",
+    "data/brier_scores.json",
+    "data/musix_calibration.html",
+    "data/train_summary.md",
+    "data/underwater_structures_v2.geojson",
+    "entity_mapping.txt",
+    "monte_carlo_results_v2.py",
+    "ontology/pmm_report.json",
+    "risk_breakdown.md",
+    "target/summary.txt",
+    "twin_summary.html",
+    "twin_summary.txt"
+   ]
+  }
+ }
+}

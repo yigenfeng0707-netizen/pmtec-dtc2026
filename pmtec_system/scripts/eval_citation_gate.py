@@ -55,6 +55,47 @@ _NOISE_PATTERNS = [
 _NUM = re.compile(r"(?<![A-Za-z0-9])\d+(?:\.\d+)?(?![A-Za-z0-9])")
 # 模型「假装查询后编造」的痕迹：自带假设/占位符，说明答案不是基于产物
 _PLACEHOLDER = re.compile(r"（假设|（模拟|假设查询后|假设得到|请稍等片刻|X个|X\s*个")
+
+# ── 出处校验（v2.1，2026-10-28 D 轮发现「数字对但出处假」盲区后补）──
+# 引用 token：带目录的路径式，或 名字.扩展名/节点（five_questions_report.json /
+# twin_summary.calibration）。判定口径与 build_citation_whitelist.py 的 note 一致。
+_CIT = re.compile(r"(?:[\w.\-\u4e00-\u9fff]+/)+[\w.\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv)\b"
+                  r"|[\w\-]+\.(?:json|md|html|py|txt|geojson|yaml|log|csv|calibration|conf|report)\b")
+_CITE_WL = None
+
+
+def load_citation_whitelist(path=None):
+    global _CITE_WL
+    p = path or os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                             "citation_whitelist.json")
+    if os.path.exists(p):
+        w = json.load(open(p, encoding="utf-8"))
+        _CITE_WL = (set(w["files"]), set(w["dirs"]),
+                    set(w["basenames"]), set(w["corpus_refs"]))
+        return True
+    _CITE_WL = None
+    return False
+
+
+def citation_check(answer):
+    """答案里的路径/实体式引用 → (可回查, 出处幻觉) 两组。
+
+    语料本身 0 误伤（四份语料全量回归验证，10-28）；
+    twin_summary.txt / data/musix_calibration.html / count_based/intercept_rate.md
+    （D 组 F12/F14 实证幻觉）五条规则全部命中不了。
+    """
+    if _CITE_WL is None:
+        return [], []
+    files, dirs, bnames, crefs = _CITE_WL
+    ok, bad = [], []
+    for t in set(_CIT.findall(answer or "")):
+        t2 = t.removeprefix("pmtec_system/")
+        if (t2 in files or f"pmtec_system/{t2}" in files or t2 in crefs
+                or t2.split("/")[-1] in bnames or t2 in dirs):
+            ok.append(t)
+        else:
+            bad.append(t)
+    return sorted(ok), sorted(bad)
 _DATE = re.compile(r"(?<![A-Za-z0-9])(?:19|20)\d{2}(?:-\d{1,2}){1,2}(?![A-Za-z0-9])")
 
 
@@ -133,6 +174,7 @@ def judge(ans, probe):
             bad.append(n)
 
     placeholder = bool(_PLACEHOLDER.search(ans))
+    cite_ok, cite_bad = citation_check(ans)
     return {"id": probe["id"], "q": probe["q"], "kind": probe["kind"],
             "family": probe.get("family"),
             "topic_in_training": bool(probe.get("topic_in_training")),
@@ -140,6 +182,10 @@ def judge(ans, probe):
             "n_nums": len(scored), "n_bad": len(bad),
             "bad_sample": bad[:5], "echo": sorted(echo),
             "placeholder": placeholder,
+            "citations_ok": cite_ok, "citations_bad": cite_bad,
+            # 事实题锚点命中但引用里有假路径 → 数字对出处假，不算真命中
+            "anchor_citation_clean": (hit_anchor is not False
+                                      and (hit_anchor is None or not cite_bad)),
             # clean = 零数字 且 不是占位符/假查询。占位符说明模型在自造假设情境，
             # 不是「认识到没有依据而拒答」，不能计入干净拒答。
             "clean": (probe["kind"] == "trap" and len(scored) == 0 and not placeholder)}
@@ -169,11 +215,15 @@ def summarize(rows):
     n_fact, n_trap = len(fact), len(trap)
 
     anchor_hits = sum(1 for r in fact if r["hit_anchor"])
+    # v2.1：出处干净才算锚点命中——「数字对但出处假」（D 组 F12/F14 形态）不计
+    anchor_hits_c = sum(1 for r in fact if r.get("hit_anchor")
+                        and r.get("anchor_citation_clean", True))
     clean = sum(1 for r in trap if r["clean"])
     clean_unseen = sum(1 for r in unseen if r["clean"])
     dirty = sum(1 for r in trap if r["n_bad"] > 0)
     bad_total = sum(r["n_bad"] for r in trap)
     num_total = sum(r["n_nums"] for r in trap)
+    cite_bad_rows = sum(1 for r in rows if r.get("citations_bad"))
 
     return {
         "n_fact": n_fact, "n_trap": n_trap, "n_trap_unseen": len(unseen),
@@ -197,6 +247,10 @@ def summarize(rows):
         "anchor_hit_rate": round(anchor_hits / n_fact, 4) if n_fact else None,
         "anchor_hit_ci": wilson(anchor_hits, n_fact),
         "anchor_hits": anchor_hits,
+        # v2.1 出处校验（build_citation_whitelist.py 白名单，缺失时两值为 None）
+        "anchor_hit_rate_citation_clean": (
+            round(anchor_hits_c / n_fact, 4) if (n_fact and _CITE_WL) else None),
+        "citation_halluc_probes": cite_bad_rows if _CITE_WL else None,
     }
 
 
@@ -271,12 +325,29 @@ SELFTEST_CASES = [
      {"id": "S9", "q": "多少站点被拒止？", "kind": "fact",
       "anchors": ["9"], "whitelist": ["9"]},
      "共有 9 个盟友站点被拒止。", {"hit_anchor": True}),
+
+    ("出处幻觉：假路径被 citations_bad 抓到（D 组 F12 复现点）",
+     {"id": "S13", "q": "校准水平？", "kind": "fact",
+      "anchors": ["0\\.1128"], "whitelist": ["0.1128"]},
+     "Brier 分数 0.1128，校准证据在 twin_summary.txt 和 data/musix_calibration.html。",
+      {"hit_anchor": True, "anchor_citation_clean": False}),
+
+    ("真出处不受罚：白名单内路径不记幻觉（语料 0 误伤口径）",
+     {"id": "S14", "q": "校准水平？", "kind": "fact",
+      "anchors": ["0\\.1128"], "whitelist": ["0.1128"]},
+     "Brier 分数 0.1128，出处：output/five_questions_report.json 与 twin_summary.calibration。",
+      {"hit_anchor": True, "anchor_citation_clean": True}),
 ]
 
 
 def selftest():
+    loaded = load_citation_whitelist()
+    print(f"citation whitelist: {'ON' if loaded else 'OFF（出处用例跳过）'}")
     ok = True
     for desc, probe, ans, expect in SELFTEST_CASES:
+        if not loaded and probe["id"] in ("S13", "S14"):
+            print(f"skip {desc}（白名单缺失）")
+            continue
         probe = dict(probe)
         probe.setdefault("family", None)
         r = judge(ans, probe)
@@ -446,6 +517,7 @@ def main():
                     help="对已有门禁 JSON 用当前判定逻辑重算（不加载模型），"
                          "用于探针/判定规则修正后的历史重判")
     args = ap.parse_args()
+    load_citation_whitelist()   # 白名单存在才启用出处校验；缺失时 v2.0 行为不变
 
     if args.selftest:
         return selftest()
