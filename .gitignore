@@ -109,6 +109,9 @@ docs/pv-*.png
 .workbuddy-ai/
 artifacts/
 pmtec_system/data/models/sft_pmtec_lora/adapter*
+# 适配器权重一律不入库（161MB 级二进制进 git 历史永久占空间；配方在 data/corpora/，重跑即再生）
+pmtec_system/data/models/sft_d_best/*.safetensors
+pmtec_system/data/models/**/adapter_model.safetensors
 pmtec_system/output/sft_pmtec.jsonl
 
 # ── PMTEC 训练语料与 manifest（必须入库：配方可复现的载体）──

@@ -1,0 +1,3 @@
+e2183bab33a532fd2bdf1a19bc54f5bb83cb49bdfe2cf9ae55adf26e1508186b  sft_d_best/adapter_model.safetensors
+size=161533192 bytes
+corpus=sft_d_refusal.jsonl (398事实含46锚点变体+154拒答) 272步/1055s/gate anchor 5/42 clean 0.7708
