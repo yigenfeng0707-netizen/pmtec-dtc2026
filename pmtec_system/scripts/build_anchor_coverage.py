@@ -192,6 +192,18 @@ def main():
     blob = "".join(json.dumps(r, ensure_ascii=False) + "\n" for r in rows)
     with open(args.out, "w", encoding="utf-8", newline="\n") as f:
         f.write(blob)
+    # manifest（check_probe_disjoint.py / train manifest 校验链要求每份语料可验）
+    import hashlib
+    stem = os.path.splitext(os.path.basename(args.out))[0]
+    manifest = {"recipe": "anchor_coverage", "dedup": True, "rows": len(rows),
+                "unique_questions": len(all_q), "dup_factor": 1.0, "max_dup": 1,
+                "sha256": hashlib.sha256(blob.encode("utf-8")).hexdigest(),
+                "builder": "build_anchor_coverage.py",
+                "note": "每事实 2-4 种改写问法；与 90 探针零碰撞断言在构建时执行"}
+    json.dump(manifest, open(os.path.join(os.path.dirname(args.out),
+                                          f"{stem}_manifest.json"),
+                             "w", encoding="utf-8"),
+              ensure_ascii=False, indent=1)
     print(f"锚点覆盖扩展: {len(COVERAGE)} 个事实 × 平均 {len(all_q)/len(COVERAGE):.1f} 问法"
           f" = {len(rows)} 条唯一新题 -> {args.out}")
     print(f"零碰撞断言: {len(probes)} 探针 vs {len(rows)} 新题 → DISJOINT ✓")

@@ -142,6 +142,17 @@ jobs:
           python test_p18_five_questions.py
           python scripts/caliber_check.py
 
+      # P19 训练链路门禁：门禁指标自检（纯逻辑无 GPU）+ 探针/语料零碰撞与
+      # manifest 校验 + 推理端出处守卫单测（训练研究线的部署防线回归）
+      - name: P19 training-line gates
+        env:
+          PYTHONPATH: pmtec_system
+        run: |
+          cd pmtec_system
+          python scripts/eval_citation_gate.py --selftest
+          python scripts/check_probe_disjoint.py
+          python test_citation_guard.py
+
   # ============================================================
   # Stage 3: Docker Build
   # ============================================================

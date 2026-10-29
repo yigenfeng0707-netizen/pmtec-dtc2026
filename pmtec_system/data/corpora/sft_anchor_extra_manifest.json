@@ -1,0 +1,11 @@
+{
+ "recipe": "anchor_coverage",
+ "dedup": true,
+ "rows": 46,
+ "unique_questions": 46,
+ "dup_factor": 1.0,
+ "max_dup": 1,
+ "sha256": "7f0b04c2469eb804b48c8313ea3c37fa83df85ab7b1abc9c0ce90268e5528410",
+ "builder": "build_anchor_coverage.py",
+ "note": "每事实 2-4 种改写问法；与 90 探针零碰撞断言在构建时执行"
+}
