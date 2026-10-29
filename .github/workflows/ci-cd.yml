@@ -163,6 +163,11 @@ jobs:
     permissions:
       contents: read
       packages: write
+    # 仅发版时构建镜像（tag v* 或手动触发）。日常 push 只跑 lint+test：
+    # ① docker build（含 torch）单次 20-40 分钟，是本仓 Actions 分钟数大头
+    # ② push job 每次向 ghcr.io 推私有镜像，版本累积吃 Packages 存储免费额度
+    #   （500MB）——10-29 Actions 全停「payment failed」的首要嫌疑
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
     steps:
       - uses: actions/checkout@v4
 
