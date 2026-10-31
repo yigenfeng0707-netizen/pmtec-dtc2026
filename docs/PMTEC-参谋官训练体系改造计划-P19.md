@@ -536,6 +536,10 @@ v2 语料的 `TRAPS` 家族把三道门禁探针**逐字**硬编码进训练集�
 2. **旧分数未重标定**：v6b 的 0.50、v6 的「干净拒答」等均为旧口径，
    需在新门禁下重跑该模型才能对照。归档的 `sft_v6_2696.jsonl` 可用于复现 v6。
    （基座的重标定已完成，见训练报告里程碑 9；v6b/v6 适配器权重在 NAS。）
+   **2026-10-31 决定挂账延后**：原权重在 DSW 实例 NAS `/mnt/workspace/pmtec_out/`，
+   4090 机未挂载，同窗口顺带的前提不成立；属历史对账性质（旧结论大半已被里程碑 7
+   语料事故更正推翻），日后与 DSW 其他事项合并处理——单次拉取 +
+   `eval_citation_gate.py --adapter v6b=… --adapter v6=…` 即可闭环。
 3. ~~`build_dpo_pairs.py` / `build_dpo_pairs_v2.py` 尚未收编~~
    **已收编（2026-10-27 清理归档）**：路径改读 `data/corpora/sft_facts.jsonl`，
    docstring 注明历史归档（`dpo_v1_72` / `dpo_v2_2395`）由事故语料构建、
@@ -557,3 +561,10 @@ v2 语料的 `TRAPS` 家族把三道门禁探针**逐字**硬编码进训练集�
    ②`/data/out/` 下 sft_clean/sft_up3/sft_e 适配器按需删（sft_d/sft_f 已回传
    本地 sft_d_best/sft_f_best，另有 tar 残 sft_f_adapter.tar.gz 可删）；
    ③vLLM 挂 sft_f_best 冒烟验证（P19 收尾遗留项）。
+   **2026-10-31 一次性清单已执行（详见训练报告里程碑 15）**：①② 全部完成——标记
+   文件/实验日志/六代适配器/tar 残已删，删前云端 sha256 与 provenance 存证核对一致，
+   vLLM 进程已停，释放约 1 GB；③ 冒烟 **SMOKE_PASS**——净锚点 8/42、假出处 6/90
+   与门禁 F 轮完全一致，clean 33/48（+1 题，容差内）。配套变化：实例 IP 已由 .153
+   变更为 **36.103.199.248**（.153 停机释放后易主，`instance_exec.py` 已更新）；
+   venv_vllm 已取回 `/data/venv_vllm`（推理可复用）；`/data/out` 下 diag_*/demo_*
+   旧代文件按本清单范围保留。**A-6 仅剩第 2 条挂账延后（见上）。**

@@ -666,4 +666,47 @@ sft_f_refusal.jsonl 607 行 = E 的前 550 行逐字节不变 + I/J 增量。
 | 出处幻觉逐 token 纠正不泛化 | E→F：J 的 12 token 零复发但生 6 新 garble |
 
 **当前最优适配器**：sft_f（净锚点 8/42 显著 + clean 0.67）或 sft_refusal/B
-（clean 0.79 拒答优先）。两者均已回传/在实例 /data/out，配方可再生，实例可关机。
+（clean 0.79 拒答优先）。两者均已回传本地（sft_f_best / sft_d_best，sha256 存证），
+配方可再生；实例侧适配器已于 2026-10-31 清理（见里程碑 15），实例可关机。
+
+## 里程碑 15：vLLM 冒烟验证——适配器可安全上推理引擎（2026-10-31）
+
+P19 收尾遗留项（A-6-③）执行记录。实例 36.103.199.248（双 4090；旧 IP .153 停机释放后
+易主，新 IP 已更新至 `过程脚本归档/cloud_ssh/instance_exec.py`），vLLM 0.8.5.post1 挂
+基座 Qwen2.5-7B-Instruct + sft_f 适配器（r=16，GPU 1）。冒烟脚本
+`过程脚本归档/p19_cloud_rounds/smoke_vllm_gate.py` 复用门禁的探针/judge/summarize
+（严格同口径），temperature=0 贪心等价、max_tokens=200，90 探针全量。
+
+### 首跑事故与修复（诚实记录）
+
+首跑 citation 白名单未加载：门禁 `main()` 会调 `load_guard()`，冒烟脚本只 import 了
+判分函数，守卫缺位时净锚点/假出处按设计返回 None（终端显示误读为 0/42）。修复：脚本
+补 `load_guard()` 并新增 `--rejudge` 模式，对已存 90 条回答重新判分，**未重新生成**。
+教训：跨脚本复用判分模块时，守卫加载是调用方责任。
+
+### 结果（SMOKE_PASS）
+
+| 指标 | vLLM 冒烟 | 门禁 F 轮基准（transformers 贪心） | 判定 |
+|---|---|---|---|
+| 净锚点（数字对且出处对） | **8/42**（0.1905，[0.100,0.333]） | 8/42 | 完全一致 |
+| clean 拒答率 | 33/48（0.6875，[0.5467,0.8005]） | 32/48（0.667） | +1 题，容差内 |
+| 假出处题 | **6/90** | 6/90 | 完全一致 |
+| 毛锚点 | 9/42 [0.1171,0.3594] | 9/42 | 完全一致 |
+
+结论：贪心解码下 vLLM 与 transformers 产出同口径结果（偏差 ≤1 题属 kernel 数值抖动），
+sft_f 适配器可安全部署到 vLLM 推理引擎；citation_guard 在 vLLM 输出上端到端兼容。
+产物：`pmtec_system/data/models/sft_f_best/smoke_vllm_sft_f{,_rescored}.json`
+（本地另存 `artifacts/p19_cloud_rounds/`，gitignored）。
+
+### v6b/v6 重标定挂账（A-6-2 延后）
+
+原权重在 DSW 实例 NAS（`/mnt/workspace/pmtec_out/`），4090 机未挂载；旧结论大半已被
+里程碑 7 语料事故更正推翻，重标定属历史对账。决定（2026-10-31）：挂账延后，日后与
+DSW 其他事项合并——单次拉取 + `eval_citation_gate.py --adapter v6b=… --adapter v6=…`
+即可闭环。
+
+### 实例清理（A-6-5 ①② 执行记录）
+
+标记文件/实验日志/六代适配器/sft_f_adapter.tar.gz 已删（删前云端 sha256 与
+provenance 存证核对一致），vLLM 进程已停，释放约 1 GB；`/data/out/` 下
+diag_*/demo_* 等旧代文件按 A-6 清单范围保留。冒烟完成，实例可关机。

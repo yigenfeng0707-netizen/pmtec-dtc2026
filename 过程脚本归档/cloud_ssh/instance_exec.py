@@ -6,7 +6,7 @@
   python instance_exec.py put <local> <remote>         上传文件
   python instance_exec.py get <remote> <local>         下载文件
 密码从环境变量 PMTEC_GPU_PW 读取（不落盘；控制台「登录信息」可随时重查）。
-实例: ubuntu@36.103.199.153（RTX 4090 24GB x2, 按量计费）
+实例: ubuntu@36.103.199.248（RTX 4090 24GB x2, 按量计费；10-31 起 IP，旧 .153 已易主）
 """
 import os
 import sys
@@ -14,7 +14,7 @@ import time
 
 import paramiko
 
-HOST = "36.103.199.153"
+HOST = "36.103.199.248"  # 2026-10-31 起：旧 IP .153 停机重开后未保留，已易主
 USER = "ubuntu"
 
 
