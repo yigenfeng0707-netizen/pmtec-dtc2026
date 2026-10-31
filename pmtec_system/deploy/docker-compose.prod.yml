@@ -69,8 +69,6 @@ services:
           memory: 128M
 
   prometheus:
-    ports:
-      - "9091:9090"
     deploy:
       resources:
         limits:
